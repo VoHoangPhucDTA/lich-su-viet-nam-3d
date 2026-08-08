@@ -23,6 +23,11 @@ The read-only planner also verifies Flyway V42, bounded SELECT statements, the
 exact set of 361 IDs, artifact self-hash, `expectedAffectedRows == changes`, and
 that every change has `nonGeographyChanged=false`.
 
-Any failure aborts before opening the apply transaction or executing DML. No
+For apply, these release-critical checks are repeated on the apply connection
+inside its transaction before target locking or DML. A plan produced on an
+earlier connection is advisory only and cannot authorize the update.
+
+Any preflight failure aborts before opening the apply transaction. Any repeated
+transactional validation failure rolls that transaction back before DML. No
 force, unsafe, skip, all-events, alternate-event, or alternate-canonical flag
 is supported.

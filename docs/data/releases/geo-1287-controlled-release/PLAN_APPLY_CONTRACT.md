@@ -23,13 +23,26 @@ apply flag or only a plan SHA is insufficient.
 After all read-only gates pass, apply uses:
 
 1. explicit transaction;
-2. `SELECT ... WHERE id=? FOR UPDATE`;
-3. verification of ID, `updated_at`, before-geography hash, and non-geography hash;
-4. a prepared `UPDATE` bounded by `WHERE id=? AND updated_at=?`;
-5. an affected-row assertion of exactly one;
-6. immediate locked readback;
-7. after-geography and unchanged non-geography hash assertions;
-8. commit only after all assertions, otherwise rollback.
+2. rebuild of database identity, all-event snapshot, canonical diff, and live
+   deterministic plan through the apply connection in that transaction;
+3. equality checks against the reviewed DB fingerprint and plan artifact;
+4. `SELECT ... WHERE id=? FOR UPDATE` on the target in that same transaction;
+5. verification of ID, `updated_at`, before-geography hash, and non-geography hash;
+6. a prepared `UPDATE` bounded by `WHERE id=? AND updated_at=?`;
+7. an affected-row assertion of exactly one;
+8. immediate locked readback;
+9. after-geography and unchanged non-geography hash assertions;
+10. commit only after all assertions, otherwise rollback.
+
+The live full-database reads use the transaction's repeatable-read snapshot;
+the subsequent locking read rechecks the target's current version and hashes.
+This closes the previous two-connection authorization gap. It does not claim a
+global application write freeze: operational recovery/write-freeze gates and
+postflight validation remain required by governance.
+
+The update contains only `geo_type`, `lat`, `lng`, and `raw_json` plus the exact
+ID/version predicate. `province_names` and `historical_locations` are selected
+for evidence but never assigned by Release F.
 
 There is no generic SQL path and no arbitrary scope flag. This preparation task
 did not invoke the apply form of the CLI and did not connect to production.

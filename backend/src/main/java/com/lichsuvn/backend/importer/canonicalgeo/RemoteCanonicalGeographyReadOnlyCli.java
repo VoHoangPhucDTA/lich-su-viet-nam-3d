@@ -45,43 +45,29 @@ public final class RemoteCanonicalGeographyReadOnlyCli {
     }
 
     static RunResult generatePlan(Path output) throws Exception {
-        Path canonicalPath = Path.of("..", "crawData", "stage4b_curate_tree", "output", "phase2",
-                "core_events.jsonl").toAbsolutePath().normalize();
         Dotenv dotenv = Dotenv.configure().directory(Path.of("").toAbsolutePath().toString())
                 .ignoreIfMissing().load();
         String jdbcUrl = secret("SPRING_DATASOURCE_URL", dotenv);
         String username = secret("SPRING_DATASOURCE_USERNAME", dotenv);
         String password = secret("SPRING_DATASOURCE_PASSWORD", dotenv);
-        Target target = parseTarget(jdbcUrl);
-
         ObjectMapper mapper = new ObjectMapper();
         CanonicalGeographyProjection projection = new CanonicalGeographyProjection(mapper);
-        RemoteCanonicalGeographyReadOnlyPlanner planner = new RemoteCanonicalGeographyReadOnlyPlanner(mapper);
         try (Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
             connection.setAutoCommit(true);
+            DbEventRow before = eventRows(connection, "SELECT " + EVENT_COLUMNS
+                    + " FROM historical_events WHERE id='" + TARGET + "'").getFirst();
+            JsonNode beforeRaw = mapper.readTree(before.rawJson());
+            String beforeRowFingerprint = rowFingerprint(before, projection, mapper);
+
+            RunResult result = generatePlan(connection, jdbcUrl);
+            RemoteCanonicalGeographyReadOnlyPlanner planner =
+                    new RemoteCanonicalGeographyReadOnlyPlanner(mapper);
+            var artifactSummary = planner.verifyArtifactConsistency(result.artifact(), result.planRows());
             String database = scalar(connection, "SELECT DATABASE()");
             String serverVersion = scalar(connection, "SELECT VERSION()");
             String flyway = scalar(connection,
                     "SELECT MAX(CAST(version AS UNSIGNED)) FROM flyway_schema_history WHERE success = 1");
             long count = Long.parseLong(scalar(connection, "SELECT COUNT(*) FROM historical_events"));
-            Set<String> ids = new LinkedHashSet<>(strings(connection,
-                    "SELECT id FROM historical_events ORDER BY id"));
-            String schema = schemaSignature(connection);
-            List<DbEventRow> beforeRows = eventRows(connection,
-                    "SELECT " + EVENT_COLUMNS + " FROM historical_events ORDER BY id");
-            DbEventRow before = findTarget(beforeRows);
-            JsonNode beforeRaw = mapper.readTree(before.rawJson());
-            String beforeRowFingerprint = rowFingerprint(before, projection, mapper);
-
-            var metadata = new RemoteCanonicalGeographyReadOnlyPlanner.DatabaseMetadata(
-                    target.host(), target.port(), database, serverVersion, flyway, count, schema, ids);
-            SnapshotRepository repository = new SnapshotRepository(beforeRows);
-            CanonicalGeographySyncService service = new CanonicalGeographySyncService(
-                    repository, projection, mapper, new NeverUsedTransactions());
-            var release = CanonicalGeographyReleaseContract.validate(service, canonicalPath, "");
-            var planRows = service.buildPlan(release);
-            var artifact = planner.build(release, metadata, planRows);
-            var artifactSummary = planner.verifyArtifactConsistency(artifact.json(), planRows);
 
             DbEventRow after = eventRows(connection, "SELECT " + EVENT_COLUMNS
                     + " FROM historical_events WHERE id='" + TARGET + "'").getFirst();
@@ -91,15 +77,15 @@ public final class RemoteCanonicalGeographyReadOnlyCli {
             }
             Files.createDirectories(output.getParent());
             Files.writeString(output, mapper.writerWithDefaultPrettyPrinter()
-                    .writeValueAsString(artifact.json()) + "\n", StandardCharsets.UTF_8);
+                    .writeValueAsString(result.artifact()) + "\n", StandardCharsets.UTF_8);
 
             System.out.println("READ_ONLY_MECHANISM=dedicated bounded-SELECT-only JDBC CLI; no write API");
-            System.out.println("HOST_SHA256=" + CanonicalGeographyProjection.sha256(target.host()));
+            System.out.println("HOST_SHA256=" + CanonicalGeographyProjection.sha256(parseTarget(jdbcUrl).host()));
             System.out.println("DATABASE=" + database);
             System.out.println("SERVER_VERSION=" + serverVersion);
             System.out.println("FLYWAY_VERSION=" + flyway);
             System.out.println("HISTORICAL_EVENT_COUNT=" + count);
-            System.out.println("DATABASE_FINGERPRINT=" + artifact.databaseFingerprint());
+            System.out.println("DATABASE_FINGERPRINT=" + result.databaseFingerprint());
             System.out.println("RUNTIME_GEO_TYPE=" + before.geoType());
             System.out.println("RUNTIME_SLUG=" + beforeRaw.path("slug").asText());
             System.out.println("RUNTIME_MARKER=" + beforeRaw.path("mapData").path("marker"));
@@ -117,9 +103,41 @@ public final class RemoteCanonicalGeographyReadOnlyCli {
             System.out.println("AFTER_ROW_FINGERPRINT=" + afterRowFingerprint);
             System.out.println("DB_MUTATED=false");
             System.out.println("REMOTE_APPLY_BLOCKED=true");
-            return new RunResult(artifact.json().deepCopy(), List.copyOf(planRows),
-                    artifact.databaseFingerprint());
+            return result;
         }
+    }
+
+    /** Builds the current deterministic plan using the caller's existing connection. */
+    static RunResult generatePlan(Connection connection, String jdbcUrl) throws Exception {
+        Path canonicalPath = Path.of("..", "crawData", "stage4b_curate_tree", "output", "phase2",
+                "core_events.jsonl").toAbsolutePath().normalize();
+        Target target = parseTarget(jdbcUrl);
+        ObjectMapper mapper = new ObjectMapper();
+        CanonicalGeographyProjection projection = new CanonicalGeographyProjection(mapper);
+        RemoteCanonicalGeographyReadOnlyPlanner planner = new RemoteCanonicalGeographyReadOnlyPlanner(mapper);
+
+        String database = scalar(connection, "SELECT DATABASE()");
+        String serverVersion = scalar(connection, "SELECT VERSION()");
+        String flyway = scalar(connection,
+                "SELECT MAX(CAST(version AS UNSIGNED)) FROM flyway_schema_history WHERE success = 1");
+        long count = Long.parseLong(scalar(connection, "SELECT COUNT(*) FROM historical_events"));
+        Set<String> ids = new LinkedHashSet<>(strings(connection,
+                "SELECT id FROM historical_events ORDER BY id"));
+        String schema = schemaSignature(connection);
+        List<DbEventRow> rows = eventRows(connection,
+                "SELECT " + EVENT_COLUMNS + " FROM historical_events ORDER BY id");
+
+        var metadata = new RemoteCanonicalGeographyReadOnlyPlanner.DatabaseMetadata(
+                target.host(), target.port(), database, serverVersion, flyway, count, schema, ids);
+        SnapshotRepository repository = new SnapshotRepository(rows);
+        CanonicalGeographySyncService service = new CanonicalGeographySyncService(
+                repository, projection, mapper, new NeverUsedTransactions());
+        var release = CanonicalGeographyReleaseContract.validate(service, canonicalPath, "");
+        var planRows = service.buildPlan(release);
+        var artifact = planner.build(release, metadata, planRows);
+        planner.verifyArtifactConsistency(artifact.json(), planRows);
+        return new RunResult(artifact.json().deepCopy(), List.copyOf(planRows),
+                artifact.databaseFingerprint());
     }
 
     private static String scalar(Connection connection, String sql) throws SQLException {
@@ -161,11 +179,6 @@ public final class RemoteCanonicalGeographyReadOnlyCli {
                     rs.getString("raw_json"), rs.getTimestamp("updated_at")));
         }
         return rows;
-    }
-
-    private static DbEventRow findTarget(List<DbEventRow> rows) {
-        return rows.stream().filter(row -> TARGET.equals(row.id())).findFirst()
-                .orElseThrow(() -> new IllegalStateException("Target event missing"));
     }
 
     private static String rowFingerprint(DbEventRow row, CanonicalGeographyProjection projection,

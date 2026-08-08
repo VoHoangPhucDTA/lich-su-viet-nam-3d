@@ -26,3 +26,5 @@ A rollback requires separate owner approval for that receipt and must:
 If another write occurred after Release F, or any fingerprint/version differs,
 the rollback must stop for owner investigation. The contract cannot restore an
 arbitrary event, accept caller-supplied geography, or roll back a later plan.
+Rollback must leave `province_names` and `historical_locations` untouched,
+matching the narrowed apply scope.

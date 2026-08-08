@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lichsuvn.backend.importer.canonicalgeo.CanonicalGeographySyncRepository.DbEventRow;
 import com.lichsuvn.backend.importer.canonicalgeo.RemoteCanonicalGeographyApplyPlanner.Authorization;
+import com.lichsuvn.backend.importer.canonicalgeo.RemoteCanonicalGeographyApplyPlanner.LiveState;
 import com.lichsuvn.backend.importer.canonicalgeo.RemoteCanonicalGeographyApplyPlanner.TransactionPort;
 import com.lichsuvn.backend.importer.canonicalgeo.RemoteCanonicalGeographyApplyPlanner.TransactionWork;
 import com.lichsuvn.backend.importer.canonicalgeo.RemoteCanonicalGeographyApplyPlanner.UpdateCommand;
@@ -61,30 +62,30 @@ public final class RemoteCanonicalGeographyApplyCli {
         ObjectMapper mapper = new ObjectMapper();
         Path reviewedPath = Path.of(args[0]).toAbsolutePath().normalize();
         JsonNode reviewed = mapper.readTree(Files.readString(reviewedPath));
-        Path liveTemp = Files.createTempFile("remote-geo-1287-live-", ".json");
-        try {
-            var live = RemoteCanonicalGeographyReadOnlyCli.generatePlan(liveTemp);
-            RemoteCanonicalGeographyApplyPlanner planner = new RemoteCanonicalGeographyApplyPlanner(mapper);
-            var prepared = planner.prepare(reviewed, live.databaseFingerprint(), live.artifact(), live.planRows());
-            if (!apply) {
+        RemoteCanonicalGeographyApplyPlanner planner = new RemoteCanonicalGeographyApplyPlanner(mapper);
+        if (!apply) {
+            Path liveTemp = Files.createTempFile("remote-geo-1287-live-", ".json");
+            try {
+                var live = RemoteCanonicalGeographyReadOnlyCli.generatePlan(liveTemp);
+                planner.prepare(reviewed, live.databaseFingerprint(), live.artifact(), live.planRows());
                 System.out.println("REMOTE_WRITE_AUTHORIZED=false");
                 System.out.println("VERIFY_ONLY=true");
                 return;
+            } finally {
+                Files.deleteIfExists(liveTemp);
             }
+        }
 
-            Dotenv dotenv = Dotenv.configure().directory(Path.of("").toAbsolutePath().toString())
-                    .ignoreIfMissing().load();
-            String url = RemoteCanonicalGeographyReadOnlyCli.secret("SPRING_DATASOURCE_URL", dotenv);
-            String user = RemoteCanonicalGeographyReadOnlyCli.secret("SPRING_DATASOURCE_USERNAME", dotenv);
-            String password = RemoteCanonicalGeographyReadOnlyCli.secret("SPRING_DATASOURCE_PASSWORD", dotenv);
-            try (Connection connection = DriverManager.getConnection(url, user, password)) {
-                var result = planner.execute(prepared, new Authorization(true,
-                                releaseId, authorizationValue, planSha, canonicalSha, eventId),
-                        new JdbcTransactionPort(connection));
-                System.out.println("REMOTE_APPLY_UPDATED=" + result.affectedRows());
-            }
-        } finally {
-            Files.deleteIfExists(liveTemp);
+        Dotenv dotenv = Dotenv.configure().directory(Path.of("").toAbsolutePath().toString())
+                .ignoreIfMissing().load();
+        String url = RemoteCanonicalGeographyReadOnlyCli.secret("SPRING_DATASOURCE_URL", dotenv);
+        String user = RemoteCanonicalGeographyReadOnlyCli.secret("SPRING_DATASOURCE_USERNAME", dotenv);
+        String password = RemoteCanonicalGeographyReadOnlyCli.secret("SPRING_DATASOURCE_PASSWORD", dotenv);
+        try (Connection connection = DriverManager.getConnection(url, user, password)) {
+            var result = planner.execute(reviewed, new Authorization(true,
+                            releaseId, authorizationValue, planSha, canonicalSha, eventId),
+                    new JdbcTransactionPort(connection, url));
+            System.out.println("REMOTE_APPLY_UPDATED=" + result.affectedRows());
         }
     }
 
@@ -93,16 +94,34 @@ public final class RemoteCanonicalGeographyApplyCli {
     }
 
     static final class JdbcTransactionPort implements TransactionPort {
+        @FunctionalInterface
+        interface TransactionalPlanReader {
+            RemoteCanonicalGeographyReadOnlyCli.RunResult generate(Connection connection, String jdbcUrl)
+                    throws Exception;
+        }
+
         private final Connection connection;
+        private final String jdbcUrl;
+        private final TransactionalPlanReader planReader;
         private final ObjectMapper mapper = new ObjectMapper();
         private final CanonicalGeographyProjection projection = new CanonicalGeographyProjection(mapper);
 
-        JdbcTransactionPort(Connection connection) { this.connection = connection; }
+        JdbcTransactionPort(Connection connection, String jdbcUrl) {
+            this(connection, jdbcUrl, RemoteCanonicalGeographyReadOnlyCli::generatePlan);
+        }
+
+        JdbcTransactionPort(Connection connection, String jdbcUrl, TransactionalPlanReader planReader) {
+            this.connection = connection;
+            this.jdbcUrl = jdbcUrl;
+            this.planReader = planReader;
+        }
 
         @Override
         public <T> T inTransaction(TransactionWork<T> work) {
             try {
                 boolean previousAutoCommit = connection.getAutoCommit();
+                int previousIsolation = connection.getTransactionIsolation();
+                connection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
                 connection.setAutoCommit(false);
                 try {
                     T result = work.run();
@@ -114,9 +133,20 @@ public final class RemoteCanonicalGeographyApplyCli {
                     throw new IllegalStateException(ex);
                 } finally {
                     connection.setAutoCommit(previousAutoCommit);
+                    connection.setTransactionIsolation(previousIsolation);
                 }
             } catch (SQLException ex) {
                 throw new IllegalStateException("Remote apply transaction failure", ex);
+            }
+        }
+
+        @Override
+        public LiveState revalidateCurrentState() {
+            try {
+                var live = planReader.generate(connection, jdbcUrl);
+                return new LiveState(live.databaseFingerprint(), live.artifact(), live.planRows());
+            } catch (Exception ex) {
+                throw new IllegalStateException("Transactional live-plan validation failed", ex);
             }
         }
 
@@ -125,17 +155,14 @@ public final class RemoteCanonicalGeographyApplyCli {
         @Override
         public int update(UpdateCommand command) {
             String sql = "UPDATE historical_events SET geo_type=?,lat=?,lng=?,"
-                    + "province_names=CAST(? AS JSON),historical_locations=CAST(? AS JSON),"
                     + "raw_json=CAST(? AS JSON) WHERE id=? AND updated_at=?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, command.geoType());
                 statement.setBigDecimal(2, command.lat());
                 statement.setBigDecimal(3, command.lng());
-                statement.setString(4, command.provinceNamesJson());
-                statement.setString(5, command.historicalLocationsJson());
-                statement.setString(6, command.rawJson());
-                statement.setString(7, command.eventId());
-                statement.setTimestamp(8, Timestamp.valueOf(command.expectedUpdatedAt().replace('T', ' ')));
+                statement.setString(4, command.rawJson());
+                statement.setString(5, command.eventId());
+                statement.setTimestamp(6, Timestamp.valueOf(command.expectedUpdatedAt().replace('T', ' ')));
                 return statement.executeUpdate();
             } catch (SQLException ex) {
                 throw new IllegalStateException("Remote prepared UPDATE failed", ex);

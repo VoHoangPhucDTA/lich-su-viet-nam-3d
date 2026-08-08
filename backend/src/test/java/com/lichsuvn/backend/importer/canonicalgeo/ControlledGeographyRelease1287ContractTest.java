@@ -26,8 +26,8 @@ class ControlledGeographyRelease1287ContractTest {
 
     @Test
     void storageScopeContainsOnlyReviewedGeographyFields() {
-        assertEquals(Set.of("geo_type", "lat", "lng", "province_names", "historical_locations",
-                        "raw_json.mapData", "raw_json.display.showOnMap"),
+        assertEquals(Set.of("geo_type", "lat", "lng", "raw_json.mapData",
+                        "raw_json.display.showOnMap"),
                 ControlledGeographyRelease1287Contract.AUTHORIZED_STORAGE_FIELDS);
     }
 

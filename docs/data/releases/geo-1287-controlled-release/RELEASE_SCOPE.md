@@ -15,10 +15,12 @@
 - `historical_events.geo_type`;
 - `historical_events.lat`;
 - `historical_events.lng`;
-- `historical_events.province_names`;
-- `historical_events.historical_locations`;
 - `historical_events.raw_json.mapData` (including semantic `marker` and `markers`);
 - `historical_events.raw_json.display.showOnMap`.
+
+`historical_events.province_names` and `historical_events.historical_locations`
+are read for validation but are preserved byte-for-byte by leaving them out of
+the Release F `UPDATE`. They are not writable release fields.
 
 `updated_at` may advance only as server-maintained version metadata caused by
 the one bounded update. It is a guard, not an operator-controlled payload.

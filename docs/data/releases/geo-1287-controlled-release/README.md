@@ -36,3 +36,8 @@ The existing plan is retained as the immutable reviewed candidate. A future
 apply must first generate a live read-only plan and prove byte-for-byte JSON
 equality and the same plan SHA. Drift does not get silently accepted: it blocks
 and requires a new reviewed release commit.
+
+The corrective implementation after owner review narrows the write set to the
+four actually changed storage areas and repeats all live release validation on
+the same connection and transaction used by apply. It still performs no remote
+write during preparation or review.

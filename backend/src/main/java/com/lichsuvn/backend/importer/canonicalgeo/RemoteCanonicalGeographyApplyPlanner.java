@@ -52,14 +52,16 @@ public final class RemoteCanonicalGeographyApplyPlanner {
     public record ApplyResult(boolean wrote, int affectedRows) { }
     public record UpdateCommand(
             String eventId, String expectedUpdatedAt, String geoType, BigDecimal lat, BigDecimal lng,
-            String provinceNamesJson, String historicalLocationsJson, String rawJson
+            String rawJson
     ) { }
+    public record LiveState(String databaseFingerprint, JsonNode artifact, List<PlanRow> planRows) { }
 
     @FunctionalInterface
     public interface TransactionWork<T> { T run() throws Exception; }
 
     public interface TransactionPort {
         <T> T inTransaction(TransactionWork<T> work);
+        LiveState revalidateCurrentState();
         DbEventRow lockTarget(String eventId);
         int update(UpdateCommand command);
         DbEventRow readBack(String eventId);
@@ -88,7 +90,8 @@ public final class RemoteCanonicalGeographyApplyPlanner {
         return new PreparedApply(reviewedArtifact.deepCopy(), updates.getFirst());
     }
 
-    public ApplyResult execute(PreparedApply prepared, Authorization authorization, TransactionPort port) {
+    public ApplyResult execute(JsonNode reviewedArtifact, Authorization authorization,
+                               TransactionPort port) {
         if (!authorization.applyReviewedPlan()) {
             return new ApplyResult(false, 0);
         }
@@ -96,6 +99,9 @@ public final class RemoteCanonicalGeographyApplyPlanner {
                 authorization.releaseId(), authorization.authorizationValue(), authorization.planSha(),
                 authorization.canonicalSha(), authorization.eventId());
         return port.inTransaction(() -> {
+            LiveState current = port.revalidateCurrentState();
+            PreparedApply prepared = prepare(reviewedArtifact, current.databaseFingerprint(),
+                    current.artifact(), current.planRows());
             DbEventRow before = port.lockTarget(EXPECTED_EVENT_ID);
             verifyBefore(before, prepared.liveChange(), port);
             UpdateCommand command = command(before, prepared.liveChange());
@@ -163,9 +169,7 @@ public final class RemoteCanonicalGeographyApplyPlanner {
         display.put("showOnMap", after.path("showOnMap").asBoolean());
         return new UpdateCommand(EXPECTED_EVENT_ID, EXPECTED_UPDATED_AT,
                 after.path("geoType").asText(), after.path("lat").decimalValue(),
-                after.path("lng").decimalValue(), mapper.writeValueAsString(strings(after.path("provinceNames"))),
-                mapper.writeValueAsString(strings(after.path("mapData").path("historicalLocations"))),
-                mapper.writeValueAsString(raw));
+                after.path("lng").decimalValue(), mapper.writeValueAsString(raw));
     }
 
     private void validateExpectedAfter(JsonNode after) {
@@ -181,12 +185,6 @@ public final class RemoteCanonicalGeographyApplyPlanner {
                 || !after.path("mapData").path("regions").isEmpty()) {
             throw blocked("BLOCKED_REVIEWED_PLAN_MISMATCH");
         }
-    }
-
-    private List<String> strings(JsonNode array) {
-        List<String> result = new ArrayList<>();
-        array.forEach(value -> result.add(value.asText()));
-        return result;
     }
 
     private static String timestamp(Timestamp value) {

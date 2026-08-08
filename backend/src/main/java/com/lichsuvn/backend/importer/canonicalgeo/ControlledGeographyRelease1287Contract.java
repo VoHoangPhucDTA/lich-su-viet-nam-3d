@@ -39,8 +39,6 @@ public final class ControlledGeographyRelease1287Contract {
             "geo_type",
             "lat",
             "lng",
-            "province_names",
-            "historical_locations",
             "raw_json.mapData",
             "raw_json.display.showOnMap"
     );

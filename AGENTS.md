@@ -213,9 +213,11 @@
   containing the exact authorization value
   `APPLY_EXACTLY_ONE_REVIEWED_ROW` for the reviewed release commit and plan.
 - Release F may change only `historical_events.geo_type`, `lat`, `lng`,
-  `province_names`, `historical_locations`, `raw_json.mapData`, and
+  `raw_json.mapData`, and
   `raw_json.display.showOnMap` for that one event. Server-maintained
   `updated_at` may advance solely as a consequence of that bounded update.
+  `province_names` and `historical_locations` must be read for validation but
+  preserved without being included in the Release F update.
   Every non-geography portion of `raw_json` must retain its reviewed hash.
   Event narrative, title, dates, category, hierarchy, images, citations,
   textbook/RAG content, views, users, learning data, and all other rows and
@@ -231,7 +233,10 @@
 - Plan and apply are separate. Apply must consume the exact reviewed artifact
   and match its release ID, plan SHA-256, canonical SHA-256, event ID,
   database fingerprint, before-geography fingerprint, non-geography
-  fingerprint, and version. It must use an explicit transaction,
+  fingerprint, and version. The apply connection must independently rebuild
+  and validate the live database fingerprint, exact diff, and plan inside the
+  same transaction that performs the update; a prior connection is never
+  sufficient authorization. It must use an explicit transaction,
   `SELECT ... FOR UPDATE`, a prepared update bounded by exact ID and version,
   an affected-row assertion of exactly one, immediate readback, and rollback
   on every failed assertion. Generic SQL, force/unsafe/skip flags, and updates

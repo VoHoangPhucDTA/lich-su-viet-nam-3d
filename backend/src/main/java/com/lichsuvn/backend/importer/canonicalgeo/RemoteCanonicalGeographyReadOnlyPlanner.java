@@ -22,7 +22,7 @@ public final class RemoteCanonicalGeographyReadOnlyPlanner {
     public static final String EXPECTED_FLYWAY = "42";
     public static final int EXPECTED_ROWS = 361;
     private static final Set<String> ALLOWED_CHANGED_FIELDS = Set.of(
-            "geo_type", "lat_lng", "province_names", "raw_json.mapData",
+            "geo_type", "lat_lng", "raw_json.mapData",
             "raw_json.display.showOnMap");
 
     private final ObjectMapper mapper;

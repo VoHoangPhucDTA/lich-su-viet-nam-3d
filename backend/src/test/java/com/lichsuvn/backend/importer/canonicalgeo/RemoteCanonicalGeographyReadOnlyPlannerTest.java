@@ -87,6 +87,19 @@ class RemoteCanonicalGeographyReadOnlyPlannerTest {
     }
 
     @Test
+    void releasePlanRejectsChangesToPreservedStandaloneColumns() {
+        PlanRow base = change(TARGET);
+        for (String field : List.of("province_names", "historical_locations")) {
+            PlanRow forbidden = new PlanRow(base.eventId(), base.title(), base.expectedUpdatedAt(),
+                    base.expectedCurrentGeoHash(), base.expectedCurrentNonGeoHash(),
+                    base.desiredGeoHash(), List.of(field), base.beforeGeography(),
+                    base.afterGeography(), base.rawJsonGeoPatch(), true, "", List.of());
+            assertThrows(IllegalStateException.class,
+                    () -> planner.build(release(), metadata(), List.of(forbidden)));
+        }
+    }
+
+    @Test
     void modifyingPlanBreaksShaAndSqlGateRejectsEveryWriteShape() {
         ObjectNode artifact = planner.build(release(), metadata(), List.of(change(TARGET))).json().deepCopy();
         artifact.put("expectedAffectedRows", 2);
