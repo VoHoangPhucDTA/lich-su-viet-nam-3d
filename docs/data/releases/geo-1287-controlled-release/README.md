@@ -1,6 +1,7 @@
 # Controlled Release F: geography reconciliation for event 1287
 
-Status: preparation complete only; owner review and a separate write authorization are required.
+Status: final operational gates prepared only; owner review, owner freeze attestation,
+and a separate write authorization are required.
 
 Release ID: `CONTROLLED_RELEASE_F_GEO_1287`
 
@@ -41,3 +42,30 @@ The corrective implementation after owner review narrows the write set to the
 four actually changed storage areas and repeats all live release validation on
 the same connection and transaction used by apply. It still performs no remote
 write during preparation or review.
+
+## Mandatory release lifecycle
+
+`PREPARED -> OWNER_FREEZE_ATTESTED -> APPLYING -> APPLIED_PENDING_POSTFLIGHT -> SUCCESS`
+
+On any apply or postflight failure the path is instead:
+
+`RELEASE_FAILURE -> RECOVERY/ROLLBACK -> SAFE_FAILURE_STATE`
+
+The repository owner establishes the operational freeze before the apply CLI
+is accepted. The validated attestation identifies that decision, but does not
+cryptographically prove writer absence and does not claim that the JDBC
+transaction globally freezes TiDB. The freeze covers every competing
+application, importer, sync, migration, script, scheduled process, developer,
+and operator capable of modifying `historical_events`.
+
+The freeze remains active through transactional revalidation, the one-row
+update, commit, the full canonical/database comparison, and the GET-only API
+check. It may end only after every assertion in `POSTFLIGHT_CONTRACT.md` passes
+with `RELEASE_STATUS=SUCCESS`, or after guarded recovery/rollback and a complete
+rollback postflight establishes `SAFE_FAILURE_STATE`.
+
+Operational files:
+
+- `WRITE_FREEZE_CHECKLIST.md`: source-grounded writer inventory and safe API runtime;
+- `WRITE_FREEZE_ATTESTATION.template.json`: intentionally unapproved owner template;
+- `POSTFLIGHT_CONTRACT.md`: exact mandatory success/failure classifier.

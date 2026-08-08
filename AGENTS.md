@@ -242,11 +242,22 @@
   on every failed assertion. Generic SQL, force/unsafe/skip flags, and updates
   without an exact ID predicate are prohibited.
 - Postflight must prove the reviewed four-marker `multi_point` geography,
-  `showOnMap=true`, 361 exact canonical/database matches with zero mismatches,
-  unchanged non-geography content, and matching event-detail API geography.
+  `showOnMap=true`, exact canonical and database counts/IDs of 361, 361 exact
+  matches, zero mismatches/uncomparables, unchanged non-geography content,
+  and matching HTTP 200 event-detail API geography. Any failed assertion is
+  `RELEASE_STATUS=RELEASE_FAILURE`, not a warning or partial success.
   Rollback is a separately approved, one-event, fingerprint-guarded
   transaction restoring the exact captured before-state; it is not a generic
   geography rollback capability.
+- Before the apply transaction opens, the repository owner must establish and
+  attest an operational freeze of every competing writer to
+  `historical_events`. The exact attestation is a required apply gate, not a
+  claim that JDBC globally freezes TiDB. The freeze begins before transactional
+  current-state revalidation and remains active through commit, full exact
+  postflight, and read-only API verification. It ends only after
+  `RELEASE_STATUS=SUCCESS`, or after guarded owner-directed rollback/recovery
+  and verification of a safe failure state. Postflight failure keeps the freeze
+  active.
 - Release F authorizes no DDL, migration, INSERT, DELETE, unrelated UPDATE,
   or write to any target other than the exact reviewed production identity.
   Once its single successful update is verified, Release F is complete and

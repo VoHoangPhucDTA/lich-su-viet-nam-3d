@@ -47,7 +47,8 @@ public final class RemoteCanonicalGeographyApplyPlanner {
             String authorizationValue,
             String planSha,
             String canonicalSha,
-            String eventId
+            String eventId,
+            String freezeAttestationSha256
     ) { }
     public record ApplyResult(boolean wrote, int affectedRows) { }
     public record UpdateCommand(
@@ -98,6 +99,8 @@ public final class RemoteCanonicalGeographyApplyPlanner {
         ControlledGeographyRelease1287Contract.requireApplyAuthorization(
                 authorization.releaseId(), authorization.authorizationValue(), authorization.planSha(),
                 authorization.canonicalSha(), authorization.eventId());
+        ControlledGeographyRelease1287OperationalGate.requireValidatedAttestationSha(
+                authorization.freezeAttestationSha256());
         return port.inTransaction(() -> {
             LiveState current = port.revalidateCurrentState();
             PreparedApply prepared = prepare(reviewedArtifact, current.databaseFingerprint(),

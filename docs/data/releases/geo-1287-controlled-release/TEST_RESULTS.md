@@ -1,18 +1,19 @@
 # Test results
 
-Verified locally on 2026-08-09 (Asia/Saigon), including the corrective owner-review
-patch. No command in this verification connected to production or invoked the
-apply CLI.
+Verified locally on 2026-08-09 (Asia/Saigon), including the final operational
+write-freeze and mandatory postflight gates. No command in this verification
+connected to production or invoked the apply CLI.
 
 ## Focused release and safety tests
 
 Command:
 
 ```text
-.\mvnw.cmd '-Dtest=ControlledGeographyRelease1287ContractTest,RemoteCanonicalGeographyApplyPlannerTest,RemoteCanonicalGeographyReadOnlyPlannerTest,CanonicalGeographyReleaseContractTest,CanonicalGeographyDatasourceGuardTest,CanonicalGeographyPlanShaGateTest,CanonicalGeographyNonGeoHashDeterminismTest,CanonicalGeographyProjectionTest,CanonicalGeographySemanticComparisonTest,CanonicalGeographySyncServiceZeroCountTest' test
+.\mvnw.cmd '-Dtest=ControlledGeographyRelease1287ContractTest,ControlledGeographyRelease1287OperationalGateTest,ControlledGeographyRelease1287PostflightTest,RemoteCanonicalGeographyApplyPlannerTest,RemoteCanonicalGeographyReadOnlyPlannerTest,CanonicalGeographyReleaseContractTest,CanonicalGeographyDatasourceGuardTest,CanonicalGeographyPlanShaGateTest,CanonicalGeographyNonGeoHashDeterminismTest,CanonicalGeographyProjectionTest,CanonicalGeographySemanticComparisonTest,CanonicalGeographySyncServiceZeroCountTest' test
 ```
 
-Result: `BUILD SUCCESS`; 78 tests, 0 failures, 0 errors, 0 skipped.
+Result: `BUILD SUCCESS`; 97 tests, 0 failures, 0 errors, 0 skipped. The focused
+count increased from the 78-test baseline.
 
 Coverage includes exact success identity, wrong release/event/canonical/plan
 identity, changed database fingerprint, second/unexpected mismatch, stale
@@ -20,7 +21,10 @@ identity, changed database fingerprint, second/unexpected mismatch, stale
 two, post-read mismatch, transaction exception rollback, bounded prepared SQL,
 artifact consistency, deterministic IDs/non-geography hashes, canonical release
 contract, datasource guards, preserved-column scope, same-transaction validation,
-and stale-preflight/transactional-state changes.
+and stale-preflight/transactional-state changes. New coverage proves missing or
+incorrect freeze evidence blocks outside the transaction and that only the exact
+count/target/API postflight state classifies success; every requested negative
+case classifies `RELEASE_FAILURE`.
 
 Corrective tests prove that `province_names` and `historical_locations` are absent
 from both `UpdateCommand` and the prepared UPDATE. Province drift after the live
@@ -42,6 +46,12 @@ recomputed and accepted the same deterministic SHA-256:
 - `.\mvnw.cmd -DskipTests compile`: `BUILD SUCCESS`.
 - `.\mvnw.cmd -DskipTests test-compile`: `BUILD SUCCESS`.
 - `git diff --check`: PASS.
+
+An additional broad wildcard importer sweep ran 127 tests but could not complete
+two Testcontainers startup tests because no Docker engine was available in this
+environment (117 non-container tests passed and 8 container tests skipped).
+This optional sweep is not the focused Release F gate above; it made no remote
+connection and performed no write.
 
 An initial focused run correctly failed because the newly copied reviewed JSON
 contained incorrectly encoded Vietnamese marker names. The artifact was fixed

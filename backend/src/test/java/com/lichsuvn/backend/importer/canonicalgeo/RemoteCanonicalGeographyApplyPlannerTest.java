@@ -52,15 +52,39 @@ class RemoteCanonicalGeographyApplyPlannerTest {
                 artifact, List.of(row(artifact, RemoteCanonicalGeographyApplyPlanner.EXPECTED_EVENT_ID)));
         FakePort noAuth = new FakePort();
         assertFalse(planner.execute(artifact,
-                new RemoteCanonicalGeographyApplyPlanner.Authorization(false, "", "", "", "", ""),
+                new RemoteCanonicalGeographyApplyPlanner.Authorization(false, "", "", "", "", "", ""),
                 noAuth).wrote());
         assertTrue(noAuth.calls.isEmpty());
+        FakePort missingFreeze = new FakePort();
+        var withoutFreeze = new RemoteCanonicalGeographyApplyPlanner.Authorization(true,
+                ControlledGeographyRelease1287Contract.RELEASE_ID,
+                ControlledGeographyRelease1287Contract.APPLY_AUTHORIZATION,
+                ControlledGeographyRelease1287Contract.REVIEWED_PLAN_SHA256,
+                ControlledGeographyRelease1287Contract.CANONICAL_SHA256,
+                ControlledGeographyRelease1287Contract.EVENT_ID, "");
+        assertThrows(IllegalStateException.class,
+                () -> planner.execute(artifact, withoutFreeze, missingFreeze));
+        assertTrue(missingFreeze.calls.isEmpty());
         FakePort wrongSha = new FakePort();
         assertThrows(IllegalStateException.class, () -> planner.execute(artifact,
                 authorization("0".repeat(64),
                         ControlledGeographyRelease1287Contract.CANONICAL_SHA256,
                         ControlledGeographyRelease1287Contract.EVENT_ID), wrongSha));
         assertTrue(wrongSha.calls.isEmpty());
+    }
+
+    @Test
+    void malformedFreezeAttestationIdentityBlocksBeforeTransaction() throws Exception {
+        FakePort port = new FakePort();
+        var malformed = new RemoteCanonicalGeographyApplyPlanner.Authorization(true,
+                ControlledGeographyRelease1287Contract.RELEASE_ID,
+                ControlledGeographyRelease1287Contract.APPLY_AUTHORIZATION,
+                ControlledGeographyRelease1287Contract.REVIEWED_PLAN_SHA256,
+                ControlledGeographyRelease1287Contract.CANONICAL_SHA256,
+                ControlledGeographyRelease1287Contract.EVENT_ID, "not-a-sha");
+        assertThrows(IllegalStateException.class,
+                () -> planner.execute(reviewed(), malformed, port));
+        assertTrue(port.calls.isEmpty());
     }
 
     @Test
@@ -71,7 +95,7 @@ class RemoteCanonicalGeographyApplyPlannerTest {
                         ControlledGeographyRelease1287Contract.APPLY_AUTHORIZATION,
                         ControlledGeographyRelease1287Contract.REVIEWED_PLAN_SHA256,
                         ControlledGeographyRelease1287Contract.CANONICAL_SHA256,
-                        ControlledGeographyRelease1287Contract.EVENT_ID),
+                        ControlledGeographyRelease1287Contract.EVENT_ID, "a".repeat(64)),
                 authorization(ControlledGeographyRelease1287Contract.REVIEWED_PLAN_SHA256,
                         "0".repeat(64), ControlledGeographyRelease1287Contract.EVENT_ID),
                 authorization(ControlledGeographyRelease1287Contract.REVIEWED_PLAN_SHA256,
@@ -280,6 +304,9 @@ class RemoteCanonicalGeographyApplyPlannerTest {
         assertTrue(source.contains("--authorization="));
         assertTrue(source.contains("--canonical-sha="));
         assertTrue(source.contains("--event-id="));
+        assertTrue(source.contains("--write-freeze-attestation="));
+        assertTrue(source.indexOf("ControlledGeographyRelease1287OperationalGate.validate")
+                < source.indexOf("DriverManager.getConnection"));
     }
 
     private RemoteCanonicalGeographyApplyPlanner.Authorization authorized() {
@@ -293,7 +320,7 @@ class RemoteCanonicalGeographyApplyPlannerTest {
         return new RemoteCanonicalGeographyApplyPlanner.Authorization(true,
                 ControlledGeographyRelease1287Contract.RELEASE_ID,
                 ControlledGeographyRelease1287Contract.APPLY_AUTHORIZATION,
-                planSha, canonicalSha, eventId);
+                planSha, canonicalSha, eventId, "a".repeat(64));
     }
 
     private ObjectNode reviewed() throws Exception {

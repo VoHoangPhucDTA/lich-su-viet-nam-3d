@@ -28,3 +28,19 @@ the rollback must stop for owner investigation. The contract cannot restore an
 arbitrary event, accept caller-supplied geography, or roll back a later plan.
 Rollback must leave `province_names` and `historical_locations` untouched,
 matching the narrowed apply scope.
+
+## Failure after commit
+
+A successful one-row commit followed by a failed mandatory postflight is
+`RELEASE_STATUS=RELEASE_FAILURE`, never partial success or a warning. The owner
+must keep the operational write freeze active, retain sanitized failure evidence,
+and decide whether the guarded rollback contract above applies. There is no
+automatic or unguarded rollback.
+
+If rollback is approved, all receipt, version, target, geography, and
+non-geography gates above must pass. After rollback commits, rerun the full exact
+canonical/database comparison, direct target read, non-geography preservation
+check, and read-only API check for the intended recovered state. The freeze may
+end only when that rollback postflight verifies `SAFE_FAILURE_STATE`. A failed
+rollback gate or failed rollback postflight keeps the freeze active for owner-led
+recovery and investigation.
