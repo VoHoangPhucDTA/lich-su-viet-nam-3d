@@ -172,7 +172,7 @@ class CanonicalGeographyPlanShaGateTest {
                 false, true, "lichsuvn_phase4a",
                 tempDir.resolve("canonical.jsonl").toString(),
                 tempDir.toString(),
-                "", "0".repeat(64), "", "38", "");
+                "", "0".repeat(64), "", "38", "", "", "");
         IllegalStateException ex = assertThrows(IllegalStateException.class, runner::run);
         assertTrue(ex.getMessage().contains("Plan file SHA-256 mismatch"), ex.getMessage());
         assertFalse(service.applyCalled, "service.apply must not be invoked when the raw plan-file SHA differs");
@@ -282,7 +282,11 @@ class CanonicalGeographyPlanShaGateTest {
         @Override
         public CanonicalRelease validateCanonical(Path eventsPath, String expectedSha256,
                                                   Map<String, Long> expectedCounts) {
-            return new CanonicalRelease(Map.of(), List.of(), "canonical", Map.of());
+            return new CanonicalRelease(Map.of(),
+                    java.util.Collections.nCopies(CanonicalGeographyReleaseContract.RECORD_COUNT,
+                            com.fasterxml.jackson.databind.node.NullNode.getInstance()),
+                    CanonicalGeographyReleaseContract.CANONICAL_SHA256,
+                    CanonicalGeographyReleaseContract.GEO_TYPE_COUNTS);
         }
 
         @Override
