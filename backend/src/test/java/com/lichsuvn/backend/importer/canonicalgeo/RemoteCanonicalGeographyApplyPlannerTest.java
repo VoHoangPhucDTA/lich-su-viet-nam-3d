@@ -49,12 +49,37 @@ class RemoteCanonicalGeographyApplyPlannerTest {
                 artifact, List.of(row(artifact, RemoteCanonicalGeographyApplyPlanner.EXPECTED_EVENT_ID)));
         FakePort noAuth = new FakePort();
         assertFalse(planner.execute(prepared,
-                new RemoteCanonicalGeographyApplyPlanner.Authorization(false, ""), noAuth).wrote());
+                new RemoteCanonicalGeographyApplyPlanner.Authorization(false, "", "", "", "", ""),
+                noAuth).wrote());
         assertTrue(noAuth.calls.isEmpty());
         FakePort wrongSha = new FakePort();
         assertThrows(IllegalStateException.class, () -> planner.execute(prepared,
-                new RemoteCanonicalGeographyApplyPlanner.Authorization(true, "0".repeat(64)), wrongSha));
+                authorization("0".repeat(64),
+                        ControlledGeographyRelease1287Contract.CANONICAL_SHA256,
+                        ControlledGeographyRelease1287Contract.EVENT_ID), wrongSha));
         assertTrue(wrongSha.calls.isEmpty());
+    }
+
+    @Test
+    void wrongReleaseCanonicalOrEventIdentityBlocksBeforeTransaction() throws Exception {
+        var prepared = prepared();
+        List<RemoteCanonicalGeographyApplyPlanner.Authorization> invalid = List.of(
+                new RemoteCanonicalGeographyApplyPlanner.Authorization(true, "wrong-release",
+                        ControlledGeographyRelease1287Contract.APPLY_AUTHORIZATION,
+                        ControlledGeographyRelease1287Contract.REVIEWED_PLAN_SHA256,
+                        ControlledGeographyRelease1287Contract.CANONICAL_SHA256,
+                        ControlledGeographyRelease1287Contract.EVENT_ID),
+                authorization(ControlledGeographyRelease1287Contract.REVIEWED_PLAN_SHA256,
+                        "0".repeat(64), ControlledGeographyRelease1287Contract.EVENT_ID),
+                authorization(ControlledGeographyRelease1287Contract.REVIEWED_PLAN_SHA256,
+                        ControlledGeographyRelease1287Contract.CANONICAL_SHA256, "another-event")
+        );
+        for (var authorization : invalid) {
+            FakePort port = new FakePort();
+            assertThrows(IllegalStateException.class,
+                    () -> planner.execute(prepared, authorization, port));
+            assertTrue(port.calls.isEmpty());
+        }
     }
 
     @Test
@@ -134,6 +159,10 @@ class RemoteCanonicalGeographyApplyPlannerTest {
         assertFalse(source.contains("--all"));
         assertFalse(source.contains("--unsafe"));
         assertFalse(source.contains("--skip"));
+        assertTrue(source.contains("--release-id="));
+        assertTrue(source.contains("--authorization="));
+        assertTrue(source.contains("--canonical-sha="));
+        assertTrue(source.contains("--event-id="));
     }
 
     private RemoteCanonicalGeographyApplyPlanner.PreparedApply prepared() throws Exception {
@@ -143,13 +172,22 @@ class RemoteCanonicalGeographyApplyPlannerTest {
     }
 
     private RemoteCanonicalGeographyApplyPlanner.Authorization authorized() {
+        return authorization(ControlledGeographyRelease1287Contract.REVIEWED_PLAN_SHA256,
+                ControlledGeographyRelease1287Contract.CANONICAL_SHA256,
+                ControlledGeographyRelease1287Contract.EVENT_ID);
+    }
+
+    private RemoteCanonicalGeographyApplyPlanner.Authorization authorization(
+            String planSha, String canonicalSha, String eventId) {
         return new RemoteCanonicalGeographyApplyPlanner.Authorization(true,
-                RemoteCanonicalGeographyApplyPlanner.EXPECTED_PLAN_SHA);
+                ControlledGeographyRelease1287Contract.RELEASE_ID,
+                ControlledGeographyRelease1287Contract.APPLY_AUTHORIZATION,
+                planSha, canonicalSha, eventId);
     }
 
     private ObjectNode reviewed() throws Exception {
-        return (ObjectNode) mapper.readTree(Files.readString(Path.of("..", "docs", "map-qa",
-                "remote-sync-1287-plan.json")));
+        return (ObjectNode) mapper.readTree(Files.readString(Path.of("..", "docs", "data", "releases",
+                "geo-1287-controlled-release", "REVIEWED_PLAN.json")));
     }
 
     private PlanRow row(ObjectNode artifact, String eventId) {

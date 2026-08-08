@@ -199,8 +199,56 @@
   release.
 - Release E authorizes no migration after V42 and no other production write.
 
+### Controlled Release F
+
+- Release F covers one canonical-geography reconciliation on the approved
+  TiDB production target `main`, database `lichsuvn`, for exactly the event
+  `khang-chien-chong-quan-nguyen-1287-1288`. It is not a migration, importer,
+  bulk synchronization, or continuing authorization for later mismatches.
+- The immutable release identity is
+  `CONTROLLED_RELEASE_F_GEO_1287`; the canonical package SHA-256 is
+  `7b2b2f4d391614020c5a1362006ee01847332c2a5b6fae033dc0ac605e0e58f0`;
+  and the maximum affected-row count is one. Preparation or code review does
+  not authorize a write. A future apply requires a separate owner approval
+  containing the exact authorization value
+  `APPLY_EXACTLY_ONE_REVIEWED_ROW` for the reviewed release commit and plan.
+- Release F may change only `historical_events.geo_type`, `lat`, `lng`,
+  `province_names`, `historical_locations`, `raw_json.mapData`, and
+  `raw_json.display.showOnMap` for that one event. Server-maintained
+  `updated_at` may advance solely as a consequence of that bounded update.
+  Every non-geography portion of `raw_json` must retain its reviewed hash.
+  Event narrative, title, dates, category, hierarchy, images, citations,
+  textbook/RAG content, views, users, learning data, and all other rows and
+  fields are outside the release.
+- Before any Release F write, the read-only plan must prove all preconditions
+  in `docs/data/releases/geo-1287-controlled-release/PRECONDITIONS.md`,
+  including 361 unique canonical IDs, 361 database events, the exact target
+  as the only canonical/database mismatch, the reviewed database and row
+  fingerprints, unchanged non-geography content, and the reviewed
+  `updated_at`. A current recovery artifact and a successful one-event
+  rollback rehearsal on an isolated target are also required. Any mismatch
+  aborts before DML.
+- Plan and apply are separate. Apply must consume the exact reviewed artifact
+  and match its release ID, plan SHA-256, canonical SHA-256, event ID,
+  database fingerprint, before-geography fingerprint, non-geography
+  fingerprint, and version. It must use an explicit transaction,
+  `SELECT ... FOR UPDATE`, a prepared update bounded by exact ID and version,
+  an affected-row assertion of exactly one, immediate readback, and rollback
+  on every failed assertion. Generic SQL, force/unsafe/skip flags, and updates
+  without an exact ID predicate are prohibited.
+- Postflight must prove the reviewed four-marker `multi_point` geography,
+  `showOnMap=true`, 361 exact canonical/database matches with zero mismatches,
+  unchanged non-geography content, and matching event-detail API geography.
+  Rollback is a separately approved, one-event, fingerprint-guarded
+  transaction restoring the exact captured before-state; it is not a generic
+  geography rollback capability.
+- Release F authorizes no DDL, migration, INSERT, DELETE, unrelated UPDATE,
+  or write to any target other than the exact reviewed production identity.
+  Once its single successful update is verified, Release F is complete and
+  must not be reused.
+
 - For all work outside the explicitly authorized Release A, Release B,
-  Release C, Release D, or Release E,
+  Release C, Release D, Release E, or Release F,
   only `localhost`, `127.0.0.1`, and Testcontainers are allowed write targets.
 
 ## Migrations and workspaces

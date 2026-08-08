@@ -22,22 +22,40 @@ import java.sql.Timestamp;
 public final class RemoteCanonicalGeographyApplyCli {
 
     private static final String APPLY_FLAG = "--apply-reviewed-plan";
+    private static final String RELEASE_ID_PREFIX = "--release-id=";
+    private static final String AUTHORIZATION_PREFIX = "--authorization=";
     private static final String PLAN_SHA_PREFIX = "--plan-sha=";
+    private static final String CANONICAL_SHA_PREFIX = "--canonical-sha=";
+    private static final String EVENT_ID_PREFIX = "--event-id=";
     private static final String COLUMNS = "id,title,geo_type,lat,lng,province_names,"
             + "historical_locations,raw_json,updated_at";
 
     private RemoteCanonicalGeographyApplyCli() { }
 
     public static void main(String[] args) throws Exception {
-        if (args.length != 1 && args.length != 3) {
+        if (args.length != 1 && args.length != 7) {
             throw new IllegalArgumentException("Usage: <reviewed-plan.json> "
-                    + "[--apply-reviewed-plan --plan-sha=<locked-sha>]");
+                    + "[--apply-reviewed-plan --release-id=<locked-release> "
+                    + "--authorization=<exact-owner-authorization> --plan-sha=<locked-sha> "
+                    + "--canonical-sha=<locked-sha> --event-id=<locked-event>]");
         }
-        boolean apply = args.length == 3 && APPLY_FLAG.equals(args[1])
-                && args[2].startsWith(PLAN_SHA_PREFIX);
-        String suppliedSha = apply ? args[2].substring(PLAN_SHA_PREFIX.length()) : "";
-        if (args.length == 3 && !apply) {
+        boolean apply = args.length == 7 && APPLY_FLAG.equals(args[1])
+                && args[2].startsWith(RELEASE_ID_PREFIX)
+                && args[3].startsWith(AUTHORIZATION_PREFIX)
+                && args[4].startsWith(PLAN_SHA_PREFIX)
+                && args[5].startsWith(CANONICAL_SHA_PREFIX)
+                && args[6].startsWith(EVENT_ID_PREFIX);
+        if (args.length == 7 && !apply) {
             throw new IllegalArgumentException("BLOCKED_REVIEWED_PLAN_MISMATCH");
+        }
+        String releaseId = apply ? value(args[2], RELEASE_ID_PREFIX) : "";
+        String authorizationValue = apply ? value(args[3], AUTHORIZATION_PREFIX) : "";
+        String planSha = apply ? value(args[4], PLAN_SHA_PREFIX) : "";
+        String canonicalSha = apply ? value(args[5], CANONICAL_SHA_PREFIX) : "";
+        String eventId = apply ? value(args[6], EVENT_ID_PREFIX) : "";
+        if (apply) {
+            ControlledGeographyRelease1287Contract.requireApplyAuthorization(
+                    releaseId, authorizationValue, planSha, canonicalSha, eventId);
         }
 
         ObjectMapper mapper = new ObjectMapper();
@@ -60,13 +78,18 @@ public final class RemoteCanonicalGeographyApplyCli {
             String user = RemoteCanonicalGeographyReadOnlyCli.secret("SPRING_DATASOURCE_USERNAME", dotenv);
             String password = RemoteCanonicalGeographyReadOnlyCli.secret("SPRING_DATASOURCE_PASSWORD", dotenv);
             try (Connection connection = DriverManager.getConnection(url, user, password)) {
-                var result = planner.execute(prepared, new Authorization(true, suppliedSha),
+                var result = planner.execute(prepared, new Authorization(true,
+                                releaseId, authorizationValue, planSha, canonicalSha, eventId),
                         new JdbcTransactionPort(connection));
                 System.out.println("REMOTE_APPLY_UPDATED=" + result.affectedRows());
             }
         } finally {
             Files.deleteIfExists(liveTemp);
         }
+    }
+
+    private static String value(String argument, String prefix) {
+        return argument.substring(prefix.length());
     }
 
     static final class JdbcTransactionPort implements TransactionPort {
