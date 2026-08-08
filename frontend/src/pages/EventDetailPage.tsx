@@ -306,22 +306,115 @@ export default function EventDetailPage() {
     };
   }, [eventData]);
 
-  /* ─── Loading ─── */
+  /* ─── Loading ───
+   *
+   * Stable skeleton shell that mirrors the real page geometry (breadcrumb,
+   * content grid, sidebar) so the data→content swap causes no large layout
+   * shift. Heights are derived from measured DOM geometry (hero ≈ 375px,
+   * TTS player ≈ 86px on desktop).
+   */
   if (loading) {
     return (
       <div
-        className="flex flex-col items-center justify-center min-h-screen gap-4"
+        className="event-detail-shell min-h-screen w-full"
         style={{ background: 'var(--bg-app)', color: 'var(--text-primary)' }}
+        role="status"
       >
+        <span className="sr-only">Đang tải dữ liệu sự kiện…</span>
+        {/* Sticky breadcrumb – same height as the content state */}
         <div
-          className="w-10 h-10 rounded-full animate-spin"
-          style={{
-            border: '3px solid var(--border)',
-            borderTopColor: 'var(--accent)',
-          }}
-        />
-        <div className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>
-          Đang tải dữ liệu sự kiện…
+          className="sticky top-0 z-40 glass-map"
+          style={{ borderBottom: '1px solid var(--border)' }}
+        >
+          <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10 lg:px-16 xl:px-20 py-3 flex items-center gap-3 text-sm">
+            <span className="inline-flex font-medium" style={{ color: 'var(--text-secondary)' }}>
+              Quay lại
+            </span>
+            <span style={{ color: 'var(--text-muted)' }}>/</span>
+            <span
+              className="w-40 h-4 rounded animate-pulse"
+              style={{ background: 'var(--bg-surface)' }}
+            />
+          </div>
+        </div>
+
+        <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10 lg:px-16 xl:px-20 py-8 lg:py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_240px] items-start gap-12 lg:gap-16">
+            <main className="min-w-0 flex flex-col gap-16" style={{ gap: 'clamp(40px, 5vw, 72px)' }}>
+              {/* Hero skeleton – mirrors measured hero height */}
+              <div
+                className="rounded-3xl overflow-hidden"
+                style={{
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border)',
+                  boxShadow: 'var(--shadow)',
+                  minHeight: 375,
+                }}
+              >
+                <div className="p-8 sm:p-10 flex flex-col gap-5">
+                  <div className="h-8 w-3/5 rounded-lg animate-pulse" style={{ background: 'var(--bg-surface)' }} />
+                  <div className="h-4 w-2/5 rounded animate-pulse" style={{ background: 'var(--bg-surface)' }} />
+                  <div className="flex gap-2">
+                    <div className="h-6 w-24 rounded-full animate-pulse" style={{ background: 'var(--bg-surface)' }} />
+                    <div className="h-6 w-28 rounded-full animate-pulse" style={{ background: 'var(--bg-surface)' }} />
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="h-16 rounded-xl animate-pulse" style={{ background: 'var(--bg-surface)' }} />
+                    <div className="h-16 rounded-xl animate-pulse" style={{ background: 'var(--bg-surface)' }} />
+                  </div>
+                </div>
+              </div>
+
+              {/* TTS skeleton – mirrors measured player height */}
+              <div
+                className="rounded-2xl p-5"
+                style={{
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border)',
+                  boxShadow: 'var(--shadow)',
+                  minHeight: 86,
+                }}
+              >
+                <div className="flex items-center gap-4">
+                  <div className="h-11 w-32 rounded-xl animate-pulse" style={{ background: 'var(--bg-surface)' }} />
+                  <div className="flex-1 flex flex-col gap-2">
+                    <div className="h-3 w-20 rounded animate-pulse" style={{ background: 'var(--bg-surface)' }} />
+                    <div className="h-4 w-52 rounded animate-pulse" style={{ background: 'var(--bg-surface)' }} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Below-the-fold section skeletons */}
+              <div className="flex flex-col gap-6">
+                <div className="h-6 w-40 rounded animate-pulse" style={{ background: 'var(--bg-surface)' }} />
+                <div className="h-40 rounded-2xl animate-pulse" style={{ background: 'var(--bg-card)', border: '1px solid var(--border)' }} />
+              </div>
+              <div className="flex flex-col gap-6">
+                <div className="h-6 w-44 rounded animate-pulse" style={{ background: 'var(--bg-surface)' }} />
+                <div className="h-64 rounded-2xl animate-pulse" style={{ background: 'var(--bg-card)', border: '1px solid var(--border)' }} />
+              </div>
+            </main>
+
+            {/* Sidebar skeleton (desktop only) */}
+            <aside className="hidden lg:flex w-full min-w-0 flex-col gap-4 sticky top-24 h-fit" aria-hidden>
+              <div className="p-5 lg:p-6 rounded-2xl" style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', boxShadow: 'var(--shadow)' }}>
+                <div className="h-3 w-16 rounded animate-pulse mb-4" style={{ background: 'var(--bg-surface)' }} />
+                <div className="flex flex-col gap-3">
+                  {Array.from({ length: 6 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className="h-4 rounded animate-pulse"
+                      style={{ background: 'var(--bg-surface)', width: `${92 - i * 8}%` }}
+                    />
+                  ))}
+                </div>
+              </div>
+              <div className="p-5 lg:p-6 rounded-2xl" style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', boxShadow: 'var(--shadow)' }}>
+                <div className="h-3 w-24 rounded animate-pulse mb-4" style={{ background: 'var(--bg-surface)' }} />
+                <div className="h-11 rounded-[10px] animate-pulse" style={{ background: 'var(--bg-surface)' }} />
+              </div>
+            </aside>
+          </div>
         </div>
       </div>
     );

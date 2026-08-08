@@ -1,0 +1,127 @@
+TITLE
+=====
+Improve Event Detail loading stability and Lighthouse performance
+
+SUMMARY
+=======
+- Replace the full-screen loading spinner with a geometry-preserving skeleton shell.
+- Resolve the large layout shift on the Event Detail page (CLS 0.369 -> 0.0002).
+- Fix several accessibility issues flagged by Lighthouse (color contrast + heading order).
+- Preserve all Event Detail functionality and the responsive layout (desktop / tablet / mobile).
+
+PROBLEM
+=======
+Baseline Lighthouse desktop median (3 runs, production build, local lab):
+
+| Metric         | Baseline |
+|----------------|----------|
+| Performance    | 63       |
+| LCP            | 1.733 s  |
+| TBT            | 0.532 s  |
+| CLS            | 0.369    |
+| Accessibility  | 94       |
+| Best Practices | 100      |
+
+The page swapped between two completely different geometries while loading:
+a full-viewport centered spinner (min-h-screen) replaced by the full event
+content, producing one large layout shift and an extra full-page layout pass.
+
+ROOT CAUSE
+==========
+CDP trace + Lighthouse layout-shifts audit:
+
+- A single large LayoutShift (~0.3694) at the moment the API response arrives:
+  old_rect [582, 569, 170, 20] (the loading text) -> new_rect [0, 127, 1335, 813]
+  (the main content container `div.mx-auto.max-w-[1440px]`).
+- Consistent evidence: on the run where the cached API response rendered before
+  the spinner was painted, CLS was 0.000; on runs where the spinner was visible,
+  CLS was 0.369.
+- NOT caused by: unsized images (unsized-images audit passes), the TTS player,
+  or font swapping.
+
+CHANGES
+=======
+1. Replace the full-screen spinner with an Event Detail skeleton shell
+   (EventDetailPage.tsx).
+2. Preserve approximate page geometry while event data loads:
+   sticky breadcrumb, content grid, desktop sidebar, hero skeleton
+   (min-height 375px) and TTS card skeleton (min-height 86px), measured from
+   the real rendered DOM.
+3. Fix color contrast of Event Hero metadata labels ("Thời gian" / "Địa điểm")
+   (EventHero.tsx).
+4. Fix color contrast of SectionHeader indices ("01", "02", ...)
+   (SectionHeader.tsx + new `--admin-accent-text` theme variable in index.css).
+5. Fix color contrast of the active TOC index in the Event Detail sidebar
+   (EventDetailSidebar.tsx).
+6. Fix heading hierarchy in Event Sources: h4 -> h3 with identical typography
+   (EventSources.tsx).
+7. Add a regression test for the skeleton loading state
+   (frontend/src/pages/__tests__/EventDetailPage.test.tsx).
+
+BEFORE / AFTER
+==============
+Lighthouse 12.7.0, desktop preset, 3 post-fix runs, local production build.
+Lab measurement — NOT production field data / Core Web Vitals.
+
+| Metric         | Before | After  |
+|----------------|--------|--------|
+| Performance    | 63     | 98     |
+| LCP            | 1.733 s| 1.132 s|
+| TBT            | 0.532 s| 0.000 s|
+| CLS            | 0.369  | 0.0002 |
+| Accessibility  | 94     | 100    |
+| Best Practices | 100    | 100    |
+
+VALIDATION
+==========
+- TypeScript build/check (`tsc -b`): PASS
+- Vite production build: PASS
+- EventDetailPage regression test: PASS
+- Frontend Vitest: 105 files / 823 tests / 0 failures
+- Lighthouse 12.7.0 desktop, 3 post-fix runs (all kept, median reported).
+
+Cross-event verification (1 desktop Lighthouse run each):
+- chien-thang-bach-dang-938 (atomic + thumbnail): CLS 0.0002
+- giang-van-minh-di-su-nha-minh (atomic, different structure): CLS 0.0002
+- viet-nam-1919-1945 (collection with 41 child events): CLS 0.0002
+
+Visual / responsive verification (browser automation):
+- Desktop: PASS
+- Tablet: PASS
+- Mobile ~390x844: PASS
+- No horizontal overflow on any viewport
+- No new console errors
+
+Note on TTS: the player button/render is verified; external audio generation
+and playback were NOT invoked during this performance task (to avoid external
+API calls), so real TTS playback remains a manual check.
+
+FILES CHANGED
+=============
+- frontend/src/pages/EventDetailPage.tsx
+- frontend/src/components/event-detail/EventHero.tsx
+- frontend/src/components/event-detail/SectionHeader.tsx
+- frontend/src/components/event-detail/EventDetailSidebar.tsx
+- frontend/src/components/event-detail/EventSources.tsx
+- frontend/src/index.css
+- frontend/src/pages/__tests__/EventDetailPage.test.tsx
+
+LIMITATIONS
+===========
+- Lighthouse numbers are local lab measurements; do not interpret them as
+  production Core Web Vitals.
+- The published dataset currently provides hero thumbnails for all 361 events,
+  so a true no-thumbnail event variant was unavailable for real-data
+  verification (skeleton heights are tuned to measured desktop geometry).
+- TBT / Performance remain environment-sensitive metrics.
+- This change only touches the Event Detail page; other pages (e.g. Map/Cesium)
+  are out of scope.
+
+CHECKLIST
+=========
+- [x] Root cause identified with trace evidence (not guessed)
+- [x] No features removed, no content hidden, no Lighthouse detection
+- [x] No backend/API contract changes
+- [x] Regression suite passes (Vitest 823/823)
+- [x] Cross-event + responsive verification
+- [ ] Manual TTS playback check (external audio not invoked during perf task)
