@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Search,
+  ChevronLeft,
   ChevronRight,
   Clock,
 } from 'lucide-react';
@@ -29,6 +30,8 @@ interface SidebarProps {
   currentYear?: number;
   open?: boolean;
   onClose?: () => void;
+  desktopCollapsed?: boolean;
+  onDesktopCollapsedChange?: (collapsed: boolean) => void;
 }
 
 const EVENT_TYPE_FILTERS: EventType[] = [
@@ -37,6 +40,24 @@ const EVENT_TYPE_FILTERS: EventType[] = [
   'economic',
   'cultural',
 ];
+
+function normalizeSidebarPresentationText(value: string): string {
+  return value
+    .normalize('NFC')
+    .trim()
+    .replace(/\s+/gu, ' ')
+    .replace(/\s*[-\u2010-\u2015\u2212]\s*/gu, '-')
+    .toLocaleLowerCase('vi');
+}
+
+function getSidebarSecondaryText(event: HistoricalEvent): string | null {
+  const secondary = formatChronologyLabel(event).trim();
+  if (!secondary) return null;
+
+  return normalizeSidebarPresentationText(secondary) === normalizeSidebarPresentationText(event.name)
+    ? null
+    : secondary;
+}
 
 export default function Sidebar({
   events,
@@ -55,6 +76,8 @@ export default function Sidebar({
   currentYear,
   open = false,
   onClose,
+  desktopCollapsed = false,
+  onDesktopCollapsedChange,
 }: SidebarProps) {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
   const listRef = useRef<HTMLDivElement>(null);
@@ -109,7 +132,7 @@ export default function Sidebar({
 
   return (
     <div
-      className={`map-sidebar ${open ? 'map-panel-open' : ''}`}
+      className={`map-sidebar ${open ? 'map-panel-open' : ''} ${desktopCollapsed ? 'is-desktop-collapsed' : ''}`}
       style={{
         height: '100%',
         display: 'flex',
@@ -120,8 +143,23 @@ export default function Sidebar({
         borderRight: '1px solid var(--border)',
       }}
     >
+      {onDesktopCollapsedChange && (
+        <button
+          type="button"
+          className="map-sidebar-collapse-toggle"
+          onClick={() => onDesktopCollapsedChange(!desktopCollapsed)}
+          aria-label={desktopCollapsed ? 'Hiện danh sách sự kiện' : 'Thu gọn danh sách sự kiện'}
+          aria-expanded={!desktopCollapsed}
+          title={desktopCollapsed ? 'Hiện danh sách sự kiện' : 'Thu gọn danh sách sự kiện'}
+        >
+          {desktopCollapsed
+            ? <ChevronRight size={20} aria-hidden="true" />
+            : <ChevronLeft size={20} aria-hidden="true" />}
+        </button>
+      )}
       {/* Header */}
       <div
+        className="map-sidebar-section map-sidebar-header"
         style={{
           padding: '18px 14px 10px',
           borderBottom: '1px solid #e7e5e4',
@@ -246,6 +284,7 @@ export default function Sidebar({
 
       {/* Event Tree */}
       <div
+        className="map-sidebar-section"
         ref={listRef}
         role="list"
         aria-label="Danh sách sự kiện lịch sử"
@@ -289,6 +328,7 @@ export default function Sidebar({
 
       {/* Footer stats */}
       <div
+        className="map-sidebar-section map-sidebar-footer"
         style={{
           padding: '8px 14px',
           borderTop: '1px solid var(--border)',
@@ -344,6 +384,7 @@ function EventTreeNode({
   // hiển thị với opacity giảm và ký hiệu đặc biệt để phân biệt về mặt thời gian.
   const isFutureEvent =
     currentYear != null && event.startYear != null && event.startYear > currentYear;
+  const secondaryText = getSidebarSecondaryText(event);
 
   return (
     <div>
@@ -414,6 +455,7 @@ function EventTreeNode({
           <span
             className="map-event-chronology inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-semibold"
             style={{
+              display: secondaryText ? undefined : 'none',
               color: isSelected ? 'var(--accent)' : 'var(--text-secondary)',
               background: isSelected ? 'var(--accent-soft)' : 'var(--bg-surface)',
               opacity: isFutureEvent && !isSelected ? 0.72 : 1,
@@ -428,7 +470,7 @@ function EventTreeNode({
                 />
               </span>
             )}
-            {formatChronologyLabel(event)}
+            {secondaryText}
           </span>
         </button>
       </div>

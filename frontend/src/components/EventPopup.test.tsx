@@ -70,7 +70,7 @@ describe('EventPopup terrain layout', () => {
     const scrollContent = within(scrollRegion!);
     expect(scrollContent.getByText('Thời gian')).toBeInTheDocument();
     expect(scrollContent.getByRole('button', { name: 'Xem chi tiết' })).toBeInTheDocument();
-    expect(scrollContent.getByRole('status')).toHaveTextContent('Đang xem địa hình: Him Lam');
+    expect(scrollContent.getByRole('status')).toHaveTextContent('Đang xem địa hình: Chiến dịch Điện Biên Phủ');
     expect(scrollContent.getByRole('button', { name: 'Quay lại góc nhìn' })).toBeInTheDocument();
     expect(scrollContent.getByRole('button', { name: 'Quay lại' })).toBeInTheDocument();
 

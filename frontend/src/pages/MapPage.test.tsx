@@ -17,6 +17,8 @@ interface SidebarBoundaryProps {
   onGradeChange: (grade: number | null) => void;
   listItemCount: number;
   mappedEventCount: number;
+  desktopCollapsed: boolean;
+  onDesktopCollapsedChange: (collapsed: boolean) => void;
 }
 
 interface MapBoundaryProps {
@@ -26,6 +28,7 @@ interface MapBoundaryProps {
   onTerrainExitComplete: (sessionId: number) => void;
   onSelectEvent: (event: HistoricalEvent | null) => void;
   focusRequest: { requestId: number; event: HistoricalEvent; animated: boolean } | null;
+  apiRef?: { current: unknown };
 }
 
 interface EventPopupBoundaryProps {
@@ -55,6 +58,7 @@ const runtime = vi.hoisted(() => ({
   getEvent: vi.fn(),
   getTimelineYears: vi.fn(),
   recordEventView: vi.fn(),
+  resizeMap: vi.fn(),
 }));
 
 function DetailLocationProbe() {
@@ -84,6 +88,14 @@ vi.mock('../components/Sidebar', () => ({
 vi.mock('../components/CesiumMap', () => ({
   default: (props: MapBoundaryProps) => {
     runtime.mapProps = props;
+    if (props.apiRef) {
+      props.apiRef.current = {
+        resize: runtime.resizeMap,
+        zoomByFactor: vi.fn(),
+        clearInspectionMarker: vi.fn(),
+        clearDistanceMeasurement: vi.fn(),
+      };
+    }
     return null;
   },
 }));
@@ -183,6 +195,21 @@ describe('MapPage shared visibility boundary', () => {
     runtime.getEvent.mockImplementation(async (id: string) => event(id));
     runtime.getTimelineYears.mockResolvedValue([40, 938]);
     runtime.recordEventView.mockResolvedValue(undefined);
+  });
+
+  it('collapses the desktop sidebar without remounting CesiumMap and resizes after transition', async () => {
+    await renderReady();
+    const initialApiRef = runtime.mapProps?.apiRef;
+    expect(initialApiRef).toBeDefined();
+
+    vi.useFakeTimers();
+    act(() => runtime.sidebarProps?.onDesktopCollapsedChange(true));
+    expect(runtime.sidebarProps?.desktopCollapsed).toBe(true);
+    expect(runtime.mapProps?.apiRef).toBe(initialApiRef);
+
+    act(() => vi.advanceTimersByTime(210));
+    expect(runtime.resizeMap).toHaveBeenCalledOnce();
+    vi.useRealTimers();
   });
 
   it('feeds Sidebar and CesiumMap from one projection', async () => {

@@ -1,5 +1,11 @@
-export const TIMELINE_LABEL_MIN_GAP_PX = 56;
+export const TIMELINE_LABEL_MIN_GAP_PX = 72;
 export const TIMELINE_FALLBACK_WIDTH_PX = 960;
+
+function timelineLabelLimit(width: number): number {
+  if (width < 480) return 4;
+  if (width < 768) return 5;
+  return 7;
+}
 
 export type TimelineLabelKind = 'selected' | 'anchor' | 'available';
 
@@ -86,7 +92,9 @@ export function resolveTimelinePresentation({
 
   return {
     domain: { min, max },
-    labels: accepted.sort((a, b) => a.year - b.year),
+    labels: accepted
+      .slice(0, timelineLabelLimit(width))
+      .sort((a, b) => a.year - b.year),
     ticks: years.map((year) => ({ year, positionPercent: positionPercent(year) })),
     laneCount: 1,
   };

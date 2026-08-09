@@ -8,7 +8,9 @@ export default function MapLegend() {
     <section className="map-legend" aria-labelledby="map-legend-title">
       <h2 id="map-legend-title">Chú giải bản đồ</h2>
       <div className="map-legend__content">
-        <div className="map-legend__categories">
+        <div className="map-legend__section">
+          <h3>Màu sắc sự kiện</h3>
+          <div className="map-legend__categories">
           {EVENT_TYPES.map((type) => (
             <div className="map-legend__item" key={type}>
               <span
@@ -19,15 +21,17 @@ export default function MapLegend() {
               <span>{EVENT_TYPE_LABELS[type]}</span>
             </div>
           ))}
+          </div>
         </div>
-        <div className="map-legend__roles">
+        <div className="map-legend__section map-legend__roles">
+          <h3>Ký hiệu trên bản đồ</h3>
           <div className="map-legend__item">
             <span aria-hidden="true" className="map-legend__marker map-legend__marker--collection" />
-            <span>Marker vòng: nhóm sự kiện</span>
+            <span>Vòng tròn rỗng: Sự kiện có các sự kiện con</span>
           </div>
           <div className="map-legend__item">
             <span aria-hidden="true" className="map-legend__marker map-legend__marker--atomic map-legend__marker--sample" />
-            <span>Marker đặc: sự kiện cụ thể</span>
+            <span>Chấm tròn: Sự kiện cụ thể</span>
           </div>
           <div className="map-legend__item">
             <span
@@ -35,7 +39,10 @@ export default function MapLegend() {
               className="map-legend__cluster"
               style={{ backgroundColor: MAP_CLUSTER_BADGE_BACKGROUND }}
             >3</span>
-            <span>Badge có số: cụm điểm trên bản đồ</span>
+            <span>
+              Cụm có số: Nhiều sự kiện nằm gần nhau
+              <small>Nhấn để xem gần hơn</small>
+            </span>
           </div>
         </div>
       </div>

@@ -20,6 +20,7 @@ describe('resolveTimelinePresentation', () => {
     expect(result.laneCount).toBe(1);
     expect(result.ticks).toHaveLength(31);
     expect(result.labels.some((label) => label.year === 1954 && label.kind === 'selected')).toBe(true);
+    expect(result.labels.length).toBeLessThanOrEqual(5);
     for (let index = 1; index < result.labels.length; index += 1) {
       const previous = result.labels[index - 1].positionPercent * 6.4;
       const current = result.labels[index].positionPercent * 6.4;
@@ -64,6 +65,7 @@ describe('resolveTimelinePresentation', () => {
       const years = result.labels.map((label) => label.year);
 
       expect(result.laneCount).toBe(1);
+      expect(result.labels.length).toBeLessThanOrEqual(containerWidthPx < 480 ? 4 : 7);
       expect(result.labels).toContainEqual(expect.objectContaining({
         year: 1000,
         kind: 'selected',
@@ -80,6 +82,23 @@ describe('resolveTimelinePresentation', () => {
       }
     },
   );
+
+  it('caps common desktop density while retaining priority and removing near-duplicates', () => {
+    const result = resolveTimelinePresentation({
+      availableYears: [-500, 40, 500, 900, 938, 1010, 1428, 1789, 1858, 1945, 1954, 1975, 2000, 2023],
+      anchors: [-500, 40, 500, 938, 1010, 1428, 1789, 1858, 1945, 1975, 2000],
+      selectedYear: 1954,
+      containerWidthPx: 1366,
+    });
+
+    expect(result.labels).toHaveLength(7);
+    expect(result.labels).toContainEqual(expect.objectContaining({ year: 1954, kind: 'selected' }));
+    for (let index = 1; index < result.labels.length; index += 1) {
+      const previous = result.labels[index - 1].positionPercent * 13.66;
+      const current = result.labels[index].positionPercent * 13.66;
+      expect(current - previous).toBeGreaterThanOrEqual(TIMELINE_LABEL_MIN_GAP_PX);
+    }
+  });
 
   it('handles an empty year list safely', () => {
     expect(resolveTimelinePresentation({

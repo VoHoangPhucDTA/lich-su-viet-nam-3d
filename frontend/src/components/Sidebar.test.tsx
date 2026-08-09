@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
+import { useState } from 'react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import type { HistoricalEvent } from '../types/event';
@@ -34,6 +35,110 @@ const baseProps = {
 };
 
 describe('Sidebar event rows', () => {
+  it('collapses and expands on desktop without losing controlled filters, selection, or tree state', async () => {
+    const user = userEvent.setup();
+    const selected = { ...child, id: 'selected', name: 'Sự kiện đang chọn', parentId: null };
+
+    function ControlledSidebar() {
+      const [collapsed, setCollapsed] = useState(false);
+      return (
+        <Sidebar
+          {...baseProps}
+          events={[parent, selected]}
+          selectedEvent={selected}
+          searchQuery="Điện Biên"
+          activeCategory="political"
+          selectedGrade={11}
+          desktopCollapsed={collapsed}
+          onDesktopCollapsedChange={setCollapsed}
+        />
+      );
+    }
+
+    const { container } = render(<ControlledSidebar />);
+    const footerText = '1 mục chính • 1 sự kiện trên bản đồ';
+    const footer = screen.getByText(footerText).closest('.map-sidebar-footer');
+    expect(footer).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Mở rộng' }));
+    expect(await screen.findByRole('button', { name: 'Chọn sự kiện Sự kiện con' })).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Thu gọn danh sách sự kiện' }));
+    expect(container.querySelector('.map-sidebar')).toHaveClass('is-desktop-collapsed');
+    expect(container.querySelector('.map-sidebar.is-desktop-collapsed > .map-sidebar-footer')).toBe(footer);
+    expect(
+      Array.from(container.querySelector('.map-sidebar')!.children).filter(
+        (element) => !element.classList.contains('map-sidebar-section'),
+      ),
+    ).toEqual([screen.getByRole('button', { name: 'Hiện danh sách sự kiện' })]);
+    expect(screen.getByDisplayValue('Điện Biên')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Chính trị' })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: 'Chương trình lớp 11' })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: 'Chọn sự kiện Sự kiện đang chọn' })).toHaveAttribute('aria-current', 'true');
+
+    await user.click(screen.getByRole('button', { name: 'Hiện danh sách sự kiện' }));
+    expect(container.querySelector('.map-sidebar')).not.toHaveClass('is-desktop-collapsed');
+    expect(screen.getByText(footerText).closest('.map-sidebar-footer')).toBe(footer);
+    expect(screen.getByRole('button', { name: 'Chọn sự kiện Sự kiện con' })).toBeInTheDocument();
+  });
+
+  it('suppresses an exact duplicate chronology while keeping the primary event name', () => {
+    const name = 'Chủ quyền biển đảo Việt Nam 1858-1918';
+    const event = { ...child, id: 'duplicate', name, displayDate: name, parentId: null };
+    render(<Sidebar {...baseProps} events={[event]} />);
+
+    const row = screen.getByRole('button', { name: `Chọn sự kiện ${name}` });
+    expect(within(row).getAllByText(name)).toHaveLength(1);
+    expect(row.querySelector('.map-event-chronology')).not.toBeVisible();
+  });
+
+  it('suppresses clearly equivalent chronology after whitespace and dash normalization', () => {
+    const name = 'Chủ quyền biển đảo Việt Nam 1858 - 1918';
+    const event = {
+      ...child,
+      id: 'normalized-duplicate',
+      name,
+      displayDate: '  Chủ quyền   biển đảo Việt Nam 1858–1918  ',
+      parentId: null,
+    };
+    render(<Sidebar {...baseProps} events={[event]} />);
+
+    const row = screen.getByRole('button', { name: `Chọn sự kiện ${name}` });
+    expect(within(row).getAllByText(name)).toHaveLength(1);
+    expect(row.querySelector('.map-event-chronology')).not.toBeVisible();
+  });
+
+  it('preserves a useful single-year chronology', () => {
+    const event = {
+      ...child,
+      id: 'useful-year',
+      name: 'Khởi nghĩa Khúc Thừa Dụ',
+      startYear: 905,
+      endYear: null,
+      effectiveEndYear: 905,
+      parentId: null,
+    };
+    render(<Sidebar {...baseProps} events={[event]} />);
+
+    const row = screen.getByRole('button', { name: `Chọn sự kiện ${event.name}` });
+    expect(within(row).getByText('905')).toBeVisible();
+  });
+
+  it('preserves a useful date range chronology', () => {
+    const event = {
+      ...child,
+      id: 'useful-range',
+      name: 'Kháng chiến chống thực dân Pháp của triều Nguyễn',
+      startYear: 1858,
+      endYear: 1884,
+      effectiveEndYear: 1884,
+      parentId: null,
+    };
+    render(<Sidebar {...baseProps} events={[event]} />);
+
+    const row = screen.getByRole('button', { name: `Chọn sự kiện ${event.name}` });
+    expect(within(row).getByText(/1858.*1884/u)).toBeVisible();
+  });
+
   it('keeps long title, chronology and child order in separate areas', async () => {
     render(<Sidebar {...baseProps} selectedEvent={parent} />);
     const parentTitle = screen.getByText(longTitle.trim());

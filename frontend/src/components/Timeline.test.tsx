@@ -19,7 +19,8 @@ describe('Timeline', () => {
       />,
     );
 
-    expect(screen.getByText('4 mốc năm')).toBeInTheDocument();
+    expect(screen.getByText('4 năm có sự kiện')).toBeInTheDocument();
+    expect(screen.getByLabelText(/4 năm có sự kiện.*không phải tổng số sự kiện/i)).toBeInTheDocument();
     expect(screen.getByRole('slider')).toHaveAttribute('min', '-700');
     expect(screen.getByRole('slider')).toHaveAttribute('max', '2016');
     expect(screen.queryByText('Lớp 10')).not.toBeInTheDocument();

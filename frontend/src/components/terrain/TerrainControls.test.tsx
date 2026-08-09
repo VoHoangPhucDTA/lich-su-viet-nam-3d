@@ -106,7 +106,7 @@ describe('TerrainControls academic alignment', () => {
 
     expect(screen.queryByRole('region', { name: /Quan sát không gian/i })).not.toBeInTheDocument();
     expect(screen.getByRole('list', {
-      name: /các địa điểm liên quan đến sự kiện.*theo dữ liệu bản đồ của đề tài/i,
+      name: /các địa điểm/i,
     })).toBeInTheDocument();
     expect(screen.getAllByRole('listitem')).toHaveLength(2);
   });
@@ -124,7 +124,7 @@ describe('TerrainControls academic alignment', () => {
 
     const card = screen.getByRole('region', { name: insight?.headline });
     const targetList = screen.getByRole('list', {
-      name: /các địa điểm liên quan đến sự kiện.*theo dữ liệu bản đồ của đề tài/i,
+      name: /các địa điểm/i,
     });
     expect(card.compareDocumentPosition(targetList) & Node.DOCUMENT_POSITION_FOLLOWING).not.toBe(0);
   });
@@ -139,11 +139,10 @@ describe('TerrainControls academic alignment', () => {
     };
     render(<TerrainControls terrain={terrain} {...callbacks} />);
 
-    expect(screen.getAllByText(
-      'Các địa điểm liên quan đến sự kiện (theo dữ liệu bản đồ của đề tài)',
-    )).toHaveLength(1);
+    expect(screen.getAllByText('Các địa điểm')).toHaveLength(1);
+    expect(screen.getByText(/danh sách không mặc định biểu diễn trình tự lịch sử/i)).toBeInTheDocument();
     const list = screen.getByRole('list', {
-      name: /các địa điểm liên quan đến sự kiện.*theo dữ liệu bản đồ của đề tài/i,
+      name: /các địa điểm/i,
     });
     expect(list.parentElement).not.toHaveAttribute('aria-label');
   });
@@ -160,9 +159,44 @@ describe('TerrainControls academic alignment', () => {
     render(<TerrainControls terrain={terrain} {...callbacks} onSelectTarget={onSelectTarget} />);
 
     const list = screen.getByRole('list', {
-      name: /các địa điểm liên quan đến sự kiện.*theo dữ liệu bản đồ của đề tài/i,
+      name: /các địa điểm/i,
     });
     fireEvent.click(within(list).getByRole('button', { name: /Mường Thanh/ }));
     expect(onSelectTarget).toHaveBeenCalledWith('point-2');
+  });
+
+  it('shows sourced event context and only location identity for a target without description data', () => {
+    const insight = getTerrainInsightBySlug('chien-dich-dien-bien-phu-1954');
+    const terrain: TerrainViewModel = {
+      ...activeTerrain,
+      selectedTargetId: 'point-1',
+      targets: [
+        { id: 'point-1', kind: 'point', label: 'Him Lam', position: { lat: 21.405, lng: 103.023 }, sourceIndex: 0 },
+        { id: 'point-2', kind: 'point', label: 'Mường Thanh', position: { lat: 21.385, lng: 103.006 }, sourceIndex: 1 },
+      ],
+    };
+    render(
+      <TerrainControls
+        terrain={terrain}
+        {...callbacks}
+        eventName="Chiến dịch Điện Biên Phủ"
+        insight={insight}
+      />,
+    );
+
+    expect(screen.getByRole('status')).toHaveTextContent('Đang xem địa hình: Chiến dịch Điện Biên Phủ');
+    expect(screen.getByRole('heading', { name: 'Diễn biến / Theo SGK' })).toBeInTheDocument();
+    const selectedHeading = screen.getByRole('heading', { name: 'Him Lam' });
+    const selectedSection = selectedHeading.closest('section');
+    expect(selectedSection).not.toBeNull();
+    expect(within(selectedSection!).getByText('Địa điểm trên bản đồ sự kiện')).toBeInTheDocument();
+    expect(within(selectedSection!).queryByText(/cứ điểm|đợt tiến công|chiến thắng/i)).not.toBeInTheDocument();
+  });
+
+  it('reuses the overview callback for the fit-all action', () => {
+    const onShowOverview = vi.fn();
+    render(<TerrainControls terrain={activeTerrain} {...callbacks} onShowOverview={onShowOverview} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Xem toàn bộ' }));
+    expect(onShowOverview).toHaveBeenCalledOnce();
   });
 });

@@ -25,8 +25,12 @@ describe('MapLegend', () => {
 
   it('explains collection, atomic and cluster markers without color-only meaning', () => {
     render(<MapLegend />);
-    expect(screen.getByText('Marker vòng: nhóm sự kiện')).toBeInTheDocument();
-    expect(screen.getByText('Marker đặc: sự kiện cụ thể')).toBeInTheDocument();
-    expect(screen.getByText('Badge có số: cụm điểm trên bản đồ')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Màu sắc sự kiện' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Ký hiệu trên bản đồ' })).toBeInTheDocument();
+    expect(screen.getByText('Vòng tròn rỗng: Sự kiện có các sự kiện con')).toBeInTheDocument();
+    expect(screen.getByText('Chấm tròn: Sự kiện cụ thể')).toBeInTheDocument();
+    expect(screen.getByText(/Cụm có số: Nhiều sự kiện nằm gần nhau/)).toBeInTheDocument();
+    expect(screen.getByText('Nhấn để xem gần hơn')).toBeInTheDocument();
+    expect(screen.queryByText(/Marker|Badge/)).not.toBeInTheDocument();
   });
 });

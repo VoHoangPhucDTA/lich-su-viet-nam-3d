@@ -173,9 +173,11 @@ export default function MapPage() {
   const [terrainState, terrainDispatch] = useReducer(terrainReducer, INITIAL_TERRAIN_STATE);
   const [activeOverlay, setActiveOverlay] = useState<MapOverlay>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [desktopSidebarCollapsed, setDesktopSidebarCollapsed] = useState(false);
   const [mapError, setMapError] = useState<string | null>(null);
   // ─── Terrain exploration toolbar (Task C) ─────────────────────────────────
   const cesiumApiRef = useRef<CesiumMapHandle | null>(null);
+  const sidebarResizeTimerRef = useRef<number | null>(null);
   const [explorationMode, setExplorationMode] = useState<TerrainExplorationMode>('none');
   const [inspectSessionId, setInspectSessionId] = useState(0);
   const [inspection, setInspection] = useState<TerrainExplorationInspectorState>({
@@ -1061,6 +1063,17 @@ export default function MapPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedEvent?.id]);
 
+  const handleDesktopSidebarCollapse = useCallback((collapsed: boolean) => {
+    setDesktopSidebarCollapsed(collapsed);
+    if (sidebarResizeTimerRef.current !== null) {
+      window.clearTimeout(sidebarResizeTimerRef.current);
+    }
+    sidebarResizeTimerRef.current = window.setTimeout(() => {
+      cesiumApiRef.current?.resize();
+      sidebarResizeTimerRef.current = null;
+    }, 210);
+  }, []);
+
   // Invalidate pending selection/terrain work when MapPage unmounts.
   useEffect(() => {
     const selectionRequest = selectionRequestIdRef;
@@ -1068,6 +1081,9 @@ export default function MapPage() {
       ++selectionRequest.current;
       pendingAfterTerrainExitRef.current = null;
       clearExploration();
+      if (sidebarResizeTimerRef.current !== null) {
+        window.clearTimeout(sidebarResizeTimerRef.current);
+      }
       cesiumApiRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -1116,6 +1132,8 @@ export default function MapPage() {
           currentYear={currentYear ?? undefined}
           open={sidebarOpen}
           onClose={() => setSidebarOpen(false)}
+          desktopCollapsed={desktopSidebarCollapsed}
+          onDesktopCollapsedChange={handleDesktopSidebarCollapse}
         />
 
         {/* Map area */}

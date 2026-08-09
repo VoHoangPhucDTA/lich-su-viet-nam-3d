@@ -405,6 +405,7 @@ export default function EventPopup({
           <TerrainControls
             terrain={terrain}
             insight={terrainInsight}
+            eventName={event.name}
             onOpen={onOpenTerrain}
             onRetry={onRetryTerrain}
             onSelectTarget={onSelectTerrainTarget}

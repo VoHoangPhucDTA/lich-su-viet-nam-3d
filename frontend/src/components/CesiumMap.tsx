@@ -197,6 +197,8 @@ export interface MapFocusRequest {
  * Scene, Camera, Entity, DataSource, or ScreenSpaceEventHandler.
  */
 export interface CesiumMapHandle {
+  /** Recompute the Cesium canvas size after a host layout transition. */
+  resize(): void;
   /**
    * Move the camera by a fractional amount of its current terrain-focus range.
    * Positive factor = zoom in, negative = zoom out. No-op when the terrain
@@ -1022,6 +1024,11 @@ export default function CesiumMap({
       return undefined;
     }
     const handle: CesiumMapHandle = {
+      resize() {
+        const viewer = viewerRef.current;
+        if (!viewer || viewer.isDestroyed()) return;
+        viewer.resize();
+      },
       zoomByFactor(factor) {
         const viewer = viewerRef.current;
         if (!viewer || viewer.isDestroyed()) return;

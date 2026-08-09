@@ -66,9 +66,9 @@ export default function Timeline({ currentYear, onYearChange, model }: TimelineP
         <span className="map-timeline-current">{formatYear(currentYear)}</span>
         <span
           className="map-timeline-count"
-          aria-label={`${model.years.length} mốc năm trong dòng thời gian hiện tại; đây không phải tổng số sự kiện.`}
+          aria-label={`${model.years.length} năm có sự kiện trong dòng thời gian hiện tại; đây không phải tổng số sự kiện.`}
         >
-          {model.years.length} mốc năm
+          {model.years.length} năm có sự kiện
         </span>
       </div>
 
