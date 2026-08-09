@@ -45,7 +45,7 @@ import {
   normalizeMapSearchTerm,
 } from '../utils/mapVisibility';
 import { parseMapUrlState, serializeMapUrlState, type MapUrlState } from '../utils/mapUrlState';
-import { focusPositionsForEvent } from '../utils/mapCameraFocus';
+import { buildMapFocusCameraFrame, focusPositionsForEvent } from '../utils/mapCameraFocus';
 import {
   buildTimelineRuntimeModel,
   resolveTimelineYear,
@@ -257,14 +257,15 @@ export default function MapPage() {
 
   const requestEventFocus = useCallback((event: HistoricalEvent, source: MapSelectionSource) => {
     const positions = focusPositionsForEvent(event);
+    const frame = buildMapFocusCameraFrame(event);
     const needsCompleteMultiPointTarget = (
       source === 'sidebar' || source === 'search'
     ) && (
       event.geoType === 'multi_point' || event.geoType === 'mixed'
     );
-    const hasCompleteFocusTarget = needsCompleteMultiPointTarget
+    const hasCompleteFocusTarget = needsCompleteMultiPointTarget && frame?.kind !== 'authoring-focus'
       ? positions.length >= 2
-      : positions.length >= 1;
+      : frame !== null;
     if (source === 'map-marker' || !hasCompleteFocusTarget) {
       setFocusRequest(null);
       return;
@@ -588,11 +589,20 @@ export default function MapPage() {
       }
       const summaryPositionCount = focusPositionsForEvent(event).length;
       const hydratedPositionCount = focusPositionsForEvent(eventWithChildren).length;
+      const summaryFocusFrame = buildMapFocusCameraFrame(event);
+      const hydratedFocusFrame = buildMapFocusCameraFrame(eventWithChildren);
       if (
         (source === 'sidebar' || source === 'search')
         && (eventWithChildren.geoType === 'multi_point' || eventWithChildren.geoType === 'mixed')
         && hydratedPositionCount >= 2
         && hydratedPositionCount > summaryPositionCount
+      ) {
+        requestEventFocus(eventWithChildren, source);
+      } else if (
+        (source === 'sidebar' || source === 'search')
+        && (eventWithChildren.geoType === 'multi_polygon' || eventWithChildren.geoType === 'mixed')
+        && hydratedFocusFrame?.kind === 'authoring-focus'
+        && summaryFocusFrame?.kind !== 'authoring-focus'
       ) {
         requestEventFocus(eventWithChildren, source);
       }

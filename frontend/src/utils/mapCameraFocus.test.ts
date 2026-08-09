@@ -3,7 +3,10 @@ import type { HistoricalEvent } from '../types/event';
 import {
   buildMapFocusCameraFrame,
   MAP_MULTI_POINT_MINIMUM_RANGE_METERS,
+  MAP_ORDINARY_CAMERA_PITCH_DEGREES,
   MAP_POINT_FOCUS_RANGE_METERS,
+  mapFocusZoomToRange,
+  parseMapFocusGeometry,
 } from './mapCameraFocus';
 
 function event(overrides: Partial<HistoricalEvent>): HistoricalEvent {
@@ -23,6 +26,10 @@ function event(overrides: Partial<HistoricalEvent>): HistoricalEvent {
 }
 
 describe('CesiumMap ordinary selection focus', () => {
+  it('keeps explicit ordinary navigation map-like and more top-down than terrain', () => {
+    expect(MAP_ORDINARY_CAMERA_PITCH_DEGREES).toBe(-75);
+  });
+
   it('uses the representative point at the 50 km map-focus range', () => {
     const frame = buildMapFocusCameraFrame(event({}));
 
@@ -54,5 +61,37 @@ describe('CesiumMap ordinary selection focus', () => {
     expect(buildMapFocusCameraFrame(event({ geoType: 'multi_polygon' }))).toBeNull();
     expect(buildMapFocusCameraFrame(event({ geoType: 'nationwide' }))).toBeNull();
     expect(buildMapFocusCameraFrame(event({ geoType: 'no_location' }))).toBeNull();
+  });
+
+  it('parses only approved bounds center and zoom metadata', () => {
+    expect(parseMapFocusGeometry({
+      mode: 'bounds', center: { lat: 16.05, lng: 108.2 }, zoom: 7,
+    })).toEqual({ mode: 'bounds', center: { lat: 16.05, lng: 108.2 }, zoom: 7 });
+    expect(parseMapFocusGeometry({ mode: 'auto', center: { lat: 16, lng: 108 }, zoom: 7 })).toBeNull();
+    expect(parseMapFocusGeometry({ mode: 'bounds', center: { lat: 91, lng: 108 }, zoom: 7 })).toBeNull();
+    expect(parseMapFocusGeometry({ mode: 'bounds', center: { lat: 16, lng: 181 }, zoom: 7 })).toBeNull();
+    expect(parseMapFocusGeometry({ mode: 'bounds', center: { lat: 16, lng: 108 }, zoom: 25 })).toBeNull();
+  });
+
+  it.each([
+    [5, 1_000_000],
+    [6, 500_000],
+    [7, 250_000],
+    [8, 125_000],
+  ])('maps authoring zoom %s to range %s', (zoom, range) => {
+    expect(mapFocusZoomToRange(zoom)).toBe(range);
+  });
+
+  it('uses valid authoring focus only for region-capable geo types', () => {
+    const sourceMapData = {
+      geoType: 'multi_polygon',
+      focusGeometry: { mode: 'bounds', center: { lat: 16.05, lng: 108.2 }, zoom: 7 },
+    };
+    expect(buildMapFocusCameraFrame(event({ geoType: 'multi_polygon', sourceMapData })))
+      .toMatchObject({ kind: 'authoring-focus', positions: [{ lat: 16.05, lng: 108.2 }], range: 250_000 });
+    expect(buildMapFocusCameraFrame(event({ geoType: 'mixed', sourceMapData })))
+      .toMatchObject({ kind: 'authoring-focus', range: 250_000 });
+    expect(buildMapFocusCameraFrame(event({ geoType: 'no_location', sourceMapData }))).toBeNull();
+    expect(buildMapFocusCameraFrame(event({ geoType: 'nationwide', sourceMapData }))).toBeNull();
   });
 });

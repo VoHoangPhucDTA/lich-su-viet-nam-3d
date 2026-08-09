@@ -702,6 +702,45 @@ describe('MapPage shared visibility boundary', () => {
     );
   });
 
+  it('issues region focus only after detail hydration provides approved center and zoom', async () => {
+    const summary = event('phap-tan-cong-da-nang-1858', {
+      geoType: 'multi_polygon',
+      coordinates: undefined,
+      sourceMapData: undefined,
+    });
+    const detailRequest = deferred<HistoricalEvent | null>();
+    runtime.getEventsByYear.mockResolvedValue([summary]);
+    runtime.getEvent.mockReturnValue(detailRequest.promise);
+    await renderReady();
+
+    act(() => runtime.sidebarProps?.onSelectEvent(summary));
+    await waitFor(() => expect(runtime.popupProps?.event.id).toBe(summary.id));
+    expect(runtime.mapProps?.focusRequest).toBeNull();
+
+    await act(async () => {
+      detailRequest.resolve(event(summary.id, {
+        geoType: 'multi_polygon',
+        coordinates: undefined,
+        sourceMapData: {
+          geoType: 'multi_polygon',
+          focusGeometry: {
+            mode: 'bounds',
+            center: { lat: 16.05, lng: 108.2 },
+            zoom: 7,
+          },
+        },
+      }));
+      await Promise.resolve();
+    });
+
+    await waitFor(() => expect(runtime.mapProps?.focusRequest?.event.id).toBe(summary.id));
+    expect(buildMapFocusCameraFrame(runtime.mapProps!.focusRequest!.event)).toMatchObject({
+      kind: 'authoring-focus',
+      positions: [{ lat: 16.05, lng: 108.2 }],
+      range: 250_000,
+    });
+  });
+
   it('clears a stale point focus for no-location selection and Close', async () => {
     const point = event('focus-a');
     const noLocation = event('focus-b', {

@@ -96,8 +96,18 @@ import {
   markerRoleForEvent,
   resolveMapMarkerVisualStyle,
 } from '../utils/mapMarkerVisualPolicy';
-import { isMapClusterPick, resolveMapClusterVisual } from '../utils/mapClusterBadge';
-import { buildMapFocusCameraFrame } from '../utils/mapCameraFocus';
+import {
+  attachMapClusterPickPayload,
+  handleOrdinaryMapPick,
+  resolveMapClusterVisual,
+} from '../utils/mapClusterBadge';
+import {
+  buildMapFocusCameraFrame,
+  MAP_ORDINARY_CAMERA_PITCH_DEGREES,
+} from '../utils/mapCameraFocus';
+import { createTerrainPointDataSource } from '../utils/terrainPointDataSource';
+import { ordinaryMapLayersVisibleForTerrainMode } from '../utils/terrainLayerVisibility';
+import { flyToMapClusterEntities } from '../utils/mapClusterCamera';
 
 // ─── SAFE MODE ────────────────────────────────────────────────────────────────
 // Set to false when globe is confirmed stable to re-enable markers + polygon.
@@ -289,6 +299,7 @@ export default function CesiumMap({
   const eventPolygonDataSourceRef = useRef<CustomDataSource | null>(null);
   const markerClusterListenerRemoverRef = useRef<(() => void) | null>(null);
   const terrainRegionDataSourceRef = useRef<CustomDataSource | null>(null);
+  const terrainPointDataSourceRef = useRef<CustomDataSource | null>(null);
   const regionGeometryIndexRef = useRef<RegionGeometryIndex | null>(null);
   const regionGeometryPromiseRef = useRef<Promise<RegionGeometryIndex> | null>(null);
   const regionGeometryResourcePromiseRef = useRef<Promise<{ raw: unknown; index: RegionGeometryIndex }> | null>(null);
@@ -509,23 +520,13 @@ export default function CesiumMap({
                   return;
                 }
                 if (currentTerrain) return;
-                const pickedEvent = pickedEntity
-                  ? eventEntityDataRef.current.get(pickedEntity)
-                  : undefined;
-                if (pickedEvent) {
-                  // Clicked an individual event marker
-                  onSelectEventRef.current(pickedEvent);
-                } else if (defined(picked) && isMapClusterPick(picked.id)) {
-                  const clusterEntities = picked.id.filter(
-                    (candidate: unknown): candidate is Entity => candidate instanceof Entity,
-                  );
-                  if (clusterEntities.length > 1) void v.zoomTo(clusterEntities);
-                } else if (!defined(picked) || !picked.id) {
-                  // Clicked empty space — deselect
-                  onSelectEventRef.current(null);
-                }
-                // If clicked a cluster (picked.id exists but no eventData), do nothing —
-                // user needs to zoom in to see individual markers
+                handleOrdinaryMapPick<HistoricalEvent>(picked, {
+                  resolveEvent: (entity) => eventEntityDataRef.current.get(entity),
+                  selectEvent: (event) => onSelectEventRef.current(event),
+                  focusCluster: (entities) => {
+                    flyToMapClusterEntities(v.camera, entities, v.clock.currentTime);
+                  },
+                });
               } catch (e) {
                 console.warn('[CesiumMap] Pick error:', e);
               }
@@ -661,6 +662,10 @@ export default function CesiumMap({
         viewer.dataSources.remove(terrainRegionDataSourceRef.current, true);
         terrainRegionDataSourceRef.current = null;
       }
+      if (terrainPointDataSourceRef.current && viewer && !viewer.isDestroyed()) {
+        viewer.dataSources.remove(terrainPointDataSourceRef.current, true);
+        terrainPointDataSourceRef.current = null;
+      }
       if (inspectDataSourceRef.current && viewer && !viewer.isDestroyed()) {
         viewer.dataSources.remove(inspectDataSourceRef.current, true);
         inspectDataSourceRef.current = null;
@@ -674,7 +679,7 @@ export default function CesiumMap({
         dataSourceRef.current = null;
       }
       if (viewer && !viewer.isDestroyed() && terrainSceneSnapshotRef.current) {
-        restoreTerrainScene(viewer.scene, terrainSceneSnapshotRef.current);
+        restoreTerrainScene(viewer.scene, viewer.clock, terrainSceneSnapshotRef.current);
       }
       if (
         import.meta.env.DEV
@@ -1113,6 +1118,7 @@ export default function CesiumMap({
       }
 
       const ds = eventPolygonDataSourceRef.current ?? new CustomDataSource('eventPolygons');
+      ds.show = ordinaryMapLayersVisibleForTerrainMode(terrainSessionRef.current);
       if (!eventPolygonDataSourceRef.current) {
         viewerInstance.dataSources.add(ds);
         eventPolygonDataSourceRef.current = ds;
@@ -1228,12 +1234,14 @@ export default function CesiumMap({
       }
 
       const ds = new CustomDataSource('eventMarkers');
+      ds.show = ordinaryMapLayersVisibleForTerrainMode(terrainSessionRef.current);
       ds.clustering.enabled = true;
       ds.clustering.pixelRange = 55;
       ds.clustering.minimumClusterSize = 2;
 
       // Cluster styling: show count badge instead of default pin
       markerClusterListenerRemoverRef.current = ds.clustering.clusterEvent.addEventListener((clusteredEntities, cluster) => {
+        attachMapClusterPickPayload(clusteredEntities, cluster);
         if (!defined(cluster.label) || !defined(cluster.billboard)) return;
         const visual = resolveMapClusterVisual(clusteredEntities.length);
         cluster.billboard.show = visual.billboard.show;
@@ -1338,6 +1346,12 @@ export default function CesiumMap({
   }, [events, renderMarkers, viewerReady]);
 
   useEffect(() => {
+    const visible = ordinaryMapLayersVisibleForTerrainMode(terrainSession);
+    if (markerDataSourceRef.current) markerDataSourceRef.current.show = visible;
+    if (eventPolygonDataSourceRef.current) eventPolygonDataSourceRef.current.show = visible;
+  }, [terrainSession]);
+
+  useEffect(() => {
     applyMarkerVisualStyles();
   }, [applyMarkerVisualStyles, highlightedEventId, selectedEvent]);
 
@@ -1416,6 +1430,12 @@ export default function CesiumMap({
     terrainRegionDataSourceRef.current = null;
     terrainRegionEntitiesRef.current.clear();
     resolvedTerrainRegionsRef.current.clear();
+  }, []);
+
+  const clearTerrainPoints = useCallback((viewer: Viewer) => {
+    const dataSource = terrainPointDataSourceRef.current;
+    if (dataSource && !viewer.isDestroyed()) viewer.dataSources.remove(dataSource, true);
+    terrainPointDataSourceRef.current = null;
   }, []);
 
   const applyTerrainVisualStyle = useCallback((session: TerrainSessionCommand) => {
@@ -1648,6 +1668,7 @@ export default function CesiumMap({
         clearTerrainRegions(viewer);
         applyPolygonHighlights(selectedEventRef.current);
       }
+      if (viewer && !viewer.isDestroyed()) clearTerrainPoints(viewer);
       return;
     }
     if (!viewerReady) return;
@@ -1669,7 +1690,7 @@ export default function CesiumMap({
       const base = baseTerrainProviderRef.current;
       if (!viewer.isDestroyed() && base) viewer.terrainProvider = base;
       if (!viewer.isDestroyed() && terrainSceneSnapshotRef.current) {
-        restoreTerrainScene(viewer.scene, terrainSceneSnapshotRef.current);
+        restoreTerrainScene(viewer.scene, viewer.clock, terrainSceneSnapshotRef.current);
         terrainSceneSnapshotRef.current = null;
       }
     };
@@ -1679,6 +1700,9 @@ export default function CesiumMap({
       restoreTerrainVisualBasis(session.id);
       terrainVisualSnapshotRef.current = null;
       clearTerrainRegions(viewer);
+      clearTerrainPoints(viewer);
+      if (markerDataSourceRef.current) markerDataSourceRef.current.show = true;
+      if (eventPolygonDataSourceRef.current) eventPolygonDataSourceRef.current.show = true;
       applyPolygonHighlights(selectedEventRef.current);
       onTerrainEnterErrorRef.current(session.id, error);
     };
@@ -1690,6 +1714,7 @@ export default function CesiumMap({
       restoreTerrainVisualBasis(session.id);
       terrainVisualSnapshotRef.current = null;
       clearTerrainRegions(viewer);
+      clearTerrainPoints(viewer);
       applyPolygonHighlights(selectedEventRef.current);
       lastTerrainCameraRequestRef.current = null;
       const snapshot = cameraSnapshotRef.current;
@@ -1783,7 +1808,7 @@ export default function CesiumMap({
     async function enterTerrain() {
       ensureTerrainVisualSnapshot(enteringSessionId);
       if (!terrainSceneSnapshotRef.current) {
-        terrainSceneSnapshotRef.current = snapshotTerrainScene(enteringViewer.scene);
+        terrainSceneSnapshotRef.current = snapshotTerrainScene(enteringViewer.scene, enteringViewer.clock);
       }
       const token = getCesiumIonToken();
       if (!token) {
@@ -1819,8 +1844,22 @@ export default function CesiumMap({
         ) return;
 
         enteringViewer.terrainProvider = provider;
-        applyTerrainScene(enteringViewer.scene);
+        applyTerrainScene(enteringViewer.scene, enteringViewer.clock);
         onTerrainProviderReadyRef.current(enteringSessionId);
+
+        clearTerrainPoints(enteringViewer);
+        const pointDataSource = createTerrainPointDataSource(
+          enteringSessionId,
+          enteringSession.targets,
+        );
+        if (pointDataSource.entities.values.length > 0) {
+          await enteringViewer.dataSources.add(pointDataSource);
+          if (!isCurrentSession() || terrainProviderOperationRef.current !== providerOperation) {
+            if (!enteringViewer.isDestroyed()) enteringViewer.dataSources.remove(pointDataSource, true);
+            return;
+          }
+          terrainPointDataSourceRef.current = pointDataSource;
+        }
 
         if (regionTargets.length > 0) {
           let index = regionGeometryIndexRef.current;
@@ -1974,6 +2013,7 @@ export default function CesiumMap({
   }, [
     applyPolygonHighlights,
     applyTerrainVisualStyle,
+    clearTerrainPoints,
     clearTerrainRegions,
     ensureTerrainVisualSnapshot,
     flyTerrainView,
@@ -1993,7 +2033,11 @@ export default function CesiumMap({
     ++cameraOperationRef.current;
     viewer.camera.cancelFlight();
     viewer.camera.flyToBoundingSphere(frame.sphere, {
-      offset: new HeadingPitchRange(0, CesiumMath.toRadians(-55), frame.range),
+      offset: new HeadingPitchRange(
+        0,
+        CesiumMath.toRadians(MAP_ORDINARY_CAMERA_PITCH_DEGREES),
+        frame.range,
+      ),
       duration: focusRequest.animated ? 1.1 : 0,
     });
   }, [focusRequest, viewerReady]);
