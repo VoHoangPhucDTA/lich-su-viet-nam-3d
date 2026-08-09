@@ -83,9 +83,14 @@ export default function EventSources({
               >
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-wrap items-baseline gap-2 mb-1">
-                    <h4 className="font-bold text-[15px]" style={{ color: 'var(--text-primary)' }}>
+                    {/* h3 (was h4) — fixes heading-order skip; inline font size/weight
+                        keep the exact same typography despite .event-detail-shell h3 */}
+                    <h3
+                      className="font-bold text-[15px]"
+                      style={{ color: 'var(--text-primary)', fontSize: 15, fontWeight: 700 }}
+                    >
                       {ref.book}
-                    </h4>
+                    </h3>
                     <span
                       className="text-xs font-semibold px-2 py-0.5 rounded-md font-sans"
                       style={{ background: 'var(--accent-soft)', color: 'var(--accent)', border: '1px solid color-mix(in srgb, var(--accent) 30%, transparent)' }}

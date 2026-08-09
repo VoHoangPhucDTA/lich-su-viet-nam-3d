@@ -79,7 +79,7 @@ export default function EventDetailSidebar({
                   className="font-sans text-[10px] mr-2"
                   style={{
                     color: isActive
-                      ? 'var(--admin-accent)'
+                      ? 'var(--admin-accent-text)'
                       : 'var(--text-muted)',
                   }}
                 >

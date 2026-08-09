@@ -16,7 +16,7 @@ export default function SectionHeader({ index, title, subtitle }: SectionHeaderP
           className="flex-shrink-0 text-sm font-bold tracking-[0.2em]"
           style={{
             fontFamily: 'var(--font-label)',
-            color: 'var(--admin-accent)',
+            color: 'var(--admin-accent-text)',
           }}
         >
           {index}

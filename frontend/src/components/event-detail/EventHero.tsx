@@ -304,7 +304,7 @@ function MetaItem({
       <div className="min-w-0">
         <div
           className="text-[10px] font-bold uppercase tracking-[0.14em]"
-          style={{ color: 'var(--text-muted)' }}
+          style={{ color: 'var(--text-secondary)' }}
         >
           {label}
         </div>

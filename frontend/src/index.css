@@ -25,6 +25,8 @@
   --accent-glow: rgba(139, 30, 30, 0.15);
   --admin-accent: var(--color-brand-gold);
   --admin-accent-soft: rgba(197, 160, 89, 0.1);
+  /* Text-safe darker gold (WCAG AA 4.5:1 on light backgrounds) for labels/numbers */
+  --admin-accent-text: #8a6424;
   --success: #3D8361;
   --success-soft: rgba(61, 131, 97, 0.1);
   --warning: #c5a059;
