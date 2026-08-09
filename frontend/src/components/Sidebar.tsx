@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Search,
   ChevronRight,
@@ -53,6 +53,31 @@ export default function Sidebar({
   onClose,
 }: SidebarProps) {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
+  const listRef = useRef<HTMLDivElement>(null);
+
+  const revealedExpandedIds = useMemo(() => {
+    const revealed = new Set<string>();
+    if (!selectedEvent) return revealed;
+    if (selectedEvent.children?.length) revealed.add(selectedEvent.id);
+
+    const findPath = (nodes: HistoricalEvent[], targetId: string): boolean => {
+      for (const event of nodes) {
+        if (event.id === targetId) return true;
+        if (event.children && findPath(event.children, targetId)) {
+          revealed.add(event.id);
+          return true;
+        }
+      }
+      return false;
+    };
+    findPath(events, selectedEvent.id);
+    return revealed;
+  }, [events, selectedEvent]);
+
+  const visibleExpandedIds = useMemo(
+    () => new Set([...expandedIds, ...revealedExpandedIds]),
+    [expandedIds, revealedExpandedIds],
+  );
 
   const toggleExpand = (id: string) => {
     setExpandedIds((prev) => {
@@ -66,30 +91,17 @@ export default function Sidebar({
     });
   };
 
-  // Auto-expand selected event's ancestors
+  // Scroll only after the derived ancestor path has made the selected row visible.
   useEffect(() => {
     if (!selectedEvent) return;
-    const newExpanded = new Set(expandedIds);
-    if (selectedEvent.children?.length) {
-      newExpanded.add(selectedEvent.id);
-    }
-    // expand all ancestor paths
-    const findAndExpand = (events: HistoricalEvent[], targetId: string): boolean => {
-      for (const event of events) {
-        if (event.id === targetId) return true;
-        if (event.children) {
-          if (findAndExpand(event.children, targetId)) {
-            newExpanded.add(event.id);
-            return true;
-          }
-        }
-      }
-      return false;
-    };
-    findAndExpand(events, selectedEvent.id);
-    setExpandedIds(newExpanded);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedEvent?.id]);
+    const frame = window.requestAnimationFrame(() => {
+      const selectedRow = Array.from(
+        listRef.current?.querySelectorAll<HTMLElement>('[data-event-id]') ?? [],
+      ).find((row) => row.dataset.eventId === selectedEvent.id);
+      selectedRow?.scrollIntoView?.({ block: 'nearest' });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [revealedExpandedIds, selectedEvent]);
 
   return (
     <div
@@ -210,6 +222,7 @@ export default function Sidebar({
 
       {/* Event Tree */}
       <div
+        ref={listRef}
         role="list"
         aria-label="Danh sách sự kiện lịch sử"
         style={{
@@ -239,7 +252,7 @@ export default function Sidebar({
               key={event.id}
               event={event}
               depth={0}
-              expandedIds={expandedIds}
+              expandedIds={visibleExpandedIds}
               selectedEvent={selectedEvent}
               onToggleExpand={toggleExpand}
               onSelectEvent={onSelectEvent}
@@ -351,6 +364,7 @@ function EventTreeNode({
 
         <button
           type="button"
+          data-event-id={event.id}
           className="map-event-select"
           aria-current={isSelected ? 'true' : undefined}
           aria-label={`Chọn sự kiện ${event.name}`}

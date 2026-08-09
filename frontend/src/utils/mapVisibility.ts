@@ -57,7 +57,7 @@ function eventMatchesSearch(event: HistoricalEvent, normalizedSearch: string): b
 }
 
 function eventMatchesYear(event: HistoricalEvent, year: number): boolean {
-  if (event.startYear == null) return true;
+  if (event.startYear == null) return false;
 
   const rawEnd = event.effectiveEndYear ?? event.endYear ?? event.startYear;
   const start = Math.min(event.startYear, rawEnd);
@@ -157,6 +157,7 @@ export function buildMapVisibilityProjection(
   options: MapVisibilityOptions = {},
 ): MapVisibilityProjection {
   const normalizedSearch = normalizeMapSearchTerm(query.searchTerm);
+  const isGlobalSearch = normalizedSearch.length > 0;
   const scopeEventIds = options.scopeEventIds ?? collectMapScopeEventIds(candidates);
   const sourceTree = createSourceTree(candidates, options.childrenByParentId ?? {});
   const visibleEventIds = new Set<string>();
@@ -169,8 +170,8 @@ export function buildMapVisibilityProjection(
     const isSearchCandidate =
       !normalizedSearch || options.searchCandidateIds?.has(event.id) === true;
     const matchesSelf =
-      scopeEventIds.has(event.id) &&
-      eventMatchesYear(event, query.year) &&
+      (isGlobalSearch || scopeEventIds.has(event.id)) &&
+      (isGlobalSearch || eventMatchesYear(event, query.year)) &&
       isSearchCandidate &&
       eventMatchesSearch(event, normalizedSearch) &&
       (!query.category || event.eventType === query.category);

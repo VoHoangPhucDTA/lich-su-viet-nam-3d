@@ -53,6 +53,73 @@ describe('buildMapVisibilityProjection', () => {
     expect(normalizeMapSearchTerm('  ĐIỆN   BIÊN  ')).toBe('điện biên');
   });
 
+  it('does not match an undated event during exact-year browsing', () => {
+    const undated = event('undated', {
+      startYear: null,
+      endYear: null,
+      effectiveEndYear: null,
+    });
+
+    const result = buildMapVisibilityProjection([undated], baseQuery);
+
+    expect(result.flattenedEvents).toEqual([]);
+    expect(result.locatableMapEvents).toEqual([]);
+  });
+
+  it('matches single-year and interval chronology only inside their range', () => {
+    const singleYear = event('single-year');
+    const interval = event('interval', { startYear: 30, effectiveEndYear: 50 });
+
+    expect(ids(buildMapVisibilityProjection([singleYear], baseQuery).flattenedEvents))
+      .toEqual(['single-year']);
+    expect(buildMapVisibilityProjection([singleYear], { ...baseQuery, year: 41 }).flattenedEvents)
+      .toEqual([]);
+    expect(ids(buildMapVisibilityProjection([interval], baseQuery).flattenedEvents))
+      .toEqual(['interval']);
+    expect(buildMapVisibilityProjection([interval], { ...baseQuery, year: 51 }).flattenedEvents)
+      .toEqual([]);
+  });
+
+  it('keeps a global search candidate outside both year scope and chronology', () => {
+    const dienBien = event('dien-bien', {
+      name: 'Chiến dịch Điện Biên Phủ',
+      startYear: 1954,
+      effectiveEndYear: 1954,
+    });
+
+    const result = buildMapVisibilityProjection(
+      [dienBien],
+      { ...baseQuery, searchTerm: 'Điện Biên' },
+      {
+        scopeEventIds: new Set(['year-40-only']),
+        searchCandidateIds: new Set([dienBien.id]),
+      },
+    );
+
+    expect(ids(result.flattenedEvents)).toEqual(['dien-bien']);
+    expect(ids(result.locatableMapEvents)).toEqual(['dien-bien']);
+  });
+
+  it('keeps an undated global search candidate without assigning it to the current year', () => {
+    const undated = event('undated-discovery', {
+      name: 'Tư liệu chưa xác định niên đại',
+      startYear: null,
+      endYear: null,
+      effectiveEndYear: null,
+    });
+
+    const result = buildMapVisibilityProjection(
+      [undated],
+      { ...baseQuery, searchTerm: 'chưa xác định' },
+      {
+        scopeEventIds: new Set(),
+        searchCandidateIds: new Set([undated.id]),
+      },
+    );
+
+    expect(ids(result.flattenedEvents)).toEqual(['undated-discovery']);
+  });
+
   it('uses the shared exact client predicate for search điện', () => {
     const dienBien = event('dien-bien', { name: 'Chiến thắng Điện Biên Phủ' });
     const saHuynh = event('van-hoa-sa-huynh', { name: 'Văn hoá Sa Huỳnh' });

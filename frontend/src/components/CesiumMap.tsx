@@ -97,6 +97,7 @@ import {
   resolveMapMarkerVisualStyle,
 } from '../utils/mapMarkerVisualPolicy';
 import { isMapClusterPick, resolveMapClusterVisual } from '../utils/mapClusterBadge';
+import { buildMapFocusCameraFrame } from '../utils/mapCameraFocus';
 
 // ─── SAFE MODE ────────────────────────────────────────────────────────────────
 // Set to false when globe is confirmed stable to re-enable markers + polygon.
@@ -174,6 +175,12 @@ export interface TerrainMeasurementPayload {
   error: string | null;
 }
 
+export interface MapFocusRequest {
+  requestId: number;
+  event: HistoricalEvent;
+  animated: boolean;
+}
+
 /**
  * Imperative handle exposed by CesiumMap. The host (MapPage) uses a
  * pre-allocated ref to call these without ever receiving a Cesium Viewer,
@@ -196,6 +203,7 @@ interface CesiumMapProps {
   events: HistoricalEvent[];
   selectedEvent: HistoricalEvent | null;
   onSelectEvent: (event: HistoricalEvent | null) => void;
+  focusRequest?: MapFocusRequest | null;
   highlightedEventId: string | null;
   terrainSession: TerrainSessionCommand | null;
   onTerrainReady: (sessionId: number) => void;
@@ -252,6 +260,7 @@ export default function CesiumMap({
   events,
   selectedEvent,
   onSelectEvent,
+  focusRequest = null,
   highlightedEventId,
   terrainSession,
   onTerrainReady,
@@ -1974,8 +1983,23 @@ export default function CesiumMap({
     viewerReady,
   ]);
 
-  // No automatic camera flyTo on event selection (C1). Selecting an event only
-  // opens the right-side popup; the overview camera stays where the user left it.
+  useEffect(() => {
+    if (!viewerReady || !focusRequest || terrainSessionRef.current) return;
+    const viewer = viewerRef.current;
+    if (!viewer || viewer.isDestroyed()) return;
+    const frame = buildMapFocusCameraFrame(focusRequest.event);
+    if (!frame) return;
+
+    ++cameraOperationRef.current;
+    viewer.camera.cancelFlight();
+    viewer.camera.flyToBoundingSphere(frame.sphere, {
+      offset: new HeadingPitchRange(0, CesiumMath.toRadians(-55), frame.range),
+      duration: focusRequest.animated ? 1.1 : 0,
+    });
+  }, [focusRequest, viewerReady]);
+
+  // Camera focus is driven only by an explicit focusRequest. Marker selection
+  // intentionally sends no request, preserving the ordinary C1 interaction.
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>

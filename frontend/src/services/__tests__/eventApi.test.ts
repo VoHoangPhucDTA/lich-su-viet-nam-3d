@@ -8,7 +8,12 @@ vi.mock('../apiClient', async (importOriginal) => {
 });
 
 import { getTerrainInsightBySlug } from '../../data/terrainInsights';
-import { getEventsByYearFromBackend, getHomepageEventSummaries, getHomepageEvents } from '../eventApi';
+import {
+  getEventsByYearFromBackend,
+  getHomepageEventSummaries,
+  getHomepageEvents,
+  searchEventsFromBackend,
+} from '../eventApi';
 
 const homepageIds = [
   'homepage-6',
@@ -221,5 +226,26 @@ describe('event API slug normalization', () => {
 
     const events = await getEventsByYearFromBackend(1954);
     expect(events.map((event) => event.slug)).toEqual([undefined, undefined]);
+  });
+});
+
+describe('event API global search', () => {
+  beforeEach(() => {
+    apiGet.mockReset();
+    apiGet.mockResolvedValue({ items: [], count: 0 });
+  });
+
+  it('keeps search independent from year while preserving the optional grade filter', async () => {
+    await searchEventsFromBackend('Điện Biên', 12);
+    await searchEventsFromBackend('Điện Biên', null);
+
+    expect(apiGet).toHaveBeenNthCalledWith(
+      1,
+      '/api/events?q=%C4%90i%E1%BB%87n+Bi%C3%AAn&grade=12&limit=1000',
+    );
+    expect(apiGet).toHaveBeenNthCalledWith(
+      2,
+      '/api/events?q=%C4%90i%E1%BB%87n+Bi%C3%AAn&limit=1000',
+    );
   });
 });

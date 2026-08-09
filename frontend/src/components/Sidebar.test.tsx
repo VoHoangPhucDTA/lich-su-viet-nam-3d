@@ -97,6 +97,27 @@ describe('Sidebar event rows', () => {
     expect(await screen.findByTitle('Sự kiện con')).toBeInTheDocument();
   });
 
+  it('reveals the ancestor chain for a selected descendant', async () => {
+    render(
+      <Sidebar
+        events={[parent]}
+        selectedEvent={child}
+        onSelectEvent={vi.fn()}
+        onHoverEvent={vi.fn()}
+        searchQuery=""
+        onSearchQueryChange={vi.fn()}
+        activeCategory={null}
+        onActiveCategoryChange={vi.fn()}
+        listItemCount={1}
+        markerCount={0}
+      />,
+    );
+
+    expect(await screen.findByRole('button', { name: 'Chọn sự kiện Sự kiện con' }))
+      .toHaveAttribute('aria-current', 'true');
+    expect(screen.getByRole('button', { name: 'Thu gọn' })).toBeInTheDocument();
+  });
+
   it('does not apply the footer class to the header', () => {
     render(
       <Sidebar
