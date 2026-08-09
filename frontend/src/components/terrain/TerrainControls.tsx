@@ -7,6 +7,7 @@ import TerrainTargetList from './TerrainTargetList';
 interface TerrainControlsProps {
   terrain: TerrainViewModel;
   insight: TerrainInsight | null;
+  eventName?: string;
   onOpen: () => void;
   onRetry: () => void;
   onSelectTarget: (targetId: string) => void;
@@ -28,6 +29,7 @@ const buttonStyle = {
 export default function TerrainControls({
   terrain,
   insight,
+  eventName,
   onOpen,
   onRetry,
   onSelectTarget,
@@ -110,12 +112,15 @@ export default function TerrainControls({
       >
         <Check size={16} aria-hidden="true" />
         <span>
-          Đang xem địa hình{selected ? `: ${selected.label}` : ''}
+          Đang xem địa hình{eventName ? `: ${eventName}` : selected ? `: ${selected.label}` : ''}
         </span>
       </div>
 
       {insight ? (
-        <TerrainInsightCard insight={insight} />
+        <section className="terrain-education-section" aria-labelledby="terrain-education-heading">
+          <h3 id="terrain-education-heading">Diễn biến / Theo SGK</h3>
+          <TerrainInsightCard insight={insight} />
+        </section>
       ) : null}
 
       {terrain.targets.length > 1 && (
@@ -124,6 +129,14 @@ export default function TerrainControls({
           selectedTargetId={terrain.selectedTargetId}
           onSelectTarget={onSelectTarget}
         />
+      )}
+
+      {selected && (
+        <section className="terrain-selected-target" aria-labelledby="terrain-selected-target-heading">
+          <span>Địa điểm đang chọn</span>
+          <h3 id="terrain-selected-target-heading">{selected.label}</h3>
+          <p>{selected.kind === 'point' ? 'Địa điểm trên bản đồ sự kiện' : 'Khu vực trên bản đồ sự kiện'}</p>
+        </section>
       )}
 
       <div className="flex gap-2 flex-wrap">

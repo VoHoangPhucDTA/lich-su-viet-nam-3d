@@ -6,10 +6,10 @@ It is **not** a historically verified dataset, not a coordinate-accuracy certifi
 
 ## Release summary
 - Records: 361
-- GeoType counts: {'nationwide': 18, 'multi_polygon': 24, 'multi_point': 19, 'no_location': 254, 'point': 46}
-- Renderable: 89, Non-renderable: 272
-- Status counts: {'policy_auto_pass': 212, 'owner_policy_approved': 84, 'owner_approved_correction': 32, 'owner_approved_no_geometry': 33}
-- Decision counts: {'DISABLE_GEOMETRY': 33, 'ACCEPT_POLICY': 23, 'SET_MULTI_POINT': 19, 'SET_POINT': 13}
+- GeoType counts: {'nationwide': 18, 'multi_polygon': 24, 'multi_point': 20, 'no_location': 253, 'point': 46}
+- Renderable: 90, Non-renderable: 271
+- Status counts: {'policy_auto_pass': 212, 'owner_policy_approved': 84, 'owner_approved_correction': 33, 'owner_approved_no_geometry': 32}
+- Decision counts: {'DISABLE_GEOMETRY': 32, 'ACCEPT_POLICY': 23, 'SET_MULTI_POINT': 20, 'SET_POINT': 13}
 - Boundary layer SHA: 54275398c7054a9d035fc6adf657a6fdc4e11ba0492e942ca11b662a88da132f
 
 ## Audit results
@@ -29,3 +29,9 @@ It is **not** a historically verified dataset, not a coordinate-accuracy certifi
 - Full coordinate accuracy claimed: no
 - Geometry is disabled where evidence is insufficient; historicalLocations may retain unrendered context.
 - The map uses the project 63-province reference layer and does not represent current administrative boundaries.
+
+## GEOMETRY-HOTFIX-1 (2026-08-08)
+- Event `khang-chien-chong-quan-nguyen-1287-1288` is restored as `multi_point` with four reviewed point targets: Bạch Đằng, Cửa Lục, Thăng Long, and Vân Đồn.
+- The administrative representative point `Quảng Ninh` and the Quảng Ninh/Hà Nội polygons remain excluded.
+- `geometry-hotfix-1287-decision.json` supersedes only the original signed `DISABLE_GEOMETRY` decision for this event. The signed artifact remains unchanged as provenance.
+- Canonical logical SHA-256 after the hotfix: `7b2b2f4d391614020c5a1362006ee01847332c2a5b6fae033dc0ac605e0e58f0`.

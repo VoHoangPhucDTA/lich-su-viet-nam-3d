@@ -37,8 +37,11 @@ export default function TerrainTargetList({
           textTransform: 'uppercase',
         }}
       >
-        Các địa điểm liên quan đến sự kiện (theo dữ liệu bản đồ của đề tài)
+        Các địa điểm
       </div>
+      <p className="terrain-target-list-source">
+        Theo dữ liệu bản đồ của đề tài; danh sách không mặc định biểu diễn trình tự lịch sử.
+      </p>
       <div
         role="list"
         aria-labelledby={listLabelId}

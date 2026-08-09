@@ -1,9 +1,63 @@
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { normalizeTerrainTargets } from './terrainTargets';
 
 const point = (label: string, lat = 16, lng = 108) => ({ label, lat, lng });
 
+interface CanonicalTerrainFixture {
+  id: string;
+  mapData: unknown;
+  display: { showOnMap: boolean };
+}
+
+const canonicalEvents = readFileSync(
+  '../crawData/stage4b_curate_tree/output/phase2/core_events.jsonl',
+  'utf8',
+)
+  .split(/\r?\n/u)
+  .filter(Boolean)
+  .map((line) => JSON.parse(line) as CanonicalTerrainFixture);
+
+function canonicalEvent(id: string): CanonicalTerrainFixture | undefined {
+  return canonicalEvents.find((event) => event.id === id);
+}
+
 describe('normalizeTerrainTargets', () => {
+  it('keeps the canonical 1287–1288 hotfix as four point targets without regions', () => {
+    const canonical = canonicalEvent('khang-chien-chong-quan-nguyen-1287-1288');
+
+    expect(canonical).toBeDefined();
+    expect(canonical?.display.showOnMap).toBe(true);
+    const result = normalizeTerrainTargets(canonical?.id ?? '', canonical?.mapData);
+
+    expect(result).toMatchObject({ canonicalGeoType: 'multi_point', eligible: true, reason: null });
+    expect(result.targets.map((target) => `${target.kind}:${target.label}`)).toEqual([
+      'point:Bạch Đằng',
+      'point:Cửa Lục',
+      'point:Thăng Long',
+      'point:Vân Đồn',
+    ]);
+    expect(result.targets.some((target) => target.kind === 'region')).toBe(false);
+  });
+
+  it.each([
+    ['chien-dich-dien-bien-phu-1954', 'multi_point', 5, 0],
+    ['khang-chien-chong-quan-nguyen-1287-1288', 'multi_point', 4, 0],
+    ['chien-dich-tay-nguyen-1975', 'multi_polygon', 0, 5],
+    ['khang-chien-chong-quan-xiem-1784-1785', 'multi_point', 2, 0],
+  ] as const)(
+    'normalizes canonical terrain matrix for %s',
+    (id, geoType, pointCount, regionCount) => {
+      const canonical = canonicalEvent(id);
+      expect(canonical).toBeDefined();
+      const result = normalizeTerrainTargets(canonical?.id ?? '', canonical?.mapData);
+
+      expect(result).toMatchObject({ canonicalGeoType: geoType, eligible: true, reason: null });
+      expect(result.targets.filter((target) => target.kind === 'point')).toHaveLength(pointCount);
+      expect(result.targets.filter((target) => target.kind === 'region')).toHaveLength(regionCount);
+    },
+  );
+
   it('normalizes a single point and falls back to a deterministic label', () => {
     const result = normalizeTerrainTargets('evt-1', {
       mapData: { geoType: 'point', marker: { lat: 16, lng: 108, confidence: 'high' } },

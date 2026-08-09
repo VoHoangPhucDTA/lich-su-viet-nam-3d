@@ -74,6 +74,35 @@ describe('eventApi public mapData boundary', () => {
     expect(event).not.toHaveProperty('sourceJson');
   });
 
+  it('accepts the fixed backend multi-point contract without an adapter change', async () => {
+    const mapData = {
+      geoType: 'multi_point',
+      markers: [
+        { name: 'Bạch Đằng', lat: 20.8833, lng: 106.8 },
+        { name: 'Cửa Lục', lat: 20.95, lng: 107.05 },
+        { name: 'Thăng Long', lat: 21.0285, lng: 105.8542 },
+        { name: 'Vân Đồn', lat: 20.9906, lng: 107.4069 },
+      ],
+    };
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(apiResponse({
+      ...baseDetail,
+      id: 'khang-chien-chong-quan-nguyen-1287-1288',
+      slug: 'khang-chien-chong-quan-nguyen-1287-1288',
+      geoType: 'multi_point',
+      lat: null,
+      lng: null,
+      mapData,
+    }));
+
+    const event = await getHistoricalEventFromBackend('khang-chien-chong-quan-nguyen-1287-1288');
+
+    expect(event?.canonicalGeoType).toBe('multi_point');
+    expect(event?.sourceMapData).toEqual(mapData);
+    expect(event?.sourceMapData?.markers).toHaveLength(4);
+    expect(event?.sourceMapData).not.toHaveProperty('object');
+    expect(event?.sourceMapData).not.toHaveProperty('valueNode');
+  });
+
   it('keeps event detail rendering functional when mapData is absent', async () => {
     vi.spyOn(globalThis, 'fetch').mockResolvedValue(apiResponse({ ...baseDetail, mapData: null }));
 

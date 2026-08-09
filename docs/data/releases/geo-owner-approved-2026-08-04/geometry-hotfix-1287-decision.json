@@ -1,0 +1,41 @@
+{
+  "hotfixId": "GEOMETRY-HOTFIX-1",
+  "reviewDate": "2026-08-08",
+  "eventId": "khang-chien-chong-quan-nguyen-1287-1288",
+  "supersedes": {
+    "artifact": "final-decisions.signed.jsonl",
+    "decision": "DISABLE_GEOMETRY",
+    "approvedGeoType": "no_location",
+    "approvedGeoHash": "fd3ad26f20eeb88e3bbe5f58d22cebb8c6a2e3878c417953bdbc45e3b1541d1d"
+  },
+  "decision": "SET_MULTI_POINT",
+  "approvedGeoType": "multi_point",
+  "approvedMarkers": [
+    {"name": "Bạch Đằng", "lat": 20.8833, "lng": 106.8, "confidence": "medium"},
+    {"name": "Cửa Lục", "lat": 20.95, "lng": 107.05, "confidence": "high"},
+    {"name": "Thăng Long", "lat": 21.0285, "lng": 105.8542, "confidence": "high"},
+    {"name": "Vân Đồn", "lat": 20.9906, "lng": 107.4069, "confidence": "high"}
+  ],
+  "approvedProvinceNames": [],
+  "approvedGadmRefs": [],
+  "showOnMap": true,
+  "historicalVerification": false,
+  "rationale": "Project-local textbook content names Vân Đồn–Cửa Lục and Bạch Đằng as decisive battles, and the detailed narrative names the Thăng Long scorched-earth action. Official Ministry of Education and National Museum sources independently confirm Vân Đồn, Bạch Đằng and Thăng Long. The Quảng Ninh marker and both province polygons are administrative representatives rather than discrete historical targets.",
+  "evidenceReferences": [
+    {
+      "type": "project_canonical_textbook",
+      "path": "crawData/stage4_assemble/output/final_events.jsonl",
+      "fields": ["textbookContent.canonicalSummary", "textbookContent.detailedNarrative", "textbookContent.textbookRefs[0].excerpt"]
+    },
+    {
+      "type": "official",
+      "publisher": "Bộ Giáo dục và Đào tạo",
+      "url": "https://moet.gov.vn/content/vanban/Lists/VBDH/Attachments/3713/3mon-lich-su-lop-11-ban-chinh-thuc-chot-ngay-30-8-2024signed.pdf"
+    },
+    {
+      "type": "official",
+      "publisher": "Bảo tàng Lịch sử Quốc gia",
+      "url": "https://baotanglichsu.vn/vi/Articles/3097/15641/ky-niem-726-nam-1288-2014-chien-thang-quan-nguyen-mong-lan-thu-3.html"
+    }
+  ]
+}

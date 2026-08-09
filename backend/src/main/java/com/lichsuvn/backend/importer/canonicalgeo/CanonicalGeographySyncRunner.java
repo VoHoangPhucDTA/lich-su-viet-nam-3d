@@ -52,6 +52,8 @@ public class CanonicalGeographySyncRunner implements CommandLineRunner {
     private final String expectedDbFingerprint;
     private final String expectedFlywayVersion;
     private final String rollbackSnapshotPath;
+    private final String expectedUpdateCount;
+    private final String expectedUpdateEventIds;
 
     public CanonicalGeographySyncRunner(
             CanonicalGeographySyncService service,
@@ -68,7 +70,9 @@ public class CanonicalGeographySyncRunner implements CommandLineRunner {
             @Value("${canonical-geo-sync.expected-plan-sha:}") String expectedPlanSha,
             @Value("${canonical-geo-sync.expected-db-fingerprint:}") String expectedDbFingerprint,
             @Value("${canonical-geo-sync.expected-flyway-version:}") String expectedFlywayVersion,
-            @Value("${canonical-geo-sync.rollback-snapshot:}") String rollbackSnapshotPath
+            @Value("${canonical-geo-sync.rollback-snapshot:}") String rollbackSnapshotPath,
+            @Value("${canonical-geo-sync.expected-update-count:}") String expectedUpdateCount,
+            @Value("${canonical-geo-sync.expected-update-event-ids:}") String expectedUpdateEventIds
     ) {
         this.service = service;
         this.repository = repository;
@@ -85,6 +89,8 @@ public class CanonicalGeographySyncRunner implements CommandLineRunner {
         this.expectedDbFingerprint = expectedDbFingerprint;
         this.expectedFlywayVersion = expectedFlywayVersion;
         this.rollbackSnapshotPath = rollbackSnapshotPath;
+        this.expectedUpdateCount = expectedUpdateCount;
+        this.expectedUpdateEventIds = expectedUpdateEventIds;
     }
 
     @Override
@@ -117,10 +123,8 @@ public class CanonicalGeographySyncRunner implements CommandLineRunner {
             return;
         }
 
-        Map<String, Long> expectedCounts = Map.of(
-                "point", 46L, "multi_point", 19L, "multi_polygon", 24L,
-                "mixed", 0L, "nationwide", 18L, "no_location", 254L);
-        CanonicalRelease release = service.validateCanonical(eventsPath, expectedCanonicalSha, expectedCounts);
+        CanonicalRelease release = CanonicalGeographyReleaseContract.validate(
+                service, eventsPath, expectedCanonicalSha);
         System.out.println("Canonical: " + release.recordsById().size() + " records, sha=" + release.sha256());
 
         if (dryRun) {
@@ -132,6 +136,7 @@ public class CanonicalGeographySyncRunner implements CommandLineRunner {
 
     private void runDryRun(CanonicalRelease release, String fingerprint, String flywayVersion) throws Exception {
         List<PlanRow> rows = service.buildPlan(release);
+        validateExpectedUpdateScope(rows, expectedUpdateCount, expectedUpdateEventIds);
         String planSha = CanonicalGeographySyncService.planSha256(rows);
         Set<String> canonicalIds = new LinkedHashSet<>(release.recordsById().keySet());
         Set<String> dbIds = repository.loadIds();
@@ -187,6 +192,7 @@ public class CanonicalGeographySyncRunner implements CommandLineRunner {
                     + ", got " + release.sha256());
         }
         List<PlanRow> rows = CanonicalGeographyAuditWriter.readPlan(planFile, objectMapper);
+        validateExpectedUpdateScope(rows, expectedUpdateCount, expectedUpdateEventIds);
         // Internal plan-row consistency value only: NEVER compared with the raw
         // artifact SHA. Passed to the service so its internal plan-row check
         // stays self-consistent on the same parsed rows.
@@ -214,6 +220,37 @@ public class CanonicalGeographySyncRunner implements CommandLineRunner {
                 + ", blocked=" + idempotence.blockedRows());
         if (idempotence.updatesRequired() != 0 || idempotence.blockedRows() != 0) {
             throw new IllegalStateException("Post-apply idempotence failed: " + idempotence.eventIds());
+        }
+    }
+
+    static void validateExpectedUpdateScope(List<PlanRow> rows, String expectedCount, String expectedIds) {
+        boolean countConfigured = expectedCount != null && !expectedCount.isBlank();
+        boolean idsConfigured = expectedIds != null && !expectedIds.isBlank();
+        if (!countConfigured && !idsConfigured) {
+            return;
+        }
+        if (!countConfigured || !idsConfigured) {
+            throw new IllegalArgumentException(
+                    "Expected update scope requires both expected-update-count and expected-update-event-ids");
+        }
+        int requiredCount;
+        try {
+            requiredCount = Integer.parseInt(expectedCount.trim());
+        } catch (NumberFormatException ex) {
+            throw new IllegalArgumentException("Invalid expected-update-count: " + expectedCount, ex);
+        }
+        Set<String> requiredIds = new LinkedHashSet<>();
+        for (String id : expectedIds.split(",")) {
+            if (!id.isBlank()) {
+                requiredIds.add(id.trim());
+            }
+        }
+        Set<String> actualIds = new LinkedHashSet<>();
+        rows.stream().filter(PlanRow::updateRequired).filter(row -> !row.blocked())
+                .map(PlanRow::eventId).forEach(actualIds::add);
+        if (actualIds.size() != requiredCount || !actualIds.equals(requiredIds)) {
+            throw new IllegalStateException("Unexpected update scope: expected count=" + requiredCount
+                    + " ids=" + requiredIds + ", got count=" + actualIds.size() + " ids=" + actualIds);
         }
     }
 

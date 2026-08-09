@@ -10,24 +10,33 @@
   "statusCounts": {
     "policy_auto_pass": 212,
     "owner_policy_approved": 84,
-    "owner_approved_correction": 32,
-    "owner_approved_no_geometry": 33
+    "owner_approved_correction": 33,
+    "owner_approved_no_geometry": 32
   },
   "geoTypeCounts": {
     "nationwide": 18,
     "multi_polygon": 24,
-    "multi_point": 19,
-    "no_location": 254,
+    "multi_point": 20,
+    "no_location": 253,
     "point": 46
   },
-  "renderable": 89,
-  "nonRenderable": 272,
+  "renderable": 90,
+  "nonRenderable": 271,
   "globalDecision": "ACCEPT_GLOBAL_POLICY",
   "decisionCounts": {
-    "DISABLE_GEOMETRY": 33,
+    "DISABLE_GEOMETRY": 32,
     "ACCEPT_POLICY": 23,
-    "SET_MULTI_POINT": 19,
+    "SET_MULTI_POINT": 20,
     "SET_POINT": 13
   },
-  "deterministic": true
+  "deterministic": true,
+  "hotfixes": [
+    {
+      "id": "GEOMETRY-HOTFIX-1",
+      "date": "2026-08-08",
+      "eventId": "khang-chien-chong-quan-nguyen-1287-1288",
+      "decisionArtifact": "geometry-hotfix-1287-decision.json",
+      "canonicalSha256": "7b2b2f4d391614020c5a1362006ee01847332c2a5b6fae033dc0ac605e0e58f0"
+    }
+  ]
 }

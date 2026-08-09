@@ -70,12 +70,54 @@ describe('EventPopup terrain layout', () => {
     const scrollContent = within(scrollRegion!);
     expect(scrollContent.getByText('Thời gian')).toBeInTheDocument();
     expect(scrollContent.getByRole('button', { name: 'Xem chi tiết' })).toBeInTheDocument();
-    expect(scrollContent.getByRole('status')).toHaveTextContent('Đang xem địa hình: Him Lam');
+    expect(scrollContent.getByRole('status')).toHaveTextContent('Đang xem địa hình: Chiến dịch Điện Biên Phủ');
     expect(scrollContent.getByRole('button', { name: 'Quay lại góc nhìn' })).toBeInTheDocument();
     expect(scrollContent.getByRole('button', { name: 'Quay lại' })).toBeInTheDocument();
 
     expect(screen.getByRole('button', { name: /Quay lại: Cuộc kháng chiến/ })).not.toBe(
       scrollContent.getByRole('button', { name: 'Quay lại' }),
     );
+  });
+
+  it('explains no-location state and does not expose terrain controls', () => {
+    render(
+      <EventPopup
+        event={{ ...event, geoType: 'no_location', coordinates: undefined }}
+        parentEvent={null}
+        terrain={terrain}
+        onClose={vi.fn()}
+        onNavigateToChild={vi.fn()}
+        onNavigateToParent={vi.fn()}
+        onOpenTerrain={vi.fn()}
+        onRetryTerrain={vi.fn()}
+        onSelectTerrainTarget={vi.fn()}
+        onShowTerrainOverview={vi.fn()}
+        onExitTerrain={vi.fn()}
+        onViewDetails={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByText(
+      'Chưa có địa điểm đủ tin cậy để hiển thị sự kiện này trên bản đồ.',
+    )).toBeInTheDocument();
+    expect(screen.queryByRole('status', { name: /địa hình/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Quay lại góc nhìn' })).not.toBeInTheDocument();
+  });
+
+  it('keeps the summary visible and reports a detail hydration error', () => {
+    render(
+      <EventPopup
+        event={event}
+        detailStatus="error"
+        parentEvent={null}
+        onClose={vi.fn()}
+        onNavigateToChild={vi.fn()}
+        onNavigateToParent={vi.fn()}
+        onViewDetails={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByRole('heading', { name: event.name })).toBeInTheDocument();
+    expect(screen.getByRole('alert')).toHaveTextContent('Chưa tải được nội dung chi tiết');
   });
 });

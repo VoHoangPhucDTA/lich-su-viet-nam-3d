@@ -8,22 +8,21 @@ import {
   useReducer,
 } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ChevronRight, CircleAlert, Clock, List, MapPin, X, Compass } from 'lucide-react';
+import { CircleAlert, Clock, List, MapPin, X, Compass } from 'lucide-react';
 import CesiumMap, {
   type CesiumMapHandle,
+  type MapFocusRequest,
   type TerrainInspectionPayload,
   type TerrainMeasurementPayload,
 } from '../components/CesiumMap';
 import Timeline from '../components/Timeline';
 import Sidebar from '../components/Sidebar';
 import EventPopup from '../components/EventPopup';
+import MapLegend from '../components/map/MapLegend';
 import TerrainExplorationToolbar, {
   type TerrainExplorationInspectorState,
-} from '../components/terrain/TerrainExplorationToolbar';import { findEventById,
-  TIMELINE_MIN_YEAR,
-} from '../data/events';
-import type { HistoricalEvent } from '../types/event';
-import { RENDERABLE_GEO_TYPES } from '../types/event';
+} from '../components/terrain/TerrainExplorationToolbar';
+import { type EventType, type HistoricalEvent } from '../types/event';
 import type {
   RegionGeometryStatus,
   TerrainDataSourceStatus,
@@ -32,7 +31,6 @@ import type {
   TerrainSessionCommand,
   TerrainViewModel,
 } from '../types/terrain';
-import { useHeader } from '../components/layout/useHeader';
 import {
   getChildrenFromBackend,
   getEventsByYearFromBackend,
@@ -40,8 +38,18 @@ import {
   getTimelineYearsFromBackend,
   recordEventView,
   searchEventsFromBackend,
-  sortHistoricalEvents,
 } from '../services/eventApi';
+import {
+  buildMapVisibilityProjection,
+  collectMapScopeEventIds,
+  normalizeMapSearchTerm,
+} from '../utils/mapVisibility';
+import { parseMapUrlState, serializeMapUrlState, type MapUrlState } from '../utils/mapUrlState';
+import { buildMapFocusCameraFrame, focusPositionsForEvent } from '../utils/mapCameraFocus';
+import {
+  buildTimelineRuntimeModel,
+  resolveTimelineYear,
+} from '../utils/timelineModel';
 import { normalizeTerrainTargets } from '../utils/terrainTargets';
 import { INITIAL_TERRAIN_STATE, terrainReducer } from '../utils/terrainState';
 import {
@@ -78,98 +86,98 @@ function replaceEventInTree(
   return changed ? next : events;
 }
 
-function buildSidebarTree(events: HistoricalEvent[]): HistoricalEvent[] {
-  const byId = new Map<string, HistoricalEvent>();
-  for (const event of events) {
-    byId.set(event.id, { ...event, children: event.children ? [...event.children] : undefined });
+interface YearEventResult {
+  year: number | null;
+  grade: number | null;
+  events: HistoricalEvent[];
+}
+
+interface SearchEventResult {
+  normalizedQuery: string;
+  events: HistoricalEvent[];
+}
+
+async function loadAncestorChain(event: HistoricalEvent): Promise<HistoricalEvent[]> {
+  const ancestors: HistoricalEvent[] = [];
+  const visited = new Set<string>([event.id]);
+  let parentId = event.parentId;
+
+  while (parentId && !visited.has(parentId) && ancestors.length < 20) {
+    visited.add(parentId);
+    const parent = await getHistoricalEventFromBackend(parentId);
+    if (!parent) break;
+    ancestors.unshift(parent);
+    parentId = parent.parentId;
   }
 
-  const childIds = new Set<string>();
-  for (const event of byId.values()) {
-    if (!event.parentId) continue;
-    const parent = byId.get(event.parentId);
-    if (!parent) continue;
+  return ancestors;
+}
 
-    const existingChildren = parent.children ?? [];
-    if (!existingChildren.some((child) => child.id === event.id)) {
-      parent.children = sortHistoricalEvents([...existingChildren, event]);
-    }
-    childIds.add(event.id);
+interface TimelineYearResult {
+  grade: number | null;
+  years: number[];
+}
+
+type MapSelectionSource =
+  | 'map-marker'
+  | 'sidebar'
+  | 'popup-child'
+  | 'search'
+  | 'url-restore';
+type SelectionDetailStatus = 'idle' | 'loading' | 'ready' | 'error';
+type MapOverlay = null | 'legend' | 'guide';
+
+function legacyRequestedEventKey(state: unknown): string {
+  if (!state || typeof state !== 'object') return '';
+  const candidate = state as Record<string, unknown>;
+  for (const key of ['requestedEventKey', 'eventKey', 'event']) {
+    const value = candidate[key];
+    if (typeof value === 'string' && value.trim()) return value.trim();
   }
-
-  return Array.from(byId.values()).filter((event) => !childIds.has(event.id));
-}
-
-function isRenderableGeoType(geoType: HistoricalEvent['geoType']): boolean {
-  return RENDERABLE_GEO_TYPES.includes(geoType);
-}
-
-function eventMatchesSearch(event: HistoricalEvent, query: string): boolean {
-  const normalized = query.trim().toLowerCase();
-  if (!normalized) return true;
-
-  return (
-    event.name.toLowerCase().includes(normalized) ||
-    event.description.toLowerCase().includes(normalized)
-  );
-}
-
-function attachCachedChildren(
-  events: HistoricalEvent[],
-  childrenByParentId: Record<string, HistoricalEvent[]>
-): HistoricalEvent[] {
-  return events.map((event) => {
-    const cachedChildren = childrenByParentId[event.id];
-    const currentChildren = event.children ?? [];
-    const mergedById = new Map<string, HistoricalEvent>();
-
-    for (const child of currentChildren) {
-      mergedById.set(child.id, child);
-    }
-    for (const child of cachedChildren ?? []) {
-      mergedById.set(child.id, {
-        ...mergedById.get(child.id),
-        ...child,
-      });
-    }
-
-    const mergedChildren = sortHistoricalEvents(Array.from(mergedById.values()));
-
-    return {
-      ...event,
-      children:
-        mergedChildren.length > 0
-          ? attachCachedChildren(mergedChildren, childrenByParentId)
-          : undefined,
-    };
-  });
+  return '';
 }
 
 export default function MapPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [currentYear, setCurrentYear] = useState(TIMELINE_MIN_YEAR);
+  const initialUrlStateRef = useRef(parseMapUrlState(location.search));
+  const [currentYear, setCurrentYear] = useState<number | null>(initialUrlStateRef.current.year);
   const [selectedEvent, setSelectedEvent] = useState<HistoricalEvent | null>(
     null
   );
+  const [selectionDetailStatus, setSelectionDetailStatus] = useState<SelectionDetailStatus>('idle');
+  const [focusRequest, setFocusRequest] = useState<MapFocusRequest | null>(null);
   const [highlightedEventId, setHighlightedEventId] = useState<string | null>(
     null
   );
   const [navigationStack, setNavigationStack] = useState<HistoricalEvent[]>([]);
-  const [yearEvents, setYearEvents] = useState<HistoricalEvent[]>([]);
-  const [searchResults, setSearchResults] = useState<HistoricalEvent[]>([]);
+  const [yearEventResult, setYearEventResult] = useState<YearEventResult>({
+    year: null,
+    grade: null,
+    events: [],
+  });
+  const [searchEventResult, setSearchEventResult] = useState<SearchEventResult>({
+    normalizedQuery: '',
+    events: [],
+  });
   const [childrenByParentId, setChildrenByParentId] = useState<Record<string, HistoricalEvent[]>>({});
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(initialUrlStateRef.current.query);
   const [searchLoading, setSearchLoading] = useState(false);
   const [eventsLoading, setEventsLoading] = useState(false);
-  const [selectedGrade, setSelectedGrade] = useState<number | null>(null);
-  const [timelineYears, setTimelineYears] = useState<number[]>([]);
+  const [selectedGrade, setSelectedGrade] = useState<number | null>(initialUrlStateRef.current.grade);
+  const [activeCategory, setActiveCategory] = useState<EventType | null>(initialUrlStateRef.current.category);
+  const [timelineYearResult, setTimelineYearResult] = useState<TimelineYearResult>({
+    grade: null,
+    years: [],
+  });
   const [terrainState, terrainDispatch] = useReducer(terrainReducer, INITIAL_TERRAIN_STATE);
-  const [onboardingDismissed, setOnboardingDismissed] = useState(false);
+  const [activeOverlay, setActiveOverlay] = useState<MapOverlay>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [desktopSidebarCollapsed, setDesktopSidebarCollapsed] = useState(false);
   const [mapError, setMapError] = useState<string | null>(null);
   // ─── Terrain exploration toolbar (Task C) ─────────────────────────────────
   const cesiumApiRef = useRef<CesiumMapHandle | null>(null);
+  const sidebarResizeTimerRef = useRef<number | null>(null);
   const [explorationMode, setExplorationMode] = useState<TerrainExplorationMode>('none');
   const [inspectSessionId, setInspectSessionId] = useState(0);
   const [inspection, setInspection] = useState<TerrainExplorationInspectorState>({
@@ -183,15 +191,100 @@ export default function MapPage() {
     terrainDistanceMeasurementReducer,
     INITIAL_TERRAIN_DISTANCE_MEASUREMENT,
   );
-  const { setCenterContent } = useHeader();
-  const requestedEventKey = useMemo(
-    () => new URLSearchParams(location.search).get('event')?.trim() ?? '',
-    [location.search]
+  const parsedUrlState = useMemo(() => parseMapUrlState(location.search), [location.search]);
+  const parsedUrlStateRef = useRef(parsedUrlState);
+  useLayoutEffect(() => {
+    parsedUrlStateRef.current = parsedUrlState;
+  }, [parsedUrlState]);
+  const legacyRequestedEventKeyRef = useRef(legacyRequestedEventKey(location.state));
+  const legacyRequestedEventConsumedRef = useRef(false);
+  useLayoutEffect(() => {
+    if (parsedUrlState.event && legacyRequestedEventKeyRef.current) {
+      legacyRequestedEventConsumedRef.current = true;
+    }
+  }, [parsedUrlState.event]);
+  const requestedEventKey = parsedUrlState.event || (
+    legacyRequestedEventConsumedRef.current ? '' : legacyRequestedEventKeyRef.current
   );
   const loadedRequestedEventRef = useRef('');
+  const pinnedExplicitSelectionIdRef = useRef<string | null>(null);
   const terrainStateRef = useRef(terrainState);
+  const terrainSessionCounterRef = useRef(0);
   const pendingAfterTerrainExitRef = useRef<(() => void) | null>(null);
   const selectionRequestIdRef = useRef(0);
+  const focusRequestIdRef = useRef(0);
+  const suppressCurrentRequestedEvent = useCallback(() => {
+    loadedRequestedEventRef.current = parsedUrlState.event
+      || selectedEvent?.slug
+      || selectedEvent?.id
+      || '';
+  }, [parsedUrlState.event, selectedEvent]);
+  const timelineResultIsCurrent = timelineYearResult.grade === selectedGrade;
+  const timelineModel = useMemo(
+    () => timelineResultIsCurrent
+      ? buildTimelineRuntimeModel(timelineYearResult.years)
+      : null,
+    [timelineResultIsCurrent, timelineYearResult.years],
+  );
+
+  const replaceMapUrlState = useCallback((patch: Partial<MapUrlState>) => {
+    const nextSearch = serializeMapUrlState({
+      year: currentYear,
+      event: parsedUrlState.event,
+      query: searchQuery,
+      category: activeCategory,
+      grade: selectedGrade,
+      ...patch,
+    });
+    if (nextSearch === location.search) return;
+    navigate(
+      { pathname: location.pathname, search: nextSearch },
+      { replace: true, state: location.state },
+    );
+  }, [
+    activeCategory,
+    currentYear,
+    location.pathname,
+    location.search,
+    location.state,
+    navigate,
+    parsedUrlState.event,
+    searchQuery,
+    selectedGrade,
+  ]);
+  const replaceMapUrlStateRef = useRef(replaceMapUrlState);
+  useLayoutEffect(() => {
+    replaceMapUrlStateRef.current = replaceMapUrlState;
+  }, [replaceMapUrlState]);
+
+  const requestEventFocus = useCallback((event: HistoricalEvent, source: MapSelectionSource) => {
+    const positions = focusPositionsForEvent(event);
+    const frame = buildMapFocusCameraFrame(event);
+    const needsCompleteMultiPointTarget = (
+      source === 'sidebar' || source === 'search'
+    ) && (
+      event.geoType === 'multi_point' || event.geoType === 'mixed'
+    );
+    const hasCompleteFocusTarget = needsCompleteMultiPointTarget && frame?.kind !== 'authoring-focus'
+      ? positions.length >= 2
+      : frame !== null;
+    if (source === 'map-marker' || !hasCompleteFocusTarget) {
+      setFocusRequest(null);
+      return;
+    }
+    setFocusRequest({
+      requestId: ++focusRequestIdRef.current,
+      event,
+      animated: source !== 'url-restore',
+    });
+  }, []);
+
+  useEffect(() => {
+    setCurrentYear((current) => current === parsedUrlState.year ? current : parsedUrlState.year);
+    setSearchQuery((current) => current === parsedUrlState.query ? current : parsedUrlState.query);
+    setActiveCategory((current) => current === parsedUrlState.category ? current : parsedUrlState.category);
+    setSelectedGrade((current) => current === parsedUrlState.grade ? current : parsedUrlState.grade);
+  }, [parsedUrlState]);
   useLayoutEffect(() => {
     terrainStateRef.current = terrainState;
   }, [terrainState]);
@@ -226,14 +319,26 @@ export default function MapPage() {
   }, []);
 
   useEffect(() => {
+    if (
+      currentYear == null
+      || !timelineModel
+      || !timelineModel.years.includes(currentYear)
+    ) {
+      setEventsLoading(timelineModel == null);
+      return;
+    }
+
     let cancelled = false;
+    const requestedYear = currentYear;
 
     async function loadEvents() {
       setEventsLoading(true);
       setMapError(null);
       try {
-        const events = await getEventsByYearFromBackend(currentYear, selectedGrade);
-        if (!cancelled) setYearEvents(events);
+        const events = await getEventsByYearFromBackend(requestedYear, selectedGrade);
+        if (!cancelled) {
+          setYearEventResult({ year: requestedYear, grade: selectedGrade, events });
+        }
       } catch {
         if (!cancelled) setMapError('Không thể tải sự kiện cho mốc thời gian này.');
       } finally {
@@ -245,7 +350,7 @@ export default function MapPage() {
     return () => {
       cancelled = true;
     };
-  }, [currentYear, selectedGrade]);
+  }, [currentYear, selectedGrade, timelineModel]);
 
   useEffect(() => {
     let cancelled = false;
@@ -253,7 +358,7 @@ export default function MapPage() {
     async function loadTimelineYears() {
       const years = await getTimelineYearsFromBackend(selectedGrade);
       if (!cancelled) {
-        setTimelineYears(years);
+        setTimelineYearResult({ grade: selectedGrade, years });
       }
     }
 
@@ -264,9 +369,18 @@ export default function MapPage() {
   }, [selectedGrade]);
 
   useEffect(() => {
-    const query = searchQuery.trim();
+    if (!timelineModel) return;
+    const requestedYear = currentYear ?? timelineModel.minYear;
+    const resolvedYear = resolveTimelineYear(timelineModel, requestedYear);
+    if (resolvedYear === currentYear) return;
+    setCurrentYear(resolvedYear);
+    if (currentYear != null) replaceMapUrlState({ year: resolvedYear });
+  }, [currentYear, replaceMapUrlState, timelineModel]);
+
+  useEffect(() => {
+    const query = normalizeMapSearchTerm(searchQuery);
     if (!query) {
-      setSearchResults([]);
+      setSearchEventResult({ normalizedQuery: '', events: [] });
       setSearchLoading(false);
       return;
     }
@@ -276,8 +390,10 @@ export default function MapPage() {
       setSearchLoading(true);
       setMapError(null);
       try {
-        const results = await searchEventsFromBackend(query);
-        if (!cancelled) setSearchResults(results);
+        const results = await searchEventsFromBackend(query, selectedGrade);
+        if (!cancelled) {
+          setSearchEventResult({ normalizedQuery: query, events: results });
+        }
       } catch {
         if (!cancelled) setMapError('Không thể tìm kiếm sự kiện lúc này.');
       } finally {
@@ -289,84 +405,221 @@ export default function MapPage() {
       cancelled = true;
       window.clearTimeout(timeoutId);
     };
-  }, [searchQuery]);
+  }, [searchQuery, selectedGrade]);
 
-  // Events visible on the map based on the current context.
-  // Only canonical renderable geoTypes produce geometry (point, multi_point,
-  // multi_polygon, mixed); nationwide/no_location render nothing.
-  const visibleMapEvents = useMemo(() => {
-    // If an event with children is selected, show its children
+  const normalizedSearchTerm = useMemo(
+    () => normalizeMapSearchTerm(searchQuery),
+    [searchQuery],
+  );
+  const yearResultIsCurrent = currentYear != null
+    && yearEventResult.year === currentYear
+    && yearEventResult.grade === selectedGrade;
+  const searchResultIsCurrent =
+    !normalizedSearchTerm || searchEventResult.normalizedQuery === normalizedSearchTerm;
+  const visibilityReady = normalizedSearchTerm
+    ? searchResultIsCurrent
+    : yearResultIsCurrent;
+  const yearEvents = useMemo(
+    () => (yearResultIsCurrent ? yearEventResult.events : []),
+    [yearEventResult.events, yearResultIsCurrent],
+  );
+  const visibilityCandidates = useMemo(
+    () => {
+      const candidates = normalizedSearchTerm && searchResultIsCurrent
+        ? [...yearEvents, ...navigationStack, ...searchEventResult.events]
+        : yearEvents;
+      return replaceEventInTree(candidates, selectedEvent);
+    },
+    [
+      navigationStack,
+      normalizedSearchTerm,
+      searchEventResult.events,
+      searchResultIsCurrent,
+      selectedEvent,
+      yearEvents,
+    ],
+  );
+  const searchCandidateIds = useMemo(
+    () =>
+      normalizedSearchTerm && searchResultIsCurrent
+        ? new Set(searchEventResult.events.map((event) => event.id))
+        : undefined,
+    [normalizedSearchTerm, searchEventResult.events, searchResultIsCurrent],
+  );
+  const scopeEventIds = useMemo(
+    () => collectMapScopeEventIds(yearEvents),
+    [yearEvents],
+  );
+  const visibilityProjection = useMemo(
+    () =>
+      buildMapVisibilityProjection(
+        visibilityCandidates,
+        {
+          year: currentYear ?? 0,
+          searchTerm: normalizedSearchTerm,
+          grade: selectedGrade,
+          category: activeCategory,
+        },
+        {
+          childrenByParentId,
+          searchCandidateIds,
+          scopeEventIds,
+        },
+      ),
+    [
+      activeCategory,
+      childrenByParentId,
+      currentYear,
+      normalizedSearchTerm,
+      scopeEventIds,
+      searchCandidateIds,
+      selectedGrade,
+      visibilityCandidates,
+    ],
+  );
+  const visibleEventIdsRef = useRef(visibilityProjection.visibleEventIds);
+  useLayoutEffect(() => {
+    visibleEventIdsRef.current = visibilityProjection.visibleEventIds;
+  }, [visibilityProjection.visibleEventIds]);
+
+  useEffect(() => {
     if (
-      selectedEvent &&
-      selectedEvent.children &&
-      selectedEvent.children.length > 0
+      !visibilityReady ||
+      !selectedEvent ||
+      pinnedExplicitSelectionIdRef.current === selectedEvent.id ||
+      visibilityProjection.visibleEventIds.has(selectedEvent.id)
     ) {
-      return selectedEvent.children.filter((c) => isRenderableGeoType(c.geoType));
+      return;
     }
 
-    // Otherwise show events filtered by year from backend
-    const baseEvents = searchQuery.trim() ? searchResults : yearEvents;
-    return baseEvents.filter((e) => isRenderableGeoType(e.geoType));
-  }, [selectedEvent, yearEvents, searchResults, searchQuery]);
+    const clearRequestId = ++selectionRequestIdRef.current;
+    const removedEventId = selectedEvent.id;
+    ensureTerrainExit();
+    scheduleAfterTerrainExit(() => {
+      if (selectionRequestIdRef.current !== clearRequestId) return;
+      if (visibleEventIdsRef.current.has(removedEventId)) return;
+      setSelectedEvent((current) =>
+        current?.id === removedEventId ? null : current,
+      );
+      suppressCurrentRequestedEvent();
+      setSelectionDetailStatus('idle');
+      setFocusRequest(null);
+      replaceMapUrlState({ event: '' });
+      setNavigationStack([]);
+      setHighlightedEventId((current) =>
+        current === removedEventId ? null : current,
+      );
+    });
+  }, [
+    ensureTerrainExit,
+    replaceMapUrlState,
+    scheduleAfterTerrainExit,
+    selectedEvent,
+    suppressCurrentRequestedEvent,
+    visibilityProjection.visibleEventIds,
+    visibilityReady,
+  ]);
 
-  // All events visible in sidebar (including no_location)
-  const sidebarEvents = useMemo(() => {
-    const baseEvents = searchQuery.trim() ? searchResults : yearEvents;
-    const tree = attachCachedChildren(buildSidebarTree(baseEvents), childrenByParentId);
-    return replaceEventInTree(tree, selectedEvent);
-  }, [yearEvents, searchResults, searchQuery, selectedEvent, childrenByParentId]);
-
-  // Handle selecting an event from map or sidebar
+  // Select synchronously from the summary, then hydrate detail/children in the background.
   const handleSelectEvent = useCallback(
-    async (event: HistoricalEvent | null) => {
+    async (event: HistoricalEvent | null, source: MapSelectionSource = 'sidebar') => {
       const requestId = ++selectionRequestIdRef.current;
       ensureTerrainExit();
       if (event === null) {
+        pinnedExplicitSelectionIdRef.current = null;
+        suppressCurrentRequestedEvent();
+        setSelectionDetailStatus('idle');
+        setFocusRequest(null);
+        replaceMapUrlState({ event: '' });
         scheduleAfterTerrainExit(() => {
           setSelectedEvent(null);
           setNavigationStack([]);
         });
         return;
       }
+      if (!visibleEventIdsRef.current.has(event.id)) return;
 
       const selectedAtRequest = selectedEvent;
-      const [detailEvent, children] = await Promise.all([
+      pinnedExplicitSelectionIdRef.current =
+        event.startYear == null && (source === 'search' || source === 'url-restore')
+          ? event.id
+          : null;
+      const detailKey = event.slug || event.id;
+      loadedRequestedEventRef.current = detailKey;
+      setSelectedEvent(event);
+      setSelectionDetailStatus('loading');
+      if (source === 'popup-child') {
+        if (selectedAtRequest?.id !== event.id && selectedAtRequest) {
+          setNavigationStack((currentStack) => [...currentStack, selectedAtRequest]);
+        }
+      } else {
+        setNavigationStack((currentStack) =>
+          currentStack.length === 0 ? currentStack : [],
+        );
+      }
+      if (source === 'search' && event.startYear != null) setCurrentYear(event.startYear);
+      requestEventFocus(event, source);
+      replaceMapUrlState({
+        event: detailKey,
+        year: source === 'search' && event.startYear != null ? event.startYear : currentYear,
+      });
+      void recordEventView(event.id, { source: source === 'search' ? 'search' : 'map' });
+
+      const [detailResult, childrenResult, ancestorsResult] = await Promise.allSettled([
         getHistoricalEventFromBackend(event.slug || event.id),
         event.children ? Promise.resolve(event.children) : getChildrenFromBackend(event.id),
+        source === 'search' || source === 'url-restore'
+          ? loadAncestorChain(event)
+          : Promise.resolve([]),
       ]);
       if (selectionRequestIdRef.current !== requestId) return;
+      if (
+        !visibleEventIdsRef.current.has(event.id)
+        && pinnedExplicitSelectionIdRef.current !== event.id
+      ) return;
+      const detailEvent = detailResult.status === 'fulfilled' ? detailResult.value : null;
+      const children = childrenResult.status === 'fulfilled' ? childrenResult.value : [];
+      const ancestors = ancestorsResult.status === 'fulfilled' ? ancestorsResult.value : [];
       const baseEvent = detailEvent ? { ...event, ...detailEvent } : event;
       const eventWithChildren =
         children.length > 0 ? { ...baseEvent, children } : baseEvent;
-      scheduleAfterTerrainExit(() => {
-        if (selectionRequestIdRef.current !== requestId) return;
-        if (children.length > 0) {
-          setChildrenByParentId((prev) => ({
-            ...prev,
-            [event.id]: children,
-          }));
-        }
-        void recordEventView(event.id, { source: searchQuery.trim() ? 'search' : 'map' });
-
-        if (eventWithChildren.children && eventWithChildren.children.length > 0) {
-          setNavigationStack((prev) =>
-            selectedAtRequest ? [...prev, selectedAtRequest] : prev
-          );
-          setSelectedEvent(eventWithChildren);
-        } else {
-          if (selectedAtRequest && selectedAtRequest.id !== event.id) {
-            const isChildOfCurrent = selectedAtRequest.children?.some(
-              (child) => child.id === event.id
-            );
-            if (isChildOfCurrent) {
-              setNavigationStack((prev) => [...prev, selectedAtRequest]);
-            }
-          }
-          setSelectedEvent(eventWithChildren);
-        }
-      });
+      if (children.length > 0) {
+        setChildrenByParentId((prev) => ({ ...prev, [event.id]: children }));
+      }
+      if (source === 'search' || source === 'url-restore') {
+        setNavigationStack(ancestors);
+      }
+      const summaryPositionCount = focusPositionsForEvent(event).length;
+      const hydratedPositionCount = focusPositionsForEvent(eventWithChildren).length;
+      const summaryFocusFrame = buildMapFocusCameraFrame(event);
+      const hydratedFocusFrame = buildMapFocusCameraFrame(eventWithChildren);
+      if (
+        (source === 'sidebar' || source === 'search')
+        && (eventWithChildren.geoType === 'multi_point' || eventWithChildren.geoType === 'mixed')
+        && hydratedPositionCount >= 2
+        && hydratedPositionCount > summaryPositionCount
+      ) {
+        requestEventFocus(eventWithChildren, source);
+      } else if (
+        (source === 'sidebar' || source === 'search')
+        && (eventWithChildren.geoType === 'multi_polygon' || eventWithChildren.geoType === 'mixed')
+        && hydratedFocusFrame?.kind === 'authoring-focus'
+        && summaryFocusFrame?.kind !== 'authoring-focus'
+      ) {
+        requestEventFocus(eventWithChildren, source);
+      }
+      setSelectedEvent((current) => current?.id === event.id ? eventWithChildren : current);
+      setSelectionDetailStatus(detailEvent ? 'ready' : 'error');
     },
-    [ensureTerrainExit, scheduleAfterTerrainExit, searchQuery, selectedEvent]
+    [
+      currentYear,
+      ensureTerrainExit,
+      replaceMapUrlState,
+      requestEventFocus,
+      scheduleAfterTerrainExit,
+      selectedEvent,
+      suppressCurrentRequestedEvent,
+    ]
   );
 
   useEffect(() => {
@@ -381,66 +634,71 @@ export default function MapPage() {
     ensureTerrainExit();
 
     async function loadRequestedEvent() {
-      const detailEvent = await getHistoricalEventFromBackend(requestedEventKey);
-      if (cancelled || selectionRequestIdRef.current !== requestId || !detailEvent) return;
-
-      const children = detailEvent.children
-        ? detailEvent.children
-        : await getChildrenFromBackend(detailEvent.id);
-      if (cancelled || selectionRequestIdRef.current !== requestId) return;
-
-      scheduleAfterTerrainExit(() => {
+      setSelectionDetailStatus('loading');
+      try {
+        const detailEvent = await getHistoricalEventFromBackend(requestedEventKey);
         if (cancelled || selectionRequestIdRef.current !== requestId) return;
-        if (children.length > 0) {
-          setChildrenByParentId((prev) => ({
-            ...prev,
-            [detailEvent.id]: children,
-          }));
+        if (!detailEvent) {
+          loadedRequestedEventRef.current = requestedEventKey;
+          setSelectionDetailStatus('error');
+          return;
         }
-        if (detailEvent.startYear != null) setCurrentYear(detailEvent.startYear);
-        setSearchQuery((currentQuery) =>
-          eventMatchesSearch(detailEvent, currentQuery) ? currentQuery : ''
-        );
-        setNavigationStack([]);
-        setSelectedEvent(children.length > 0 ? { ...detailEvent, children } : detailEvent);
+
+        const [childrenResult, ancestorsResult] = await Promise.allSettled([
+          detailEvent.children
+            ? Promise.resolve(detailEvent.children)
+            : getChildrenFromBackend(detailEvent.id),
+          loadAncestorChain(detailEvent),
+        ]);
+        if (cancelled || selectionRequestIdRef.current !== requestId) return;
+        const children = childrenResult.status === 'fulfilled' ? childrenResult.value : [];
+        const ancestors = ancestorsResult.status === 'fulfilled' ? ancestorsResult.value : [];
+        const restoredEvent = children.length > 0 ? { ...detailEvent, children } : detailEvent;
+
+        if (children.length > 0) {
+          setChildrenByParentId((prev) => ({ ...prev, [detailEvent.id]: children }));
+        }
+        const currentUrlState = parsedUrlStateRef.current;
+        if (currentUrlState.year == null && detailEvent.startYear != null) {
+          setCurrentYear(detailEvent.startYear);
+        }
+        pinnedExplicitSelectionIdRef.current = detailEvent.startYear == null
+          ? detailEvent.id
+          : null;
+        setNavigationStack(ancestors);
+        setSelectedEvent(restoredEvent);
+        setSelectionDetailStatus('ready');
         loadedRequestedEventRef.current = requestedEventKey;
+        requestEventFocus(restoredEvent, 'url-restore');
+        if (!currentUrlState.event) {
+          replaceMapUrlStateRef.current({
+            event: detailEvent.slug || detailEvent.id,
+            year: currentUrlState.year ?? detailEvent.startYear,
+          });
+        }
         void recordEventView(detailEvent.id, { source: 'detail' });
-      });
+      } catch {
+        if (cancelled || selectionRequestIdRef.current !== requestId) return;
+        loadedRequestedEventRef.current = requestedEventKey;
+        setSelectionDetailStatus('error');
+      }
     }
 
     loadRequestedEvent();
     return () => {
       cancelled = true;
     };
-  }, [ensureTerrainExit, requestedEventKey, scheduleAfterTerrainExit]);
+  }, [
+    ensureTerrainExit,
+    requestEventFocus,
+    requestedEventKey,
+  ]);
   // Navigate to a child event from popup
   const handleNavigateToChild = useCallback(
-    async (child: HistoricalEvent) => {
-      const requestId = ++selectionRequestIdRef.current;
-      const selectedAtRequest = selectedEvent;
-      ensureTerrainExit();
-      const [detailEvent, children] = await Promise.all([
-        getHistoricalEventFromBackend(child.slug || child.id),
-        child.children ? Promise.resolve(child.children) : getChildrenFromBackend(child.id),
-      ]);
-      if (selectionRequestIdRef.current !== requestId) return;
-      const nextEvent = detailEvent ? { ...child, ...detailEvent } : child;
-      scheduleAfterTerrainExit(() => {
-        if (selectionRequestIdRef.current !== requestId) return;
-        if (selectedAtRequest) {
-          setNavigationStack((prev) => [...prev, selectedAtRequest]);
-        }
-        if (children.length > 0) {
-          setChildrenByParentId((prev) => ({
-            ...prev,
-            [child.id]: children,
-          }));
-        }
-        void recordEventView(child.id, { source: 'map' });
-        setSelectedEvent(children.length > 0 ? { ...nextEvent, children } : nextEvent);
-      });
+    (child: HistoricalEvent) => {
+      void handleSelectEvent(child, 'popup-child');
     },
-    [ensureTerrainExit, scheduleAfterTerrainExit, selectedEvent]
+    [handleSelectEvent]
   );
 
   // Navigate back to parent
@@ -449,78 +707,149 @@ export default function MapPage() {
     scheduleAfterTerrainExit(() => {
       if (navigationStack.length > 0) {
         const parent = navigationStack[navigationStack.length - 1];
-        setNavigationStack((prev) => prev.slice(0, -1));
-        setSelectedEvent(parent);
+        if (visibleEventIdsRef.current.has(parent.id)) {
+          pinnedExplicitSelectionIdRef.current = null;
+          setNavigationStack((prev) => prev.slice(0, -1));
+          setSelectedEvent(parent);
+          setSelectionDetailStatus('ready');
+          const detailKey = parent.slug || parent.id;
+          loadedRequestedEventRef.current = detailKey;
+          replaceMapUrlState({ event: detailKey });
+          requestEventFocus(parent, 'sidebar');
+        } else {
+          pinnedExplicitSelectionIdRef.current = null;
+          setNavigationStack([]);
+          setSelectedEvent(null);
+          setSelectionDetailStatus('idle');
+          setFocusRequest(null);
+          suppressCurrentRequestedEvent();
+          replaceMapUrlState({ event: '' });
+        }
       } else {
+        pinnedExplicitSelectionIdRef.current = null;
         setSelectedEvent(null);
+        setSelectionDetailStatus('idle');
+        setFocusRequest(null);
+        suppressCurrentRequestedEvent();
+        replaceMapUrlState({ event: '' });
       }
     });
-  }, [navigationStack, scheduleAfterTerrainExit]);
+  }, [
+    navigationStack,
+    replaceMapUrlState,
+    requestEventFocus,
+    scheduleAfterTerrainExit,
+    suppressCurrentRequestedEvent,
+  ]);
 
   // Get parent event for the popup "back" button
   const parentEvent = useMemo(() => {
     if (navigationStack.length > 0) {
       return navigationStack[navigationStack.length - 1];
     }
-    if (selectedEvent?.parentId) {
-      return findEventById(selectedEvent.parentId) || null;
-    }
     return null;
-  }, [selectedEvent, navigationStack]);
+  }, [navigationStack]);
 
-  // Lazy-load parent event into navigation stack when entering from URL
-  useEffect(() => {
-    let cancelled = false;
-
-    async function loadParent() {
-      if (!selectedEvent?.parentId || navigationStack.length > 0) return;
-      const parent = await getHistoricalEventFromBackend(selectedEvent.parentId);
-      if (!cancelled && parent) {
-        setNavigationStack([parent]);
-      }
+  const invalidateSelectionRequestUnlessPinned = useCallback(() => {
+    if (
+      !selectedEvent
+      || pinnedExplicitSelectionIdRef.current !== selectedEvent.id
+    ) {
+      ++selectionRequestIdRef.current;
     }
-
-    loadParent();
-    return () => {
-      cancelled = true;
-    };
-  }, [selectedEvent?.parentId, navigationStack.length]);
+  }, [selectedEvent]);
 
   // Handle year change from timeline
   const handleYearChange = useCallback((year: number) => {
-    ++selectionRequestIdRef.current;
+    if (!timelineModel) return;
+    const resolvedYear = resolveTimelineYear(timelineModel, year);
+    invalidateSelectionRequestUnlessPinned();
     scheduleAfterTerrainExit(() => {
-      setCurrentYear(year);
-      setSelectedEvent(null);
-      setNavigationStack([]);
+      setCurrentYear(resolvedYear);
+      replaceMapUrlState({ year: resolvedYear });
     });
-  }, [scheduleAfterTerrainExit]);
+  }, [
+    invalidateSelectionRequestUnlessPinned,
+    replaceMapUrlState,
+    scheduleAfterTerrainExit,
+    timelineModel,
+  ]);
 
   const handleGradeChange = useCallback((grade: number | null) => {
-    ++selectionRequestIdRef.current;
+    invalidateSelectionRequestUnlessPinned();
     scheduleAfterTerrainExit(() => {
       setSelectedGrade(grade);
-      setSelectedEvent(null);
-      setNavigationStack([]);
+      replaceMapUrlState({ grade });
     });
-  }, [scheduleAfterTerrainExit]);
+  }, [invalidateSelectionRequestUnlessPinned, replaceMapUrlState, scheduleAfterTerrainExit]);
+
+  const handleSearchQueryChange = useCallback((query: string) => {
+    invalidateSelectionRequestUnlessPinned();
+    setSearchQuery(query);
+    replaceMapUrlState({ query });
+  }, [invalidateSelectionRequestUnlessPinned, replaceMapUrlState]);
+
+  const handleActiveCategoryChange = useCallback((category: EventType | null) => {
+    invalidateSelectionRequestUnlessPinned();
+    setActiveCategory(category);
+    replaceMapUrlState({ category });
+  }, [invalidateSelectionRequestUnlessPinned, replaceMapUrlState]);
 
   // Close popup
   const handleClosePopup = useCallback(() => {
     ++selectionRequestIdRef.current;
+    pinnedExplicitSelectionIdRef.current = null;
+    suppressCurrentRequestedEvent();
+    setSelectionDetailStatus('idle');
+    setFocusRequest(null);
+    replaceMapUrlState({ event: '' });
     scheduleAfterTerrainExit(() => {
       setSelectedEvent(null);
       setNavigationStack([]);
     });
-  }, [scheduleAfterTerrainExit]);
+  }, [replaceMapUrlState, scheduleAfterTerrainExit, suppressCurrentRequestedEvent]);
 
   const handleViewEventDetails = useCallback(() => {
     if (!selectedEvent) return;
     const detailKey = selectedEvent.slug || selectedEvent.id;
     scheduleAfterTerrainExit(() => {
-      navigate(`/events/${detailKey}`, { state: { from: window.location.pathname } });
+      const returnTo = `${location.pathname}${location.search}`;
+      navigate(`/events/${detailKey}`, { state: { returnTo, from: returnTo } });
     });
-  }, [navigate, scheduleAfterTerrainExit, selectedEvent]);
+  }, [location.pathname, location.search, navigate, scheduleAfterTerrainExit, selectedEvent]);
+
+  const handleOpenTerrain = useCallback(() => {
+    if (!selectedEvent || !terrainTargetResult) return;
+    const current = terrainStateRef.current;
+    if (current.mode === 'entering' || current.mode === 'active' || current.mode === 'exiting') return;
+    const sessionId = ++terrainSessionCounterRef.current;
+    pendingAfterTerrainExitRef.current = null;
+    if (!terrainTargetResult.eligible) {
+      terrainDispatch({
+        type: 'OPEN_REJECTED',
+        sessionId,
+        eventId: selectedEvent.id,
+        error: {
+          code: 'no_valid_targets',
+          message: 'Sự kiện chưa có vị trí hợp lệ để xem địa hình.',
+        },
+      });
+      return;
+    }
+    terrainDispatch({
+      type: 'OPEN',
+      sessionId,
+      eventId: selectedEvent.id,
+      targets: terrainTargetResult.targets,
+    });
+  }, [selectedEvent, terrainTargetResult]);
+
+  const handleExitTerrain = useCallback(() => {
+    const current = terrainStateRef.current;
+    if (current.sessionId !== null && current.mode !== 'idle' && current.mode !== 'exiting') {
+      terrainDispatch({ type: 'EXIT', sessionId: current.sessionId });
+    }
+  }, []);
 
   // Generic terrain sessions are disabled in the canonical overview flow (C1):
   // no "Xem địa hình" CTA, no target selector, no auto session. The deep 3D
@@ -630,6 +959,13 @@ export default function MapPage() {
     terrainDispatch({ type: 'SELECT_TARGET', sessionId, targetId });
   }, []);
 
+  const handleShowTerrainOverview = useCallback(() => {
+    const current = terrainStateRef.current;
+    if (current.sessionId !== null) {
+      terrainDispatch({ type: 'SHOW_OVERVIEW', sessionId: current.sessionId });
+    }
+  }, []);
+
   const handleRegionGeometryStatus = useCallback((
     status: Exclude<RegionGeometryStatus, 'idle'>,
     error?: TerrainRuntimeError,
@@ -708,12 +1044,13 @@ export default function MapPage() {
   useEffect(() => {
     const closePanelsOnEscape = (event: KeyboardEvent) => {
       if (event.key !== 'Escape') return;
-      if (sidebarOpen) setSidebarOpen(false);
+      if (activeOverlay) setActiveOverlay(null);
+      else if (sidebarOpen) setSidebarOpen(false);
       else if (selectedEvent) handleClosePopup();
     };
     document.addEventListener('keydown', closePanelsOnEscape);
     return () => document.removeEventListener('keydown', closePanelsOnEscape);
-  }, [handleClosePopup, selectedEvent, sidebarOpen]);
+  }, [activeOverlay, handleClosePopup, selectedEvent, sidebarOpen]);
 
   // Clear all exploration data whenever the terrain session leaves "active".
   useEffect(() => {
@@ -726,111 +1063,31 @@ export default function MapPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedEvent?.id]);
 
-  // Clear header breadcrumb when MapPage unmounts so stale state doesn't leak to Homepage etc.
+  const handleDesktopSidebarCollapse = useCallback((collapsed: boolean) => {
+    setDesktopSidebarCollapsed(collapsed);
+    if (sidebarResizeTimerRef.current !== null) {
+      window.clearTimeout(sidebarResizeTimerRef.current);
+    }
+    sidebarResizeTimerRef.current = window.setTimeout(() => {
+      cesiumApiRef.current?.resize();
+      sidebarResizeTimerRef.current = null;
+    }, 210);
+  }, []);
+
+  // Invalidate pending selection/terrain work when MapPage unmounts.
   useEffect(() => {
     const selectionRequest = selectionRequestIdRef;
     return () => {
       ++selectionRequest.current;
       pendingAfterTerrainExitRef.current = null;
-      setCenterContent(null);
       clearExploration();
+      if (sidebarResizeTimerRef.current !== null) {
+        window.clearTimeout(sidebarResizeTimerRef.current);
+      }
       cesiumApiRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setCenterContent]);
-
-  useEffect(() => {
-    if (selectedEvent) {
-      const compactStack = navigationStack.filter(
-        (navEvent, index, arr) =>
-          navEvent.id !== selectedEvent.id &&
-          arr.findIndex((item) => item.id === navEvent.id) === index
-      );
-      const parentCrumb =
-        compactStack.length > 0 ? compactStack[compactStack.length - 1] : null;
-
-      setCenterContent(
-        <div
-          className="glass-map animate-fade-in"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            padding: '5px 12px',
-            borderRadius: '999px',
-            border: '1px solid var(--border)',
-            fontSize: '12.5px',
-            width: '100%',
-            maxWidth: '560px',
-            minWidth: 0,
-            overflow: 'hidden',
-          }}
-        >
-          <button
-            onClick={() => {
-              ++selectionRequestIdRef.current;
-              scheduleAfterTerrainExit(() => {
-                setSelectedEvent(null);
-                setNavigationStack([]);
-              });
-            }}
-            className="accent-hover-glow map-text-action"
-            style={{
-              background: 'none',
-              border: 'none',
-              color: 'var(--accent)',
-              cursor: 'pointer',
-              fontSize: '12px',
-              fontWeight: 600,
-              padding: '2px 8px',
-              borderRadius: '6px',
-            }}
-          >
-            Tổng quan
-          </button>
-          {parentCrumb && [parentCrumb].map((navEvent) => (
-            <span key={navEvent.id} style={{ display: 'flex', alignItems: 'center', gap: '6px', minWidth: 0 }}>
-              <ChevronRight size={13} strokeWidth={2} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
-              <button
-                onClick={() => {
-                  const idx = navigationStack.indexOf(navEvent);
-                  ++selectionRequestIdRef.current;
-                  scheduleAfterTerrainExit(() => {
-                    setNavigationStack((prev) => prev.slice(0, idx));
-                    setSelectedEvent(navEvent);
-                  });
-                }}
-                className="accent-hover-glow map-text-action"
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: '#8b1e1e',
-                  cursor: 'pointer',
-                  fontSize: '12px',
-                  fontWeight: 600,
-                  padding: '2px 8px',
-                  borderRadius: '6px',
-                  maxWidth: '180px',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                  minWidth: 0,
-                }}
-              >
-                {navEvent.name}
-              </button>
-            </span>
-          ))}
-          <ChevronRight size={13} strokeWidth={2} style={{ color: '#78716c', flexShrink: 0 }} />
-           <span className="app-heading" style={{ fontSize: '13px', color: '#1c1917', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0 }}>
-            {selectedEvent.name}
-          </span>
-        </div>
-      );
-    } else {
-      setCenterContent(null);
-    }
-  }, [selectedEvent, navigationStack, scheduleAfterTerrainExit, setCenterContent]);
+  }, []);
 
   return (
     <div
@@ -856,19 +1113,27 @@ export default function MapPage() {
         )}
         {/* Sidebar */}
         <Sidebar
-          events={sidebarEvents}
+          events={visibilityProjection.sidebarTree}
           selectedEvent={selectedEvent}
           onSelectEvent={event => {
-            void handleSelectEvent(event);
+            void handleSelectEvent(event, normalizedSearchTerm ? 'search' : 'sidebar');
             setSidebarOpen(false);
           }}
           onHoverEvent={setHighlightedEventId}
           searchQuery={searchQuery}
-          onSearchQueryChange={setSearchQuery}
-          loading={searchLoading}
-          currentYear={currentYear}
+          onSearchQueryChange={handleSearchQueryChange}
+          activeCategory={activeCategory}
+          onActiveCategoryChange={handleActiveCategoryChange}
+          selectedGrade={selectedGrade}
+          onGradeChange={handleGradeChange}
+          listItemCount={visibilityProjection.rootCount}
+          mappedEventCount={visibilityProjection.locatableMapEvents.length}
+          loading={eventsLoading || searchLoading || !visibilityReady}
+          currentYear={currentYear ?? undefined}
           open={sidebarOpen}
           onClose={() => setSidebarOpen(false)}
+          desktopCollapsed={desktopSidebarCollapsed}
+          onDesktopCollapsedChange={handleDesktopSidebarCollapse}
         />
 
         {/* Map area */}
@@ -884,9 +1149,10 @@ export default function MapPage() {
               Danh sách
             </button>
             <CesiumMap
-              events={visibleMapEvents}
+              events={visibilityProjection.locatableMapEvents}
               selectedEvent={selectedEvent}
-              onSelectEvent={handleSelectEvent}
+              onSelectEvent={(event) => void handleSelectEvent(event, 'map-marker')}
+              focusRequest={focusRequest}
               highlightedEventId={highlightedEventId}
               terrainSession={terrainSession}
               onTerrainReady={handleTerrainReady}
@@ -906,10 +1172,36 @@ export default function MapPage() {
               apiRef={cesiumApiRef}
             />
 
+            <div className="map-floating-controls">
+              <div className="map-floating-controls__stack" aria-label="Công cụ trợ giúp bản đồ">
+                <button
+                  type="button"
+                  className="map-floating-control"
+                  aria-expanded={activeOverlay === 'guide'}
+                  onClick={() => setActiveOverlay((current) => current === 'guide' ? null : 'guide')}
+                >
+                  Hướng dẫn
+                </button>
+                <button
+                  type="button"
+                  className="map-floating-control"
+                  aria-expanded={activeOverlay === 'legend'}
+                  onClick={() => setActiveOverlay((current) => current === 'legend' ? null : 'legend')}
+                >
+                  Chú giải
+                </button>
+              </div>
+
+              {activeOverlay === 'legend' && (
+                <div className="map-floating-popover">
+                  <MapLegend />
+                </div>
+              )}
+
             {/* Hero Preview — Bento-style floating museum introduction */}
-            {!selectedEvent && !onboardingDismissed && (
+            {activeOverlay === 'guide' && (
               <div
-                className="map-onboarding glass-map animate-fade-in-up absolute top-4 left-4 rounded-2xl overflow-hidden"
+                className="map-onboarding map-floating-popover glass-map animate-fade-in-up rounded-2xl overflow-hidden"
                 style={{
                   maxWidth: '380px',
                   boxShadow: 'var(--shadow)',
@@ -947,7 +1239,7 @@ export default function MapPage() {
                       </h3>
                     </div>
                     <button
-                      onClick={() => setOnboardingDismissed(true)}
+                      onClick={() => setActiveOverlay(null)}
                       aria-label="Đóng hướng dẫn"
                       style={{
                         background: 'var(--bg-surface)',
@@ -1023,19 +1315,10 @@ export default function MapPage() {
                 </div>
               </div>
             )}
-            {!selectedEvent && onboardingDismissed && (
-              <button
-                type="button"
-                className="map-guide-toggle"
-                onClick={() => setOnboardingDismissed(false)}
-                aria-expanded="false"
-              >
-                Hướng dẫn sử dụng
-              </button>
-            )}
+            </div>
             {eventsLoading && (
               <div
-                className="glass-map animate-fade-in absolute top-4 right-4 rounded-xl px-4 py-2.5 text-sm font-medium"
+                className="map-loading-banner glass-map animate-fade-in rounded-xl px-4 py-2.5 text-sm font-medium"
                 style={{ color: 'var(--text-primary)' }}
               >
                 Đang tải dữ liệu từ backend...
@@ -1073,23 +1356,40 @@ export default function MapPage() {
           </div>
 
           {/* Timeline — flex-shrink-0 đảm bảo không bị squeeze khi map shrink */}
-          <Timeline
-            currentYear={currentYear}
-            onYearChange={handleYearChange}
-            selectedGrade={selectedGrade}
-            onGradeChange={handleGradeChange}
-            eventYears={timelineYears}
-          />
+          {timelineModel && currentYear != null && (
+            <Timeline
+              currentYear={currentYear}
+              onYearChange={handleYearChange}
+              model={timelineModel}
+            />
+          )}
         </div>
 
         {/* Event popup */}
         {selectedEvent && (
           <EventPopup
             event={selectedEvent}
+            detailStatus={selectionDetailStatus}
             onClose={handleClosePopup}
             onNavigateToChild={handleNavigateToChild}
             onNavigateToParent={handleNavigateToParent}
             parentEvent={parentEvent}
+            terrain={terrainViewModel}
+            onOpenTerrain={handleOpenTerrain}
+            onRetryTerrain={handleOpenTerrain}
+            onSelectTerrainTarget={(targetId) => {
+              const sessionId = terrainStateRef.current.sessionId;
+              if (sessionId !== null) handleTerrainTargetSelect(sessionId, targetId);
+              clearExploration();
+            }}
+            onShowTerrainOverview={() => {
+              handleShowTerrainOverview();
+              clearExploration();
+            }}
+            onExitTerrain={() => {
+              handleExitTerrain();
+              clearExploration();
+            }}
             onViewDetails={() => {
               handleViewEventDetails();
               clearExploration();

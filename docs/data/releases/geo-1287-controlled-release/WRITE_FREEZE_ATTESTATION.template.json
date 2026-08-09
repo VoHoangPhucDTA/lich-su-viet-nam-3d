@@ -1,0 +1,33 @@
+{
+  "releaseId": "CONTROLLED_RELEASE_F_GEO_1287",
+  "targetEventId": "khang-chien-chong-quan-nguyen-1287-1288",
+  "canonicalSha": "7b2b2f4d391614020c5a1362006ee01847332c2a5b6fae033dc0ac605e0e58f0",
+  "reviewedPlanSha": "4f406ab21890544fa1b351551e000f408f6c484308fa1c5f16f6da0c6a0ad98e",
+  "databaseName": "lichsuvn",
+  "scope": "historical_events writes",
+  "owner": "",
+  "freezeStartedAt": "",
+  "writerInventory": [
+    "AdminEventGeographyMutationRepository",
+    "AdminEventImageRepository",
+    "AdminEventMediaMutationRepository",
+    "AdminEventMutationRepository",
+    "AdminEventPublicationRepository",
+    "ApplyEventAssociationsToDb",
+    "CanonicalGeographySyncRunner",
+    "EventJsonImportRunner",
+    "Flyway-event-data-migrations",
+    "HistoryRagImportService",
+    "admin-e2e-event-tool"
+  ],
+  "writerStates": {
+    "applicationWriters": "DISABLED",
+    "scheduledWriters": "DISABLED",
+    "importSyncTools": "DISABLED",
+    "migrationTools": "DISABLED",
+    "otherOperators": "CONFIRMED_NONE",
+    "verificationBackend": "READ_ONLY"
+  },
+  "statement": "I attest that every known competing writer to historical_events is disabled, no other operator is writing events, and the verification backend is read-only for the full Release F freeze lifecycle.",
+  "ownerApproved": false
+}

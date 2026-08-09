@@ -538,12 +538,15 @@ export async function getEventsByYearFromBackend(year: number, grade?: number | 
   }
 }
 
-export async function searchEventsFromBackend(queryText: string): Promise<HistoricalEvent[]> {
+export async function searchEventsFromBackend(
+  queryText: string,
+  grade?: number | null,
+): Promise<HistoricalEvent[]> {
   const normalized = queryText.trim();
   if (!normalized) return [];
 
   try {
-    const query = toQueryString({ q: normalized, limit: 1000 });
+    const query = toQueryString({ q: normalized, grade, limit: 1000 });
     const data = await apiGet<EventListResponse>(`/api/events${query}`);
     return sortHistoricalEvents(data.items.map(summaryToHistoricalEvent));
   } catch (error) {

@@ -16,6 +16,10 @@ import EventChildrenList from '../components/event-detail/EventChildrenList';
 import EventMediaGallery from '../components/event-detail/EventMediaGallery';
 import EventSources from '../components/event-detail/EventSources';
 import EventDetailSidebar from '../components/event-detail/EventDetailSidebar';
+import {
+  resolveEventDetailBackTarget,
+  resolveEventDetailErrorTarget,
+} from '../utils/mapReturnLocation';
 
 function hasAnyRelatedEvent(eventData: MockEventDetail | null) {
   const groups = eventData?.relatedEvents;
@@ -32,6 +36,16 @@ export default function EventDetailPage() {
   const [eventData, setEventData] = useState<MockEventDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+
+  const navigateBack = () => {
+    const target = resolveEventDetailBackTarget(location.state, location.key !== 'default');
+    if (target === -1) navigate(-1);
+    else navigate(target);
+  };
+
+  const navigateFromError = () => {
+    navigate(resolveEventDetailErrorTarget(location.state));
+  };
 
   useEffect(() => {
     async function loadEvent() {
@@ -422,11 +436,7 @@ export default function EventDetailPage() {
 
   /* ─── Error ─── */
   if (error || !eventData) {
-    return <NotFoundEventState slug={slug} onGoHome={() => {
-      const from = (location.state as { from?: string } | null)?.from;
-      if (from) navigate(from);
-      else navigate('/home');
-    }} />;
+    return <NotFoundEventState slug={slug} onGoHome={navigateFromError} />;
   }
 
   const isVietnamEvent = !eventData.classification.tags?.includes('lịch sử thế giới');
@@ -450,17 +460,7 @@ export default function EventDetailPage() {
       >
         <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10 lg:px-16 xl:px-20 py-3 flex items-center gap-3 text-sm">
           <button
-            onClick={() => {
-              // Smart back: origin route > history back > /home fallback
-              const from = (location.state as { from?: string } | null)?.from;
-              if (from) {
-                navigate(from);
-              } else if (window.history.length > 1) {
-                navigate(-1);
-              } else {
-                navigate('/home');
-              }
-            }}
+            onClick={navigateBack}
             className="inline-flex items-center font-medium transition"
             style={{ color: 'var(--text-secondary)' }}
             onMouseEnter={(e) =>

@@ -13,6 +13,7 @@ import TerrainControls from './terrain/TerrainControls';
 
 interface EventPopupProps {
   event: HistoricalEvent;
+  detailStatus?: 'idle' | 'loading' | 'ready' | 'error';
   onClose: () => void;
   onNavigateToChild: (child: HistoricalEvent) => void;
   onNavigateToParent: () => void;
@@ -28,6 +29,7 @@ interface EventPopupProps {
 
 export default function EventPopup({
   event,
+  detailStatus = 'ready',
   onClose,
   onNavigateToChild,
   onNavigateToParent,
@@ -75,7 +77,6 @@ export default function EventPopup({
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        zIndex: 60,
         background: 'var(--bg-card)',
         borderLeft: '1px solid var(--border)',
         boxShadow: '-8px 0 24px -12px rgba(0,0,0,0.08)',
@@ -175,6 +176,22 @@ export default function EventPopup({
             padding: '4px 20px',
           }}
         >
+        {/* Detail hydration keeps the summary panel usable while network work continues. */}
+        {detailStatus === 'loading' && (
+          <div role="status" aria-live="polite" className="text-xs mb-3.5" style={{ color: 'var(--text-muted)' }}>
+            Đang tải nội dung chi tiết…
+          </div>
+        )}
+        {detailStatus === 'error' && (
+          <div
+            role="alert"
+            className="px-3.5 py-3 rounded-xl border text-xs mb-3.5"
+            style={{ borderColor: 'rgba(220, 38, 38, 0.3)' }}
+          >
+            Chưa tải được nội dung chi tiết. Bạn vẫn có thể xem thông tin tóm tắt hoặc chọn sự kiện khác.
+          </div>
+        )}
+
         {/* Time info */}
         <div
           className="flex items-center gap-3 px-4 py-3 rounded-xl border mb-3.5"
@@ -205,7 +222,7 @@ export default function EventPopup({
               color: 'var(--text-primary)',
             }}
           >
-            Sự kiện này không gắn với địa điểm cụ thể trên bản đồ.
+            Chưa có địa điểm đủ tin cậy để hiển thị sự kiện này trên bản đồ.
           </div>
         )}
 
@@ -218,7 +235,7 @@ export default function EventPopup({
               color: 'var(--text-primary)',
             }}
           >
-            Phạm vi: Toàn quốc
+            Sự kiện có phạm vi toàn quốc và không gắn với một điểm địa lý duy nhất.
           </div>
         )}
 
@@ -382,11 +399,13 @@ export default function EventPopup({
           Xem chi tiết
         </button>
 
-        {terrain && onOpenTerrain && onRetryTerrain && onSelectTerrainTarget
+        {event.geoType !== 'no_location' && event.geoType !== 'nationwide'
+          && terrain && onOpenTerrain && onRetryTerrain && onSelectTerrainTarget
           && onShowTerrainOverview && onExitTerrain && (
           <TerrainControls
             terrain={terrain}
             insight={terrainInsight}
+            eventName={event.name}
             onOpen={onOpenTerrain}
             onRetry={onRetryTerrain}
             onSelectTarget={onSelectTerrainTarget}

@@ -1,6 +1,7 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Search,
+  ChevronLeft,
   ChevronRight,
   Clock,
 } from 'lucide-react';
@@ -19,10 +20,18 @@ interface SidebarProps {
   onHoverEvent: (eventId: string | null) => void;
   searchQuery: string;
   onSearchQueryChange: (query: string) => void;
+  activeCategory: EventType | null;
+  onActiveCategoryChange: (category: EventType | null) => void;
+  selectedGrade: number | null;
+  onGradeChange: (grade: number | null) => void;
+  listItemCount: number;
+  mappedEventCount: number;
   loading?: boolean;
   currentYear?: number;
   open?: boolean;
   onClose?: () => void;
+  desktopCollapsed?: boolean;
+  onDesktopCollapsedChange?: (collapsed: boolean) => void;
 }
 
 const EVENT_TYPE_FILTERS: EventType[] = [
@@ -32,40 +41,22 @@ const EVENT_TYPE_FILTERS: EventType[] = [
   'cultural',
 ];
 
-function eventMatchesSearch(event: HistoricalEvent, query: string): boolean {
-  const normalized = query.trim().toLowerCase();
-  if (!normalized) return true;
-
-  return (
-    event.name.toLowerCase().includes(normalized) ||
-    event.description.toLowerCase().includes(normalized)
-  );
+function normalizeSidebarPresentationText(value: string): string {
+  return value
+    .normalize('NFC')
+    .trim()
+    .replace(/\s+/gu, ' ')
+    .replace(/\s*[-\u2010-\u2015\u2212]\s*/gu, '-')
+    .toLocaleLowerCase('vi');
 }
 
-function filterEventTree(
-  events: HistoricalEvent[],
-  activeFilter: EventType | null,
-  searchQuery: string
-): HistoricalEvent[] {
-  return events.flatMap((event) => {
-    const children = event.children
-      ? filterEventTree(event.children, activeFilter, searchQuery)
-      : [];
-    const matchesType = !activeFilter || event.eventType === activeFilter;
-    const matchesSearch = eventMatchesSearch(event, searchQuery);
-    const keepSelf = matchesType && matchesSearch;
+function getSidebarSecondaryText(event: HistoricalEvent): string | null {
+  const secondary = formatChronologyLabel(event).trim();
+  if (!secondary) return null;
 
-    if (!keepSelf && children.length === 0) {
-      return [];
-    }
-
-    return [
-      {
-        ...event,
-        children: event.children ? children : undefined,
-      },
-    ];
-  });
+  return normalizeSidebarPresentationText(secondary) === normalizeSidebarPresentationText(event.name)
+    ? null
+    : secondary;
 }
 
 export default function Sidebar({
@@ -75,13 +66,45 @@ export default function Sidebar({
   onHoverEvent,
   searchQuery,
   onSearchQueryChange,
+  activeCategory,
+  onActiveCategoryChange,
+  selectedGrade,
+  onGradeChange,
+  listItemCount,
+  mappedEventCount,
   loading = false,
   currentYear,
   open = false,
   onClose,
+  desktopCollapsed = false,
+  onDesktopCollapsedChange,
 }: SidebarProps) {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
-  const [activeFilter, setActiveFilter] = useState<EventType | null>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  const revealedExpandedIds = useMemo(() => {
+    const revealed = new Set<string>();
+    if (!selectedEvent) return revealed;
+    if (selectedEvent.children?.length) revealed.add(selectedEvent.id);
+
+    const findPath = (nodes: HistoricalEvent[], targetId: string): boolean => {
+      for (const event of nodes) {
+        if (event.id === targetId) return true;
+        if (event.children && findPath(event.children, targetId)) {
+          revealed.add(event.id);
+          return true;
+        }
+      }
+      return false;
+    };
+    findPath(events, selectedEvent.id);
+    return revealed;
+  }, [events, selectedEvent]);
+
+  const visibleExpandedIds = useMemo(
+    () => new Set([...expandedIds, ...revealedExpandedIds]),
+    [expandedIds, revealedExpandedIds],
+  );
 
   const toggleExpand = (id: string) => {
     setExpandedIds((prev) => {
@@ -95,45 +118,21 @@ export default function Sidebar({
     });
   };
 
-  const filteredEvents = useMemo(() => {
-    return filterEventTree(events, activeFilter, searchQuery);
-  }, [events, activeFilter, searchQuery]);
-
-  useEffect(() => {
-    if (!selectedEvent || !activeFilter) return;
-    if (selectedEvent.eventType !== activeFilter) {
-      setActiveFilter(null);
-    }
-  }, [activeFilter, selectedEvent]);
-
-  // Auto-expand selected event's ancestors
+  // Scroll only after the derived ancestor path has made the selected row visible.
   useEffect(() => {
     if (!selectedEvent) return;
-    const newExpanded = new Set(expandedIds);
-    if (selectedEvent.children?.length) {
-      newExpanded.add(selectedEvent.id);
-    }
-    // expand all ancestor paths
-    const findAndExpand = (events: HistoricalEvent[], targetId: string): boolean => {
-      for (const event of events) {
-        if (event.id === targetId) return true;
-        if (event.children) {
-          if (findAndExpand(event.children, targetId)) {
-            newExpanded.add(event.id);
-            return true;
-          }
-        }
-      }
-      return false;
-    };
-    findAndExpand(filteredEvents, selectedEvent.id);
-    setExpandedIds(newExpanded);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedEvent?.id]);
+    const frame = window.requestAnimationFrame(() => {
+      const selectedRow = Array.from(
+        listRef.current?.querySelectorAll<HTMLElement>('[data-event-id]') ?? [],
+      ).find((row) => row.dataset.eventId === selectedEvent.id);
+      selectedRow?.scrollIntoView?.({ block: 'nearest' });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [revealedExpandedIds, selectedEvent]);
 
   return (
     <div
-      className={`map-sidebar ${open ? 'map-panel-open' : ''}`}
+      className={`map-sidebar ${open ? 'map-panel-open' : ''} ${desktopCollapsed ? 'is-desktop-collapsed' : ''}`}
       style={{
         height: '100%',
         display: 'flex',
@@ -144,8 +143,23 @@ export default function Sidebar({
         borderRight: '1px solid var(--border)',
       }}
     >
+      {onDesktopCollapsedChange && (
+        <button
+          type="button"
+          className="map-sidebar-collapse-toggle"
+          onClick={() => onDesktopCollapsedChange(!desktopCollapsed)}
+          aria-label={desktopCollapsed ? 'Hiện danh sách sự kiện' : 'Thu gọn danh sách sự kiện'}
+          aria-expanded={!desktopCollapsed}
+          title={desktopCollapsed ? 'Hiện danh sách sự kiện' : 'Thu gọn danh sách sự kiện'}
+        >
+          {desktopCollapsed
+            ? <ChevronRight size={20} aria-hidden="true" />
+            : <ChevronLeft size={20} aria-hidden="true" />}
+        </button>
+      )}
       {/* Header */}
       <div
+        className="map-sidebar-section map-sidebar-header"
         style={{
           padding: '18px 14px 10px',
           borderBottom: '1px solid #e7e5e4',
@@ -199,13 +213,13 @@ export default function Sidebar({
         {/* Filter buttons — Option D: colored dot accent + neutral idle */}
         <div className="flex gap-1.5 flex-wrap">
           {EVENT_TYPE_FILTERS.map((type) => {
-            const isActive = activeFilter === type;
+            const isActive = activeCategory === type;
             const color = EVENT_TYPE_COLORS[type];
             return (
               <button
                 key={type}
                 onClick={() =>
-                  setActiveFilter(isActive ? null : type)
+                  onActiveCategoryChange(isActive ? null : type)
                 }
                 aria-pressed={isActive}
                 className="map-filter-chip inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[11px] font-semibold cursor-pointer border"
@@ -232,10 +246,10 @@ export default function Sidebar({
               </button>
             );
           })}
-          {activeFilter && (
+          {activeCategory && (
             <button
               type="button"
-              onClick={() => setActiveFilter(null)}
+              onClick={() => onActiveCategoryChange(null)}
               className="map-text-action inline-flex items-center px-2 py-1 rounded-full text-[11px] font-medium cursor-pointer border-0"
               style={{
                 background: 'transparent',
@@ -246,10 +260,32 @@ export default function Sidebar({
             </button>
           )}
         </div>
+
+        <fieldset className="map-grade-filter" aria-label="Chương trình">
+          <legend>Chương trình</legend>
+          <div className="map-grade-filter__options">
+            {[null, 10, 11, 12].map((grade) => {
+              const isActive = selectedGrade === grade;
+              return (
+                <button
+                  key={grade ?? 'all'}
+                  type="button"
+                  onClick={() => onGradeChange(grade)}
+                  aria-pressed={isActive}
+                  aria-label={grade == null ? 'Tất cả chương trình' : `Chương trình lớp ${grade}`}
+                >
+                  {grade == null ? 'Tất cả' : `Lớp ${grade}`}
+                </button>
+              );
+            })}
+          </div>
+        </fieldset>
       </div>
 
       {/* Event Tree */}
       <div
+        className="map-sidebar-section"
+        ref={listRef}
         role="list"
         aria-label="Danh sách sự kiện lịch sử"
         style={{
@@ -261,7 +297,7 @@ export default function Sidebar({
           padding: '6px 0',
         }}
       >
-        {filteredEvents.length === 0 ? (
+        {events.length === 0 ? (
           <div
             style={{
               padding: '40px 20px',
@@ -274,12 +310,12 @@ export default function Sidebar({
           </div>
         ) : (
           // 1.1.10: Sidebar.tsx: Nhận dữ liệu mới và hiển thị danh sách sự kiện ở bảng điều khiển bên trái.
-          filteredEvents.map((event) => (
+          events.map((event) => (
             <EventTreeNode
               key={event.id}
               event={event}
               depth={0}
-              expandedIds={expandedIds}
+              expandedIds={visibleExpandedIds}
               selectedEvent={selectedEvent}
               onToggleExpand={toggleExpand}
               onSelectEvent={onSelectEvent}
@@ -292,6 +328,7 @@ export default function Sidebar({
 
       {/* Footer stats */}
       <div
+        className="map-sidebar-section map-sidebar-footer"
         style={{
           padding: '8px 14px',
           borderTop: '1px solid var(--border)',
@@ -300,20 +337,16 @@ export default function Sidebar({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          gap: '6px 10px',
+          flexWrap: 'wrap',
         }}
       >
-        <span>
-          {activeFilter ? (
-            <>
-              {filteredEvents.length} / {events.length} sự kiện
-            </>
-          ) : (
-            <>{filteredEvents.length} sự kiện</>
-          )}
+        <span className="map-sidebar-counts">
+          {listItemCount} mục chính • {mappedEventCount} sự kiện trên bản đồ
         </span>
-        {activeFilter && (
-          <span style={{ color: EVENT_TYPE_COLORS[activeFilter], fontWeight: 600 }}>
-            {EVENT_TYPE_LABELS[activeFilter]}
+        {activeCategory && (
+          <span style={{ color: EVENT_TYPE_COLORS[activeCategory], fontWeight: 600 }}>
+            {EVENT_TYPE_LABELS[activeCategory]}
           </span>
         )}
       </div>
@@ -351,17 +384,19 @@ function EventTreeNode({
   // hiển thị với opacity giảm và ký hiệu đặc biệt để phân biệt về mặt thời gian.
   const isFutureEvent =
     currentYear != null && event.startYear != null && event.startYear > currentYear;
+  const secondaryText = getSidebarSecondaryText(event);
 
   return (
     <div>
       <div
         // 1.1.17: Sidebar.tsx: Người dùng nhấp trực tiếp vào tiêu đề sự kiện (cha hoặc con) để xem.
         className={`map-event-row ${isSelected ? 'is-selected' : ''} ${isFutureEvent ? 'is-future' : ''}`}
+        data-depth={Math.min(depth, 3)}
         onMouseEnter={() => onHoverEvent(event.id)}
         onMouseLeave={() => onHoverEvent(null)}
         style={{
-          padding: '8px 12px',
-          paddingLeft: `${12 + depth * 12}px`,
+          padding: '7px 12px',
+          paddingLeft: `${12 + Math.min(depth, 3) * 12}px`,
           fontSize: '13.5px',
         }}
       >
@@ -395,6 +430,7 @@ function EventTreeNode({
 
         <button
           type="button"
+          data-event-id={event.id}
           className="map-event-select"
           aria-current={isSelected ? 'true' : undefined}
           aria-label={`Chọn sự kiện ${event.name}`}
@@ -419,6 +455,7 @@ function EventTreeNode({
           <span
             className="map-event-chronology inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-semibold"
             style={{
+              display: secondaryText ? undefined : 'none',
               color: isSelected ? 'var(--accent)' : 'var(--text-secondary)',
               background: isSelected ? 'var(--accent-soft)' : 'var(--bg-surface)',
               opacity: isFutureEvent && !isSelected ? 0.72 : 1,
@@ -433,19 +470,14 @@ function EventTreeNode({
                 />
               </span>
             )}
-            {formatChronologyLabel(event)}
+            {secondaryText}
           </span>
         </button>
       </div>
 
       {/* Children */}
       {hasLoadedChildren && isExpanded && (
-        <div
-          style={{
-            borderLeft: '1px dashed var(--border-strong)',
-            marginLeft: `${20 + depth * 12}px`,
-          }}
-        >
+        <div className="map-event-children">
           {/* 1.1.16: Sidebar.tsx: Render bổ sung danh sách sự kiện con nằm lồng dưới sự kiện cha (kiểu Tree Node). */}
           {event.children!.map((child) => (
             <EventTreeNode
