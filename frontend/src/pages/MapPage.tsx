@@ -8,7 +8,7 @@ import {
   useReducer,
 } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ChevronRight, CircleAlert, Clock, List, MapPin, X, Compass } from 'lucide-react';
+import { CircleAlert, Clock, List, MapPin, X, Compass } from 'lucide-react';
 import CesiumMap, {
   type CesiumMapHandle,
   type MapFocusRequest,
@@ -31,7 +31,6 @@ import type {
   TerrainSessionCommand,
   TerrainViewModel,
 } from '../types/terrain';
-import { useHeader } from '../components/layout/useHeader';
 import {
   getChildrenFromBackend,
   getEventsByYearFromBackend,
@@ -126,6 +125,7 @@ type MapSelectionSource =
   | 'search'
   | 'url-restore';
 type SelectionDetailStatus = 'idle' | 'loading' | 'ready' | 'error';
+type MapOverlay = null | 'legend' | 'guide';
 
 function legacyRequestedEventKey(state: unknown): string {
   if (!state || typeof state !== 'object') return '';
@@ -171,7 +171,7 @@ export default function MapPage() {
     years: [],
   });
   const [terrainState, terrainDispatch] = useReducer(terrainReducer, INITIAL_TERRAIN_STATE);
-  const [onboardingDismissed, setOnboardingDismissed] = useState(false);
+  const [activeOverlay, setActiveOverlay] = useState<MapOverlay>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [mapError, setMapError] = useState<string | null>(null);
   // ─── Terrain exploration toolbar (Task C) ─────────────────────────────────
@@ -189,7 +189,6 @@ export default function MapPage() {
     terrainDistanceMeasurementReducer,
     INITIAL_TERRAIN_DISTANCE_MEASUREMENT,
   );
-  const { setCenterContent } = useHeader();
   const parsedUrlState = useMemo(() => parseMapUrlState(location.search), [location.search]);
   const parsedUrlStateRef = useRef(parsedUrlState);
   useLayoutEffect(() => {
@@ -368,11 +367,12 @@ export default function MapPage() {
 
   useEffect(() => {
     if (!timelineModel) return;
-    setCurrentYear((year) => {
-      const requestedYear = year ?? timelineModel.minYear;
-      return resolveTimelineYear(timelineModel, requestedYear);
-    });
-  }, [currentYear, timelineModel]);
+    const requestedYear = currentYear ?? timelineModel.minYear;
+    const resolvedYear = resolveTimelineYear(timelineModel, requestedYear);
+    if (resolvedYear === currentYear) return;
+    setCurrentYear(resolvedYear);
+    if (currentYear != null) replaceMapUrlState({ year: resolvedYear });
+  }, [currentYear, replaceMapUrlState, timelineModel]);
 
   useEffect(() => {
     const query = normalizeMapSearchTerm(searchQuery);
@@ -1032,12 +1032,13 @@ export default function MapPage() {
   useEffect(() => {
     const closePanelsOnEscape = (event: KeyboardEvent) => {
       if (event.key !== 'Escape') return;
-      if (sidebarOpen) setSidebarOpen(false);
+      if (activeOverlay) setActiveOverlay(null);
+      else if (sidebarOpen) setSidebarOpen(false);
       else if (selectedEvent) handleClosePopup();
     };
     document.addEventListener('keydown', closePanelsOnEscape);
     return () => document.removeEventListener('keydown', closePanelsOnEscape);
-  }, [handleClosePopup, selectedEvent, sidebarOpen]);
+  }, [activeOverlay, handleClosePopup, selectedEvent, sidebarOpen]);
 
   // Clear all exploration data whenever the terrain session leaves "active".
   useEffect(() => {
@@ -1050,111 +1051,17 @@ export default function MapPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedEvent?.id]);
 
-  // Clear header breadcrumb when MapPage unmounts so stale state doesn't leak to Homepage etc.
+  // Invalidate pending selection/terrain work when MapPage unmounts.
   useEffect(() => {
     const selectionRequest = selectionRequestIdRef;
     return () => {
       ++selectionRequest.current;
       pendingAfterTerrainExitRef.current = null;
-      setCenterContent(null);
       clearExploration();
       cesiumApiRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setCenterContent]);
-
-  useEffect(() => {
-    if (selectedEvent) {
-      const compactStack = navigationStack.filter(
-        (navEvent, index, arr) =>
-          navEvent.id !== selectedEvent.id &&
-          arr.findIndex((item) => item.id === navEvent.id) === index
-      );
-      const parentCrumb =
-        compactStack.length > 0 ? compactStack[compactStack.length - 1] : null;
-
-      setCenterContent(
-        <div
-          className="glass-map animate-fade-in"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            padding: '5px 12px',
-            borderRadius: '999px',
-            border: '1px solid var(--border)',
-            fontSize: '12.5px',
-            width: '100%',
-            maxWidth: '560px',
-            minWidth: 0,
-            overflow: 'hidden',
-          }}
-        >
-          <button
-            onClick={() => {
-              ++selectionRequestIdRef.current;
-              scheduleAfterTerrainExit(() => {
-                setSelectedEvent(null);
-                setNavigationStack([]);
-              });
-            }}
-            className="accent-hover-glow map-text-action"
-            style={{
-              background: 'none',
-              border: 'none',
-              color: 'var(--accent)',
-              cursor: 'pointer',
-              fontSize: '12px',
-              fontWeight: 600,
-              padding: '2px 8px',
-              borderRadius: '6px',
-            }}
-          >
-            Tổng quan
-          </button>
-          {parentCrumb && [parentCrumb].map((navEvent) => (
-            <span key={navEvent.id} style={{ display: 'flex', alignItems: 'center', gap: '6px', minWidth: 0 }}>
-              <ChevronRight size={13} strokeWidth={2} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
-              <button
-                onClick={() => {
-                  const idx = navigationStack.indexOf(navEvent);
-                  ++selectionRequestIdRef.current;
-                  scheduleAfterTerrainExit(() => {
-                    setNavigationStack((prev) => prev.slice(0, idx));
-                    setSelectedEvent(navEvent);
-                  });
-                }}
-                className="accent-hover-glow map-text-action"
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: '#8b1e1e',
-                  cursor: 'pointer',
-                  fontSize: '12px',
-                  fontWeight: 600,
-                  padding: '2px 8px',
-                  borderRadius: '6px',
-                  maxWidth: '180px',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                  minWidth: 0,
-                }}
-              >
-                {navEvent.name}
-              </button>
-            </span>
-          ))}
-          <ChevronRight size={13} strokeWidth={2} style={{ color: '#78716c', flexShrink: 0 }} />
-           <span className="app-heading" style={{ fontSize: '13px', color: '#1c1917', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0 }}>
-            {selectedEvent.name}
-          </span>
-        </div>
-      );
-    } else {
-      setCenterContent(null);
-    }
-  }, [selectedEvent, navigationStack, scheduleAfterTerrainExit, setCenterContent]);
+  }, []);
 
   return (
     <div
@@ -1191,8 +1098,10 @@ export default function MapPage() {
           onSearchQueryChange={handleSearchQueryChange}
           activeCategory={activeCategory}
           onActiveCategoryChange={handleActiveCategoryChange}
+          selectedGrade={selectedGrade}
+          onGradeChange={handleGradeChange}
           listItemCount={visibilityProjection.rootCount}
-          markerCount={visibilityProjection.markerCandidateCount}
+          mappedEventCount={visibilityProjection.locatableMapEvents.length}
           loading={eventsLoading || searchLoading || !visibilityReady}
           currentYear={currentYear ?? undefined}
           open={sidebarOpen}
@@ -1235,12 +1144,36 @@ export default function MapPage() {
               apiRef={cesiumApiRef}
             />
 
-            <MapLegend />
+            <div className="map-floating-controls">
+              <div className="map-floating-controls__stack" aria-label="Công cụ trợ giúp bản đồ">
+                <button
+                  type="button"
+                  className="map-floating-control"
+                  aria-expanded={activeOverlay === 'guide'}
+                  onClick={() => setActiveOverlay((current) => current === 'guide' ? null : 'guide')}
+                >
+                  Hướng dẫn
+                </button>
+                <button
+                  type="button"
+                  className="map-floating-control"
+                  aria-expanded={activeOverlay === 'legend'}
+                  onClick={() => setActiveOverlay((current) => current === 'legend' ? null : 'legend')}
+                >
+                  Chú giải
+                </button>
+              </div>
+
+              {activeOverlay === 'legend' && (
+                <div className="map-floating-popover">
+                  <MapLegend />
+                </div>
+              )}
 
             {/* Hero Preview — Bento-style floating museum introduction */}
-            {!selectedEvent && !onboardingDismissed && (
+            {activeOverlay === 'guide' && (
               <div
-                className="map-onboarding glass-map animate-fade-in-up absolute top-4 left-4 rounded-2xl overflow-hidden"
+                className="map-onboarding map-floating-popover glass-map animate-fade-in-up rounded-2xl overflow-hidden"
                 style={{
                   maxWidth: '380px',
                   boxShadow: 'var(--shadow)',
@@ -1278,7 +1211,7 @@ export default function MapPage() {
                       </h3>
                     </div>
                     <button
-                      onClick={() => setOnboardingDismissed(true)}
+                      onClick={() => setActiveOverlay(null)}
                       aria-label="Đóng hướng dẫn"
                       style={{
                         background: 'var(--bg-surface)',
@@ -1354,19 +1287,10 @@ export default function MapPage() {
                 </div>
               </div>
             )}
-            {!selectedEvent && onboardingDismissed && (
-              <button
-                type="button"
-                className="map-guide-toggle"
-                onClick={() => setOnboardingDismissed(false)}
-                aria-expanded="false"
-              >
-                Hướng dẫn sử dụng
-              </button>
-            )}
+            </div>
             {eventsLoading && (
               <div
-                className="glass-map animate-fade-in absolute top-4 right-4 rounded-xl px-4 py-2.5 text-sm font-medium"
+                className="map-loading-banner glass-map animate-fade-in rounded-xl px-4 py-2.5 text-sm font-medium"
                 style={{ color: 'var(--text-primary)' }}
               >
                 Đang tải dữ liệu từ backend...
@@ -1408,8 +1332,6 @@ export default function MapPage() {
             <Timeline
               currentYear={currentYear}
               onYearChange={handleYearChange}
-              selectedGrade={selectedGrade}
-              onGradeChange={handleGradeChange}
               model={timelineModel}
             />
           )}

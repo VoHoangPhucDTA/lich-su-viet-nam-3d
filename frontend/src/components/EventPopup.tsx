@@ -77,7 +77,6 @@ export default function EventPopup({
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        zIndex: 60,
         background: 'var(--bg-card)',
         borderLeft: '1px solid var(--border)',
         boxShadow: '-8px 0 24px -12px rgba(0,0,0,0.08)',

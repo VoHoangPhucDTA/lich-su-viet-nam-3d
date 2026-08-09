@@ -13,8 +13,10 @@ interface SidebarBoundaryProps {
   searchQuery: string;
   activeCategory: EventType | null;
   onActiveCategoryChange: (category: EventType | null) => void;
+  selectedGrade: number | null;
+  onGradeChange: (grade: number | null) => void;
   listItemCount: number;
-  markerCount: number;
+  mappedEventCount: number;
 }
 
 interface MapBoundaryProps {
@@ -40,7 +42,6 @@ interface EventPopupBoundaryProps {
 interface TimelineBoundaryProps {
   currentYear: number;
   onYearChange: (year: number) => void;
-  onGradeChange: (grade: number | null) => void;
 }
 
 const runtime = vi.hoisted(() => ({
@@ -54,7 +55,6 @@ const runtime = vi.hoisted(() => ({
   getEvent: vi.fn(),
   getTimelineYears: vi.fn(),
   recordEventView: vi.fn(),
-  setCenterContent: vi.fn(),
 }));
 
 function DetailLocationProbe() {
@@ -102,9 +102,6 @@ vi.mock('../components/EventPopup', () => ({
   },
 }));
 vi.mock('../components/terrain/TerrainExplorationToolbar', () => ({ default: () => null }));
-vi.mock('../components/layout/useHeader', () => ({
-  useHeader: () => ({ setCenterContent: runtime.setCenterContent }),
-}));
 vi.mock('../services/eventApi', () => ({
   getEventsByYearFromBackend: runtime.getEventsByYear,
   searchEventsFromBackend: runtime.searchEvents,
@@ -199,7 +196,38 @@ describe('MapPage shared visibility boundary', () => {
     await renderReady();
     await waitFor(() => expect(sidebarIds()).toEqual(['point', 'no-location']));
     expect(mapIds()).toEqual(['point']);
-    expect(runtime.sidebarProps).toMatchObject({ listItemCount: 2, markerCount: 1 });
+    expect(runtime.sidebarProps).toMatchObject({ listItemCount: 2, mappedEventCount: 1 });
+  });
+
+  it('starts with no help overlay and keeps Guide and Legend mutually exclusive', async () => {
+    await renderReady();
+    expect(screen.queryByRole('heading', { name: 'Khám phá Lịch sử Việt Nam' })).toBeNull();
+    expect(screen.queryByRole('heading', { name: 'Chú giải bản đồ' })).toBeNull();
+
+    act(() => screen.getByRole('button', { name: 'Chú giải' }).click());
+    expect(screen.getByRole('heading', { name: 'Chú giải bản đồ' })).toBeInTheDocument();
+
+    act(() => screen.getByRole('button', { name: 'Hướng dẫn' }).click());
+    expect(screen.getByRole('heading', { name: 'Khám phá Lịch sử Việt Nam' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Chú giải bản đồ' })).toBeNull();
+
+    act(() => screen.getByRole('button', { name: 'Hướng dẫn' }).click());
+    expect(screen.queryByRole('heading', { name: 'Khám phá Lịch sử Việt Nam' })).toBeNull();
+  });
+
+  it('does not mutate the active overlay when selecting or closing an event', async () => {
+    const selected = event('overlay-selection');
+    runtime.getEventsByYear.mockResolvedValue([selected]);
+    runtime.getEvent.mockResolvedValue(selected);
+    await renderReady();
+
+    act(() => screen.getByRole('button', { name: 'Hướng dẫn' }).click());
+    await select(selected);
+    expect(screen.getByRole('heading', { name: 'Khám phá Lịch sử Việt Nam' })).toBeInTheDocument();
+
+    act(() => runtime.popupProps?.onClose());
+    await waitFor(() => expect(runtime.mapProps?.selectedEvent).toBeNull());
+    expect(screen.getByRole('heading', { name: 'Khám phá Lịch sử Việt Nam' })).toBeInTheDocument();
   });
 
   it('projects an embedded child returned only inside its API parent', async () => {
@@ -237,7 +265,7 @@ describe('MapPage shared visibility boundary', () => {
 
     await waitFor(() => expect(sidebarIds()).toEqual(['cultural']));
     expect(mapIds()).toEqual(['cultural']);
-    expect(runtime.sidebarProps).toMatchObject({ listItemCount: 1, markerCount: 1 });
+    expect(runtime.sidebarProps).toMatchObject({ listItemCount: 1, mappedEventCount: 1 });
   });
 
   it('changes Sidebar and CesiumMap with the same search predicate', async () => {
@@ -252,7 +280,7 @@ describe('MapPage shared visibility boundary', () => {
     await waitFor(() => expect(runtime.searchEvents).toHaveBeenCalledWith('điện', null));
     await waitFor(() => expect(sidebarIds()).toEqual(['dien-bien']));
     expect(mapIds()).toEqual(['dien-bien']);
-    expect(runtime.sidebarProps).toMatchObject({ listItemCount: 1, markerCount: 1 });
+    expect(runtime.sidebarProps).toMatchObject({ listItemCount: 1, mappedEventCount: 1 });
   });
 
   it('changes both boundaries when grade changes', async () => {
@@ -266,12 +294,52 @@ describe('MapPage shared visibility boundary', () => {
     );
     await renderReady();
 
-    act(() => runtime.timelineProps?.onGradeChange(10));
+    act(() => runtime.sidebarProps?.onGradeChange(10));
 
     await waitFor(() => expect(runtime.getEventsByYear).toHaveBeenCalledWith(938, 10));
     await waitFor(() => expect(sidebarIds()).toEqual(['grade-10']));
     expect(mapIds()).toEqual(['grade-10']);
     expect(runtime.timelineProps?.currentYear).toBe(938);
+  });
+
+  it('reconciles grade timeline domain through current year, URL, and event request', async () => {
+    const grade10Event = event('grade-10-1945', {
+      startYear: 1945,
+      effectiveEndYear: 1945,
+    });
+    runtime.getTimelineYears.mockImplementation(async (grade: number | null) =>
+      grade === 10 ? [1945, 1975] : [938, 1010],
+    );
+    runtime.getEventsByYear.mockImplementation(async (year: number, grade: number | null) =>
+      year === 1945 && grade === 10 ? [grade10Event] : [],
+    );
+
+    render(
+      <MemoryRouter initialEntries={['/map?year=938']}>
+        <Routes>
+          <Route path="/map" element={<><MapPage /><MapLocationProbe /></>} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => expect(runtime.timelineProps?.currentYear).toBe(938));
+    act(() => runtime.sidebarProps?.onGradeChange(10));
+
+    await waitFor(() => expect(runtime.getTimelineYears).toHaveBeenCalledWith(10));
+    await waitFor(() => expect(runtime.timelineProps?.currentYear).toBe(1945));
+    await waitFor(() => expect(runtime.getEventsByYear).toHaveBeenCalledWith(1945, 10));
+
+    await waitFor(() => {
+      const query = new URLSearchParams(
+        screen.getByTestId('map-location').getAttribute('data-search') ?? '',
+      );
+      expect(query.get('grade')).toBe('10');
+      expect(query.get('year')).toBe('1945');
+    });
+    expect(runtime.getTimelineYears.mock.calls.filter(([grade]) => grade === 10)).toHaveLength(1);
+    expect(runtime.getEventsByYear.mock.calls.filter(([, grade]) => grade === 10)).toEqual([
+      [1945, 10],
+    ]);
   });
 
   it('does not request a map year until the backend timeline model is ready', async () => {
@@ -312,7 +380,18 @@ describe('MapPage shared visibility boundary', () => {
     await waitFor(() => expect(runtime.getEventsByYear).toHaveBeenCalledWith(938, null));
     await waitFor(() => expect(sidebarIds()).toEqual(['year-938']));
     expect(mapIds()).toEqual(['year-938']);
-    expect(runtime.sidebarProps).toMatchObject({ listItemCount: 1, markerCount: 1 });
+    expect(runtime.sidebarProps).toMatchObject({ listItemCount: 1, mappedEventCount: 1 });
+  });
+
+  it('deduplicates the same search event already present in the year result by id', async () => {
+    const dienBien = event('dien-bien', { name: 'Chiến thắng Điện Biên Phủ' });
+    runtime.getEventsByYear.mockResolvedValue([dienBien]);
+    runtime.searchEvents.mockResolvedValue([{ ...dienBien }]);
+    await renderReady();
+
+    act(() => runtime.sidebarProps?.onSearchQueryChange('Điện Biên'));
+    await waitFor(() => expect(sidebarIds()).toEqual(['dien-bien']));
+    expect(mapIds()).toEqual(['dien-bien']);
   });
 
   it('resolves a year with no event through the backend-derived timeline model', async () => {

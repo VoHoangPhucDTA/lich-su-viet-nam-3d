@@ -16,9 +16,11 @@ describe('MapLegend', () => {
     expect(container.querySelectorAll('.map-legend__categories .map-legend__item')).toHaveLength(4);
   });
 
-  it('opens native details by default with an accessible summary', () => {
+  it('renders as controlled popover content without native open state', () => {
     render(<MapLegend />);
-    expect(screen.getByText('Chú giải bản đồ', { selector: 'summary' }).closest('details')).toHaveAttribute('open');
+    expect(screen.getByRole('heading', { name: 'Chú giải bản đồ' })).toBeInTheDocument();
+    expect(screen.queryByRole('group')).not.toBeInTheDocument();
+    expect(document.querySelector('details')).toBeNull();
   });
 
   it('explains collection, atomic and cluster markers without color-only meaning', () => {

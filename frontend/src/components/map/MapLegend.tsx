@@ -5,8 +5,8 @@ const EVENT_TYPES: EventType[] = ['military', 'political', 'economic', 'cultural
 
 export default function MapLegend() {
   return (
-    <details className="map-legend" open>
-      <summary>Chú giải bản đồ</summary>
+    <section className="map-legend" aria-labelledby="map-legend-title">
+      <h2 id="map-legend-title">Chú giải bản đồ</h2>
       <div className="map-legend__content">
         <div className="map-legend__categories">
           {EVENT_TYPES.map((type) => (
@@ -39,6 +39,6 @@ export default function MapLegend() {
           </div>
         </div>
       </div>
-    </details>
+    </section>
   );
 }

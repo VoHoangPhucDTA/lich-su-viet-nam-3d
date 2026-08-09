@@ -18,23 +18,24 @@ const parent: HistoricalEvent = {
   geoType: 'nationwide', parentId: null, children: [child], childCount: 1,
 };
 
-describe('Sidebar event rows', () => {
-  it('keeps long title, chronology and child order in separate grid areas', async () => {
-    render(
-      <Sidebar
-        events={[parent]}
-        selectedEvent={parent}
-        onSelectEvent={vi.fn()}
-        onHoverEvent={vi.fn()}
-        searchQuery=""
-        onSearchQueryChange={vi.fn()}
-        activeCategory={null}
-        onActiveCategoryChange={vi.fn()}
-        listItemCount={1}
-        markerCount={1}
-      />
-    );
+const baseProps = {
+  events: [parent],
+  selectedEvent: null,
+  onSelectEvent: vi.fn(),
+  onHoverEvent: vi.fn(),
+  searchQuery: '',
+  onSearchQueryChange: vi.fn(),
+  activeCategory: null,
+  onActiveCategoryChange: vi.fn(),
+  selectedGrade: null,
+  onGradeChange: vi.fn(),
+  listItemCount: 1,
+  mappedEventCount: 1,
+};
 
+describe('Sidebar event rows', () => {
+  it('keeps long title, chronology and child order in separate areas', async () => {
+    render(<Sidebar {...baseProps} selectedEvent={parent} />);
     const parentTitle = screen.getByText(longTitle.trim());
     const chronology = screen.getByText(longChronology.trim());
     const childTitle = await screen.findByTitle('Sự kiện con');
@@ -49,48 +50,20 @@ describe('Sidebar event rows', () => {
     const user = userEvent.setup();
     const onSelectEvent = vi.fn();
     const onHoverEvent = vi.fn();
-
-    render(
-      <Sidebar
-        events={[parent]}
-        selectedEvent={null}
-        onSelectEvent={onSelectEvent}
-        onHoverEvent={onHoverEvent}
-        searchQuery=""
-        onSearchQueryChange={vi.fn()}
-        activeCategory={null}
-        onActiveCategoryChange={vi.fn()}
-        listItemCount={1}
-        markerCount={1}
-      />,
-    );
+    render(<Sidebar {...baseProps} onSelectEvent={onSelectEvent} onHoverEvent={onHoverEvent} />);
 
     const selectEvent = screen.getByRole('button', { name: `Chọn sự kiện ${longTitle.trim()}` });
     selectEvent.focus();
     expect(selectEvent).toHaveFocus();
     await user.keyboard('{Enter}');
-
     expect(onSelectEvent).toHaveBeenCalledWith(parent);
     expect(onHoverEvent).toHaveBeenCalledWith(parent.id);
   });
 
-  it('renders activeCategory as a controlled prop', async () => {
-    render(
-      <Sidebar
-        events={[parent]}
-        selectedEvent={parent}
-        onSelectEvent={vi.fn()}
-        onHoverEvent={vi.fn()}
-        searchQuery=""
-        onSearchQueryChange={vi.fn()}
-        activeCategory="political"
-        onActiveCategoryChange={vi.fn()}
-        listItemCount={1}
-        markerCount={1}
-      />,
-    );
-
-    expect(screen.getByRole('button', { name: 'Chính trị' })).toHaveAttribute(
+  it('renders category and grade as controlled props', async () => {
+    render(<Sidebar {...baseProps} selectedEvent={parent} activeCategory="political" selectedGrade={11} />);
+    expect(screen.getByRole('button', { name: 'Chính trị' })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: 'Chương trình lớp 11' })).toHaveAttribute(
       'aria-pressed',
       'true',
     );
@@ -98,42 +71,29 @@ describe('Sidebar event rows', () => {
   });
 
   it('reveals the ancestor chain for a selected descendant', async () => {
-    render(
-      <Sidebar
-        events={[parent]}
-        selectedEvent={child}
-        onSelectEvent={vi.fn()}
-        onHoverEvent={vi.fn()}
-        searchQuery=""
-        onSearchQueryChange={vi.fn()}
-        activeCategory={null}
-        onActiveCategoryChange={vi.fn()}
-        listItemCount={1}
-        markerCount={0}
-      />,
-    );
-
+    render(<Sidebar {...baseProps} selectedEvent={child} mappedEventCount={0} />);
     expect(await screen.findByRole('button', { name: 'Chọn sự kiện Sự kiện con' }))
       .toHaveAttribute('aria-current', 'true');
     expect(screen.getByRole('button', { name: 'Thu gọn' })).toBeInTheDocument();
   });
 
-  it('does not apply the footer class to the header', () => {
-    render(
-      <Sidebar
-        events={[parent]}
-        selectedEvent={null}
-        onSelectEvent={vi.fn()}
-        onHoverEvent={vi.fn()}
-        searchQuery=""
-        onSearchQueryChange={vi.fn()}
-        activeCategory={null}
-        onActiveCategoryChange={vi.fn()}
-        listItemCount={1}
-        markerCount={1}
-      />,
-    );
+  it('uses row padding as the single indentation owner and caps depth 3 at 36px', async () => {
+    const depth3 = { ...child, id: 'depth-3', name: 'Depth 3', parentId: 'depth-2' };
+    const depth2 = { ...child, id: 'depth-2', name: 'Depth 2', parentId: 'depth-1', children: [depth3] };
+    const depth1 = { ...child, id: 'depth-1', name: 'Depth 1', children: [depth2] };
+    const root = { ...parent, id: 'root', name: 'Root', children: [depth1] };
+    render(<Sidebar {...baseProps} events={[root]} selectedEvent={depth3} />);
 
+    const rootRow = screen.getByRole('button', { name: 'Chọn sự kiện Root' }).closest('.map-event-row');
+    const depth3Row = (await screen.findByRole('button', { name: 'Chọn sự kiện Depth 3' }))
+      .closest('.map-event-row');
+    expect(rootRow).toHaveStyle({ paddingLeft: '12px' });
+    expect(depth3Row).toHaveStyle({ paddingLeft: '48px' });
+    expect(depth3Row).toHaveAttribute('data-depth', '3');
+  });
+
+  it('does not apply the footer class to the header', () => {
+    render(<Sidebar {...baseProps} />);
     expect(
       screen.getByRole('heading', { name: 'Sự kiện lịch sử' }).closest('.map-sidebar-footer'),
     ).toBeNull();
@@ -144,44 +104,37 @@ describe('Sidebar event rows', () => {
     const onActiveCategoryChange = vi.fn();
     render(
       <Sidebar
-        events={[parent]}
-        selectedEvent={null}
-        onSelectEvent={vi.fn()}
-        onHoverEvent={vi.fn()}
+        {...baseProps}
         searchQuery="không khớp tiêu đề"
-        onSearchQueryChange={vi.fn()}
-        activeCategory={null}
         onActiveCategoryChange={onActiveCategoryChange}
-        listItemCount={1}
-        markerCount={1}
       />,
     );
-
     expect(screen.getByText(longTitle.trim())).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Quân sự' }));
     expect(onActiveCategoryChange).toHaveBeenCalledWith('military');
   });
 
+  it('requests a single controlled grade change from the sidebar', async () => {
+    const user = userEvent.setup();
+    const onGradeChange = vi.fn();
+    render(<Sidebar {...baseProps} onGradeChange={onGradeChange} />);
+    await user.click(screen.getByRole('button', { name: 'Chương trình lớp 10' }));
+    expect(onGradeChange).toHaveBeenCalledWith(10);
+  });
+
   it.each([
-    [2, 3, '2 mục chính • 3 điểm trên bản đồ'],
-    [0, 0, '0 mục chính • 0 điểm trên bản đồ'],
-    [1, 1, '1 mục chính • 1 điểm trên bản đồ'],
-  ])('renders controlled list and marker counts for %s/%s', (listItemCount, markerCount, expected) => {
+    [2, 3, '2 mục chính • 3 sự kiện trên bản đồ'],
+    [0, 0, '0 mục chính • 0 sự kiện trên bản đồ'],
+    [1, 1, '1 mục chính • 1 sự kiện trên bản đồ'],
+  ])('renders controlled list and mapped-event counts for %s/%s', (listItemCount, mappedEventCount, expected) => {
     render(
       <Sidebar
+        {...baseProps}
         events={listItemCount ? [parent] : []}
-        selectedEvent={null}
-        onSelectEvent={vi.fn()}
-        onHoverEvent={vi.fn()}
-        searchQuery=""
-        onSearchQueryChange={vi.fn()}
-        activeCategory={null}
-        onActiveCategoryChange={vi.fn()}
         listItemCount={listItemCount}
-        markerCount={markerCount}
+        mappedEventCount={mappedEventCount}
       />,
     );
-
     expect(screen.getByText(expected)).toBeInTheDocument();
   });
 });

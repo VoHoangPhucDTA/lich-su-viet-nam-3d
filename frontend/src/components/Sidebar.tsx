@@ -21,8 +21,10 @@ interface SidebarProps {
   onSearchQueryChange: (query: string) => void;
   activeCategory: EventType | null;
   onActiveCategoryChange: (category: EventType | null) => void;
+  selectedGrade: number | null;
+  onGradeChange: (grade: number | null) => void;
   listItemCount: number;
-  markerCount: number;
+  mappedEventCount: number;
   loading?: boolean;
   currentYear?: number;
   open?: boolean;
@@ -45,8 +47,10 @@ export default function Sidebar({
   onSearchQueryChange,
   activeCategory,
   onActiveCategoryChange,
+  selectedGrade,
+  onGradeChange,
   listItemCount,
-  markerCount,
+  mappedEventCount,
   loading = false,
   currentYear,
   open = false,
@@ -218,6 +222,26 @@ export default function Sidebar({
             </button>
           )}
         </div>
+
+        <fieldset className="map-grade-filter" aria-label="Chương trình">
+          <legend>Chương trình</legend>
+          <div className="map-grade-filter__options">
+            {[null, 10, 11, 12].map((grade) => {
+              const isActive = selectedGrade === grade;
+              return (
+                <button
+                  key={grade ?? 'all'}
+                  type="button"
+                  onClick={() => onGradeChange(grade)}
+                  aria-pressed={isActive}
+                  aria-label={grade == null ? 'Tất cả chương trình' : `Chương trình lớp ${grade}`}
+                >
+                  {grade == null ? 'Tất cả' : `Lớp ${grade}`}
+                </button>
+              );
+            })}
+          </div>
+        </fieldset>
       </div>
 
       {/* Event Tree */}
@@ -278,7 +302,7 @@ export default function Sidebar({
         }}
       >
         <span className="map-sidebar-counts">
-          {listItemCount} mục chính • {markerCount} điểm trên bản đồ
+          {listItemCount} mục chính • {mappedEventCount} sự kiện trên bản đồ
         </span>
         {activeCategory && (
           <span style={{ color: EVENT_TYPE_COLORS[activeCategory], fontWeight: 600 }}>
@@ -326,11 +350,12 @@ function EventTreeNode({
       <div
         // 1.1.17: Sidebar.tsx: Người dùng nhấp trực tiếp vào tiêu đề sự kiện (cha hoặc con) để xem.
         className={`map-event-row ${isSelected ? 'is-selected' : ''} ${isFutureEvent ? 'is-future' : ''}`}
+        data-depth={Math.min(depth, 3)}
         onMouseEnter={() => onHoverEvent(event.id)}
         onMouseLeave={() => onHoverEvent(null)}
         style={{
-          padding: '8px 12px',
-          paddingLeft: `${12 + depth * 12}px`,
+          padding: '7px 12px',
+          paddingLeft: `${12 + Math.min(depth, 3) * 12}px`,
           fontSize: '13.5px',
         }}
       >
@@ -410,12 +435,7 @@ function EventTreeNode({
 
       {/* Children */}
       {hasLoadedChildren && isExpanded && (
-        <div
-          style={{
-            borderLeft: '1px dashed var(--border-strong)',
-            marginLeft: `${20 + depth * 12}px`,
-          }}
-        >
+        <div className="map-event-children">
           {/* 1.1.16: Sidebar.tsx: Render bổ sung danh sách sự kiện con nằm lồng dưới sự kiện cha (kiểu Tree Node). */}
           {event.children!.map((child) => (
             <EventTreeNode
