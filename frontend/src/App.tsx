@@ -20,7 +20,7 @@ import { APP_SCROLL_ROOT_ID } from './hooks/useActiveSection';
 import CoiNguonPage from './pages/CoiNguonPage';
 import EventDetailPage from './pages/EventDetailPage';
 import AllEventsPage from './pages/AllEventsPage';
-import HistoricalPeriodsPage from './pages/HistoricalPeriodsPage';
+import LegacyPeriodsRedirect from './components/public/LegacyPeriodsRedirect';
 
 const MapPage = lazy(() => import('./pages/MapPage'));
 
@@ -37,7 +37,6 @@ import ProfileSettingsPage from './pages/profile/ProfileSettingsPage';
 
 // Quiz pages
 import QuizHomePage from './pages/quiz/QuizHomePage';
-import QuizGeneratePage from './pages/quiz/QuizGeneratePage';
 import QuizSessionPage from './pages/quiz/QuizSessionPage';
 import QuizResultPage from './pages/quiz/QuizResultPage';
 import QuizHistoryPage from './pages/quiz/QuizHistoryPage';
@@ -96,7 +95,7 @@ function AppContent() {
           <Route path="/home" element={<CoiNguonPage />} />
           <Route path="/map" element={<MapPage />} />
           <Route path="/browse" element={<AllEventsPage />} />
-          <Route path="/periods" element={<HistoricalPeriodsPage />} />
+          <Route path="/periods" element={<LegacyPeriodsRedirect />} />
           <Route path="/events/:slug" element={<EventDetailPage />} />
 
           {/* === Auth routes === */}
@@ -107,8 +106,8 @@ function AppContent() {
           <Route path="/reset-password" element={<ResetPasswordPage />} />
 
           {/* === Quiz routes === */}
-          <Route path="/quiz" element={<QuizHomePage />} />
-          <Route path="/quiz/generate" element={<ProtectedRoute><QuizGeneratePage /></ProtectedRoute>} />
+          <Route path="/quiz/generate" element={<Navigate to="/quiz" replace />} />
+          <Route path="/quiz" element={<ProtectedRoute><QuizHomePage /></ProtectedRoute>} />
           <Route path="/quiz/session/:sessionId" element={<ProtectedRoute><QuizSessionPage /></ProtectedRoute>} />
           <Route path="/quiz/result/:sessionId" element={<ProtectedRoute><QuizResultPage /></ProtectedRoute>} />
           <Route path="/quiz/history" element={<ProtectedRoute><QuizHistoryPage /></ProtectedRoute>} />

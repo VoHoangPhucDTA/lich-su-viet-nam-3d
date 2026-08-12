@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import BackButton from '../shared/BackButton';
 
 interface PublicPageHeaderProps {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   description?: string;
   showBack?: boolean;
@@ -31,8 +31,8 @@ export default function PublicPageHeader({
       )}
       <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div className="min-w-0">
-          <p className="public-eyebrow">{eyebrow}</p>
-          <h1 className="app-heading mt-2 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl">
+          {eyebrow && <p className="public-eyebrow">{eyebrow}</p>}
+          <h1 className={`app-heading text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl${eyebrow ? ' mt-2' : ''}`}>
             {title}
           </h1>
           {description && (

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Search, X } from 'lucide-react';
 import { EVENT_TYPE_COLORS, EVENT_TYPE_LABELS, type EventGrade, type EventType } from '../../types/event';
 import MuseumSelect, { type MuseumSelectOption } from '../shared/MuseumSelect';
+import { HISTORICAL_PERIODS, type HistoricalPeriodId } from '../../data/historicalPeriods';
 
 type SortValue = 'year-asc' | 'year-desc' | 'name-asc' | 'name-desc';
 
@@ -14,6 +15,8 @@ interface EventExplorerToolbarProps {
   onYearFromChange: (value: string) => void;
   yearTo: string;
   onYearToChange: (value: string) => void;
+  activePeriod?: HistoricalPeriodId | null;
+  onPeriodChange?: (value: HistoricalPeriodId | null) => void;
   activeType?: EventType | null;
   onTypeChange?: (value: EventType | null) => void;
   activeGrade?: EventGrade | null;
@@ -21,6 +24,7 @@ interface EventExplorerToolbarProps {
   onReset: () => void;
   rangeError?: string | null;
   searchPlaceholder?: string;
+  defaultExpanded?: boolean;
 }
 
 const SORT_OPTIONS: MuseumSelectOption<SortValue>[] = [
@@ -48,6 +52,8 @@ export default function EventExplorerToolbar({
   onYearFromChange,
   yearTo,
   onYearToChange,
+  activePeriod,
+  onPeriodChange,
   activeType,
   onTypeChange,
   activeGrade,
@@ -55,9 +61,13 @@ export default function EventExplorerToolbar({
   onReset,
   rangeError,
   searchPlaceholder = 'Tìm kiếm sự kiện, địa danh...',
+  defaultExpanded = false,
 }: EventExplorerToolbarProps) {
-  const [expanded, setExpanded] = useState(false);
-  const activeFilterCount = Number(Boolean(activeType)) + Number(Boolean(activeGrade)) + Number(Boolean(yearFrom || yearTo));
+  const [expanded, setExpanded] = useState(defaultExpanded);
+  const activeFilterCount = Number(Boolean(activePeriod))
+    + Number(Boolean(activeType))
+    + Number(Boolean(activeGrade))
+    + Number(!activePeriod && Boolean(yearFrom || yearTo));
   const gradeValue = activeGrade ? String(activeGrade) as GradeSelectValue : 'all';
 
   return (
@@ -101,7 +111,33 @@ export default function EventExplorerToolbar({
 
       {expanded && (
         <div className="mt-4 border-t border-[var(--border)] pt-4">
-          <div className="flex flex-wrap items-end gap-3">
+          {onPeriodChange && (
+            <div className="min-w-0">
+              <p id="event-period-filter-label" className="public-field-label">Thời kỳ</p>
+              <div role="group" aria-labelledby="event-period-filter-label" className="mt-2 flex min-w-0 flex-wrap gap-2">
+                {[{ id: null, shortLabel: 'Tất cả' }, ...HISTORICAL_PERIODS].map(period => {
+                  const selected = activePeriod === period.id;
+                  return (
+                    <button
+                      key={period.id ?? 'all'}
+                      type="button"
+                      aria-pressed={selected}
+                      onClick={() => onPeriodChange(period.id)}
+                      className="public-type-filter"
+                      style={{
+                        borderColor: selected ? 'color-mix(in srgb, var(--accent) 34%, transparent)' : 'var(--border)',
+                        background: selected ? 'var(--accent-soft)' : 'var(--bg-card)',
+                        color: selected ? 'var(--accent)' : 'var(--text-secondary)',
+                      }}
+                    >
+                      {period.shortLabel}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+          <div className="mt-4 flex flex-wrap items-end gap-3">
             {onGradeChange && (
               <MuseumSelect
                 value={gradeValue}

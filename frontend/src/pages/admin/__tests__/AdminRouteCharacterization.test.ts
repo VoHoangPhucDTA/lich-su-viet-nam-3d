@@ -36,6 +36,9 @@ describe('Admin route characterization', () => {
   });
 
   it('retains the authenticated student AI practice route', () => {
-    expect(appSource).toContain('path="/quiz/generate" element={<ProtectedRoute><QuizGeneratePage /></ProtectedRoute>}');
+    // Phase D (Final UI bugfix): /quiz là entry point trực tiếp, render GeneratePage body,
+    // và /quiz/generate vẫn là route compatibility chuyển hướng tới /quiz.
+    expect(appSource).toContain('path="/quiz" element={<ProtectedRoute><QuizHomePage /></ProtectedRoute>}');
+    expect(appSource).toContain('path="/quiz/generate" element={<Navigate to="/quiz" replace />}');
   });
 });

@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { HISTORICAL_PERIODS } from '../data/historicalPeriods';
 import type { HistoricalEvent } from '../types/event';
 
 const mocks = vi.hoisted(() => ({
@@ -99,5 +100,18 @@ describe('CoiNguonPage homepage cards', () => {
       'featured-7', 'featured-8', 'featured-9', 'featured-10', 'featured-11', 'featured-12',
     ]);
     expect(container.querySelectorAll('.animate-pulse')).toHaveLength(0);
+  });
+
+  it('keeps all period cards on canonical Browse URLs without the redundant overview link', async () => {
+    mocks.getHomepageEvents.mockResolvedValue([]);
+    renderHomepage();
+
+    expect(screen.queryByRole('link', { name: /Xem tất cả thời kỳ/ })).not.toBeInTheDocument();
+    for (const period of HISTORICAL_PERIODS) {
+      expect(screen.getByRole('heading', { name: period.label }).closest('a')).toHaveAttribute(
+        'href',
+        `/browse?period=${period.id}`,
+      );
+    }
   });
 });
