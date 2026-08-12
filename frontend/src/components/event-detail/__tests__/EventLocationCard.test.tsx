@@ -2,7 +2,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import EventLocationCard from '../EventLocationCard';
-import type { MockEventDetail } from '../../data/mockEventDetails';
+import type { MockEventDetail } from '../../../data/mockEventDetails';
 
 const tagsVietnam = ['chu-nom', 'van-hoc'];
 const tagWorldHistory = 'lịch sử thế giới';

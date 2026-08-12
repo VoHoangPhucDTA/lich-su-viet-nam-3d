@@ -28,7 +28,7 @@ function renderPage() {
   );
 }
 
-function setupQuery(user: ReturnType<typeof userEvent.setup>, query = 'Chiến thắng Điện Biên Phủ năm 1954') {
+function setupQuery(query = 'Chiến thắng Điện Biên Phủ năm 1954') {
   fireEvent.change(screen.getByLabelText('Bạn muốn ôn tập nội dung gì?'), { target: { value: query } });
 }
 
@@ -149,7 +149,7 @@ describe('QuizGeneratePage', () => {
   it('submits once with trimmed query and derived time then navigates on success', async () => {
     mocks.generateQuiz.mockResolvedValue({ sessionId: 'session-1' });
     renderPage();
-    setupQuery(userEvent.setup(), '  ASEAN  ');
+    setupQuery('  ASEAN  ');
     const create = screen.getByRole('button', { name: /tạo 3 câu hỏi/i });
     fireEvent.click(create);
     fireEvent.click(create);
@@ -168,9 +168,11 @@ describe('QuizGeneratePage', () => {
     renderPage();
     const user = userEvent.setup();
 
-    setupQuery(user, 'Cách mạng tháng Tám');
+    setupQuery('Cách mạng tháng Tám');
     const countGroup = screen.getByRole('group', { name: 'Số câu' });
     const disclosure = (label: string) => screen.getByText((_, node) => node?.textContent?.replace(/\s+/g, ' ').trim() === label);
+
+    expect(disclosure('Thời gian: 5 phút')).toBeInTheDocument();
 
     expect(disclosure('Thời gian: 5 phút')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /tạo 3 câu hỏi/i })).toBeInTheDocument();
@@ -194,7 +196,7 @@ describe('QuizGeneratePage', () => {
     renderPage();
     const user = userEvent.setup();
 
-    setupQuery(user, 'Cách mạng tháng Tám');
+    setupQuery('Cách mạng tháng Tám');
     await user.click(screen.getByRole('radio', { name: '1 câu' }));
     fireEvent.click(screen.getByRole('button', { name: /tạo 1 câu hỏi/i }));
 
@@ -215,7 +217,7 @@ describe('QuizGeneratePage', () => {
       });
     });
     renderPage();
-    setupQuery(userEvent.setup(), 'Điện Biên Phủ');
+    setupQuery('Điện Biên Phủ');
     fireEvent.click(screen.getByRole('button', { name: /tạo 3 câu hỏi/i }));
     expect(receivedSignal).toBeInstanceOf(AbortSignal);
     fireEvent.click(await screen.findByRole('button', { name: 'Dừng chờ' }));

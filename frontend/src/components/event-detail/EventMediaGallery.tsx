@@ -7,6 +7,10 @@ interface EventMediaGalleryProps {
   index?: string;
 }
 
+type EventMediaItem = NonNullable<
+  NonNullable<MockEventDetail['media']>['items']
+>[number];
+
 interface MediaItem {
   type: string;
   url: string;
@@ -29,7 +33,7 @@ interface MediaItem {
  */
 function findRepresentativeItem(
   media: MockEventDetail['media'] | undefined,
-): MockEventDetail['media']['items'][number] | null {
+): EventMediaItem | null {
   const items = media?.items ?? [];
   const repUrl = media?.thumbnail;
   if (!repUrl) return null;
@@ -37,8 +41,8 @@ function findRepresentativeItem(
 }
 
 function isRepresentative(
-  candidate: MockEventDetail['media']['items'][number] | undefined,
-  rep: MockEventDetail['media']['items'][number] | null,
+  candidate: EventMediaItem | undefined,
+  rep: EventMediaItem | null,
   repUrl: string | undefined,
 ): boolean {
   if (!candidate || !repUrl) return false;
