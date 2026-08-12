@@ -33,7 +33,7 @@ export default function EventLocationCard({ event, index = '05' }: EventLocation
           }}
         >
           <span className="text-sm">
-            Sự kiện này không gắn với một địa điểm cụ thể trên bản đồ.
+            Không có địa điểm cụ thể
           </span>
         </div>
       </section>

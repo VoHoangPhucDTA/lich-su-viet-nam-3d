@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { MockEventDetail } from '../../data/mockEventDetails';
 import SectionHeader from './SectionHeader';
 
@@ -11,40 +11,77 @@ interface MediaItem {
   type: string;
   url: string;
   caption?: string;
+  /** Stable asset identity when callers expose it. Used to deduplicate the
+   *  representative image even when its canonical URL appears inside items[]. */
+  id?: string;
+}
+
+/**
+ * Identify the item inside `media.items[]` that is the same asset as the
+ * event's representative / hero image, preferring the most stable identity:
+ *
+ * 1. explicit matching `mediaItem.id` (when the data layer provides one),
+ * 2. the `(type, url)` of the thumbnail image otherwise.
+ *
+ * Returning `null` means no item is the representative asset; the gallery
+ * then renders EVERY image in items[] (because the user only set a URL-based
+ * thumbnail without identifying which item it came from).
+ */
+function findRepresentativeItem(
+  media: MockEventDetail['media'] | undefined,
+): MockEventDetail['media']['items'][number] | null {
+  const items = media?.items ?? [];
+  const repUrl = media?.thumbnail;
+  if (!repUrl) return null;
+  return items.find((item) => item.type === 'image' && item.url === repUrl) ?? null;
+}
+
+function isRepresentative(
+  candidate: MockEventDetail['media']['items'][number] | undefined,
+  rep: MockEventDetail['media']['items'][number] | null,
+  repUrl: string | undefined,
+): boolean {
+  if (!candidate || !repUrl) return false;
+  if (rep && rep.id && candidate.id === rep.id) return true;
+  return candidate.type === 'image' && candidate.url === repUrl;
 }
 
 export default function EventMediaGallery({ media, index = '07' }: EventMediaGalleryProps) {
-  const rawItems: MediaItem[] = [];
-  if (media?.thumbnail) {
-    rawItems.push({ type: 'image', url: media.thumbnail, caption: 'Ảnh đại diện' });
-  }
-  if (media?.items) {
-    rawItems.push(...media.items.map((it) => ({ type: it.type, url: it.url, caption: it.caption })));
-  }
+  const repItem = useMemo(() => findRepresentativeItem(media), [media]);
+  const repUrl = media?.thumbnail;
 
-  const items = rawItems.filter(
-    (item, idx, arr) =>
-      item.url &&
-      arr.findIndex((candidate) => candidate.url === item.url && candidate.type === item.type) === idx
-  );
+  // Render only supplementary media. The representative image (matching the
+  // hero by ID first, then by `(type, url)`) is excluded from the gallery
+  // even when it also lives inside `media.items[]`. The hero component on
+  // the page is the single source of truth for the cover image.
+  const items: MediaItem[] = useMemo(() => {
+    const supplemental = (media?.items ?? [])
+      .filter((item) => !isRepresentative(item, repItem, repUrl))
+      .map((item) => ({
+        type: item.type,
+        url: item.url,
+        caption: item.caption,
+        id: item.id,
+      }));
+    // Stable dedup across obvious intra-collection duplicates.
+    const seen = new Set<string>();
+    const deduped: MediaItem[] = [];
+    for (const item of supplemental) {
+      if (!item.url) continue;
+      const key = `${item.type}::${item.url}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      deduped.push(item);
+    }
+    return deduped;
+  }, [media, repItem, repUrl]);
+
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
 
+  // If all media are part of the hero, hide the entire section to avoid
+  // rendering an empty "Tư liệu hình ảnh & video" card with no content.
   if (items.length === 0) {
-    return (
-      <section id="media" className="scroll-mt-28 w-full">
-        <SectionHeader index={index} title="Tư liệu hình ảnh & video" />
-        <div
-          className="rounded-2xl p-10 text-center"
-          style={{
-            background: 'var(--bg-card)',
-            border: '1px dashed var(--border)',
-            color: 'var(--text-muted)',
-          }}
-        >
-          <span className="text-sm">Chưa có tư liệu hình ảnh hoặc video cho sự kiện này.</span>
-        </div>
-      </section>
-    );
+    return null;
   }
 
   const openItem = (item: MediaItem, idx: number) => {
