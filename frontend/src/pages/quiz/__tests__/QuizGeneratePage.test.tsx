@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -28,83 +28,129 @@ function renderPage() {
   );
 }
 
+function setupQuery(user: ReturnType<typeof userEvent.setup>, query = 'Chiến thắng Điện Biên Phủ năm 1954') {
+  fireEvent.change(screen.getByLabelText('Bạn muốn ôn tập nội dung gì?'), { target: { value: query } });
+}
+
 describe('QuizGeneratePage', () => {
   beforeEach(() => {
     mocks.generateQuiz.mockReset();
   });
 
-  it('uses a clear, deterministic back action to the quiz home', async () => {
+  it('keeps the canonical form focused on its title and controls', () => {
     renderPage();
-    await userEvent.click(screen.getByRole('button', { name: 'Về trang trắc nghiệm' }));
-    expect(screen.getByText('Trang trắc nghiệm')).toBeInTheDocument();
+    expect(screen.queryByText('LUYỆN TẬP VỚI AI')).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'Tạo bài luyện tập bằng AI' })).toBeInTheDocument();
+    expect(screen.queryByText('AI tạo bài luyện tập từ nội dung SGK Lịch sử, được điều chỉnh theo chủ đề, độ khó và số câu bạn lựa chọn.')).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Nội dung' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { level: 2, name: 'Nội dung và cấu hình' })).not.toBeInTheDocument();
+    expect(screen.queryByText('Mô tả cụ thể giúp AI tạo câu hỏi sát với nội dung bạn muốn ôn hơn.')).not.toBeInTheDocument();
   });
 
-  it('fills the single query from a preset and clears preset selection when edited', async () => {
+  it('does not add a page-level back action on the canonical route', () => {
     renderPage();
-    const user = userEvent.setup();
-    const preset = screen.getByLabelText('Gợi ý chủ đề');
-    const query = screen.getByLabelText('Bạn muốn ôn tập nội dung gì?');
-    await user.selectOptions(preset, 'august-revolution-1945');
-    expect(query).toHaveValue('Cách mạng tháng Tám năm 1945');
-    fireEvent.change(query, { target: { value: '  Cách mạng tháng Tám năm 1945  ' } });
-    expect(preset).toHaveValue('august-revolution-1945');
-    await user.type(query, ' và ý nghĩa');
-    expect(preset).toHaveValue('');
+    expect(screen.queryByRole('button', { name: 'Về Luyện tập với AI' })).not.toBeInTheDocument();
   });
 
-  it('replaces the query when another preset is selected and disables submit after clearing', async () => {
+  it('renders all six static suggestions as actions without selection semantics', () => {
+    renderPage();
+    const suggestions = screen.getByRole('group', { name: 'Gợi ý cho bạn' });
+    const buttons = within(suggestions).getAllByRole('button');
+
+    expect(buttons).toHaveLength(6);
+    expect(within(suggestions).getByRole('button', { name: 'Cách mạng tháng Tám' })).toBeInTheDocument();
+    expect(within(suggestions).getByRole('button', { name: 'Điện Biên Phủ 1954' })).toBeInTheDocument();
+    expect(within(suggestions).getByRole('button', { name: 'Kháng chiến chống Mỹ' })).toBeInTheDocument();
+    expect(within(suggestions).getByRole('button', { name: 'ASEAN' })).toBeInTheDocument();
+    expect(within(suggestions).getByRole('button', { name: 'Văn minh Đại Việt' })).toBeInTheDocument();
+    expect(within(suggestions).getByRole('button', { name: 'Đổi mới 1986' })).toBeInTheDocument();
+    expect(buttons.every((button) => !button.hasAttribute('aria-pressed'))).toBe(true);
+    expect(screen.queryByRole('combobox', { name: /gợi ý/i })).not.toBeInTheDocument();
+  });
+
+  it('replaces the query on each suggestion click and remains manually editable without submitting', async () => {
     renderPage();
     const user = userEvent.setup();
-    const preset = screen.getByLabelText('Gợi ý chủ đề');
     const query = screen.getByLabelText('Bạn muốn ôn tập nội dung gì?');
-    await user.selectOptions(preset, 'asean');
+    await user.type(query, 'Nội dung nhập tay');
+    await user.click(screen.getByRole('button', { name: 'ASEAN' }));
     expect(query).toHaveValue('ASEAN và quan hệ quốc tế');
-    await user.selectOptions(preset, 'dai-viet-civilization');
+    expect(mocks.generateQuiz).not.toHaveBeenCalled();
+    await user.click(screen.getByRole('button', { name: 'Văn minh Đại Việt' }));
     expect(query).toHaveValue('Văn minh Đại Việt');
+    await user.type(query, ' và di sản');
+    expect(query).toHaveValue('Văn minh Đại Việt và di sản');
     await user.clear(query);
-    expect(preset).toHaveValue('');
-    expect(screen.getByRole('button', { name: /tạo 5 câu hỏi/i })).toBeDisabled();
+    expect(screen.getByRole('button', { name: /tạo 3 câu hỏi/i })).toBeDisabled();
   });
 
-  it('explains disabled state and rejects long query and invalid custom count', async () => {
+  it('keeps short suggestion labels separate from the full generated query', async () => {
+    mocks.generateQuiz.mockResolvedValue({ sessionId: 'session-1' });
     renderPage();
-    const create = screen.getByRole('button', { name: /tạo 5 câu hỏi/i });
+    const user = userEvent.setup();
+
+    await user.click(screen.getByRole('button', { name: 'Điện Biên Phủ 1954' }));
+    expect(screen.getByLabelText('Bạn muốn ôn tập nội dung gì?')).toHaveValue('Chiến thắng Điện Biên Phủ năm 1954');
+    expect(screen.getByText((_, node) => node?.textContent?.replace(/\s+/g, ' ').trim() === 'Thời gian: 5 phút')).toBeInTheDocument();
+    expect(screen.queryByText((_, node) => node?.textContent?.replace(/\s+/g, ' ').trim() === 'Thời gian: 10 phút')).not.toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: /tạo 3 câu hỏi/i }));
+
+    await waitFor(() => expect(mocks.generateQuiz).toHaveBeenCalledWith({
+      query: 'Chiến thắng Điện Biên Phủ năm 1954',
+      difficulty: 'medium',
+      questionCount: 3,
+      timeLimitMinutes: 5,
+    }, 'user-1', expect.any(AbortSignal)));
+  });
+
+  it('disables the CTA when the query is empty and never falls back to local mock generation', () => {
+    renderPage();
+    const create = screen.getByRole('button', { name: /tạo 3 câu hỏi/i });
     expect(create).toBeDisabled();
-    expect(create).toHaveAttribute('aria-describedby', 'quiz-generate-disabled-reason');
+    expect(create).not.toHaveAttribute('aria-describedby');
     fireEvent.click(create);
     expect(mocks.generateQuiz).not.toHaveBeenCalled();
-
-    const query = screen.getByLabelText('Bạn muốn ôn tập nội dung gì?');
-    fireEvent.change(query, { target: { value: 'a'.repeat(1001) } });
-    expect(screen.getByText('Chủ đề hoặc yêu cầu không được vượt quá 1.000 ký tự.')).toBeInTheDocument();
-
-    fireEvent.change(query, { target: { value: 'Cách mạng tháng Tám' } });
-    await userEvent.click(screen.getByLabelText('Khác'));
-    fireEvent.change(screen.getByLabelText('Nhập số câu (1–10)'), { target: { value: '11' } });
-    expect(screen.getByText('Số câu phải là số nguyên từ 1 đến 10.')).toBeInTheDocument();
   });
 
-  it('renders difficulty and count as separate responsive fieldsets', () => {
+  it('keeps invalid query aria-invalid true without showing the explanatory message', () => {
+    renderPage();
+    const query = screen.getByLabelText('Bạn muốn ôn tập nội dung gì?');
+    fireEvent.change(query, { target: { value: 'a'.repeat(1001) } });
+    expect(query).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.queryByText('Hãy nhập chủ đề hoặc yêu cầu để tạo câu hỏi.')).not.toBeInTheDocument();
+  });
+
+  it('renders difficulty and count as separate responsive fieldsets and exposes exactly 1/3/5 count radios only', () => {
     const { container } = renderPage();
     const difficulty = screen.getByRole('group', { name: 'Độ khó' });
     const count = screen.getByRole('group', { name: 'Số câu' });
     expect(difficulty).not.toBe(count);
     expect(container.querySelector('.quiz-config-grid')).toContainElement(difficulty);
     expect(container.querySelector('.quiz-config-grid')).toContainElement(count);
-    expect(screen.getByText('Tối đa 10 câu cho mỗi bài tự luyện.')).toBeInTheDocument();
+    expect(screen.queryByText('Tối đa 10 câu cho mỗi bài tự luyện.')).not.toBeInTheDocument();
+    const countRadios = within(count).getAllByRole('radio');
+    expect(countRadios).toHaveLength(3);
+    expect(within(count).getByRole('radio', { name: '1 câu' })).toBeInTheDocument();
+    expect(within(count).getByRole('radio', { name: '3 câu' })).toBeInTheDocument();
+    expect(within(count).getByRole('radio', { name: '5 câu' })).toBeInTheDocument();
+    expect(within(count).queryByRole('radio', { name: 'Khác' })).not.toBeInTheDocument();
+    expect(within(count).queryByRole('radio', { name: '10 câu' })).not.toBeInTheDocument();
+    expect(screen.queryByLabelText('Nhập số câu (1–10)')).not.toBeInTheDocument();
+    expect(screen.queryByText(/Trung bình • 5 câu • 10 phút/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Trung bình • 3 câu • 5 phút/)).not.toBeInTheDocument();
   });
 
-  it('uses configuration and AI-generation icons for their matching actions', () => {
+  it('uses text controls without decorative icons', () => {
     const { container } = renderPage();
-    expect(container.querySelector('[data-quiz-icon="setup"]')).toBeInTheDocument();
-    expect(container.querySelector('[data-quiz-icon="generate"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-quiz-icon="setup"]')).not.toBeInTheDocument();
+    expect(container.querySelector('[data-quiz-icon="generate"]')).not.toBeInTheDocument();
   });
 
   it('submits once with trimmed query and derived time then navigates on success', async () => {
     mocks.generateQuiz.mockResolvedValue({ sessionId: 'session-1' });
     renderPage();
-    fireEvent.change(screen.getByLabelText('Bạn muốn ôn tập nội dung gì?'), { target: { value: '  ASEAN  ' } });
-    const create = screen.getByRole('button', { name: /tạo 5 câu hỏi/i });
+    setupQuery(userEvent.setup(), '  ASEAN  ');
+    const create = screen.getByRole('button', { name: /tạo 3 câu hỏi/i });
     fireEvent.click(create);
     fireEvent.click(create);
 
@@ -112,10 +158,52 @@ describe('QuizGeneratePage', () => {
     expect(mocks.generateQuiz.mock.calls[0][0]).toEqual({
       query: 'ASEAN',
       difficulty: 'medium',
-      questionCount: 5,
-      timeLimitMinutes: 10,
+      questionCount: 3,
+      timeLimitMinutes: 5,
     });
     expect(await screen.findByText('Phiên làm bài đã tạo')).toBeInTheDocument();
+  });
+
+  it('recomputes CTA label and timer disclosure when count switches between 1 and 5 without submitting', async () => {
+    renderPage();
+    const user = userEvent.setup();
+
+    setupQuery(user, 'Cách mạng tháng Tám');
+    const countGroup = screen.getByRole('group', { name: 'Số câu' });
+    const disclosure = (label: string) => screen.getByText((_, node) => node?.textContent?.replace(/\s+/g, ' ').trim() === label);
+
+    expect(disclosure('Thời gian: 5 phút')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /tạo 3 câu hỏi/i })).toBeInTheDocument();
+
+    await user.click(within(countGroup).getByRole('radio', { name: '1 câu' }));
+    expect(disclosure('Thời gian: 5 phút')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /tạo 1 câu hỏi/i })).toBeInTheDocument();
+    expect(screen.queryByText((_, node) => node?.textContent?.replace(/\s+/g, ' ').trim() === 'Thời gian: 10 phút')).not.toBeInTheDocument();
+
+    await user.click(within(countGroup).getByRole('radio', { name: '5 câu' }));
+    expect(disclosure('Thời gian: 10 phút')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /tạo 5 câu hỏi/i })).toBeInTheDocument();
+
+    await user.click(within(countGroup).getByRole('radio', { name: '3 câu' }));
+    expect(disclosure('Thời gian: 5 phút')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /tạo 3 câu hỏi/i })).toBeInTheDocument();
+  });
+
+  it('submits 1-question session to AI quiz service unchanged', async () => {
+    mocks.generateQuiz.mockResolvedValue({ sessionId: 'session-1' });
+    renderPage();
+    const user = userEvent.setup();
+
+    setupQuery(user, 'Cách mạng tháng Tám');
+    await user.click(screen.getByRole('radio', { name: '1 câu' }));
+    fireEvent.click(screen.getByRole('button', { name: /tạo 1 câu hỏi/i }));
+
+    await waitFor(() => expect(mocks.generateQuiz).toHaveBeenCalledWith(expect.objectContaining({
+      query: 'Cách mạng tháng Tám',
+      difficulty: 'medium',
+      questionCount: 1,
+      timeLimitMinutes: 5,
+    }), expect.any(String), expect.any(AbortSignal)));
   });
 
   it('stops waiting without an error and keeps the form content', async () => {
@@ -127,15 +215,14 @@ describe('QuizGeneratePage', () => {
       });
     });
     renderPage();
-    const query = screen.getByLabelText('Bạn muốn ôn tập nội dung gì?');
-    fireEvent.change(query, { target: { value: 'Điện Biên Phủ' } });
-    fireEvent.click(screen.getByRole('button', { name: /tạo 5 câu hỏi/i }));
+    setupQuery(userEvent.setup(), 'Điện Biên Phủ');
+    fireEvent.click(screen.getByRole('button', { name: /tạo 3 câu hỏi/i }));
     expect(receivedSignal).toBeInstanceOf(AbortSignal);
     fireEvent.click(await screen.findByRole('button', { name: 'Dừng chờ' }));
     expect(receivedSignal?.aborted).toBe(true);
 
-    await waitFor(() => expect(screen.queryByRole('dialog', { name: /đang tạo 5 câu hỏi/i })).not.toBeInTheDocument());
-    expect(query).toHaveValue('Điện Biên Phủ');
+    await waitFor(() => expect(screen.queryByRole('dialog', { name: /đang tạo 3 câu hỏi/i })).not.toBeInTheDocument());
+    expect(screen.getByLabelText('Bạn muốn ôn tập nội dung gì?')).toHaveValue('Điện Biên Phủ');
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
   });
 });

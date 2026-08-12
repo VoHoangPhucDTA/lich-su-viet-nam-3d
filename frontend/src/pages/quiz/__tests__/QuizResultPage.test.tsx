@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -59,29 +59,62 @@ const result: QuizResult = {
   gradeBreakdown: { 12: { correct: 0, total: 1 } },
 };
 
-describe('QuizResultPage navigation', () => {
+function renderPage() {
+  return render(
+    <MemoryRouter initialEntries={['/quiz/result/session-1']}>
+      <Routes>
+        <Route path="/quiz/result/:sessionId" element={<QuizResultPage />} />
+      </Routes>
+    </MemoryRouter>,
+  );
+}
+
+describe('QuizResultPage', () => {
   beforeEach(() => {
     mocks.getQuizResult.mockReset();
     mocks.getQuizResult.mockResolvedValue(result);
   });
 
-  it('uses explicit module-home, new-quiz, history and review-topic routes', async () => {
-    const { container } = render(
-      <MemoryRouter initialEntries={['/quiz/result/session-1']}>
-        <Routes>
-          <Route path="/quiz/result/:sessionId" element={<QuizResultPage />} />
-        </Routes>
-      </MemoryRouter>,
-    );
+  it('uses explicit routes, exposes actionable CTAs and never surfaces a history link', async () => {
+    const { container } = renderPage();
 
-    const back = await screen.findByRole('link', { name: 'Về trang trắc nghiệm' });
+    const back = await screen.findByRole('link', { name: 'Về Luyện tập với AI' });
     expect(back).toHaveAttribute('href', '/quiz');
     expect(back.querySelector('[data-result-back-icon]')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Tạo bài luyện tập mới' })).toHaveAttribute('href', '/quiz/generate');
     expect(screen.getByRole('link', { name: 'Tạo bài ôn lại chủ đề này' }))
       .toHaveAttribute('href', '/quiz/generate?q=C%C3%A1ch%20m%E1%BA%A1ng%20th%C3%A1ng%20T%C3%A1m');
-    expect(screen.getAllByRole('link', { name: /Xem lịch sử/ }).every((link) => link.getAttribute('href') === '/quiz/history')).toBe(true);
+    expect(screen.queryByRole('link', { name: /Xem lịch sử/ })).not.toBeInTheDocument();
     expect(container.querySelector('.public-page-back-row')).not.toBeInTheDocument();
+  });
+
+  it('shows loading while the saved result is pending', () => {
+    mocks.getQuizResult.mockReturnValue(new Promise(() => undefined));
+    renderPage();
+
+    expect(screen.getByText('Đang tải kết quả làm bài...')).toBeInTheDocument();
+  });
+
+  it('shows a distinct empty state when the result does not exist', async () => {
+    mocks.getQuizResult.mockResolvedValue(null);
+    renderPage();
+
+    expect(await screen.findByText('Không tìm thấy kết quả')).toBeInTheDocument();
+    expect(screen.queryByText('Đang tải kết quả làm bài...')).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Về Luyện tập với AI' })).toHaveAttribute('href', '/quiz');
+  });
+
+  it('leaves loading after rejection and retries the local result read', async () => {
+    mocks.getQuizResult
+      .mockRejectedValueOnce(new Error('broken local data'))
+      .mockResolvedValueOnce(result);
+    renderPage();
+
+    expect(await screen.findByRole('alert')).toHaveTextContent('Chưa thể tải kết quả');
+    expect(screen.queryByText('Đang tải kết quả làm bài...')).not.toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'Thử lại' }));
+    expect(await screen.findByRole('heading', { name: 'Kết quả bài trắc nghiệm' })).toBeInTheDocument();
+    await waitFor(() => expect(mocks.getQuizResult).toHaveBeenCalledTimes(2));
   });
 
   it('scrolls the application scroll container to the top', async () => {
@@ -90,13 +123,7 @@ describe('QuizResultPage navigation', () => {
     appScrollRoot.scrollTo = vi.fn();
     document.body.appendChild(appScrollRoot);
 
-    render(
-      <MemoryRouter initialEntries={['/quiz/result/session-1']}>
-        <Routes>
-          <Route path="/quiz/result/:sessionId" element={<QuizResultPage />} />
-        </Routes>
-      </MemoryRouter>,
-    );
+    renderPage();
 
     await userEvent.click(await screen.findByRole('button', { name: 'Lên đầu trang' }));
     expect(appScrollRoot.scrollTo).toHaveBeenCalledWith({ top: 0, left: 0, behavior: 'smooth' });
