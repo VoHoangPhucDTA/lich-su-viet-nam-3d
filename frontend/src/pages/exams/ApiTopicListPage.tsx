@@ -7,6 +7,7 @@ import type { ExamTopicMetadata } from '@/types/examApi';
 type View = 'topic' | 'period';
 
 interface DisplayTopic {
+  scopeType: View;
   slug: string;
   title: string;
   questionCount: number;
@@ -37,11 +38,11 @@ export default function ApiTopicListPage() {
   }, []);
 
   const displayItems = useMemo<DisplayTopic[]>(() => {
-    if (view === 'topic') return items.map((item) => ({ slug: item.slug, title: item.title, questionCount: item.questionCount, mcqCount: item.mcqCount, tfCount: item.tfCount, childCount: 0 }));
+    if (view === 'topic') return items.map((item) => ({ scopeType: 'topic', slug: item.slug, title: item.title, questionCount: item.questionCount, mcqCount: item.mcqCount, tfCount: item.tfCount, childCount: 0 }));
     const byPeriod = new Map<string, DisplayTopic>();
     for (const item of items) {
       if (!item.periodSlug || !item.periodTitle) continue;
-      const current = byPeriod.get(item.periodSlug) ?? { slug: item.periodSlug, title: item.periodTitle, questionCount: 0, mcqCount: 0, tfCount: 0, childCount: 0 };
+      const current = byPeriod.get(item.periodSlug) ?? { scopeType: 'period', slug: item.periodSlug, title: item.periodTitle, questionCount: 0, mcqCount: 0, tfCount: 0, childCount: 0 };
       current.questionCount += item.questionCount;
       current.mcqCount += item.mcqCount;
       current.tfCount += item.tfCount;
@@ -61,11 +62,11 @@ export default function ApiTopicListPage() {
         <header><h1 style={{ margin: 0 }}>Ôn theo chủ đề</h1><p style={mutedStyle}>Chọn chủ đề hoặc giai đoạn để máy chủ tạo một phiên luyện tập có tập câu hỏi cố định.</p></header>
         <section style={cardStyle}>
           <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}><button type="button" onClick={() => setView('topic')} style={view === 'topic' ? buttonStyle : secondaryButtonStyle}>Theo chủ đề</button><button type="button" onClick={() => setView('period')} style={view === 'period' ? buttonStyle : secondaryButtonStyle}>Theo giai đoạn</button></div>
-          <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Tìm chủ đề" aria-label="Tìm chủ đề" style={inputStyle} />
+          <div className="form-control-wrap"><input className="form-control" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Tìm chủ đề" aria-label="Tìm chủ đề" /></div>
         </section>
         {loading && <p style={mutedStyle}>Đang tải danh sách chủ đề...</p>}
         {error && <p role="alert" style={errorStyle}>{error}</p>}
-        {!loading && !error && <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(17rem, 1fr))', gap: '1rem' }}>{visible.map((item) => <article key={item.slug} style={cardStyle}><h2 style={{ margin: 0, fontSize: '1.05rem' }}>{item.title}</h2><p style={mutedStyle}>{item.questionCount} câu · {item.mcqCount} trắc nghiệm · {item.tfCount} đúng/sai{view === 'period' ? ` · ${item.childCount} chủ đề` : ''}</p><Link to={`/exams/on-chu-de/${item.slug}`} style={buttonLinkStyle}>Bắt đầu ôn</Link></article>)}</section>}
+        {!loading && !error && <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(17rem, 1fr))', gap: '1rem' }}>{visible.map((item) => <article key={item.slug} style={cardStyle}><h2 style={{ margin: 0, fontSize: '1.05rem' }}>{item.title}</h2><p style={mutedStyle}>{item.questionCount} câu · {item.mcqCount} trắc nghiệm · {item.tfCount} đúng/sai{view === 'period' ? ` · ${item.childCount} chủ đề` : ''}</p><Link to={`/exams/on-chu-de/${item.slug}${item.scopeType === 'period' ? '?scope=period' : ''}`} style={buttonLinkStyle}>Bắt đầu ôn</Link></article>)}</section>}
       </main>
     </div>
   );
@@ -73,7 +74,6 @@ export default function ApiTopicListPage() {
 
 const pageStyle = { minHeight: '100vh', background: 'var(--bg-app)', color: 'var(--text-primary)', padding: '2rem 1.5rem' };
 const cardStyle = { background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '1rem', padding: '1.1rem', display: 'grid', gap: '0.7rem' };
-const inputStyle = { padding: '0.7rem 0.85rem', borderRadius: '0.7rem', border: '1px solid var(--border)', background: 'var(--bg-surface)', color: 'var(--text-primary)' };
 const mutedStyle = { margin: 0, color: 'var(--text-muted)', lineHeight: 1.55 };
 const errorStyle = { margin: 0, color: 'var(--danger)' };
 const backStyle = { color: 'var(--text-muted)', textDecoration: 'none' };
