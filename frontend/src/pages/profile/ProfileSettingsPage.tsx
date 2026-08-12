@@ -8,18 +8,7 @@ import { uploadAvatarImage } from '../../services/cloudinaryService';
 import { isStrongPassword, passwordStrengthMessage } from '../../utils/passwordUtils';
 import PasswordInput from '../../components/auth/PasswordInput';
 import PasswordStrengthMeter from '../../components/auth/PasswordStrengthMeter';
-import {
-  User,
-  Lock,
-  Shield,
-  AlertTriangle,
-  Save,
-  Camera,
-  CheckCircle,
-  XCircle,
-  LogIn,
-  Upload,
-} from 'lucide-react';
+import { Camera } from 'lucide-react';
 
 /* ─── Shared input ──────────────────────────────────────────────────────────── */
 function FormField({
@@ -82,20 +71,15 @@ function SelectField({
       <label htmlFor={id} className="block text-xs font-sans font-bold uppercase tracking-wider text-stone-400 mb-1.5">
         {label}
       </label>
-      <div className="relative">
-        <select
+      <select
           id={id}
           value={value}
           onChange={e => onChange(e.target.value)}
-          className="profile-form-control px-4 py-2.5 text-sm appearance-none cursor-pointer"
+          className="profile-form-control px-4 py-2.5 text-sm cursor-pointer"
           style={{ fontFamily: 'inherit' }}
         >
           {options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-        </select>
-        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-stone-400 text-xs">
-          ▼
-        </div>
-      </div>
+      </select>
     </div>
   );
 }
@@ -112,7 +96,7 @@ function Card({ children, className = '' }: { children: React.ReactNode; classNa
 /* ─── Card title ────────────────────────────────────────────────────────────── */
 function CardTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="font-sans text-xl font-bold text-stone-900 mb-6 flex items-center gap-3">
+    <h2 className="font-sans text-xl font-bold text-stone-900 mb-6">
       {children}
     </h2>
   );
@@ -124,16 +108,11 @@ function Toast({ message, type }: { message: string; type: 'success' | 'error' }
     <div
       role={type === 'error' ? 'alert' : 'status'}
       aria-live={type === 'error' ? 'assertive' : 'polite'}
-      className="fixed bottom-6 right-6 z-[9999] flex items-center gap-3 px-5 py-3 rounded-xl text-sm font-bold shadow-lg animate-fade-in"
+      className="fixed bottom-6 right-6 z-[9999] px-5 py-3 rounded-xl text-sm font-bold shadow-lg animate-fade-in"
       style={{
         background: type === 'success' ? '#3D8361' : '#8b1e1e',
         color: '#fff',
       }}>
-      {type === 'success' ? (
-        <CheckCircle size={18} strokeWidth={2} />
-      ) : (
-        <XCircle size={18} strokeWidth={2} />
-      )}
       {message}
     </div>
   );
@@ -290,24 +269,9 @@ export default function ProfileSettingsPage() {
       {toast && <Toast message={toast.message} type={toast.type} />}
 
       <div className="space-y-8 lg:space-y-10 animate-fade-in">
-        {/* Page Header */}
-        <div className="space-y-2">
-          <span className="font-sans text-[10px] font-bold uppercase tracking-wider text-red-900">Cài đặt</span>
-          <h1 className="font-sans text-2xl sm:text-3xl font-black text-stone-900 leading-tight tracking-tight">
-            Cài đặt tài khoản
-          </h1>
-          <p className="text-sm text-stone-500">
-            Cập nhật thông tin cá nhân và tuỳ chọn bảo mật.
-          </p>
-          <div className="h-px w-10 bg-amber-400 rounded-full" />
-        </div>
-
         {/* ── Profile Info ── */}
         <Card>
-          <CardTitle>
-            <User size={18} strokeWidth={1.5} className="text-red-900" />
-            Thông tin cá nhân
-          </CardTitle>
+          <CardTitle>Thông tin cá nhân</CardTitle>
 
           {/* Avatar */}
           <div className="flex items-center gap-5 mb-7 pb-7 border-b border-stone-100">
@@ -332,19 +296,6 @@ export default function ProfileSettingsPage() {
             <div>
               <p className="font-sans text-lg font-bold text-stone-900">{fullName || 'Học sinh'}</p>
               <p className="text-sm text-stone-400">{currentUser?.email}</p>
-              <button
-                type="button"
-                onClick={() => fileRef.current?.click()}
-                disabled={avatarUploading}
-                aria-busy={avatarUploading}
-                className="profile-action mt-2 text-xs font-sans font-bold uppercase tracking-wider text-red-900 bg-red-50 px-3 py-1.5 rounded-lg border border-red-200/60 hover:bg-red-100 inline-flex items-center gap-1.5"
-              >
-                {avatarUploading ? (
-                  <><span className="w-3 h-3 border-2 border-red-900/30 border-t-red-900 rounded-full animate-spin" /> Đang tải</>
-                ) : (
-                  <><Upload size={12} strokeWidth={2} /> Đổi ảnh</>
-                )}
-              </button>
             </div>
           </div>
 
@@ -383,12 +334,7 @@ export default function ProfileSettingsPage() {
                     <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                     Đang lưu
                   </>
-                ) : (
-                  <>
-                    <Save size={15} strokeWidth={2} />
-                    Lưu hồ sơ
-                  </>
-                )}
+                ) : 'Lưu hồ sơ'}
               </button>
             </div>
           </form>
@@ -396,10 +342,7 @@ export default function ProfileSettingsPage() {
 
         {/* ── Change Password ── */}
         <Card>
-          <CardTitle>
-            <Lock size={18} strokeWidth={1.5} className="text-red-900" />
-            Đổi mật khẩu
-          </CardTitle>
+          <CardTitle>Đổi mật khẩu</CardTitle>
           <form onSubmit={handleChangePassword} className="flex flex-col gap-5">
             <PasswordInput
               id="oldPw"
@@ -446,12 +389,7 @@ export default function ProfileSettingsPage() {
                 className="profile-action inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-sans font-bold uppercase tracking-wider bg-white border border-stone-200/60 text-stone-700 hover:bg-stone-50 hover:border-red-200/60"
                 style={{ fontFamily: 'inherit' }}
               >
-                {pwSaving ? 'Đang xử lý...' : (
-                  <>
-                    <Lock size={15} strokeWidth={2} />
-                    Cập nhật mật khẩu
-                  </>
-                )}
+                {pwSaving ? 'Đang xử lý...' : 'Cập nhật mật khẩu'}
               </button>
             </div>
           </form>
@@ -459,10 +397,7 @@ export default function ProfileSettingsPage() {
 
         {/* ── Current Session ── */}
         <Card>
-          <CardTitle>
-            <Shield size={18} strokeWidth={1.5} className="text-red-900" />
-            Phiên làm việc
-          </CardTitle>
+          <CardTitle>Phiên làm việc</CardTitle>
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between gap-4 p-4 rounded-xl bg-stone-50 border border-stone-200/60">
               <div className="flex-1">
@@ -474,10 +409,7 @@ export default function ProfileSettingsPage() {
                 onClick={handleLogout}
                 className="profile-action shrink-0 px-4 py-2 rounded-lg text-xs font-sans font-bold uppercase tracking-wider bg-white border border-stone-200/60 text-stone-600 hover:bg-stone-50"
               >
-                <span className="flex items-center gap-1.5">
-                  <LogIn size={13} strokeWidth={2} />
-                  Thoát
-                </span>
+                Thoát
               </button>
             </div>
           </div>
@@ -485,10 +417,7 @@ export default function ProfileSettingsPage() {
 
         {/* ── Danger Zone ── */}
         <Card className="border-red-200/60 bg-red-50/30">
-          <CardTitle>
-            <AlertTriangle size={18} strokeWidth={1.5} className="text-red-900" />
-            Vùng nguy hiểm
-          </CardTitle>
+          <CardTitle>Vùng nguy hiểm</CardTitle>
           <div className="flex items-center justify-between gap-4 p-4 rounded-xl bg-white border border-red-200/60">
             <div className="flex-1">
               <p className="text-sm font-bold text-red-900">Xóa tài khoản vĩnh viễn</p>
@@ -501,10 +430,7 @@ export default function ProfileSettingsPage() {
               onClick={handleOpenDeleteDialog}
               className="profile-action shrink-0 px-4 py-2 rounded-lg text-xs font-sans font-bold uppercase tracking-wider bg-red-900 text-amber-50 hover:bg-red-950 shadow-sm"
             >
-              <span className="flex items-center gap-1.5">
-                <AlertTriangle size={13} strokeWidth={2} />
-                Xóa tài khoản
-              </span>
+              Xóa tài khoản
             </button>
           </div>
         </Card>

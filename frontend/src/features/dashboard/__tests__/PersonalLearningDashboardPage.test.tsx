@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import defaultAnalyticsFixture from '../../../../../data/dashboard-analytics-fixtures/response-v1-default.json';
@@ -86,14 +86,49 @@ afterEach(() => {
 });
 
 describe('PersonalLearningDashboardPage fixtures', () => {
-  it('renders the default dashboard with the exact KPI set and one question-type section', () => {
+  it('renders the default dashboard with the exact KPI set, recommendation, focus topics, and two closed disclosures', () => {
     const { container } = renderFixture('default');
 
     for (const label of ['Số bài đã làm', 'Điểm trung bình', 'Điểm cao nhất', 'Điểm gần nhất']) {
       expect(screen.getByText(label)).toBeInTheDocument();
     }
     expect(screen.queryByText('Ngày hoạt động', { selector: '.dashboard-kpi-card p' })).not.toBeInTheDocument();
-    expect(screen.getAllByRole('heading', { name: 'Hiệu suất theo dạng câu' })).toHaveLength(1);
+    expect(screen.getByRole('heading', { name: 'Các chủ đề khác cần chú ý' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Các chủ đề cần tập trung' })).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Lịch sử luyện thi' })).toBeInTheDocument();
+    // Phase G: insights được tách sang disclosure "Xem tất cả chủ đề" (mặc định đóng);
+    // cognitive / question-type / coverage nằm trong disclosure "Phân tích chi tiết".
+    const topicsDisclosure = container.querySelector('.dashboard-topics-disclosure');
+    const advancedDisclosure = container.querySelector('.dashboard-advanced-disclosure');
+    expect(topicsDisclosure).toBeInTheDocument();
+    expect(topicsDisclosure).not.toHaveAttribute('open');
+    expect(topicsDisclosure?.querySelector('summary')).toHaveTextContent('Xem tất cả chủ đề');
+    expect(advancedDisclosure).toBeInTheDocument();
+    expect(advancedDisclosure).not.toHaveAttribute('open');
+    expect(advancedDisclosure?.querySelector('summary')).toHaveTextContent('Phân tích chi tiết');
+    const topicsBody = topicsDisclosure?.querySelector('.dashboard-advanced-disclosure-body') as HTMLElement | null;
+    const advancedBody = advancedDisclosure?.querySelector('.dashboard-advanced-disclosure-body') as HTMLElement | null;
+    expect(topicsBody).not.toBeNull();
+    expect(advancedBody).not.toBeNull();
+    expect(topicsBody?.querySelector('#dashboard-insight-title')).not.toBeVisible();
+    expect(advancedBody?.querySelector('#dashboard-question-type-title')).not.toBeVisible();
+    // Phase J2: Cognitive không render trên Analytics.
+    expect(advancedBody?.querySelector('#dashboard-cognitive-title')).toBeNull();
+    // Phase J: Coverage không render trên Analytics (kể cả trong disclosure).
+    expect(advancedBody?.querySelector('#dashboard-coverage-title')).toBeNull();
+    // Insights chỉ nằm trong "Xem tất cả chủ đề", không trong "Phân tích chi tiết".
+    expect(advancedBody?.querySelector('#dashboard-insight-title')).toBeNull();
+    // Phase I: RecentAttempts/QuickActions đã bỏ hoàn toàn khỏi Analytics rendering.
+    expect(screen.queryByRole('link', { name: /^Xem lại bài làm:/ })).not.toBeInTheDocument();
+    expect(container.querySelector('.dashboard-main-column > .dashboard-history')).not.toBeInTheDocument();
+    expect(container.querySelector('.dashboard-quick-actions')).not.toBeInTheDocument();
+    // Hành vi disclosure: mặc định đóng, có thể mở bằng bàn phím/chuột.
+    fireEvent.click(advancedDisclosure!.querySelector('summary') as HTMLElement);
+    expect(advancedDisclosure).toHaveAttribute('open');
+    expect(advancedBody?.querySelector('#dashboard-question-type-title')).toBeVisible();
+    fireEvent.click(topicsDisclosure!.querySelector('summary') as HTMLElement);
+    expect(topicsDisclosure).toHaveAttribute('open');
+    expect(topicsBody?.querySelector('#dashboard-insight-title')).toBeVisible();
     // TASK-02: notice phụ (partial-detail) không còn bị lọc bỏ khỏi UI — hành vi cũ giấu hẳn
     // thông tin phạm vi dữ liệu. Hành vi đúng mới: notice nằm trong <details> "Chi tiết về
     // nguồn dữ liệu", không chiếm chỗ banner primary phía trên nội dung chính.
@@ -102,16 +137,9 @@ describe('PersonalLearningDashboardPage fixtures', () => {
     expect(noticeDetails).toHaveTextContent('Chi tiết về nguồn dữ liệu (1)');
     const secondaryNotice = noticeDetails?.querySelector('.dashboard-notice') as HTMLElement;
     expect(secondaryNotice).toHaveTextContent('Phân tích chưa bao phủ toàn bộ lịch sử');
-    // <details> phải đóng lúc đầu và mở được bằng bàn phím/chuột — đây là hành vi cốt lõi
-    // của TASK-02, không chỉ là sự tồn tại của phần tử trong DOM.
     expect(secondaryNotice).not.toBeVisible();
-    fireEvent.click(screen.getByText('Chi tiết về nguồn dữ liệu (1)'));
+    fireEvent.click(noticeDetails!.querySelector('summary') as HTMLElement);
     expect(secondaryNotice).toBeVisible();
-    // Thẻ "Phạm vi dữ liệu" phải là landmark region duy nhất mang tên này. Notice phụ dùng
-    // aria-label = title nên title fixture không được trùng tiêu đề thẻ phạm vi dữ liệu.
-    const coveragePresentations = screen.getAllByRole('region', { name: 'Phạm vi dữ liệu' });
-    expect(coveragePresentations).toHaveLength(1);
-    expect(coveragePresentations[0]).toHaveClass('dashboard-coverage');
     expect(screen.queryByText('Concept C')).not.toBeInTheDocument();
   });
 
@@ -173,11 +201,14 @@ describe('PersonalLearningDashboardPage fixtures', () => {
   });
 
   it('renders overview plus the partial-detail coverage warning', () => {
-    renderFixture('partial-details');
+    const { container } = renderFixture('partial-details');
     expect(screen.getByText(DASHBOARD_FIXTURES['partial-details'].notices[0].title)).toBeInTheDocument();
     expect(screen.getByText(/Chỉ 4\/9 bài có dữ liệu chi tiết/)).toBeInTheDocument();
-    expect(document.querySelector('.dashboard-coverage')).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'Hiệu suất theo dạng câu' })).toBeInTheDocument();
+    // Task H: coverage card và question-type nằm trong "Phân tích chi tiết" disclosure, không hiển thị ở default view.
+    expect(document.querySelector('.dashboard-main-column > .dashboard-coverage')).not.toBeInTheDocument();
+    const questionTypeHeading = container.querySelector('#dashboard-question-type-title') as HTMLElement | null;
+    expect(questionTypeHeading).not.toBeNull();
+    expect(questionTypeHeading).not.toBeVisible();
   });
 
   it('preserves long Vietnamese content without a shortened replacement', () => {
@@ -185,12 +216,14 @@ describe('PersonalLearningDashboardPage fixtures', () => {
     expect(screen.getByRole('heading', { name: DASHBOARD_FIXTURES['long-content'].recommendations[0].title })).toBeInTheDocument();
   });
 
-  it('distinguishes many-attempt coverage counts and limits recent history to five items', () => {
+  it('keeps many-attempt fixture usable while hiding the source/coverage card', () => {
     const { container } = renderFixture('many-attempts');
-    expect(screen.getByText('Tổng bài').nextElementSibling).toHaveTextContent('108');
-    expect(screen.getByText('Đủ dữ liệu chi tiết').nextElementSibling).toHaveTextContent('92');
-    expect(screen.getByText('Bài nguồn biểu đồ').nextElementSibling).toHaveTextContent('100');
-    expect(screen.getByText('Điểm trên biểu đồ').nextElementSibling).toHaveTextContent(String(DASHBOARD_FIXTURES['many-attempts'].scoreTrend.points.length));
+    // Phase I (Final visual refinement): recent attempts không còn render trên Analytics page.
+    expect(screen.queryByRole('link', { name: /^Xem lại bài làm:/ })).not.toBeInTheDocument();
+    // Phase J: Coverage/Source card đã bỏ khỏi Analytics rendering hoàn toàn.
+    expect(container.querySelector('.dashboard-coverage')).toBeNull();
+    expect(screen.queryByText('Tổng bài')).toBeNull();
+    expect(screen.queryByText('Bài nguồn biểu đồ')).toBeNull();
     // TASK-02: notice vượt giới hạn fetch (partial-detail) không còn bị giấu hẳn — hành vi
     // đúng mới là nằm trong <details> phụ thay vì hiển thị như banner primary.
     expect(container.querySelector('.dashboard-content > .dashboard-notice-stack')).toBeNull();
@@ -199,20 +232,68 @@ describe('PersonalLearningDashboardPage fixtures', () => {
     const secondaryNotice = noticeDetails?.querySelector('.dashboard-notice') as HTMLElement;
     expect(secondaryNotice).toHaveTextContent('Lịch sử vượt giới hạn hiện tại');
     expect(secondaryNotice).not.toBeVisible();
-    // Notice 'dense-chart' đã bị xóa khỏi fixture: không mapper nào sinh notice cho chart dày,
-    // page xử lý bằng dòng cảnh báo inline của biểu đồ.
     expect(screen.queryByText('Dữ liệu xu hướng dày')).not.toBeInTheDocument();
-    expect(screen.getAllByRole('link', { name: /^Xem lại bài làm:/ })).toHaveLength(5);
   });
 
-  it('uses semantic status classes and progress semantics for insights and question types', () => {
-    renderFixture('default');
-    expect(screen.getByRole('heading', { name: 'Cách mạng tháng Tám năm 1945' }).closest('li')).toHaveClass('dashboard-insight-strength');
-    expect(screen.getByRole('heading', { name: 'Việt Nam từ năm 1945 đến năm 1954' }).closest('li')).toHaveClass('dashboard-insight-weakness');
-    expect(screen.getByRole('progressbar', { name: 'Độ chính xác Trắc nghiệm' })).toHaveAttribute('aria-valuenow', '77');
-    expect(screen.getByRole('progressbar', { name: 'Độ chính xác Đúng/Sai theo mệnh đề' })).toHaveClass('dashboard-meter-developing');
-    expect(screen.getByText('77/100 câu đúng · 8 câu bỏ trống')).toBeInTheDocument();
-    expect(screen.getByText('126/160 mệnh đề đúng · 9 bỏ trống · 7/40 câu làm dở')).toBeInTheDocument();
+  it('opens the topics disclosure for strengths/weaknesses and the advanced disclosure for question types', () => {
+    const { container } = renderFixture('default');
+    // Phase G (Final visual refinement): insight được tách sang disclosure "Xem tất cả chủ đề";
+    // question-type/cognitive/coverage tách sang disclosure "Phân tích chi tiết".
+    const topicsDisclosure = container.querySelector('.dashboard-topics-disclosure');
+    const advancedDisclosure = container.querySelector('.dashboard-advanced-disclosure');
+    expect(topicsDisclosure).not.toHaveAttribute('open');
+    expect(advancedDisclosure).not.toHaveAttribute('open');
+    expect(container.querySelector('#dashboard-insight-title')).not.toBeVisible();
+    expect(container.querySelector('#dashboard-question-type-title')).not.toBeVisible();
+    // Mở "Xem tất cả chủ đề" → insight section xuất hiện.
+    fireEvent.click(topicsDisclosure!.querySelector('summary') as HTMLElement);
+    const insightSection = container.querySelector('.dashboard-insight-surface') as HTMLElement;
+    expect(within(insightSection).getByRole('heading', { name: 'Cách mạng tháng Tám năm 1945' }).closest('li')).toHaveClass('dashboard-insight-strength');
+    expect(within(insightSection).getByRole('heading', { name: 'Việt Nam từ năm 1945 đến năm 1954' }).closest('li')).toHaveClass('dashboard-insight-weakness');
+    const questionTypeSection = container.querySelector('.dashboard-question-type-card') as HTMLElement;
+    expect(within(questionTypeSection).getByRole('progressbar', { name: 'Độ chính xác Trắc nghiệm' })).toHaveAttribute('aria-valuenow', '77');
+    expect(within(questionTypeSection).getByRole('progressbar', { name: 'Độ chính xác Đúng/Sai theo mệnh đề' })).toHaveClass('dashboard-meter-developing');
+    expect(within(questionTypeSection).getByText('77/100 câu đúng · 8 câu bỏ trống')).toBeInTheDocument();
+    expect(within(questionTypeSection).getByText('126/160 mệnh đề đúng · 9 bỏ trống · 7/40 câu làm dở')).toBeInTheDocument();
+  });
+
+  it('filters the recommendation topic out of focus topics and renames the heading', () => {
+    const { container } = renderFixture('default');
+    const recommendation = screen.getByRole('heading', { name: /Ôn lại/ });
+    expect(recommendation).toBeInTheDocument();
+    const focusSection = container.querySelector('.dashboard-focus-topics') as HTMLElement;
+    expect(focusSection).toBeInTheDocument();
+    expect(focusSection).toHaveTextContent('Các chủ đề khác cần chú ý');
+    expect(focusSection).not.toHaveTextContent('Các chủ đề cần tập trung');
+    expect(within(focusSection).queryByText(/^Ưu tiên [123]$/)).not.toBeInTheDocument();
+    const focusLinks = within(focusSection).getAllByRole('link') as HTMLElement[];
+    const recommendationTitle = recommendation.textContent ?? '';
+    expect(recommendationTitle).not.toBe('');
+    expect(focusLinks.some((link) => link.textContent === recommendationTitle)).toBe(false);
+
+    const recommendationKey = DASHBOARD_FIXTURES.default.recommendations[0]?.topicKey ?? null;
+    const expectedOrder = DASHBOARD_FIXTURES.default.weaknesses
+      .filter((item) => item.key !== recommendationKey)
+      .filter((item) => item.practiceRoute)
+      .slice(0, 3)
+      .map((item) => item.label);
+    const actualOrder = within(focusSection).getAllByRole('heading', { level: 3 }).map((heading) => heading.textContent);
+    expect(actualOrder).toEqual(expectedOrder);
+  });
+
+  it('hides the strength column when weaknesses are present but strengths are empty', () => {
+    const model = structuredClone(DASHBOARD_FIXTURES.default);
+    model.strengths = [];
+    const { container } = render(
+      <MemoryRouter>
+        <PersonalLearningDashboardPage initialViewModel={model} />
+      </MemoryRouter>,
+    );
+    const insightGrid = container.querySelector('.dashboard-insight-grid') as HTMLElement | null;
+    expect(insightGrid).not.toBeNull();
+    expect(insightGrid?.classList.contains('dashboard-two-column-single')).toBe(true);
+    expect(insightGrid?.querySelector('.dashboard-insight-group-strength')).toBeNull();
+    expect(insightGrid?.querySelector('.dashboard-insight-group-weakness')).not.toBeNull();
   });
 
   it('uses an image description instead of an indeterminate progressbar for null accuracy', () => {
@@ -230,22 +311,45 @@ describe('PersonalLearningDashboardPage fixtures', () => {
     expect(screen.queryByRole('progressbar', { name: 'Độ chính xác Trắc nghiệm' })).not.toBeInTheDocument();
   });
 
-  it('rebuilds the ready dashboard into a main narrative and four-card utility rail', () => {
+  it('rebuilds the ready dashboard into a default narrative and two closed disclosures', () => {
     const { container } = renderFixture('default');
+    // Default-visible selectors (Phase G/I Final visual refinement).
     const mainSelectors = [
       '.dashboard-recommendation',
       '.dashboard-kpi-surface',
       '.dashboard-chart-card',
-      '.dashboard-insight-surface',
-      '.dashboard-question-type-card',
-      '.dashboard-history',
+      '.dashboard-focus-topics',
+      '.dashboard-history-link',
     ];
-    for (const selector of mainSelectors) expect(container.querySelectorAll(`.dashboard-main-column > ${selector}`)).toHaveLength(1);
-    for (const selector of ['.dashboard-activity-card', '.dashboard-cognitive-card', '.dashboard-coverage', '.dashboard-actions-card']) {
-      expect(container.querySelectorAll(`.dashboard-utility-surface > ${selector}`)).toHaveLength(1);
+    for (const selector of mainSelectors) {
+      expect(container.querySelectorAll(`.dashboard-main-column > ${selector}`)).toHaveLength(1);
     }
-    expect(container.querySelectorAll('.dashboard-insight-group.dashboard-card')).toHaveLength(0);
-    expect(container.querySelector('.dashboard-main-column .dashboard-cognitive-card')).not.toBeInTheDocument();
+    // Hai disclosure: "Xem tất cả chủ đề" chứa insight, "Phân tích chi tiết" chứa question-type.
+    expect(container.querySelector('.dashboard-main-column > .dashboard-insight-surface')).not.toBeInTheDocument();
+    expect(container.querySelector('.dashboard-main-column > .dashboard-question-type-card')).not.toBeInTheDocument();
+    expect(container.querySelector('.dashboard-main-column > .dashboard-cognitive-card')).not.toBeInTheDocument();
+    expect(container.querySelector('.dashboard-main-column > .dashboard-history')).not.toBeInTheDocument();
+    expect(container.querySelector('.dashboard-main-column > .dashboard-coverage')).not.toBeInTheDocument();
+    expect(container.querySelector('.dashboard-main-column > .dashboard-quick-actions')).not.toBeInTheDocument();
+    const topicsDisclosure = container.querySelector('.dashboard-topics-disclosure');
+    const advancedDisclosure = container.querySelector('.dashboard-advanced-disclosure');
+    expect(topicsDisclosure).toBeInTheDocument();
+    expect(advancedDisclosure).toBeInTheDocument();
+    expect(topicsDisclosure).not.toHaveAttribute('open');
+    expect(advancedDisclosure).not.toHaveAttribute('open');
+    // Phần tử con của disclosure tồn tại trong DOM nhưng details đang đóng nên ẩn.
+    expect(topicsDisclosure?.querySelector('#dashboard-insight-title')).not.toBeVisible();
+    expect(advancedDisclosure?.querySelector('.dashboard-question-type-card')).not.toBeVisible();
+    // Phase J: cognitive và coverage không còn render trên Analytics trong bất kỳ disclosure nào.
+    expect(container.querySelector('.dashboard-cognitive-card')).toBeNull();
+    expect(container.querySelector('.dashboard-coverage')).toBeNull();
+    // Insight chỉ trong topicsDisclosure; question-type chỉ trong advancedDisclosure.
+    expect(advancedDisclosure?.querySelector('#dashboard-insight-title')).toBeNull();
+    expect(topicsDisclosure?.querySelector('.dashboard-question-type-card')).toBeNull();
+    // Utility-surface rail đã được lược bỏ; assertion cũ về aside rail không còn ý nghĩa.
+    expect(container.querySelector('.dashboard-utility-surface')).not.toBeInTheDocument();
+    // Phase I: RecentAttempts/QuickActions không còn trên Analytics page.
+    expect(screen.queryByRole('link', { name: /^Xem lại bài làm:/ })).not.toBeInTheDocument();
   });
 });
 
@@ -322,12 +426,10 @@ describe('dashboard interactions and adapter boundaries', () => {
     expect(screen.getByText('Số bài đã làm')).toBeInTheDocument();
   });
 
-  it('keeps the utility rail in natural flow without equal-height stretch or nested scrolling', () => {
+  it('does not render a flat dashboard utility rail anymore (replaced by advanced disclosure)', () => {
     renderFixture('default');
-    const utility = screen.getByRole('complementary', { name: 'Tóm tắt và hành động nhanh' });
-    expect(utility).toHaveClass('dashboard-utility-surface');
-    expect(utility).not.toHaveAttribute('data-scroll-behavior');
-    expect(utility).not.toHaveAttribute('data-scroll-owner');
+    expect(screen.queryByRole('complementary', { name: 'Tóm tắt và hành động nhanh' })).not.toBeInTheDocument();
+    expect(document.querySelector('.dashboard-utility-surface')).not.toBeInTheDocument();
     expect(document.querySelector('.dashboard-insight-grid')).not.toHaveAttribute('data-card-alignment');
   });
 });

@@ -1,17 +1,14 @@
 import { Link } from 'react-router-dom';
 import type { PersonalLearningDashboardViewModel } from '../dashboardTypes';
+import { DashboardFocusTopics } from './DashboardFocusTopics';
+import { DashboardHistoryLink } from './DashboardHistoryLink';
 import { DashboardInsightSection } from './DashboardInsightSection';
 import { DashboardKpiGrid } from './DashboardKpiGrid';
-import {
-  DashboardNoticeBanner,
-} from './DashboardNoticeBanner';
+import { DashboardNoticeBanner } from './DashboardNoticeBanner';
 import { splitReadyNotices } from './dashboardNoticeUtils';
 import { DashboardQuestionTypePerformance } from './DashboardQuestionTypePerformance';
-import { DashboardQuickActions } from './DashboardQuickActions';
-import { DashboardRecentAttempts } from './DashboardRecentAttempts';
 import { DashboardRecommendationCard } from './DashboardRecommendationCard';
 import { DashboardScoreTrend } from './DashboardScoreTrend';
-import { DashboardUtilityRail } from './DashboardUtilityRail';
 
 export function DashboardLoadingState() {
   return (
@@ -26,11 +23,9 @@ export function DashboardLoadingState() {
           <div className="dashboard-skeleton-question" />
           <div className="dashboard-skeleton-history" />
         </div>
-        <aside className="dashboard-skeleton-utility">
+        <aside className="dashboard-skeleton-utility" aria-hidden="true">
           <div className="dashboard-skeleton-utility-card" />
           <div className="dashboard-skeleton-cognitive" />
-          <div className="dashboard-skeleton-coverage" />
-          <div className="dashboard-skeleton-actions" />
         </aside>
       </div>
     </main>
@@ -79,7 +74,6 @@ export function DashboardEmptyState({ vm }: { vm: PersonalLearningDashboardViewM
           : 'Hoàn thành một đề thi thử để bắt đầu theo dõi kết quả học tập.'}</p>
         {recommendation && <Link className="dashboard-primary-action" to={recommendation.actionRoute}>{recommendation.actionLabel}</Link>}
       </section>
-      <DashboardQuickActions vm={vm} />
     </main>
   );
 }
@@ -120,11 +114,27 @@ export function DashboardReadyState({
           <DashboardRecommendationCard vm={vm} />
           <DashboardKpiGrid vm={vm} />
           <DashboardScoreTrend vm={vm} />
-          <DashboardInsightSection vm={vm} />
-          <DashboardQuestionTypePerformance items={vm.questionTypePerformance} />
-          <DashboardRecentAttempts items={vm.recentAttempts} />
+          <DashboardFocusTopics vm={vm} />
+          <DashboardHistoryLink vm={vm} />
+          <details className="dashboard-topics-disclosure">
+            <summary>
+              <span className="dashboard-disclosure-label">Xem tất cả chủ đề</span>
+            </summary>
+            <div className="dashboard-advanced-disclosure-body">
+              <p className="dashboard-disclosure-hint">Toàn bộ chủ đề đã phân tích — bao gồm cả điểm mạnh và nội dung cần cải thiện.</p>
+              <DashboardInsightSection vm={vm} />
+            </div>
+          </details>
+          <details className="dashboard-advanced-disclosure">
+            <summary>
+              <span className="dashboard-disclosure-label">Phân tích chi tiết</span>
+            </summary>
+            <div className="dashboard-advanced-disclosure-body">
+              <p className="dashboard-disclosure-hint">Hiệu suất theo dạng câu và phạm vi dữ liệu tổng hợp.</p>
+              <DashboardQuestionTypePerformance items={vm.questionTypePerformance} />
+            </div>
+          </details>
         </div>
-        <DashboardUtilityRail vm={vm} />
       </div>
     </main>
   );

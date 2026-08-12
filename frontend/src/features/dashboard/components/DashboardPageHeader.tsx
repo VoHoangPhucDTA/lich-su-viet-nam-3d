@@ -62,7 +62,6 @@ export function DashboardPageHeader({
   range: DashboardRange;
   onRangeChange: (range: DashboardRange) => void;
 }) {
-  const from = vm.scope.fromDate ? `Từ ${vm.scope.fromDate}` : 'Toàn bộ thời gian';
   const showScope = vm.state !== 'loading'
     && !vm.notices.some(notice => notice.id === 'authentication-required');
   return (
@@ -70,14 +69,11 @@ export function DashboardPageHeader({
       <div className="dashboard-heading-copy">
         <p className="dashboard-eyebrow">Luyện thi THPT</p>
         <h1>Tổng quan học tập</h1>
-        <p>Nhìn lại kết quả, hiểu phần cần cải thiện và chọn bước ôn tập tiếp theo.</p>
-        {showScope && (
-          <p className="dashboard-scope-line">
-            {from} · đến trước {vm.scope.toDateExclusive} · {sourceLabel(vm.scope.source)}
-          </p>
-        )}
       </div>
       <DashboardTimeRangeFilter value={range} onChange={onRangeChange} />
+      {showScope && (
+        <p className="dashboard-visually-hidden">{sourceLabel(vm.scope.source)}</p>
+      )}
     </header>
   );
 }

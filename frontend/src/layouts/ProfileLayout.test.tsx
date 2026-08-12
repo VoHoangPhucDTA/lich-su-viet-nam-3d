@@ -1,5 +1,4 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
 import ProfileLayout from './ProfileLayout';
@@ -11,29 +10,60 @@ vi.mock('../auth/AuthContext', () => ({
       grade: '12',
       school: 'THPT Nguyễn Huệ',
     },
-    logout: vi.fn(),
   }),
 }));
 
+function renderLayout(initialEntry: string, childText = 'Nội dung hồ sơ') {
+  return render(
+    <MemoryRouter initialEntries={[initialEntry]}>
+      <ProfileLayout>
+        <h1>{childText}</h1>
+      </ProfileLayout>
+    </MemoryRouter>,
+  );
+}
+
 describe('ProfileLayout navigation', () => {
-  it('exposes the active route and mobile menu state', async () => {
-    const user = userEvent.setup();
-    render(
-      <MemoryRouter initialEntries={['/profile/settings']}>
-        <ProfileLayout>
-          <h1>Cài đặt tài khoản</h1>
-        </ProfileLayout>
-      </MemoryRouter>,
+  it('contains only the two real Profile destinations', () => {
+    renderLayout('/profile/dashboard');
+
+    const navigation = screen.getByRole('navigation', { name: 'Điều hướng hồ sơ' });
+    const links = within(navigation).getAllByRole('link');
+
+    expect(links).toHaveLength(2);
+    expect(navigation.querySelector('svg')).not.toBeInTheDocument();
+    expect(within(navigation).getByRole('link', { name: 'Tổng quan' })).toHaveAttribute(
+      'href',
+      '/profile/dashboard',
     );
+    expect(within(navigation).getByRole('link', { name: 'Cài đặt' })).toHaveAttribute(
+      'href',
+      '/profile/settings',
+    );
+    expect(within(navigation).queryByRole('link', { name: 'Lịch sử học tập' })).not.toBeInTheDocument();
+    expect(within(navigation).queryByRole('link', { name: 'Điểm số & phân tích' })).not.toBeInTheDocument();
+    expect(within(navigation).queryByRole('link', { name: 'Trắc nghiệm AI' })).not.toBeInTheDocument();
+    expect(within(navigation).queryByRole('link', { name: 'Đề thi THPT' })).not.toBeInTheDocument();
+  });
 
-    expect(screen.getByRole('link', { name: 'Cài đặt' })).toHaveAttribute('aria-current', 'page');
+  it.each([
+    ['/profile/dashboard', 'Tổng quan'],
+    ['/profile/settings', 'Cài đặt'],
+  ])('marks %s as the active destination', (initialEntry, activeLabel) => {
+    renderLayout(initialEntry);
 
-    const menu = screen.getByRole('button', { name: 'Menu' });
-    expect(menu).toHaveAttribute('aria-controls', 'profile-navigation');
-    expect(menu).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.getByRole('link', { name: activeLabel })).toHaveAttribute('aria-current', 'page');
+  });
 
-    await user.click(menu);
-    expect(menu).toHaveAttribute('aria-expanded', 'true');
-    expect(screen.getByRole('button', { name: 'Đóng menu hồ sơ' })).toBeInTheDocument();
+  it.each([
+    ['/profile/dashboard', 'Nội dung dashboard'],
+    ['/profile/settings', 'Nội dung cài đặt'],
+  ])('renders page content for %s without a Profile drawer or floating menu', (initialEntry, childText) => {
+    renderLayout(initialEntry, childText);
+
+    expect(screen.getByRole('heading', { name: childText })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Menu' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Đóng menu hồ sơ' })).not.toBeInTheDocument();
+    expect(document.getElementById('profile-navigation')).not.toBeInTheDocument();
   });
 });
