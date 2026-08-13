@@ -185,6 +185,7 @@ export default function Sidebar({
           <input
             type="text"
             placeholder="Tìm kiếm sự kiện..."
+            aria-label="Tìm kiếm sự kiện lịch sử"
             value={searchQuery}
             onChange={(e) => onSearchQueryChange(e.target.value)}
             className="map-sidebar-search w-full pl-9 pr-3 py-2 rounded-[10px] border text-[13px] outline-none"

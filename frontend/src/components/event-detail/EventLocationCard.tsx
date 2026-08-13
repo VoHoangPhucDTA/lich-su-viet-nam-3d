@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import type { MockEventDetail } from '../../data/mockEventDetails';
+import { eventGeoTypeLabel } from '../../utils/eventGeoLabel';
 import SectionHeader from './SectionHeader';
 
 interface EventLocationCardProps {
   event: MockEventDetail;
   index?: string;
 }
-
 /**
  * Khối "Địa điểm" – hiển thị tỉnh/địa danh + CTA bay tới bản đồ 3D.
  */
@@ -71,7 +71,7 @@ export default function EventLocationCard({ event, index = '05' }: EventLocation
                     '1px solid color-mix(in srgb, var(--accent) 40%, transparent)',
                 }}
               >
-                {isNationwide ? 'Toàn quốc' : geoTypeLabel(geometry.geoType)}
+                {isNationwide ? 'Toàn quốc' : eventGeoTypeLabel(geometry.geoType, provinces)}
               </span>
             </div>
 
@@ -107,7 +107,6 @@ export default function EventLocationCard({ event, index = '05' }: EventLocation
     </section>
   );
 }
-
 function LocationRow({
   label,
   items,
@@ -142,25 +141,4 @@ function LocationRow({
       </div>
     </div>
   );
-}
-
-function geoTypeLabel(t?: string) {
-  switch (t) {
-    case 'single_point':
-    case 'point':
-      return 'Một điểm';
-    case 'multi_point':
-      return 'Nhiều điểm';
-    case 'multi_region':
-    case 'multi_polygon':
-      return 'Nhiều vùng';
-    case 'polygon':
-      return 'Một vùng';
-    case 'nationwide':
-      return 'Toàn quốc';
-    case 'mixed':
-      return 'Hỗn hợp';
-    default:
-      return 'Khu vực cụ thể';
-  }
 }

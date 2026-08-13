@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import type { EventType, HistoricalEvent } from '../types/event';
 import {
   buildMapVisibilityProjection,
+  isEventLocatableOnMap,
   normalizeMapSearchTerm,
   type MapQueryState,
 } from './mapVisibility';
@@ -35,6 +36,46 @@ const baseQuery: MapQueryState = {
 const ids = (events: readonly HistoricalEvent[]) => events.map((item) => item.id);
 
 describe('buildMapVisibilityProjection', () => {
+  it.each([
+    ['point + coordinate', event('point'), true],
+    ['multi_point + marker', event('multi-point', {
+      geoType: 'multi_point',
+      coordinates: undefined,
+      sourceMapData: { markers: [{ lat: 16, lng: 106 }] },
+    }), true],
+    ['multi_polygon + region ref', event('multi-polygon', {
+      geoType: 'multi_polygon',
+      coordinates: undefined,
+      sourceMapData: { gadmRefs: ['VNM.47_1'] },
+    }), true],
+    ['mixed + region only', event('mixed-region', {
+      geoType: 'mixed',
+      coordinates: undefined,
+      primaryRegions: ['Quảng Nam'],
+    }), true],
+    ['mixed + marker only', event('mixed-marker', {
+      geoType: 'mixed',
+      coordinates: undefined,
+      sourceMapData: { marker: { lat: 16, lng: 106 } },
+    }), true],
+    ['nationwide', event('nationwide', { geoType: 'nationwide' }), false],
+    ['no_location', event('no-location', { geoType: 'no_location' }), false],
+  ] as const)('applies semantic locatability for %s', (_label, candidate, expected) => {
+    expect(isEventLocatableOnMap(candidate)).toBe(expected);
+  });
+
+  it('keeps a coordinate-less canonical multi_polygon in the map projection', () => {
+    const quangNam = event('dat-them-thua-tuyen-quang-nam', {
+      geoType: 'multi_polygon',
+      coordinates: undefined,
+      primaryRegions: ['Quảng Nam'],
+      sourceMapData: { gadmRefs: ['VNM.47_1'], provinceNames: ['Quảng Nam'] },
+    });
+
+    expect(ids(buildMapVisibilityProjection([quangNam], baseQuery).locatableMapEvents))
+      .toEqual([quangNam.id]);
+  });
+
   it('returns the year-40 tree and locatable IDs for an empty search', () => {
     const candidates = [
       event('parent', { geoType: 'nationwide' }),

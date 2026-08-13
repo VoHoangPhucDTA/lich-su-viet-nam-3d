@@ -1,5 +1,7 @@
 import { BoundingSphere, Cartesian3 } from 'cesium';
 import type { HistoricalEvent } from '../types/event';
+import type { RegionGeometryIndex } from './regionGeometry';
+import { regionOuterCoordinates, resolveEventRegions } from './regionGeometry';
 
 export const MAP_POINT_FOCUS_RANGE_METERS = 50_000;
 export const MAP_MULTI_POINT_MINIMUM_RANGE_METERS = 50_000;
@@ -13,6 +15,8 @@ export interface MapFocusGeometry {
   center: { lat: number; lng: number };
   zoom: number;
 }
+
+export type MapFocusRequestReason = 'selection' | 'hydration';
 
 function validMapCoordinate(value: unknown): value is { lat: number; lng: number } {
   if (!value || typeof value !== 'object') return false;
@@ -75,18 +79,98 @@ export function focusPositionsForEvent(event: HistoricalEvent): { lat: number; l
     return validMapCoordinate(event.coordinates) ? [event.coordinates] : [];
   }
 
-  // Region fitting is deliberately deferred until the resolved polygon geometry
-  // can be shared with this ordinary-map camera path.
+  // Region coordinates are resolved separately from the shared GeoJSON index.
   return [];
 }
 
-export function buildMapFocusCameraFrame(event: HistoricalEvent): {
-  kind: 'point-geometry' | 'authoring-focus';
+function coordinateTargetKey(position: { lat: number; lng: number }): string {
+  const lat = Object.is(position.lat, -0) ? 0 : position.lat;
+  const lng = Object.is(position.lng, -0) ? 0 : position.lng;
+  return `${lat},${lng}`;
+}
+
+/**
+ * Stable identity for the semantic targets of an ordinary camera request.
+ * Region labels and GADM references converge on sorted canonical GADM IDs;
+ * mixed events additionally retain their point targets.
+ */
+export function buildMapFocusSemanticSignature(
+  event: HistoricalEvent,
+  regionIndex: RegionGeometryIndex | null = null,
+): string | null {
+  const regionCapable = event.geoType === 'multi_polygon' || event.geoType === 'mixed';
+  const regionIds = regionCapable && regionIndex
+    ? resolveEventRegions(regionIndex, event).resolved
+      .map((item) => item.geometry.gadmRef)
+      .sort((a, b) => a.localeCompare(b))
+    : [];
+  const pointPositions = event.geoType === 'point'
+    || event.geoType === 'multi_point'
+    || event.geoType === 'mixed'
+    ? focusPositionsForEvent(event)
+    : [];
+  const pointKeys = [...new Set(pointPositions.map(coordinateTargetKey))].sort();
+  const targetParts: string[] = [];
+  if (regionIds.length > 0) targetParts.push(`regions:${regionIds.join(',')}`);
+  if (pointKeys.length > 0) targetParts.push(`points:${pointKeys.join(';')}`);
+  if (targetParts.length > 0) return `${event.id}|${targetParts.join('|')}`;
+
+  if (regionCapable) {
+    const focusGeometry = parseMapFocusGeometry(event.sourceMapData?.focusGeometry);
+    if (focusGeometry) {
+      return `${event.id}|authoring:${coordinateTargetKey(focusGeometry.center)}@${focusGeometry.zoom}`;
+    }
+  }
+  return null;
+}
+
+export function shouldApplyMapFocusRequest(
+  previousSignature: string | null,
+  nextSignature: string | null,
+  reason: MapFocusRequestReason,
+): boolean {
+  if (!nextSignature) return false;
+  return reason === 'selection' || previousSignature !== nextSignature;
+}
+
+export function buildMapFocusCameraFrame(
+  event: HistoricalEvent,
+  regionIndex: RegionGeometryIndex | null = null,
+): {
+  kind: 'point-geometry' | 'region-geometry' | 'combined-geometry' | 'authoring-focus';
   positions: { lat: number; lng: number }[];
   sphere: BoundingSphere;
   range: number;
 } | null {
-  if (event.geoType === 'multi_polygon' || event.geoType === 'mixed') {
+  const regionCapable = event.geoType === 'multi_polygon' || event.geoType === 'mixed';
+  const pointPositions = event.geoType === 'mixed' ? focusPositionsForEvent(event) : [];
+  const regionPositions = regionCapable && regionIndex
+    ? regionOuterCoordinates(
+      resolveEventRegions(regionIndex, event).resolved.map((item) => item.geometry),
+    ).map(({ lat, lng }) => ({ lat, lng }))
+    : [];
+
+  const actualPositions = [...regionPositions, ...pointPositions];
+  if (actualPositions.length > 0) {
+    const points = actualPositions.map((position) =>
+      Cartesian3.fromDegrees(position.lng, position.lat),
+    );
+    const sphere = points.length === 1
+      ? new BoundingSphere(points[0], 1)
+      : BoundingSphere.fromPoints(points);
+    return {
+      kind: regionPositions.length > 0 && pointPositions.length > 0
+        ? 'combined-geometry'
+        : regionPositions.length > 0
+          ? 'region-geometry'
+          : 'point-geometry',
+      positions: actualPositions,
+      sphere,
+      range: Math.max(MAP_MULTI_POINT_MINIMUM_RANGE_METERS, sphere.radius * 2.5),
+    };
+  }
+
+  if (regionCapable) {
     const focusGeometry = parseMapFocusGeometry(event.sourceMapData?.focusGeometry);
     if (focusGeometry) {
       const center = Cartesian3.fromDegrees(focusGeometry.center.lng, focusGeometry.center.lat);
@@ -97,7 +181,7 @@ export function buildMapFocusCameraFrame(event: HistoricalEvent): {
         range: mapFocusZoomToRange(focusGeometry.zoom),
       };
     }
-    if (event.geoType === 'multi_polygon') return null;
+    return null;
   }
   const positions = focusPositionsForEvent(event);
   if (positions.length === 0) return null;
