@@ -43,13 +43,14 @@ describe('TerrainControls academic alignment', () => {
   it('uses the academic-alignment CTA before a terrain session begins', () => {
     render(<TerrainControls terrain={{ ...activeTerrain, mode: 'idle' }} {...callbacks} />);
 
-    expect(
-      screen.getByRole('button', { name: 'Khám phá địa hình khu vực' })
-    ).toBeInTheDocument();
+    const button = screen.getByRole('button', { name: 'Khám phá địa hình khu vực' });
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveClass('map-popup-terrain-action');
+    expect(button.querySelector('svg')).toBeNull();
   });
 
   it('announces only the short active status when the selected target changes', () => {
-    const insight = getTerrainInsightBySlug('chien-dich-dien-bien-phu-1954');
+    const insight = getTerrainInsightBySlug('khang-chien-chong-quan-nguyen-1287-1288');
     const terrain: TerrainViewModel = {
       ...activeTerrain,
       targets: [
@@ -90,7 +91,10 @@ describe('TerrainControls academic alignment', () => {
       />,
     );
 
-    expect(screen.getByRole('button', { name: 'Xem không gian diễn biến chiến dịch' })).toBeInTheDocument();
+    const button = screen.getByRole('button', { name: 'Xem không gian diễn biến chiến dịch' });
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveClass('map-popup-terrain-action');
+    expect(button.querySelector('svg')).toBeNull();
     expect(screen.getAllByRole('button')).toHaveLength(1);
   });
 
@@ -112,7 +116,7 @@ describe('TerrainControls academic alignment', () => {
   });
 
   it('renders the insight card immediately above the production target list', () => {
-    const insight = getTerrainInsightBySlug('chien-dich-dien-bien-phu-1954');
+    const insight = getTerrainInsightBySlug('khang-chien-chong-quan-nguyen-1287-1288');
     const terrain: TerrainViewModel = {
       ...activeTerrain,
       targets: [
@@ -166,27 +170,27 @@ describe('TerrainControls academic alignment', () => {
   });
 
   it('shows sourced event context and only location identity for a target without description data', () => {
-    const insight = getTerrainInsightBySlug('chien-dich-dien-bien-phu-1954');
+    const insight = getTerrainInsightBySlug('khang-chien-chong-quan-nguyen-1287-1288');
     const terrain: TerrainViewModel = {
       ...activeTerrain,
       selectedTargetId: 'point-1',
       targets: [
-        { id: 'point-1', kind: 'point', label: 'Him Lam', position: { lat: 21.405, lng: 103.023 }, sourceIndex: 0 },
-        { id: 'point-2', kind: 'point', label: 'Mường Thanh', position: { lat: 21.385, lng: 103.006 }, sourceIndex: 1 },
+        { id: 'point-1', kind: 'point', label: 'Vân Đồn', position: { lat: 21.405, lng: 103.023 }, sourceIndex: 0 },
+        { id: 'point-2', kind: 'point', label: 'Bạch Đằng', position: { lat: 21.385, lng: 103.006 }, sourceIndex: 1 },
       ],
     };
     render(
       <TerrainControls
         terrain={terrain}
         {...callbacks}
-        eventName="Chiến dịch Điện Biên Phủ"
+        eventName="Kháng chiến chống quân Nguyên 1287–1288"
         insight={insight}
       />,
     );
 
-    expect(screen.getByRole('status')).toHaveTextContent('Đang xem địa hình: Chiến dịch Điện Biên Phủ');
+    expect(screen.getByRole('status')).toHaveTextContent('Đang xem địa hình: Kháng chiến chống quân Nguyên 1287–1288');
     expect(screen.getByRole('heading', { name: 'Diễn biến / Theo SGK' })).toBeInTheDocument();
-    const selectedHeading = screen.getByRole('heading', { name: 'Him Lam' });
+    const selectedHeading = screen.getByRole('heading', { name: 'Vân Đồn' });
     const selectedSection = selectedHeading.closest('section');
     expect(selectedSection).not.toBeNull();
     expect(within(selectedSection!).getByText('Địa điểm trên bản đồ sự kiện')).toBeInTheDocument();

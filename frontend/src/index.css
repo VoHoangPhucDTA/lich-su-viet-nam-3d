@@ -2478,6 +2478,7 @@ textarea.form-control:focus-visible,
 
 .map-sidebar-search:focus-visible {
   border-color: var(--accent) !important;
+  outline: none;
   box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
@@ -2583,6 +2584,15 @@ textarea.form-control:focus-visible,
   box-shadow: none;
 }
 
+.map-popup-terrain-action {
+  flex: 1 1 100%;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
 .terrain-education-section {
   display: grid;
   gap: 0.45rem;
@@ -2622,6 +2632,206 @@ textarea.form-control:focus-visible,
   margin: 0.2rem 0 0;
   color: var(--text-secondary);
   font-size: 0.75rem;
+}
+
+.dbp-learning-panel {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  gap: 0.9rem;
+  overflow-wrap: anywhere;
+}
+
+.dbp-learning-overview-header,
+.dbp-learning-detail-header {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.dbp-learning-detail-header > p,
+.dbp-learning-locations > h3,
+.dbp-learning-sections h4 {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dbp-learning-overview-header > h3,
+.dbp-learning-detail-header > h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+
+.dbp-learning-overview-header > p,
+.dbp-learning-overview-header > span,
+.dbp-learning-detail-header > span {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+.dbp-learning-detail-header > span {
+  justify-self: start;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  padding: 0.2rem 0.55rem;
+  color: var(--accent);
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+
+.dbp-learning-locations,
+.dbp-learning-locations > div,
+.dbp-learning-sections,
+.dbp-learning-sources__list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.dbp-learning-location-row {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  gap: 0.2rem;
+  border: 1px solid var(--border);
+  border-radius: 0.65rem;
+  background: var(--bg-card);
+  padding: 0.7rem 0.8rem;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--interactive-duration), background-color var(--interactive-duration);
+}
+
+.dbp-learning-location-row:hover {
+  border-color: var(--accent);
+  background: var(--interactive-surface-hover);
+}
+
+.dbp-learning-location-row:focus-visible,
+.dbp-learning-back:focus-visible,
+.dbp-learning-action:focus-visible,
+.dbp-learning-sources > summary:focus-visible,
+.dbp-learning-source a:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  outline-offset: 2px;
+}
+
+.dbp-learning-location-row > span {
+  font-size: 0.8125rem;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.dbp-learning-location-row > small {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  line-height: 1.35;
+}
+
+.dbp-learning-back {
+  display: inline-flex;
+  justify-self: start;
+  align-items: center;
+  gap: 0.35rem;
+  border: 0;
+  background: transparent;
+  padding: 0.2rem 0;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.dbp-learning-sections > section {
+  display: grid;
+  gap: 0.35rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.75rem;
+}
+
+.dbp-learning-sections p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+  line-height: 1.65;
+}
+
+.dbp-learning-sources {
+  border-top: 1px solid var(--border);
+  padding-top: 0.75rem;
+}
+
+.dbp-learning-sources > summary {
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.dbp-learning-sources__list {
+  margin-top: 0.65rem;
+}
+
+.dbp-learning-source {
+  display: grid;
+  min-width: 0;
+  gap: 0.25rem;
+  border-radius: 0.55rem;
+  background: var(--bg-surface);
+  padding: 0.65rem;
+}
+
+.dbp-learning-source p,
+.dbp-learning-source span {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.dbp-learning-source p {
+  color: var(--text-primary);
+  font-size: 0.72rem;
+  font-weight: 750;
+}
+
+.dbp-learning-source span {
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+}
+
+.dbp-learning-source a {
+  display: inline-flex;
+  justify-self: start;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--accent);
+  font-size: 0.7rem;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.dbp-learning-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.dbp-learning-action {
+  width: 100%;
+  min-width: 0;
+  white-space: normal;
+}
+
+@media (max-width: 420px) {
+  .dbp-learning-actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .map-popup-action,

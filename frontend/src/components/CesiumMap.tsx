@@ -58,7 +58,12 @@ import type {
 } from '../types/terrain';
 import type { TerrainRegionTarget } from '../utils/terrainTargets';
 import type { RegionGeometryIndex, ResolvedRegionGeometry } from '../utils/regionGeometry';
-import { parseRegionGeoJSON, resolveRegionGeometry } from '../utils/regionGeometry';
+import {
+  buildEventPolygonEntityId,
+  parseRegionGeoJSON,
+  resolveEventRegions,
+  resolveRegionGeometry,
+} from '../utils/regionGeometry';
 import {
   createCameraSnapshot,
   isSnapshotForSession,
@@ -103,7 +108,10 @@ import {
 } from '../utils/mapClusterBadge';
 import {
   buildMapFocusCameraFrame,
+  buildMapFocusSemanticSignature,
   MAP_ORDINARY_CAMERA_PITCH_DEGREES,
+  shouldApplyMapFocusRequest,
+  type MapFocusRequestReason,
 } from '../utils/mapCameraFocus';
 import { createTerrainPointDataSource } from '../utils/terrainPointDataSource';
 import { ordinaryMapLayersVisibleForTerrainMode } from '../utils/terrainLayerVisibility';
@@ -189,6 +197,7 @@ export interface MapFocusRequest {
   requestId: number;
   event: HistoricalEvent;
   animated: boolean;
+  reason: MapFocusRequestReason;
 }
 
 /**
@@ -314,6 +323,8 @@ export default function CesiumMap({
   const terrainProviderPromiseRef = useRef<Promise<TerrainProvider> | null>(null);
   const terrainProviderOperationRef = useRef(0);
   const cameraOperationRef = useRef(0);
+  const lastProcessedMapFocusRequestIdRef = useRef<number | null>(null);
+  const lastMapFocusSignatureRef = useRef<string | null>(null);
   const cameraSnapshotRef = useRef<CameraSnapshot | null>(null);
   const terrainCameraDebugRef = useRef<TerrainCameraDebugState | null>(null);
   const terrainCameraFocusRef = useRef<TerrainCameraFocus | null>(null);
@@ -327,6 +338,9 @@ export default function CesiumMap({
   const renderErrorRemoverRef = useRef<(() => void) | null>(null);
   const [mapError, setMapError] = useState<string | null>(null);
   const [viewerReady, setViewerReady] = useState(false);
+  const [regionGeometryStatus, setRegionGeometryStatus] = useState<
+    'idle' | 'loading' | 'ready' | 'error'
+  >('idle');
   // ─── Inspection-related refs (Task C) ──────────────────────────────────────
   const inspectDataSourceRef = useRef<CustomDataSource | null>(null);
   const internalInspectOpRef = useRef(0);
@@ -551,6 +565,7 @@ export default function CesiumMap({
         // ── Load and parse province GeoJSON once for this Viewer lifecycle ──
         if (!CESIUM_SAFE_MODE) {
           const geometryOperation = ++regionGeometryOperationRef.current;
+          setRegionGeometryStatus('loading');
           onRegionGeometryStatusRef.current('loading');
           const resourcePromise = fetch('/geojson/vietnam-provinces.json')
             .then((response) => {
@@ -573,6 +588,7 @@ export default function CesiumMap({
                 || viewer.isDestroyed()
               ) return;
               regionGeometryIndexRef.current = index;
+              setRegionGeometryStatus('ready');
               onRegionGeometryStatusRef.current('ready');
               const dataSource = await GeoJsonDataSource.load(raw, {
                 stroke: VIETNAM_BOUNDARY_OUTLINE,
@@ -612,6 +628,7 @@ export default function CesiumMap({
                 && viewerLifecycleRef.current === lifecycleId
                 && regionGeometryOperationRef.current === geometryOperation
               ) {
+                setRegionGeometryStatus('error');
                 onRegionGeometryStatusRef.current('error', {
                   code: 'geojson_load_failed',
                   message: 'Chưa tải được dữ liệu khu vực trên bản đồ.',
@@ -1134,43 +1151,18 @@ export default function CesiumMap({
       }
 
       for (const event of polygonEvents) {
-        const gadmRefs = Array.isArray(event.sourceMapData?.gadmRefs)
-          ? event.sourceMapData!.gadmRefs
-            .filter((ref): ref is string => typeof ref === 'string' && ref.trim().length > 0)
-          : [];
-        // Detail-loaded events carry sourceMapData.provinceNames; summary list
-        // events expose the same display labels as primaryRegions.
-        const provinceNames = Array.isArray(event.sourceMapData?.provinceNames)
-          ? event.sourceMapData!.provinceNames
-            .filter((name): name is string => typeof name === 'string')
-          : (event.primaryRegions ?? []);
-
-        // gadmRefs are the geometry lookup key; provinceNames are display labels.
-        const refs = gadmRefs.length > 0 ? gadmRefs : provinceNames;
-        if (refs.length === 0) {
+        const resolution = resolveEventRegions(index, event);
+        if (resolution.references.length === 0) {
           console.warn(`[CesiumMap] "${event.id}" multi_polygon/mixed without gadmRefs or provinceNames — no geometry`);
           continue;
         }
 
         const color = getMarkerColor(event.eventType);
         let added = 0;
-        const seen = new Set<string>();
-        for (const ref of refs) {
-          const normalized = ref.trim();
-          if (seen.has(normalized)) continue;
-          seen.add(normalized);
-          // Try gadmRef lookup first, then province name lookup via label match.
-          let geometry = resolveRegionGeometry(index, normalized);
-          if (!geometry) {
-            const byLabel = index.features.find(
-              (feature) => feature.label.trim() === normalized
-            );
-            geometry = byLabel ? byLabel.geometry : null;
-          }
-          if (!geometry) continue;
+        for (const { geometry } of resolution.resolved) {
           geometry.polygons.forEach((polygon, polygonIndex) => {
             const entity = ds.entities.add({
-              id: `${event.id}:polygon:${polygonIndex}`,
+              id: buildEventPolygonEntityId(event.id, geometry.gadmRef, polygonIndex),
               name: event.name,
               polygon: {
                 hierarchy: polygonHierarchy(polygon),
@@ -1186,7 +1178,15 @@ export default function CesiumMap({
           });
         }
         if (added === 0) {
-          console.warn(`[CesiumMap] "${event.id}" polygons unresolved for refs`, refs);
+          console.warn(
+            `[CesiumMap] "${event.id}" polygons unresolved for refs`,
+            resolution.references,
+          );
+        } else if (resolution.unresolvedReferences.length > 0) {
+          console.warn(
+            `[CesiumMap] "${event.id}" skipped unresolved region refs`,
+            resolution.unresolvedReferences,
+          );
         }
       }
     },
@@ -1350,7 +1350,7 @@ export default function CesiumMap({
   useEffect(() => {
     if (!viewerReady) return;
     renderMarkers(events);
-  }, [events, renderMarkers, viewerReady]);
+  }, [events, regionGeometryStatus, renderMarkers, viewerReady]);
 
   useEffect(() => {
     const visible = ordinaryMapLayersVisibleForTerrainMode(terrainSession);
@@ -2031,12 +2031,40 @@ export default function CesiumMap({
   ]);
 
   useEffect(() => {
-    if (!viewerReady || !focusRequest || terrainSessionRef.current) return;
+    if (!focusRequest) {
+      lastProcessedMapFocusRequestIdRef.current = null;
+      lastMapFocusSignatureRef.current = null;
+      return;
+    }
+    if (!viewerReady || terrainSessionRef.current) return;
+    const regionCapable = focusRequest.event.geoType === 'multi_polygon'
+      || focusRequest.event.geoType === 'mixed';
+    if (regionCapable && (regionGeometryStatus === 'idle' || regionGeometryStatus === 'loading')) {
+      return;
+    }
     const viewer = viewerRef.current;
     if (!viewer || viewer.isDestroyed()) return;
-    const frame = buildMapFocusCameraFrame(focusRequest.event);
+    const regionIndex = regionGeometryStatus === 'ready'
+      ? regionGeometryIndexRef.current
+      : null;
+    const frame = buildMapFocusCameraFrame(
+      focusRequest.event,
+      regionIndex,
+    );
     if (!frame) return;
+    const semanticSignature = buildMapFocusSemanticSignature(
+      focusRequest.event,
+      regionIndex,
+    );
+    if (lastProcessedMapFocusRequestIdRef.current === focusRequest.requestId) return;
+    lastProcessedMapFocusRequestIdRef.current = focusRequest.requestId;
+    if (!shouldApplyMapFocusRequest(
+      lastMapFocusSignatureRef.current,
+      semanticSignature,
+      focusRequest.reason,
+    )) return;
 
+    lastMapFocusSignatureRef.current = semanticSignature;
     ++cameraOperationRef.current;
     viewer.camera.cancelFlight();
     viewer.camera.flyToBoundingSphere(frame.sphere, {
@@ -2047,7 +2075,7 @@ export default function CesiumMap({
       ),
       duration: focusRequest.animated ? 1.1 : 0,
     });
-  }, [focusRequest, viewerReady]);
+  }, [focusRequest, regionGeometryStatus, viewerReady]);
 
   // Camera focus is driven only by an explicit focusRequest. Marker selection
   // intentionally sends no request, preserving the ordinary C1 interaction.

@@ -2,13 +2,15 @@ import { ArrowLeft, X } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import type { HistoricalEvent } from '../types/event';
 import { getTerrainInsightBySlug } from '../data/terrainInsights';
+import { DIEN_BIEN_PHU_CANONICAL_SLUG } from '../data/dienBienPhuLearning';
 import {
   EVENT_TYPE_LABELS,
   EVENT_TYPE_COLORS,
-  GEO_TYPE_LABELS,
 } from '../types/event';
 import { formatChronologyLabel } from '../utils/chronology';
+import { eventGeoTypeLabel } from '../utils/eventGeoLabel';
 import type { TerrainViewModel } from '../types/terrain';
+import DienBienPhuLearningPanel from './terrain/DienBienPhuLearningPanel';
 import TerrainControls from './terrain/TerrainControls';
 
 interface EventPopupProps {
@@ -44,6 +46,7 @@ export default function EventPopup({
 }: EventPopupProps) {
   const typeColor = EVENT_TYPE_COLORS[event.eventType];
   const terrainInsight = getTerrainInsightBySlug(event.slug);
+  const isDienBienPhuLearningEvent = event.slug === DIEN_BIEN_PHU_CANONICAL_SLUG;
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -137,7 +140,7 @@ export default function EventPopup({
                 boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
               }}
             >
-              {GEO_TYPE_LABELS[event.geoType]}
+              {eventGeoTypeLabel(event.geoType, event.primaryRegions)}
             </span>
           </div>
         </div>
@@ -364,7 +367,7 @@ export default function EventPopup({
                       className="text-[11px] mt-0.5"
                       style={{ color: 'var(--text-muted)' }}
                     >
-                      {formatChronologyLabel(child)} · {GEO_TYPE_LABELS[child.geoType]}
+                      {formatChronologyLabel(child)} · {eventGeoTypeLabel(child.geoType, child.primaryRegions)}
                     </div>
                   </div>
 
@@ -402,16 +405,26 @@ export default function EventPopup({
         {event.geoType !== 'no_location' && event.geoType !== 'nationwide'
           && terrain && onOpenTerrain && onRetryTerrain && onSelectTerrainTarget
           && onShowTerrainOverview && onExitTerrain && (
-          <TerrainControls
-            terrain={terrain}
-            insight={terrainInsight}
-            eventName={event.name}
-            onOpen={onOpenTerrain}
-            onRetry={onRetryTerrain}
-            onSelectTarget={onSelectTerrainTarget}
-            onShowOverview={onShowTerrainOverview}
-            onExit={onExitTerrain}
-          />
+          isDienBienPhuLearningEvent && terrain.mode === 'active' ? (
+            <DienBienPhuLearningPanel
+              targets={terrain.targets}
+              selectedTargetId={terrain.selectedTargetId}
+              onSelectTarget={onSelectTerrainTarget}
+              onShowOverview={onShowTerrainOverview}
+              onExit={onExitTerrain}
+            />
+          ) : (
+            <TerrainControls
+              terrain={terrain}
+              insight={terrainInsight}
+              eventName={event.name}
+              onOpen={onOpenTerrain}
+              onRetry={onRetryTerrain}
+              onSelectTarget={onSelectTerrainTarget}
+              onShowOverview={onShowTerrainOverview}
+              onExit={onExitTerrain}
+            />
+          )
         )}
         {parentEvent && (
           <button

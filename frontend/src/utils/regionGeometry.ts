@@ -1,3 +1,5 @@
+import type { HistoricalEvent } from '../types/event';
+
 export interface RegionCoordinate {
   lng: number;
   lat: number;
@@ -38,7 +40,23 @@ export interface RegionGeometryDiagnostic {
 export interface RegionGeometryIndex {
   features: RegionGeometryFeature[];
   byGadmRef: Record<string, RegionGeometryFeature>;
+  byNormalizedLabel: Record<string, RegionGeometryFeature>;
   diagnostics: RegionGeometryDiagnostic[];
+}
+
+export type EventRegionReferenceSource = 'gadmRefs' | 'sourceProvinceNames' | 'primaryRegions';
+
+export interface ResolvedEventRegion {
+  source: EventRegionReferenceSource;
+  reference: string;
+  geometry: ResolvedRegionGeometry;
+}
+
+export interface EventRegionResolution {
+  source: EventRegionReferenceSource | null;
+  references: string[];
+  resolved: ResolvedEventRegion[];
+  unresolvedReferences: string[];
 }
 
 interface RawFeature {
@@ -160,7 +178,12 @@ function parseFeature(
 export function parseRegionGeoJSON(input: unknown): RegionGeometryIndex {
   const diagnostics: RegionGeometryDiagnostic[] = [];
   if (!isRecord(input) || input.type !== 'FeatureCollection' || !Array.isArray(input.features)) {
-    return { features: [], byGadmRef: {}, diagnostics: [{ code: 'invalid_geojson' }] };
+    return {
+      features: [],
+      byGadmRef: {},
+      byNormalizedLabel: {},
+      diagnostics: [{ code: 'invalid_geojson' }],
+    };
   }
   const features = input.features
     .map((feature, featureIndex) =>
@@ -168,8 +191,12 @@ export function parseRegionGeoJSON(input: unknown): RegionGeometryIndex {
     )
     .filter((feature): feature is RegionGeometryFeature => !!feature);
   const byGadmRef: Record<string, RegionGeometryFeature> = {};
-  for (const feature of features) byGadmRef[feature.gadmRef] = feature;
-  return { features, byGadmRef, diagnostics };
+  const byNormalizedLabel: Record<string, RegionGeometryFeature> = {};
+  for (const feature of features) {
+    byGadmRef[feature.gadmRef] = feature;
+    byNormalizedLabel[normalizeRegionLookup(feature.label)] = feature;
+  }
+  return { features, byGadmRef, byNormalizedLabel, diagnostics };
 }
 
 export function resolveRegionGeometry(
@@ -180,6 +207,119 @@ export function resolveRegionGeometry(
   const feature = index.byGadmRef[gadmRef.trim()];
   if (!feature) return null;
   return label?.trim() ? { ...feature.geometry, label: label.trim() } : feature.geometry;
+}
+
+function normalizedStringArray(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  const seen = new Set<string>();
+  const values: string[] = [];
+  for (const item of value) {
+    if (typeof item !== 'string') continue;
+    const normalized = item.trim();
+    if (!normalized || seen.has(normalized)) continue;
+    seen.add(normalized);
+    values.push(normalized);
+  }
+  return values;
+}
+
+export function eventRegionReferenceGroups(event: HistoricalEvent): Array<{
+  source: EventRegionReferenceSource;
+  references: string[];
+}> {
+  return [
+    {
+      source: 'gadmRefs',
+      references: normalizedStringArray(event.sourceMapData?.gadmRefs),
+    },
+    {
+      source: 'sourceProvinceNames',
+      references: normalizedStringArray(event.sourceMapData?.provinceNames),
+    },
+    {
+      source: 'primaryRegions',
+      references: normalizedStringArray(event.primaryRegions),
+    },
+  ];
+}
+
+export function hasEventRegionReferences(event: HistoricalEvent): boolean {
+  return eventRegionReferenceGroups(event).some((group) => group.references.length > 0);
+}
+
+export function normalizeRegionLookup(value: string): string {
+  return value
+    .normalize('NFC')
+    .replace(/\s+/gu, '')
+    .toLocaleLowerCase('vi-VN');
+}
+
+/**
+ * Resolves event regions with the same source priority used by polygon rendering
+ * and ordinary camera focus. A lower-priority source is attempted only when the
+ * higher-priority source resolves no geometry at all.
+ */
+export function resolveEventRegions(
+  index: RegionGeometryIndex,
+  event: HistoricalEvent,
+): EventRegionResolution {
+  for (const group of eventRegionReferenceGroups(event)) {
+    if (group.references.length === 0) continue;
+
+    const resolved: ResolvedEventRegion[] = [];
+    const unresolvedReferences: string[] = [];
+    const seenGadmRefs = new Set<string>();
+    for (const reference of group.references) {
+      let geometry = resolveRegionGeometry(index, reference);
+      if (!geometry) {
+        const byLabel = index.byNormalizedLabel[normalizeRegionLookup(reference)];
+        geometry = byLabel?.geometry ?? null;
+      }
+      if (!geometry) {
+        unresolvedReferences.push(reference);
+        continue;
+      }
+      if (seenGadmRefs.has(geometry.gadmRef)) continue;
+      seenGadmRefs.add(geometry.gadmRef);
+      resolved.push({ source: group.source, reference, geometry });
+    }
+
+    if (resolved.length > 0) {
+      return {
+        source: group.source,
+        references: group.references,
+        resolved,
+        unresolvedReferences,
+      };
+    }
+  }
+
+  const firstAvailable = eventRegionReferenceGroups(event).find(
+    (group) => group.references.length > 0,
+  );
+  return {
+    source: firstAvailable?.source ?? null,
+    references: firstAvailable?.references ?? [],
+    resolved: [],
+    unresolvedReferences: firstAvailable?.references ?? [],
+  };
+}
+
+export function regionOuterCoordinates(
+  geometries: readonly ResolvedRegionGeometry[],
+): RegionCoordinate[] {
+  return geometries.flatMap((geometry) =>
+    geometry.polygons.flatMap((polygon) => polygon[0] ?? []),
+  );
+}
+
+export function buildEventPolygonEntityId(
+  eventId: string,
+  regionIdentifier: string,
+  polygonIndex: number,
+): string {
+  const stableRegionIdentifier = encodeURIComponent(regionIdentifier.trim() || 'unknown-region');
+  return `${eventId}:polygon:${stableRegionIdentifier}:${polygonIndex}`;
 }
 
 export function unionRegionBounds(

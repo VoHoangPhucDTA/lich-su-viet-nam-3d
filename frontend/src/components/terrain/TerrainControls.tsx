@@ -1,4 +1,4 @@
-import { Check, Info, LoaderCircle, Mountain } from 'lucide-react';
+import { Check, Info, LoaderCircle } from 'lucide-react';
 import { terrainCtaLabel, type TerrainInsight } from '../../data/terrainInsights';
 import type { TerrainViewModel } from '../../types/terrain';
 import TerrainInsightCard from './TerrainInsightCard';
@@ -61,10 +61,9 @@ export default function TerrainControls({
       <button
         type="button"
         onClick={onOpen}
-        className="terrain-action flex items-center justify-center gap-2"
+        className="terrain-action map-popup-terrain-action flex items-center justify-center"
         style={{ ...buttonStyle, borderColor: '#8b1e1e', color: '#8b1e1e' }}
       >
-        <Mountain size={16} aria-hidden="true" />
         {terrainCtaLabel(insight)}
       </button>
     );

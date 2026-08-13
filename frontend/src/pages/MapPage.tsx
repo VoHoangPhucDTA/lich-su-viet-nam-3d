@@ -45,12 +45,18 @@ import {
   normalizeMapSearchTerm,
 } from '../utils/mapVisibility';
 import { parseMapUrlState, serializeMapUrlState, type MapUrlState } from '../utils/mapUrlState';
-import { buildMapFocusCameraFrame, focusPositionsForEvent } from '../utils/mapCameraFocus';
+import {
+  buildMapFocusCameraFrame,
+  focusPositionsForEvent,
+  type MapFocusRequestReason,
+} from '../utils/mapCameraFocus';
+import { hasEventRegionReferences } from '../utils/regionGeometry';
 import {
   buildTimelineRuntimeModel,
   resolveTimelineYear,
 } from '../utils/timelineModel';
 import { normalizeTerrainTargets } from '../utils/terrainTargets';
+import { projectDienBienPhuLearningSessionTargets } from '../data/dienBienPhuLearning';
 import { INITIAL_TERRAIN_STATE, terrainReducer } from '../utils/terrainState';
 import {
   INITIAL_TERRAIN_DISTANCE_MEASUREMENT,
@@ -257,16 +263,27 @@ export default function MapPage() {
     replaceMapUrlStateRef.current = replaceMapUrlState;
   }, [replaceMapUrlState]);
 
-  const requestEventFocus = useCallback((event: HistoricalEvent, source: MapSelectionSource) => {
+  const requestEventFocus = useCallback((
+    event: HistoricalEvent,
+    source: MapSelectionSource,
+    reason: MapFocusRequestReason = 'selection',
+  ) => {
     const positions = focusPositionsForEvent(event);
     const frame = buildMapFocusCameraFrame(event);
+    const regionFocusIntent = (
+      event.geoType === 'multi_polygon' || event.geoType === 'mixed'
+    ) && hasEventRegionReferences(event);
     const needsCompleteMultiPointTarget = (
       source === 'sidebar' || source === 'search'
     ) && (
       event.geoType === 'multi_point' || event.geoType === 'mixed'
     );
-    const hasCompleteFocusTarget = needsCompleteMultiPointTarget && frame?.kind !== 'authoring-focus'
+    const hasCompleteFocusTarget = needsCompleteMultiPointTarget
+      && frame?.kind !== 'authoring-focus'
+      && !regionFocusIntent
       ? positions.length >= 2
+      : regionFocusIntent
+        ? true
       : frame !== null;
     if (source === 'map-marker' || !hasCompleteFocusTarget) {
       setFocusRequest(null);
@@ -276,6 +293,7 @@ export default function MapPage() {
       requestId: ++focusRequestIdRef.current,
       event,
       animated: source !== 'url-restore',
+      reason,
     });
   }, []);
 
@@ -599,14 +617,19 @@ export default function MapPage() {
         && hydratedPositionCount >= 2
         && hydratedPositionCount > summaryPositionCount
       ) {
-        requestEventFocus(eventWithChildren, source);
+        requestEventFocus(eventWithChildren, source, 'hydration');
       } else if (
         (source === 'sidebar' || source === 'search')
         && (eventWithChildren.geoType === 'multi_polygon' || eventWithChildren.geoType === 'mixed')
-        && hydratedFocusFrame?.kind === 'authoring-focus'
-        && summaryFocusFrame?.kind !== 'authoring-focus'
+        && (
+          hasEventRegionReferences(eventWithChildren)
+          || (
+            hydratedFocusFrame?.kind === 'authoring-focus'
+            && summaryFocusFrame?.kind !== 'authoring-focus'
+          )
+        )
       ) {
-        requestEventFocus(eventWithChildren, source);
+        requestEventFocus(eventWithChildren, source, 'hydration');
       }
       setSelectedEvent((current) => current?.id === event.id ? eventWithChildren : current);
       setSelectionDetailStatus(detailEvent ? 'ready' : 'error');
@@ -824,7 +847,13 @@ export default function MapPage() {
     if (current.mode === 'entering' || current.mode === 'active' || current.mode === 'exiting') return;
     const sessionId = ++terrainSessionCounterRef.current;
     pendingAfterTerrainExitRef.current = null;
-    if (!terrainTargetResult.eligible) {
+    const learningProjection = projectDienBienPhuLearningSessionTargets(
+      selectedEvent.slug,
+      terrainTargetResult.targets,
+    );
+    const sessionTargets = learningProjection.targets;
+    const hasCompleteLearningTargets = !learningProjection.applies || learningProjection.complete;
+    if (!terrainTargetResult.eligible || !hasCompleteLearningTargets || sessionTargets.length === 0) {
       terrainDispatch({
         type: 'OPEN_REJECTED',
         sessionId,
@@ -840,7 +869,7 @@ export default function MapPage() {
       type: 'OPEN',
       sessionId,
       eventId: selectedEvent.id,
-      targets: terrainTargetResult.targets,
+      targets: sessionTargets,
     });
   }, [selectedEvent, terrainTargetResult]);
 

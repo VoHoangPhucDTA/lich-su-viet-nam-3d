@@ -2,6 +2,7 @@ import { act, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { EventType, HistoricalEvent } from '../types/event';
+import type { TerrainSessionCommand } from '../types/terrain';
 import { buildMapFocusCameraFrame, focusPositionsForEvent } from '../utils/mapCameraFocus';
 import MapPage from './MapPage';
 
@@ -24,10 +25,15 @@ interface SidebarBoundaryProps {
 interface MapBoundaryProps {
   events: HistoricalEvent[];
   selectedEvent: HistoricalEvent | null;
-  terrainSession: { id: number } | null;
+  terrainSession: TerrainSessionCommand | null;
   onTerrainExitComplete: (sessionId: number) => void;
   onSelectEvent: (event: HistoricalEvent | null) => void;
-  focusRequest: { requestId: number; event: HistoricalEvent; animated: boolean } | null;
+  focusRequest: {
+    requestId: number;
+    event: HistoricalEvent;
+    animated: boolean;
+    reason: 'selection' | 'hydration';
+  } | null;
   apiRef?: { current: unknown };
 }
 
@@ -766,6 +772,105 @@ describe('MapPage shared visibility boundary', () => {
       positions: [{ lat: 16.05, lng: 108.2 }],
       range: 250_000,
     });
+  });
+
+  it('keeps five ordinary DBP markers but opens the specialized terrain session with four learning targets', async () => {
+    const markers = [
+      { name: 'Điện Biên Phủ', lat: 21.386, lng: 103.015 },
+      { name: 'Mường Thanh', lat: 21.385, lng: 103.006 },
+      { name: 'Him Lam', lat: 21.405, lng: 103.023 },
+      { name: 'Bản Kéo', lat: 21.442, lng: 103.013 },
+      { name: 'Đồi Độc Lập', lat: 21.458, lng: 103.002 },
+    ];
+    const dienBienPhu = event('event-row-000123', {
+      slug: 'chien-dich-dien-bien-phu-1954',
+      name: 'Chiến dịch Điện Biên Phủ',
+      geoType: 'multi_point',
+      sourceMapData: { geoType: 'multi_point', markers },
+    });
+    runtime.getEventsByYear.mockResolvedValue([dienBienPhu]);
+    runtime.getEvent.mockResolvedValue(dienBienPhu);
+    await renderReady();
+    await select(dienBienPhu);
+
+    expect(runtime.mapProps?.events[0].sourceMapData?.markers).toHaveLength(5);
+
+    act(() => runtime.popupProps?.onOpenTerrain());
+    await waitFor(() => expect(runtime.mapProps?.terrainSession).not.toBeNull());
+
+    expect(runtime.mapProps?.terrainSession?.eventId).toBe('event-row-000123');
+    expect(runtime.mapProps?.terrainSession?.targets.map(({ label }) => label)).toEqual([
+      'Him Lam',
+      'Đồi Độc Lập',
+      'Bản Kéo',
+      'Mường Thanh',
+    ]);
+    expect(runtime.mapProps?.terrainSession?.targets).toHaveLength(4);
+  });
+
+  it('does not filter a generic terrain session', async () => {
+    const generic = event('generic-campaign', {
+      slug: 'generic-campaign',
+      geoType: 'multi_point',
+      sourceMapData: {
+        geoType: 'multi_point',
+        markers: [
+          { name: 'Điểm một', lat: 21, lng: 103 },
+          { name: 'Điểm hai', lat: 21.1, lng: 103.1 },
+        ],
+      },
+    });
+    runtime.getEventsByYear.mockResolvedValue([generic]);
+    runtime.getEvent.mockResolvedValue(generic);
+    await renderReady();
+    await select(generic);
+
+    act(() => runtime.popupProps?.onOpenTerrain());
+    await waitFor(() => expect(runtime.mapProps?.terrainSession).not.toBeNull());
+
+    expect(runtime.mapProps?.terrainSession?.targets.map(({ label }) => label)).toEqual([
+      'Điểm một',
+      'Điểm hai',
+    ]);
+  });
+
+  it('issues Sa Huỳnh region focus before delayed detail hydration resolves', async () => {
+    const summary = event('van-hoa-sa-huynh', {
+      name: 'Văn hoá Sa Huỳnh',
+      geoType: 'multi_polygon',
+      coordinates: undefined,
+      primaryRegions: ['Quảng Bình', 'Bình Thuận'],
+      sourceMapData: undefined,
+    });
+    const detailRequest = deferred<HistoricalEvent | null>();
+    runtime.getEventsByYear.mockResolvedValue([summary]);
+    runtime.getEvent.mockReturnValue(detailRequest.promise);
+    await renderReady();
+
+    act(() => runtime.sidebarProps?.onSelectEvent(summary));
+
+    await waitFor(() => expect(runtime.mapProps?.focusRequest).toMatchObject({
+      event: { id: summary.id, primaryRegions: ['Quảng Bình', 'Bình Thuận'] },
+      reason: 'selection',
+    }));
+    expect(runtime.popupProps?.detailStatus).toBe('loading');
+
+    await act(async () => {
+      detailRequest.resolve(event(summary.id, {
+        ...summary,
+        sourceMapData: {
+          geoType: 'multi_polygon',
+          gadmRefs: ['VNM.46_1', 'VNM.11_1'],
+          provinceNames: ['Quảng Bình', 'Bình Thuận'],
+        },
+      }));
+      await Promise.resolve();
+    });
+
+    await waitFor(() => expect(runtime.mapProps?.focusRequest).toMatchObject({
+      event: { id: summary.id },
+      reason: 'hydration',
+    }));
   });
 
   it('clears a stale point focus for no-location selection and Close', async () => {

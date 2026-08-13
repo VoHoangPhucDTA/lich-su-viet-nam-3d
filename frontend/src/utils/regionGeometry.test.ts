@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
+import type { HistoricalEvent } from '../types/event';
 import {
+  buildEventPolygonEntityId,
+  normalizeRegionLookup,
   parseRegionGeoJSON,
+  resolveEventRegions,
   resolveRegionGeometry,
   unionRegionBounds,
 } from './regionGeometry';
@@ -11,7 +15,52 @@ const polygon = (coordinates: unknown) => ({
   geometry: { type: 'Polygon', coordinates },
 });
 
+function event(overrides: Partial<HistoricalEvent> = {}): HistoricalEvent {
+  return {
+    id: 'region-event',
+    name: 'Region event',
+    description: '',
+    startYear: 1,
+    endYear: 1,
+    effectiveEndYear: 1,
+    eventType: 'cultural',
+    geoType: 'multi_polygon',
+    parentId: null,
+    ...overrides,
+  };
+}
+
 describe('regionGeometry', () => {
+  it('builds and queries label keys with the same whitespace-insensitive normalizer', () => {
+    const index = parseRegionGeoJSON({
+      type: 'FeatureCollection',
+      features: [
+        {
+          type: 'Feature',
+          properties: { GID_1: 'VNM.46_1', NAME_1: 'QuảngBình' },
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[[106, 17], [107, 17], [107, 18], [106, 17]]],
+          },
+        },
+        {
+          type: 'Feature',
+          properties: { GID_1: 'VNM.11_1', NAME_1: 'BìnhThuận' },
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[[107, 10], [108, 10], [108, 11], [107, 10]]],
+          },
+        },
+      ],
+    });
+
+    expect(normalizeRegionLookup('Quảng Bình')).toBe(normalizeRegionLookup('QuảngBình'));
+    expect(normalizeRegionLookup('Bình Thuận')).toBe(normalizeRegionLookup('BìnhThuận'));
+    expect(resolveEventRegions(index, event({ primaryRegions: ['Quảng Bình', 'Bình Thuận'] }))
+      .resolved.map((item) => item.geometry.gadmRef))
+      .toEqual(['VNM.46_1', 'VNM.11_1']);
+  });
+
   it('resolves Polygon and closes an open outer ring', () => {
     const index = parseRegionGeoJSON({
       type: 'FeatureCollection',
@@ -70,5 +119,40 @@ describe('regionGeometry', () => {
     expect(unionRegionBounds(geometry ? [geometry] : [])).toEqual({
       west: 105, east: 106, south: 10, north: 11,
     });
+  });
+
+  it('uses shared GADM-first resolution and falls back when that source resolves nothing', () => {
+    const index = parseRegionGeoJSON({
+      type: 'FeatureCollection',
+      features: [polygon([[[105, 10], [106, 10], [106, 11], [105, 10]]])],
+    });
+
+    const byGadm = resolveEventRegions(index, event({
+      sourceMapData: {
+        gadmRefs: ['VNM.01_1'],
+        provinceNames: ['Wrong label'],
+      },
+      primaryRegions: ['Also wrong'],
+    }));
+    expect(byGadm.source).toBe('gadmRefs');
+    expect(byGadm.resolved.map((item) => item.geometry.gadmRef)).toEqual(['VNM.01_1']);
+
+    const byProvinceFallback = resolveEventRegions(index, event({
+      sourceMapData: {
+        gadmRefs: ['VNM.missing'],
+        provinceNames: [' Alpha '],
+      },
+    }));
+    expect(byProvinceFallback.source).toBe('sourceProvinceNames');
+    expect(byProvinceFallback.resolved.map((item) => item.geometry.gadmRef)).toEqual(['VNM.01_1']);
+  });
+
+  it('builds deterministic unique polygon IDs across region references', () => {
+    expect(buildEventPolygonEntityId('van-hoa-sa-huynh', 'VNM.46_1', 0))
+      .toBe('van-hoa-sa-huynh:polygon:VNM.46_1:0');
+    expect(buildEventPolygonEntityId('van-hoa-sa-huynh', 'VNM.11_1', 0))
+      .toBe('van-hoa-sa-huynh:polygon:VNM.11_1:0');
+    expect(buildEventPolygonEntityId('van-hoa-sa-huynh', 'VNM.46_1', 0))
+      .not.toBe(buildEventPolygonEntityId('van-hoa-sa-huynh', 'VNM.11_1', 0));
   });
 });

@@ -84,4 +84,27 @@ describe('EventLocationCard', () => {
     expect(screen.getByRole('button', { name: 'Xem trên bản đồ 3D' })).toBeInTheDocument();
     expect(screen.queryByText('Không có địa điểm cụ thể')).not.toBeInTheDocument();
   });
+
+  it.each([
+    [['Quảng Nam'], 'Một vùng'],
+    [['Quảng Bình', 'Bình Thuận'], 'Nhiều vùng'],
+    [[], 'Vùng'],
+  ])('uses province cardinality for multi_polygon %j', (provinceNames, expectedLabel) => {
+    render(
+      <MemoryRouter>
+        <EventLocationCard
+          event={buildEvent({
+            mapData: {
+              displayGeometry: {
+                geoType: 'multi_polygon',
+                provinceNames,
+              },
+            },
+          })}
+        />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByText(expectedLabel)).toBeInTheDocument();
+  });
 });

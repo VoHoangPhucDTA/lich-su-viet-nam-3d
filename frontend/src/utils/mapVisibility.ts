@@ -1,4 +1,5 @@
-import { RENDERABLE_GEO_TYPES, type EventType, type HistoricalEvent } from '../types/event';
+import type { EventType, HistoricalEvent, SourceMapMarker } from '../types/event';
+import { hasEventRegionReferences } from './regionGeometry';
 
 export interface MapQueryState {
   year: number;
@@ -46,6 +47,45 @@ export function collectMapScopeEventIds(
 
   events.forEach(visit);
   return eventIds;
+}
+
+function isValidCoordinate(value: unknown): value is { lat: number; lng: number } {
+  if (!value || typeof value !== 'object') return false;
+  const coordinate = value as { lat?: unknown; lng?: unknown };
+  return typeof coordinate.lat === 'number'
+    && Number.isFinite(coordinate.lat)
+    && coordinate.lat >= -90
+    && coordinate.lat <= 90
+    && typeof coordinate.lng === 'number'
+    && Number.isFinite(coordinate.lng)
+    && coordinate.lng >= -180
+    && coordinate.lng <= 180;
+}
+
+function hasValidMarker(value: SourceMapMarker | null | undefined): boolean {
+  return isValidCoordinate(value);
+}
+
+function hasEventPointGeometry(event: HistoricalEvent): boolean {
+  if (isValidCoordinate(event.coordinates) || hasValidMarker(event.sourceMapData?.marker)) {
+    return true;
+  }
+  return event.sourceMapData?.markers?.some(hasValidMarker) === true;
+}
+
+export function isEventLocatableOnMap(event: HistoricalEvent): boolean {
+  switch (event.geoType) {
+    case 'point':
+    case 'multi_point':
+      return hasEventPointGeometry(event);
+    case 'multi_polygon':
+      return hasEventRegionReferences(event);
+    case 'mixed':
+      return hasEventPointGeometry(event) || hasEventRegionReferences(event);
+    case 'nationwide':
+    case 'no_location':
+      return false;
+  }
 }
 
 function eventMatchesSearch(event: HistoricalEvent, normalizedSearch: string): boolean {
@@ -194,8 +234,7 @@ export function buildMapVisibilityProjection(
   const flattenedEvents = flattenTree(sidebarTree);
   const locatableMapEvents = matchingEvents.filter(
     (event, index, events) =>
-      RENDERABLE_GEO_TYPES.includes(event.geoType) &&
-      event.coordinates != null &&
+      isEventLocatableOnMap(event) &&
       events.findIndex((candidate) => candidate.id === event.id) === index,
   );
 

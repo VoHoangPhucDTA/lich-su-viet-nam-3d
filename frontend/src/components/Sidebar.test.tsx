@@ -35,6 +35,16 @@ const baseProps = {
 };
 
 describe('Sidebar event rows', () => {
+  it('gives search a persistent accessible name and keeps the visible placeholder', () => {
+    render(<Sidebar {...baseProps} />);
+
+    const search = screen.getByRole('textbox', { name: 'Tìm kiếm sự kiện lịch sử' });
+    expect(search).toHaveAttribute('placeholder', 'Tìm kiếm sự kiện...');
+    expect(search).toHaveClass('map-sidebar-search');
+    search.focus();
+    expect(search).toHaveFocus();
+  });
+
   it('collapses and expands on desktop without losing controlled filters, selection, or tree state', async () => {
     const user = userEvent.setup();
     const selected = { ...child, id: 'selected', name: 'Sự kiện đang chọn', parentId: null };
