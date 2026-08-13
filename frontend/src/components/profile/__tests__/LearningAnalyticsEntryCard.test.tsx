@@ -29,17 +29,18 @@ describe('LearningAnalyticsEntryCard', () => {
     getDashboardAnalytics.mockReset();
   });
 
-  it('is a link-only accessible card with no analytics request', () => {
+  it('is one accessible root link with no nested controls or analytics request', () => {
     renderCard();
 
-    const link = screen.getByRole('link', { name: 'Xem thống kê luyện thi' });
+    const link = screen.getByRole('link', { name: 'Xem phân tích luyện thi' });
     expect(link).toHaveAttribute('href', PERSONAL_LEARNING_DASHBOARD_ROUTE);
     expect(link.querySelectorAll('a, button')).toHaveLength(0);
     expect(screen.getByText('Luyện thi THPT')).toBeInTheDocument();
-    expect(screen.getByText('Thống kê luyện thi')).toBeInTheDocument();
+    expect(screen.getByText('Phân tích luyện thi')).toBeInTheDocument();
     expect(screen.getByText(
-      'Xem xu hướng điểm, chủ đề mạnh yếu và lịch sử luyện thi tại trang thống kê chuyên biệt.',
+      'Theo dõi xu hướng điểm, chủ đề mạnh yếu và kết quả các bài thi thử.',
     )).toBeInTheDocument();
+    expect(screen.getByText('Xem phân tích luyện thi')).toBeInTheDocument();
     expect(screen.queryByText('/10')).not.toBeInTheDocument();
     expect(getDashboardAnalytics).not.toHaveBeenCalled();
 
@@ -50,7 +51,7 @@ describe('LearningAnalyticsEntryCard', () => {
   it('activates with Enter and keeps normal Back history', async () => {
     const user = userEvent.setup();
     const router = renderCard();
-    const link = screen.getByRole('link', { name: 'Xem thống kê luyện thi' });
+    const link = screen.getByRole('link', { name: 'Xem phân tích luyện thi' });
 
     link.focus();
     await user.keyboard('{Enter}');

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import ApiPracticeSessionPage from './ApiPracticeSessionPage';
 import ExamPracticePage from './ExamPracticePage';
 import ExamRetryWrongPage from './ExamRetryWrongPage';
@@ -13,8 +13,11 @@ export function ApiFreePracticeRoutePage() {
 
 export function ApiTopicPracticeRoutePage() {
   const { topicSlug } = useParams<{ topicSlug: string }>();
-  const request = useMemo(() => topicSlug ? { mode: 'TOPIC_PRACTICE' as const, questionCount: 30, scopeType: 'topic' as const, scopeSlug: topicSlug } : null, [topicSlug]);
-  return <ApiPracticeSessionPage routeKey={`TOPIC_PRACTICE:${topicSlug ?? ''}`} request={request} title="Ôn theo chủ đề" modeLabel="Ôn theo chủ đề" backTo="/exams/on-chu-de" backLabel="Quay lại danh sách chủ đề" legacyFallback={<ExamTopicPracticePage />} />;
+  const [searchParams] = useSearchParams();
+  const scopeType: 'topic' | 'period' = searchParams.get('scope') === 'period' ? 'period' : 'topic';
+  const request = useMemo(() => topicSlug ? { mode: 'TOPIC_PRACTICE' as const, questionCount: 30, scopeType, scopeSlug: topicSlug } : null, [scopeType, topicSlug]);
+  const routeKey = scopeType === 'period' ? `TOPIC_PRACTICE:period:${topicSlug ?? ''}` : `TOPIC_PRACTICE:${topicSlug ?? ''}`;
+  return <ApiPracticeSessionPage routeKey={routeKey} request={request} title="Ôn theo chủ đề" modeLabel="Ôn theo chủ đề" backTo="/exams/on-chu-de" backLabel="Quay lại danh sách chủ đề" legacyFallback={<ExamTopicPracticePage />} />;
 }
 
 export function ApiRetryWrongRoutePage() {

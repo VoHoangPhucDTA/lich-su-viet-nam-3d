@@ -2,12 +2,13 @@ import {
   ArrowLeft,
   ArrowUp,
   BookOpen,
+  CircleAlert,
   CircleCheck,
   CircleMinus,
   CircleX,
   ExternalLink,
-  History,
   Lightbulb,
+  RotateCcw,
   Sparkles,
   Target,
 } from 'lucide-react';
@@ -122,29 +123,59 @@ export default function QuizResultPage() {
   const { sessionId } = useParams<{ sessionId: string }>();
   const [result, setResult] = useState<QuizResult | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<'all' | 'correct' | 'wrong' | 'skipped'>('all');
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
     async function fetchResult() {
+      setLoading(true);
+      setError(null);
+      setResult(null);
       if (!sessionId) {
         setLoading(false);
         return;
       }
-      const response = await quizService.getQuizResult(sessionId, currentUser?.id);
-      if (!cancelled) {
-        setResult(response);
-        setLoading(false);
+      try {
+        const response = await quizService.getQuizResult(sessionId, currentUser?.id);
+        if (!cancelled) setResult(response);
+      } catch {
+        if (!cancelled) setError('Không thể đọc kết quả đã lưu trên trình duyệt này.');
+      } finally {
+        if (!cancelled) setLoading(false);
       }
     }
     void fetchResult();
     return () => {
       cancelled = true;
     };
-  }, [currentUser?.id, sessionId]);
+  }, [currentUser?.id, reloadKey, sessionId]);
 
   if (loading) {
-    return <div className="public-shell quiz-shell"><LoadingState label="Đang tạo báo cáo kết quả..." /></div>;
+    return <div className="public-shell quiz-shell"><LoadingState label="Đang tải kết quả làm bài..." /></div>;
+  }
+
+  if (error) {
+    return (
+      <div className="public-shell quiz-shell">
+        <main className="public-content-narrow">
+          <div className="public-card" role="alert">
+            <EmptyState
+              icon={<CircleAlert size={25} aria-hidden="true" />}
+              title="Chưa thể tải kết quả"
+              description={error}
+            />
+            <div className="-mt-10 flex flex-wrap justify-center gap-3 pb-10">
+              <button type="button" className="public-primary-button" onClick={() => setReloadKey(key => key + 1)}>
+                <RotateCcw size={16} aria-hidden="true" /> Thử lại
+              </button>
+              <Link to="/quiz" className="public-secondary-button no-underline">Về Luyện tập với AI</Link>
+            </div>
+          </div>
+        </main>
+      </div>
+    );
   }
 
   if (!result) {
@@ -154,7 +185,7 @@ export default function QuizResultPage() {
           <div className="public-card">
             <EmptyState title="Không tìm thấy kết quả" description="Phiên làm bài không tồn tại hoặc chưa được nộp." />
             <div className="-mt-10 flex justify-center pb-10">
-              <Link to="/quiz" className="public-primary-button no-underline">Về trắc nghiệm AI</Link>
+              <Link to="/quiz" className="public-primary-button no-underline">Về Luyện tập với AI</Link>
             </div>
           </div>
         </main>
@@ -183,19 +214,14 @@ export default function QuizResultPage() {
   return (
     <div className="public-shell quiz-shell">
       <main className="public-content-narrow space-y-7">
-        <Link to="/quiz" className="quiz-result-back-link" aria-label="Về trang trắc nghiệm">
+        <Link to="/quiz" className="quiz-result-back-link" aria-label="Về Luyện tập với AI">
           <ArrowLeft size={16} aria-hidden="true" data-result-back-icon />
-          Về trang trắc nghiệm
+          Về Luyện tập với AI
         </Link>
         <PublicPageHeader
           eyebrow="Báo cáo học tập"
           title="Kết quả bài trắc nghiệm"
           description={`Hoàn thành lúc ${formatDate(result.completedAt)} · ${formatTime(result.totalTimeMs)}`}
-          action={(
-            <Link to="/quiz/history" className="public-secondary-button no-underline">
-              <History size={16} aria-hidden="true" /> Xem lịch sử
-            </Link>
-          )}
         />
 
         <section className="quiz-result-summary">
@@ -275,7 +301,6 @@ export default function QuizResultPage() {
           <Link to="/quiz/generate" className="public-primary-button no-underline">
             <Sparkles size={15} aria-hidden="true" /> Tạo bài luyện tập mới
           </Link>
-          <Link to="/quiz/history" className="public-secondary-button no-underline"><History size={15} aria-hidden="true" /> Xem lịch sử</Link>
           <button type="button" onClick={scrollToPageTop} className="public-secondary-button">
             <ArrowUp size={15} aria-hidden="true" /> Lên đầu trang
           </button>

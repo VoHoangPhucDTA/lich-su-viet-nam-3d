@@ -20,6 +20,19 @@ describe('result snapshot v2 adapter', () => {
     expect(result && formatAuthorityLabel(result.authority)).toBe('Kết quả chính thức đúng hạn');
   });
 
+  it.each([
+    ['non-empty explanation text exactly', '  Giải thích có xuống dòng.\nDòng thứ hai.  ', '  Giải thích có xuống dòng.\nDòng thứ hai.  '],
+    ['null explanation as null', null, null],
+    ['whitespace-only explanation for renderer-level handling', ' \n\t ', ' \n\t '],
+  ] as const)('preserves %s', (_caseName, explanation, expected) => {
+    const result = adaptResultSnapshotV2({
+      ...snapshot,
+      questions: [{ ...snapshot.questions[0], explanation }],
+    });
+
+    expect(result?.questions[0].explanation).toBe(expected);
+  });
+
   it('rejects snapshots without a valid reviewed safe question shape', () => {
     expect(adaptResultSnapshotV2({ ...snapshot, questions: [{ ...snapshot.questions[0], question: { questionType: 'mcq' } }] })).toBeNull();
   });

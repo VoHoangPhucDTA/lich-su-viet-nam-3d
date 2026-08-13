@@ -1,15 +1,20 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import AppHeader from './AppHeader';
 
+const authState = vi.hoisted(() => ({
+  currentUser: null as null | {
+    fullName: string;
+    role: 'student' | 'admin';
+  },
+  isAuthenticated: false,
+  logout: vi.fn(),
+}));
+
 vi.mock('../../auth/AuthContext', () => ({
-  useAuth: () => ({
-    currentUser: null,
-    isAuthenticated: false,
-    logout: vi.fn(),
-  }),
+  useAuth: () => authState,
 }));
 
 vi.mock('./useHeader', () => ({
@@ -17,6 +22,12 @@ vi.mock('./useHeader', () => ({
 }));
 
 describe('AppHeader text controls', () => {
+  beforeEach(() => {
+    authState.currentUser = null;
+    authState.isAuthenticated = false;
+    authState.logout.mockReset();
+  });
+
   it('opens and closes the public mobile navigation with the Menu text button', async () => {
     const user = userEvent.setup();
     render(
@@ -41,11 +52,96 @@ describe('AppHeader text controls', () => {
     expect(menu).toHaveAttribute('aria-expanded', 'true');
     expect(
       within(document.getElementById('app-mobile-navigation')!).getByRole('link', {
-        name: 'Sử liệu',
+        name: 'Sự kiện',
       }),
     ).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'Thời kỳ' })).not.toBeInTheDocument();
 
     await user.click(menu);
     expect(menu).toHaveAttribute('aria-expanded', 'false');
   });
+
+  it('keeps only Profile overview and settings in the authenticated desktop dropdown', async () => {
+    const user = userEvent.setup();
+    authState.currentUser = {
+      fullName: 'Nguyễn Văn A',
+      role: 'student',
+    };
+    authState.isAuthenticated = true;
+
+    render(
+      <MemoryRouter initialEntries={['/home']}>
+        <AppHeader />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByRole('link', { name: 'Luyện tập với AI' })).toHaveAttribute(
+      'href',
+      '/quiz',
+    );
+    expect(screen.getByRole('link', { name: 'Luyện thi THPT' })).toHaveAttribute(
+      'href',
+      '/exams',
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Nguyễn Văn A' }));
+
+    expect(screen.getByRole('link', { name: 'Tổng quan' })).toHaveAttribute(
+      'href',
+      '/profile/dashboard',
+    );
+    expect(screen.getByRole('link', { name: 'Cài đặt' })).toHaveAttribute(
+      'href',
+      '/profile/settings',
+    );
+    expect(screen.queryByRole('link', { name: 'Lịch sử' })).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Đăng xuất' })).toBeInTheDocument();
+  });
+
+  it('keeps Sự kiện active for Browse and omits the former period destination', async () => {
+    const user = userEvent.setup();
+    render(
+      <MemoryRouter initialEntries={['/browse?period=feudal']}>
+        <AppHeader />
+      </MemoryRouter>,
+    );
+
+    const desktopLink = screen.getByRole('link', { name: 'Sự kiện' });
+    expect(desktopLink).toHaveAttribute('href', '/browse');
+    expect(desktopLink).toHaveAttribute('aria-current', 'page');
+    expect(screen.queryByRole('link', { name: 'Thời kỳ' })).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Menu' }));
+    const mobileNavigation = document.getElementById('app-mobile-navigation')!;
+    expect(within(mobileNavigation).getByRole('link', { name: 'Sự kiện' })).toHaveAttribute('aria-current', 'page');
+    expect(screen.queryByRole('link', { name: 'Sử liệu' })).not.toBeInTheDocument();
+    expect(within(mobileNavigation).queryByRole('link', { name: 'Thời kỳ' })).not.toBeInTheDocument();
+  });
+
+  it.each(['/quiz', '/quiz/history'])(
+    'keeps Luyện tập với AI active in desktop and mobile navigation at %s',
+    async (route) => {
+      const user = userEvent.setup();
+      render(
+        <MemoryRouter initialEntries={[route]}>
+          <AppHeader />
+        </MemoryRouter>,
+      );
+
+      const desktopLink = screen.getByRole('link', { name: 'Luyện tập với AI' });
+      expect(desktopLink).toHaveAttribute('href', '/quiz');
+      expect(desktopLink).toHaveAttribute('aria-current', 'page');
+      expect(desktopLink).toHaveClass('text-red-900');
+
+      await user.click(screen.getByRole('button', { name: 'Menu' }));
+      const mobileNavigation = document.getElementById('app-mobile-navigation');
+      expect(mobileNavigation).not.toBeNull();
+      const mobileLink = within(mobileNavigation!).getByRole('link', {
+        name: 'Luyện tập với AI',
+      });
+      expect(mobileLink).toHaveAttribute('href', '/quiz');
+      expect(mobileLink).toHaveAttribute('aria-current', 'page');
+      expect(mobileLink).toHaveClass('bg-red-50', 'text-red-900', 'font-bold');
+    },
+  );
 });

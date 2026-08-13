@@ -1,4 +1,3 @@
-import { FileQuestion, ListChecks } from 'lucide-react';
 import { classifyDashboardInsightByUnits } from '../dashboardAnalyticsPolicy';
 import type { QuestionTypePerformance } from '../dashboardTypes';
 import { DashboardMeter } from './DashboardMeter';
@@ -11,10 +10,7 @@ function QuestionTypeItem({ item }: { item: QuestionTypePerformance }) {
   return (
     <li className={`dashboard-performance-item dashboard-performance-${status}`}>
       <div className="dashboard-performance-title">
-        <div className="dashboard-performance-name">
-          <span>{item.type === 'mcq' ? <FileQuestion aria-hidden="true" /> : <ListChecks aria-hidden="true" />}</span>
-          <h3>{item.label}</h3>
-        </div>
+        <h3>{item.label}</h3>
         <strong className={`dashboard-accuracy dashboard-accuracy-${status}`}>{item.accuracy === null ? '—' : `${item.accuracy.toLocaleString('vi-VN')}%`}</strong>
       </div>
       <DashboardMeter label={item.label} accuracy={item.accuracy} status={status} />

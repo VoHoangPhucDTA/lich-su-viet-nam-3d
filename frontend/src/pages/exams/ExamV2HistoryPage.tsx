@@ -51,14 +51,6 @@ function formatCustomSubtitle(result: ExamResultV2): string {
   return parts.join(' · ') || 'Đề tùy chọn';
 }
 
-function authorityLabel(result: ExamResultV2): string | null {
-  if (result.scoreAuthority === 'BACKEND' && result.timingAuthority === 'SERVER' && result.submissionOrigin === 'SERVER_ON_TIME') return 'Kết quả chính thức đúng hạn';
-  if (result.scoreAuthority === 'BACKEND' && result.timingAuthority === 'CLIENT_UNVERIFIED' && result.submissionOrigin === 'SERVER_ISSUED_LATE') return 'Được chấm bởi hệ thống - thời gian nộp chưa được xác minh';
-  if (result.scoreAuthority === 'BACKEND' && result.timingAuthority === 'CLIENT_UNVERIFIED' && result.submissionOrigin === 'CLIENT_FALLBACK') return 'Được hệ thống chấm lại từ phiên cục bộ';
-  if (result.scoreAuthority === 'LOCAL_FALLBACK') return 'Kết quả cục bộ - chưa được hệ thống xác minh';
-  return null;
-}
-
 function buildMetaMap(manifest: ExamManifestEntry[]): Map<string, ExamManifestEntry> {
   return new Map(manifest.map((entry) => [entry.examId, entry]));
 }
@@ -122,7 +114,6 @@ function HistoryRow({ result, meta }: { result: ExamResultV2; meta?: ExamManifes
           <InfoPill label="Ngày làm" value={formatDate(result.submittedAt)} />
           <InfoPill label="Thời gian" value={formatExamDuration(result.durationSeconds)} />
           <InfoPill label="Số câu" value={`${result.totalQuestions ?? result.questions.length} câu`} />
-          {authorityLabel(result) && <InfoPill label="Trạng thái" value={authorityLabel(result)!} />}
         </div>
       </div>
 
@@ -210,17 +201,21 @@ export default function ExamV2HistoryPage() {
   const [isBackendHistory, setIsBackendHistory] = useState(false);
 
   const stats = useMemo(() => {
+    const completedCount = results.length;
+    if (completedCount === 0) return null;
     const officialResults = results.filter((result) => isOfficialTimedResult({
       scoreAuthority: result.scoreAuthority ?? null,
       timingAuthority: result.timingAuthority ?? null,
       submissionOrigin: result.submissionOrigin ?? null,
     }));
-    if (officialResults.length === 0) return null;
+    const hasOfficial = officialResults.length > 0;
     const total = officialResults.reduce((sum, result) => sum + result.totalScore, 0);
-    const max = Math.max(...officialResults.map((result) => result.totalScore));
+    const max = hasOfficial ? Math.max(...officialResults.map((result) => result.totalScore)) : 0;
+    const avg = hasOfficial ? total / officialResults.length : 0;
     return {
-      count: officialResults.length,
-      avg: total / officialResults.length,
+      completedCount,
+      hasOfficial,
+      avg,
       max,
     };
   }, [results]);
@@ -285,9 +280,6 @@ export default function ExamV2HistoryPage() {
               ← Danh sách đề
             </Link>
             <h1 style={{ margin: '0.75rem 0 0.35rem', fontSize: '1.7rem', fontWeight: 900 }}>Lịch sử luyện thi</h1>
-            <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.6 }}>
-              Theo dõi các bài thi thử bạn đã hoàn thành.
-            </p>
           </div>
           {results.length > 0 && !isBackendHistory && (
             <button
@@ -358,9 +350,13 @@ export default function ExamV2HistoryPage() {
 
         {!loading && stats && (
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <SummaryStat label="Bài đúng hạn" value={`${stats.count}`} color="var(--accent)" />
-              <SummaryStat label="Điểm cao nhất" value={stats.max.toFixed(1)} color="var(--admin-accent)" />
-              <SummaryStat label="Điểm trung bình" value={stats.avg.toFixed(1)} color="var(--success)" />
+              <SummaryStat label="Số đề đã làm" value={`${stats.completedCount}`} color="var(--accent)" />
+              {stats.hasOfficial && (
+                <>
+                  <SummaryStat label="Điểm cao nhất" value={stats.max.toFixed(1)} color="var(--admin-accent)" />
+                  <SummaryStat label="Điểm trung bình" value={stats.avg.toFixed(1)} color="var(--success)" />
+                </>
+              )}
             </div>
         )}
 

@@ -1,19 +1,10 @@
-import {
-  AlertTriangle,
-  ArrowRight,
-  CheckCircle2,
-  CircleHelp,
-} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type {
   LearningInsight,
   PersonalLearningDashboardViewModel,
 } from '../dashboardTypes';
-import { confidenceLabels, statusLabels } from './dashboardDisplayLabels';
-import {
-  DashboardMeter,
-  DashboardStatusIcon,
-} from './DashboardMeter';
+import { statusLabels } from './dashboardDisplayLabels';
+import { DashboardMeter } from './DashboardMeter';
 
 function insightCaution(item: LearningInsight) {
   const summary = item.summary.toLocaleLowerCase('vi-VN');
@@ -41,17 +32,15 @@ function DashboardInsightItem({
             ? <Link className="dashboard-topic-link" to={item.practiceRoute}>{item.label}</Link>
             : item.label}</h3>
           <span className={`dashboard-status dashboard-status-${item.status}`}>
-            <DashboardStatusIcon status={item.status} />
             {statusLabels[item.status]}
           </span>
         </div>
         <div className="dashboard-insight-result">
           <strong className={`dashboard-accuracy dashboard-accuracy-${item.status}`}>{item.accuracy.toLocaleString('vi-VN')}%</strong>
-          {interactive && item.practiceRoute && <ArrowRight aria-hidden="true" />}
         </div>
       </div>
       <DashboardMeter label={item.label} accuracy={item.accuracy} status={item.status} />
-      <p className="dashboard-insight-meta">{item.correctUnits}/{item.totalUnits} ý · {item.attemptCount} bài · {confidenceLabels[item.confidence]}</p>
+      <p className="dashboard-insight-meta">{item.correctUnits}/{item.totalUnits} ý · {item.attemptCount} bài</p>
       {caution && <p className="dashboard-caution">{caution}</p>}
     </li>
   );
@@ -61,13 +50,14 @@ export function DashboardInsightSection({ vm }: { vm: PersonalLearningDashboardV
   if (vm.strengths.length === 0 && vm.weaknesses.length === 0) {
     return (
       <section className="dashboard-card dashboard-empty-section dashboard-insight-insufficient" aria-labelledby="dashboard-insight-title">
-        <span className="dashboard-empty-icon"><CircleHelp aria-hidden="true" /></span>
         <p className="dashboard-section-kicker">Phân tích chủ đề</p>
         <h2 id="dashboard-insight-title">Điểm mạnh và nội dung cần cải thiện</h2>
         <p>Chưa đủ dữ liệu để gắn nhãn. Cần ít nhất 8 ý trả lời trong ít nhất 2 bài.</p>
       </section>
     );
   }
+  const showStrengths = vm.strengths.length > 0;
+  const showWeaknesses = vm.weaknesses.length > 0;
   return (
     <section className="dashboard-card dashboard-insight-surface" aria-labelledby="dashboard-insight-title">
       <div className="dashboard-section-heading dashboard-insight-heading">
@@ -77,24 +67,27 @@ export function DashboardInsightSection({ vm }: { vm: PersonalLearningDashboardV
           <p className="dashboard-section-description">Những chủ đề nổi bật và phần nên ưu tiên trong lượt ôn tiếp theo.</p>
         </div>
       </div>
-      <div className="dashboard-two-column dashboard-insight-grid">
-        <div className="dashboard-insight-group dashboard-insight-group-strength">
-          <h3><span><CheckCircle2 aria-hidden="true" />Điểm mạnh</span><small>{vm.strengths.length} chủ đề · từ 80%</small></h3>
-          {vm.strengths.length ? <ul>{vm.strengths.map((item) => <DashboardInsightItem key={item.key} item={item} />)}</ul> : <p>Chưa có chủ đề đạt ngưỡng.</p>}
-        </div>
-        <div className="dashboard-insight-group dashboard-insight-group-weakness">
-          <h3><span><AlertTriangle aria-hidden="true" />Cần cải thiện</span><small>{vm.weaknesses.length} chủ đề · dưới 60%</small></h3>
-          {vm.weaknesses.length ? (
-            <>
-              <ul>{vm.weaknesses.map((item) => <DashboardInsightItem key={item.key} item={item} interactive />)}</ul>
-              {vm.weaknesses[0].practiceRoute && (
-                <Link className="dashboard-weakness-action" to={vm.weaknesses[0].practiceRoute}>
-                  Ôn các chủ đề yếu<ArrowRight aria-hidden="true" />
-                </Link>
-              )}
-            </>
-          ) : <p>Chưa xác định được chủ đề yếu.</p>}
-        </div>
+      <div className={`dashboard-two-column${showStrengths && showWeaknesses ? '' : ' dashboard-two-column-single'} dashboard-insight-grid`}>
+        {showStrengths && (
+          <div className="dashboard-insight-group dashboard-insight-group-strength">
+            <h3><span>Điểm mạnh</span><small>{vm.strengths.length} chủ đề · từ 80%</small></h3>
+            <ul>{vm.strengths.map((item) => <DashboardInsightItem key={item.key} item={item} />)}</ul>
+          </div>
+        )}
+        {showWeaknesses && (
+          <div className="dashboard-insight-group dashboard-insight-group-weakness">
+            <h3><span>Cần cải thiện</span><small>{vm.weaknesses.length} chủ đề · dưới 60%</small></h3>
+            <ul>{vm.weaknesses.map((item) => <DashboardInsightItem key={item.key} item={item} interactive />)}</ul>
+            {vm.weaknesses[0].practiceRoute && (
+              <Link className="dashboard-weakness-action" to={vm.weaknesses[0].practiceRoute}>
+                Ôn các chủ đề yếu
+              </Link>
+            )}
+          </div>
+        )}
+        {!showStrengths && showWeaknesses && (
+          <p className="dashboard-insight-note">Chưa có chủ đề nào đạt ngưỡng điểm mạnh trong dữ liệu hiện tại.</p>
+        )}
       </div>
     </section>
   );

@@ -84,14 +84,11 @@ export default function CoiNguonPage() {
         </section>
 
         <section>
-          <div className="mb-7 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <div className="mb-7">
             <div>
               <p className="public-eyebrow">Tiến trình lịch sử</p>
               <h2 className="app-heading mt-2 text-3xl font-bold text-[var(--text-primary)] sm:text-4xl">Thời kỳ lịch sử trọng đại</h2>
             </div>
-            <Link to="/periods" className="public-text-link inline-flex items-center text-sm font-bold no-underline">
-              Xem tất cả thời kỳ
-            </Link>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {HISTORICAL_PERIODS.map(period => <HistoricalPeriodCard key={period.id} period={period} compact />)}

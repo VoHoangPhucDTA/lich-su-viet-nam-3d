@@ -1,4 +1,4 @@
-import { ArrowRight, Clock3, History, Sparkles } from 'lucide-react';
+import { ArrowRight, CircleAlert, Clock3, History, RotateCcw, Sparkles } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
@@ -37,20 +37,34 @@ export default function QuizHistoryPage() {
   const { currentUser } = useAuth();
   const [history, setHistory] = useState<QuizResult[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [filterDifficulty, setFilterDifficulty] = useState('all');
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
-    quizService.getQuizHistory(currentUser?.id).then(data => {
-      if (!cancelled) {
-        setHistory(data);
-        setLoading(false);
+
+    async function loadHistory() {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await quizService.getQuizHistory(currentUser?.id);
+        if (!cancelled) setHistory(data);
+      } catch {
+        if (!cancelled) {
+          setHistory([]);
+          setError('Không thể đọc lịch sử luyện tập trên trình duyệt này.');
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
       }
-    });
+    }
+
+    void loadHistory();
     return () => {
       cancelled = true;
     };
-  }, [currentUser?.id]);
+  }, [currentUser?.id, reloadKey]);
 
   const filteredHistory = history.filter(item => {
     if (filterDifficulty !== 'all' && item.config.difficulty !== filterDifficulty) return false;
@@ -63,11 +77,11 @@ export default function QuizHistoryPage() {
         <PublicPageHeader
           eyebrow="Tiến độ học tập"
           title="Lịch sử làm bài"
-          description="Xem lại các phiên trắc nghiệm đã hoàn thành và mở báo cáo chi tiết."
+          description="Xem lại các phiên trắc nghiệm được lưu trên trình duyệt này và mở báo cáo chi tiết."
           showBack
           backTo="/quiz"
           backFallback="/quiz"
-          backLabel="Về trang trắc nghiệm"
+          backLabel="Về Luyện tập với AI"
           action={(
             <Link to="/quiz/generate" className="public-primary-button no-underline">
               <Sparkles size={16} aria-hidden="true" /> Tạo bài mới
@@ -75,19 +89,34 @@ export default function QuizHistoryPage() {
           )}
         />
 
-        <section className="public-toolbar">
-          <div className="grid gap-3 sm:grid-cols-2">
-            <MuseumSelect
-              value={filterDifficulty}
-              options={DIFFICULTY_OPTIONS}
-              onValueChange={setFilterDifficulty}
-              label="Lọc theo độ khó"
-            />
-          </div>
-        </section>
+        {!loading && !error && history.length > 0 && (
+          <section className="public-toolbar">
+            <div className="grid gap-3 sm:grid-cols-2">
+              <MuseumSelect
+                value={filterDifficulty}
+                options={DIFFICULTY_OPTIONS}
+                onValueChange={setFilterDifficulty}
+                label="Lọc theo độ khó"
+              />
+            </div>
+          </section>
+        )}
 
         {loading ? (
           <LoadingState label="Đang tải lịch sử làm bài..." />
+        ) : error ? (
+          <div className="public-card" role="alert">
+            <EmptyState
+              icon={<CircleAlert size={25} aria-hidden="true" />}
+              title="Chưa thể tải lịch sử"
+              description={error}
+            />
+            <div className="-mt-10 flex justify-center pb-10">
+              <button type="button" className="public-secondary-button" onClick={() => setReloadKey(key => key + 1)}>
+                <RotateCcw size={16} aria-hidden="true" /> Thử lại
+              </button>
+            </div>
+          </div>
         ) : history.length === 0 ? (
           <div className="public-card">
             <EmptyState

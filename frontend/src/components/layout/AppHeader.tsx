@@ -92,16 +92,13 @@ export default function AppHeader() {
                 Cội Nguồn
               </NavLink>
               <NavLink to="/browse" className={tabClass('/browse')}>
-                Sử liệu
-              </NavLink>
-              <NavLink to="/periods" className={tabClass('/periods')}>
-                Thời kỳ
+                Sự kiện
               </NavLink>
               <NavLink to="/map" className={tabClass('/map')}>
                 Bản đồ
               </NavLink>
               <NavLink to="/quiz" className={tabClass('/quiz')}>
-                Trắc nghiệm kiến thức
+                Luyện tập với AI
               </NavLink>
               <NavLink to="/exams" className={tabClass('/exams')}>
                 Luyện thi THPT
@@ -141,8 +138,7 @@ export default function AppHeader() {
                 <div className="px-3 py-2 text-xs font-sans font-semibold uppercase tracking-wide text-stone-500 border-b border-stone-100">
                   {currentUser?.role === 'admin' ? 'Quản trị viên' : 'Học sinh'}
                 </div>
-                <DropdownLink to="/profile/dashboard" onClick={() => setProfileDropdownOpen(false)}>Dashboard</DropdownLink>
-                <DropdownLink to="/profile/history" onClick={() => setProfileDropdownOpen(false)}>Lịch sử</DropdownLink>
+                <DropdownLink to="/profile/dashboard" onClick={() => setProfileDropdownOpen(false)}>Tổng quan</DropdownLink>
                 <DropdownLink to="/profile/settings" onClick={() => setProfileDropdownOpen(false)}>Cài đặt</DropdownLink>
                 {currentUser?.role === 'admin' && (
                   <>
@@ -183,10 +179,9 @@ export default function AppHeader() {
       {mobileMenuOpen && (
         <div id="app-mobile-navigation" className="lg:hidden border-t border-stone-200/60 bg-white/95 backdrop-blur-md px-4 py-4 space-y-1 animate-fade-in">
           <MobileLink to="/home" active={isActiveTab('/home')} onClick={() => setMobileMenuOpen(false)}>Cội Nguồn</MobileLink>
-          <MobileLink to="/browse" active={isActiveTab('/browse')} onClick={() => setMobileMenuOpen(false)}>Sử liệu</MobileLink>
-          <MobileLink to="/periods" active={isActiveTab('/periods')} onClick={() => setMobileMenuOpen(false)}>Thời kỳ</MobileLink>
+          <MobileLink to="/browse" active={isActiveTab('/browse')} onClick={() => setMobileMenuOpen(false)}>Sự kiện</MobileLink>
           <MobileLink to="/map" active={isActiveTab('/map')} onClick={() => setMobileMenuOpen(false)}>Bản đồ 3D</MobileLink>
-          <MobileLink to="/quiz" active={isActiveTab('/quiz')} onClick={() => setMobileMenuOpen(false)}>Trắc nghiệm kiến thức</MobileLink>
+          <MobileLink to="/quiz" active={isActiveTab('/quiz')} onClick={() => setMobileMenuOpen(false)}>Luyện tập với AI</MobileLink>
           <MobileLink to="/exams" active={isActiveTab('/exams')} onClick={() => setMobileMenuOpen(false)}>Luyện thi THPT</MobileLink>
           <div className="h-px bg-stone-200/60" />
           {isAuthenticated ? (

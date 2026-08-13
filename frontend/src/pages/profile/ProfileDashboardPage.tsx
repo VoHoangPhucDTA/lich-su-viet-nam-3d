@@ -1,29 +1,27 @@
 import { useEffect, useState, type ReactNode } from 'react';
+import { Clock, Eye, FileText, Flame } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import {
-  ArrowRight,
-  Clock,
-  Eye,
-  FileText,
-  Flame,
-  History,
-  RefreshCw,
-  User,
-} from 'lucide-react';
 import { useAuth } from '../../auth/AuthContext';
 import LearningAnalyticsEntryCard from '../../components/profile/LearningAnalyticsEntryCard';
 import StatsCard from '../../components/profile/StatsCard';
+import {
+  formatExamTitle as formatExamTitleFromSource,
+} from '../../lib/exam/examDisplay';
+import {
+  formatDashboardScore,
+  formatDashboardSubmittedLabel,
+} from '../../features/dashboard/dashboardFormatters';
+import type { DashboardRecentAttemptV1 } from '../../features/dashboard/dashboardAnalyticsTypes';
 import ProfileLayout from '../../layouts/ProfileLayout';
+import {
+  getDashboardAnalytics,
+  type DashboardAnalyticsRequest,
+} from '../../services/dashboardAnalyticsApi';
 import {
   getProfileLearningSummary,
   type ProfileLearningSummaryRequest,
   type ProfileLearningSummaryV1,
 } from '../../services/profileLearningSummaryApi';
-import {
-  getDashboardAnalytics,
-  type DashboardAnalyticsRequest,
-} from '../../services/dashboardAnalyticsApi';
-import type { DashboardRecentAttemptV1 } from '../../features/dashboard/dashboardAnalyticsTypes';
 
 interface ProfileDashboardPageProps {
   requestSummary?: ProfileLearningSummaryRequest;
@@ -40,189 +38,264 @@ const EMPTY_DASHBOARD_STATE: DashboardDataState = {
   failed: false,
 };
 
-function WelcomeHero({
-  firstName,
-  streakDays,
-}: {
-  firstName: string;
-  streakDays: number | null;
-}) {
+function PageHeader({ firstName }: { firstName: string }) {
   return (
-    <section className="relative overflow-hidden rounded-2xl bg-white border border-stone-200/60 p-6 sm:p-8">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-        <div className="flex items-start gap-4">
-          <div className="w-14 h-14 rounded-xl bg-red-50 text-red-900 flex items-center justify-center shrink-0 border border-red-100">
-            <User size={24} strokeWidth={1.5} />
-          </div>
-          <div>
-            <h1 className="font-sans text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">
-              Xin chào, {firstName}!
-            </h1>
-            <p className="text-sm text-stone-500 mt-1">
-              Tiếp tục hành trình học lịch sử hôm nay
-            </p>
-          </div>
-        </div>
-
-        <div className="shrink-0 flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-50 border border-amber-200/60">
-          <Flame size={22} strokeWidth={1.5} className="text-amber-600" />
-          <div className="text-right">
-            <div className="font-sans text-2xl font-bold text-amber-600">
-              {streakDays ?? '—'}
-            </div>
-            <div className="text-[8px] font-sans font-bold uppercase tracking-wider text-stone-400">
-              Ngày liên tiếp
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <header className="max-w-3xl">
+      <h1 className="text-2xl font-extrabold tracking-tight text-stone-900 sm:text-3xl">
+        Xin chào, {firstName}!
+      </h1>
+    </header>
   );
 }
 
-function StatsGrid({ summary }: { summary: ProfileLearningSummaryV1 | null }) {
+function RetryButton({ onRetry }: { onRetry: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onRetry}
+      className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-lg border border-red-200 bg-white px-4 py-2 text-sm font-semibold text-red-900 transition-colors hover:bg-red-100"
+    >
+      Thử lại
+    </button>
+  );
+}
+
+function StatsGrid({
+  summary,
+  loading,
+  error,
+  onRetry,
+}: {
+  summary: ProfileLearningSummaryV1 | null;
+  loading: boolean;
+  error: string | null;
+  onRetry: () => void;
+}) {
   const items: Array<{
     icon: ReactNode;
     label: string;
     value: string | number;
-    sub: string;
     color: string;
   }> = [
     {
-      icon: <Eye size={16} strokeWidth={1.5} />,
-      label: 'Sự kiện',
-      value: summary?.eventsViewed ?? '—',
-      sub: 'đã xem (không trùng)',
+      icon: <Eye size={18} strokeWidth={1.7} />,
+      label: 'Sự kiện đã xem',
+      value: summary?.eventsViewed ?? 0,
       color: 'var(--accent)',
     },
     {
-      icon: <FileText size={16} strokeWidth={1.5} />,
-      label: 'Trắc nghiệm AI',
-      value: summary?.quizzesCompleted ?? '—',
-      sub: 'đã hoàn thành',
-      color: 'var(--warning)',
+      icon: <FileText size={18} strokeWidth={1.7} />,
+      label: 'Quiz AI hoàn thành',
+      value: summary?.quizzesCompleted ?? 0,
+      color: 'var(--admin-accent-text)',
     },
     {
-      icon: <Flame size={16} strokeWidth={1.5} />,
-      label: 'Chuỗi học',
-      value: summary ? `${summary.streakDays} ngày` : '—',
-      sub: 'hoạt động liên tiếp',
+      icon: <Flame size={18} strokeWidth={1.7} />,
+      label: 'Chuỗi hiện tại',
+      value: `${summary?.streakDays ?? 0} ngày`,
       color: 'var(--accent)',
     },
     {
-      icon: <Clock size={16} strokeWidth={1.5} />,
-      label: 'Thời gian làm bài',
-      value: summary ? `${summary.totalMinutes} phút` : '—',
-      sub: 'tổng bài thi đã nộp',
-      color: 'var(--text-muted)',
+      icon: <Clock size={18} strokeWidth={1.7} />,
+      label: 'Thời gian luyện thi',
+      value: `${summary?.totalMinutes ?? 0} phút`,
+      color: 'var(--text-secondary)',
     },
   ];
 
   return (
-    <section aria-label="Tổng quan học tập" className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-      {items.map(item => (
-        <StatsCard
-          key={item.label}
-          icon={item.icon}
-          label={item.label}
-          value={item.value}
-          sub={item.sub}
-          color={item.color}
-        />
-      ))}
+    <section
+      aria-busy={loading}
+      aria-labelledby="learning-summary-heading"
+      className="min-w-0 rounded-2xl border border-stone-200 bg-white p-2 shadow-sm"
+    >
+      <h2 id="learning-summary-heading" className="sr-only">Chỉ số học tập</h2>
+
+      {loading && <p role="status" className="sr-only">Đang tải các chỉ số học tập…</p>}
+
+      {!loading && error ? (
+        <div
+          role="alert"
+          className="flex min-h-32 flex-col justify-center gap-4 rounded-xl border border-red-200 bg-red-50 p-4 sm:flex-row sm:items-center sm:justify-between"
+        >
+          <div>
+            <p className="font-semibold text-red-950">Chưa thể tải các chỉ số học tập.</p>
+            <p className="mt-1 text-sm text-red-900">{error}</p>
+          </div>
+          <RetryButton onRetry={onRetry} />
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+          {items.map((item) => (
+            <StatsCard
+              key={item.label}
+              icon={item.icon}
+              label={item.label}
+              value={item.value}
+              color={item.color}
+              loading={loading}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
-}
-
-function formatSubmittedAt(value: string): string {
-  return new Intl.DateTimeFormat('vi-VN', {
-    dateStyle: 'short',
-    timeStyle: 'short',
-    timeZone: 'Asia/Ho_Chi_Minh',
-  }).format(new Date(value));
 }
 
 function RecentAttempts({
   attempts,
   loading,
   failed,
+  onRetry,
 }: {
   attempts: DashboardRecentAttemptV1[];
   loading: boolean;
   failed: boolean;
+  onRetry: () => void;
 }) {
+  const visibleAttempts = attempts.slice(0, 3);
+
   return (
     <section
+      aria-busy={loading}
       aria-labelledby="recent-attempts-heading"
-      className="rounded-2xl bg-white border border-stone-200/60 p-5 sm:p-6"
+      className="min-w-0 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm sm:p-6"
     >
-      <div className="flex items-start justify-between gap-4 mb-4">
-        <div className="space-y-1">
-          <span className="font-sans text-[9px] font-bold uppercase tracking-wider text-red-900">
-            Hoạt động thật
-          </span>
-          <h2 id="recent-attempts-heading" className="font-sans text-lg font-bold text-stone-900">
-            Bài thi gần đây
-          </h2>
-        </div>
-        <Link
-          to="/exams/lich-su"
-          className="inline-flex items-center gap-1 text-xs font-sans font-bold uppercase tracking-wider text-red-900 hover:text-red-700"
-        >
-          Xem lịch sử
-          <ArrowRight size={13} strokeWidth={2.5} />
-        </Link>
-      </div>
+      <header>
+        <h2 id="recent-attempts-heading" className="text-lg font-bold text-stone-900">
+          Bài thi gần đây
+        </h2>
+        <p className="mt-1 text-sm text-stone-500">Trong 30 ngày qua</p>
+      </header>
 
-      {loading && <p role="status" className="text-sm text-stone-500">Đang tải bài thi gần đây…</p>}
-      {!loading && failed && (
-        <p className="text-sm text-stone-500">
-          Chưa thể tải lịch sử bài thi. Các chỉ số hồ sơ phía trên vẫn có thể sử dụng.
-        </p>
+      {loading && (
+        <div className="mt-5" role="status">
+          <span className="sr-only">Đang tải bài thi gần đây…</span>
+          <div aria-hidden="true" className="divide-y divide-stone-100">
+            {[0, 1, 2].map((item) => (
+              <div key={item} className="flex min-h-16 animate-pulse items-center justify-between gap-4 py-3">
+                <div className="min-w-0 flex-1 space-y-2">
+                  <div className="h-4 w-3/5 rounded bg-stone-200" />
+                  <div className="h-3 w-2/5 rounded bg-stone-100" />
+                </div>
+                <div className="h-5 w-16 rounded bg-stone-200" />
+              </div>
+            ))}
+          </div>
+        </div>
       )}
-      {!loading && !failed && attempts.length === 0 && (
-        <div className="rounded-xl bg-stone-50 border border-stone-200/60 p-4">
-          <p className="text-sm font-medium text-stone-700">Bạn chưa có bài thi đã nộp.</p>
+
+      {!loading && failed && (
+        <div role="alert" className="mt-5 rounded-xl border border-red-200 bg-red-50 p-4">
+          <p className="font-semibold text-red-950">Chưa thể tải bài thi gần đây.</p>
+          <p className="mt-1 text-sm leading-6 text-red-900">
+            Các chỉ số hồ sơ vẫn có thể sử dụng. Hãy thử tải lại danh sách bài thi.
+          </p>
+          <div className="mt-4">
+            <RetryButton onRetry={onRetry} />
+          </div>
+        </div>
+      )}
+
+      {!loading && !failed && visibleAttempts.length === 0 && (
+        <div className="mt-5 rounded-xl border border-stone-200 bg-stone-50 p-4">
+          <p className="font-semibold text-stone-800">Chưa có bài thi trong 30 ngày qua.</p>
+          <p className="mt-1 text-sm leading-6 text-stone-600">
+            Hãy hoàn thành một đề thi THPT để kết quả xuất hiện tại đây.
+          </p>
           <Link
             to="/exams/browse"
-            className="inline-flex items-center gap-1 mt-2 text-xs font-sans font-bold uppercase tracking-wider text-red-900"
+            className="mt-3 inline-flex min-h-11 items-center rounded-lg font-semibold text-red-900 no-underline"
           >
             Chọn đề để bắt đầu
-            <ArrowRight size={12} />
           </Link>
         </div>
       )}
-      {!loading && attempts.length > 0 && (
-        <div className="space-y-2.5">
-          {attempts.map(attempt => (
+
+      {!loading && !failed && visibleAttempts.length > 0 && (
+        <>
+          <div className="mt-4 divide-y divide-stone-100">
+            {visibleAttempts.map((attempt) => (
+              <Link
+                key={attempt.attemptId}
+                to={`/exams/ket-qua/${encodeURIComponent(attempt.attemptId)}`}
+                className="group grid min-h-16 min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-3 py-3 text-inherit no-underline"
+              >
+                <span className="min-w-0">
+                  <span className="block break-words text-sm font-semibold leading-5 text-stone-900 group-hover:text-red-900">
+                    {formatExamTitleFromSource({ title: attempt.title })}
+                  </span>
+                  <span className="mt-1 block text-xs leading-5 text-stone-500">
+                    {formatDashboardSubmittedLabel(attempt.submittedAt)} · {attempt.totalQuestions} câu
+                  </span>
+                </span>
+                <span className="shrink-0 whitespace-nowrap text-base font-bold tabular-nums text-red-900 sm:text-lg">
+                  {formatDashboardScore(attempt.score)}/10
+                </span>
+              </Link>
+            ))}
+          </div>
+
+          <div className="mt-3 border-t border-stone-200 pt-3">
             <Link
-              key={attempt.attemptId}
-              to={`/exams/ket-qua/${encodeURIComponent(attempt.attemptId)}`}
-              className="group flex items-center gap-3 rounded-xl bg-stone-50 border border-stone-200/60 p-3.5 hover:bg-white hover:shadow-sm transition-all"
+              to="/exams/lich-su"
+              className="inline-flex min-h-11 items-center text-sm font-semibold text-red-900 no-underline"
             >
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-red-50 text-red-900">
-                <History size={19} strokeWidth={1.5} />
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="font-sans text-sm font-bold text-stone-900 truncate">
-                  {attempt.title}
-                </div>
-                <div className="text-xs text-stone-400 mt-0.5">
-                  {formatSubmittedAt(attempt.submittedAt)} · {attempt.totalQuestions} câu
-                </div>
-              </div>
-              <div className="text-right shrink-0">
-                <div className="font-sans text-lg font-bold text-red-900">
-                  {attempt.score.toFixed(2)}
-                </div>
-                <div className="text-[9px] font-sans uppercase tracking-wider text-stone-400">
-                  điểm
-                </div>
-              </div>
+              Xem toàn bộ lịch sử thi
             </Link>
-          ))}
-        </div>
+          </div>
+        </>
       )}
+    </section>
+  );
+}
+
+function NextActions() {
+  const actions = [
+    {
+      to: '/exams/browse',
+      label: 'Làm đề THPT',
+      description: 'Chọn đề và bắt đầu luyện thi',
+    },
+    {
+      to: '/quiz/generate',
+      label: 'Trắc nghiệm AI',
+      description: 'Tạo bộ câu hỏi theo chủ đề',
+    },
+  ] as const;
+
+  return (
+    <section
+      aria-labelledby="next-actions-heading"
+      className="min-w-0 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm sm:p-6"
+    >
+      <h2 id="next-actions-heading" className="text-lg font-bold text-stone-900">
+        Bước học tiếp theo
+      </h2>
+      <p className="mt-1 text-sm leading-6 text-stone-500">
+        Chọn một hoạt động để tiếp tục học tập.
+      </p>
+
+      <div className="mt-4 space-y-3">
+        {actions.map((action, index) => (
+          <Link
+            key={action.to}
+            to={action.to}
+            className={`flex min-h-11 items-center rounded-xl border px-4 py-3 no-underline transition-colors ${
+              index === 0
+                ? 'border-red-900 bg-red-900 text-white hover:bg-red-950'
+                : 'border-stone-200 bg-stone-50 text-stone-900 hover:border-red-200 hover:bg-red-50'
+            }`}
+          >
+            <span className="min-w-0">
+              <span className="block font-semibold">{action.label}</span>
+              <span className={`mt-0.5 block text-xs ${index === 0 ? 'text-red-100' : 'text-stone-500'}`}>
+                {action.description}
+              </span>
+            </span>
+          </Link>
+        ))}
+      </div>
     </section>
   );
 }
@@ -248,12 +321,15 @@ export default function ProfileDashboardPage({
       requestDashboard('30d', controller.signal),
     ]).then(([summaryResult, dashboardResult]) => {
       if (controller.signal.aborted) return;
+
       if (summaryResult.status === 'fulfilled') {
         setSummary(summaryResult.value);
+        setSummaryError(null);
       } else {
         setSummary(null);
-        setSummaryError('Không thể tải các chỉ số học tập. Vui lòng thử lại.');
+        setSummaryError('Vui lòng kiểm tra kết nối và thử lại.');
       }
+
       if (dashboardResult.status === 'fulfilled') {
         setDashboard({
           recentAttempts: dashboardResult.value.recentAttempts,
@@ -262,72 +338,44 @@ export default function ProfileDashboardPage({
       } else {
         setDashboard({ recentAttempts: [], failed: true });
       }
+
       setLoading(false);
     });
 
     return () => controller.abort();
   }, [reloadKey, requestDashboard, requestSummary]);
 
+  const retryDashboard = () => {
+    setLoading(true);
+    setSummary(null);
+    setSummaryError(null);
+    setDashboard(EMPTY_DASHBOARD_STATE);
+    setReloadKey((value) => value + 1);
+  };
+
   return (
     <ProfileLayout>
-      <div className="space-y-8 lg:space-y-10 animate-fade-in">
-        <WelcomeHero firstName={firstName} streakDays={summary?.streakDays ?? null} />
+      <div className="space-y-6 sm:space-y-8">
+        <PageHeader firstName={firstName} />
 
-        {summaryError && (
-          <div
-            role="alert"
-            className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-red-200 bg-red-50 p-4"
-          >
-            <p className="text-sm text-red-900">{summaryError}</p>
-            <button
-              type="button"
-              onClick={() => {
-                setLoading(true);
-                setSummaryError(null);
-                setReloadKey(value => value + 1);
-              }}
-              className="inline-flex items-center justify-center gap-2 rounded-lg border border-red-200 bg-white px-3 py-2 text-xs font-bold text-red-900"
-            >
-              <RefreshCw size={14} />
-              Thử lại
-            </button>
-          </div>
-        )}
-
-        {loading && !summaryError && (
-          <p role="status" className="text-sm text-stone-500">Đang tải tổng quan học tập…</p>
-        )}
-
-        <StatsGrid summary={summary} />
-        <LearningAnalyticsEntryCard />
-        <RecentAttempts
-          attempts={dashboard.recentAttempts}
+        <StatsGrid
+          summary={summary}
           loading={loading}
-          failed={dashboard.failed}
+          error={summaryError}
+          onRetry={retryDashboard}
         />
 
-        <section className="rounded-2xl border border-stone-200/60 bg-white p-5 sm:p-6">
-          <h2 className="font-sans text-lg font-bold text-stone-900">Bước học tiếp theo</h2>
-          <p className="mt-1 text-sm text-stone-500">
-            Luyện một bộ câu hỏi AI hoặc làm đề thi để cập nhật các chỉ số bằng hoạt động thực tế.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-3">
-            <Link
-              to="/quiz/generate"
-              className="inline-flex items-center gap-2 rounded-lg bg-red-900 px-4 py-2 text-sm font-bold text-white"
-            >
-              Luyện quiz AI
-              <ArrowRight size={14} />
-            </Link>
-            <Link
-              to="/exams/browse"
-              className="inline-flex items-center gap-2 rounded-lg border border-stone-200 px-4 py-2 text-sm font-bold text-stone-700"
-            >
-              Làm đề thi
-              <ArrowRight size={14} />
-            </Link>
-          </div>
-        </section>
+        <LearningAnalyticsEntryCard />
+
+        <div className="grid min-w-0 items-start gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(17rem,0.9fr)] lg:gap-6">
+          <RecentAttempts
+            attempts={dashboard.recentAttempts}
+            loading={loading}
+            failed={dashboard.failed}
+            onRetry={retryDashboard}
+          />
+          <NextActions />
+        </div>
       </div>
     </ProfileLayout>
   );

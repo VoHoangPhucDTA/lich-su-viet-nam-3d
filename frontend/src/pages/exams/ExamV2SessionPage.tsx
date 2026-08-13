@@ -139,7 +139,7 @@ export default function ExamV2SessionPage({ initialSessionId, legacyFallback }: 
   }
 
   const currentQuestionState = questionStates[currentQuestion.id];
-  const displayTitle = serverSession.title;
+  const displayTitle = formatExamTitle({ title: serverSession.title });
   const displayMeta = `Dữ liệu phiên bản ${serverSession.datasetVersion.slice(0, 12)}`;
   const durationMinutes = Math.max(1, Math.round(((serverSession.deadlineAt ?? serverSession.startedAtServer) - serverSession.startedAtServer) / 60000));
   const deadlineMs = serverSession.deadlineAt ?? serverSession.startedAtServer;

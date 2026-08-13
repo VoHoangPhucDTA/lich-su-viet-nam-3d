@@ -1,19 +1,30 @@
 import { describe, expect, it } from 'vitest';
 import { derivePracticeTimeLimitMinutes, resolveQuestionCount } from '../practiceConfig';
 
-describe('practice quiz configuration', () => {
-  it('derives the bounded self-practice time limit from question count', () => {
-    expect([1, 2, 3].map(derivePracticeTimeLimitMinutes)).toEqual([5, 5, 5]);
-    expect([4, 5, 6].map(derivePracticeTimeLimitMinutes)).toEqual([10, 10, 10]);
-    expect([7, 8, 9, 10].map(derivePracticeTimeLimitMinutes)).toEqual([15, 15, 15, 15]);
+describe('practiceConfig', () => {
+  it('maps preset count modes to their integer counts', () => {
+    expect(resolveQuestionCount('1')).toBe(1);
+    expect(resolveQuestionCount('3')).toBe(3);
+    expect(resolveQuestionCount('5')).toBe(5);
   });
 
-  it('maps presets and accepts only integer custom counts from 1 to 10', () => {
-    expect(resolveQuestionCount('3', '')).toBe(3);
-    expect(resolveQuestionCount('custom', '7')).toBe(7);
-    expect(resolveQuestionCount('custom', '0')).toBeNull();
-    expect(resolveQuestionCount('custom', '2.5')).toBeNull();
-    expect(resolveQuestionCount('custom', '11')).toBeNull();
-    expect(resolveQuestionCount('custom', '')).toBeNull();
+  it('returns null for unknown preset modes', () => {
+    expect(resolveQuestionCount('7' as unknown as '1')).toBeNull();
+    expect(resolveQuestionCount('0' as unknown as '1')).toBeNull();
+    expect(resolveQuestionCount('11' as unknown as '1')).toBeNull();
+  });
+
+  it('derives a 5-minute timer for 1 and 3 questions', () => {
+    expect(derivePracticeTimeLimitMinutes(1)).toBe(5);
+    expect(derivePracticeTimeLimitMinutes(3)).toBe(5);
+  });
+
+  it('derives a 10-minute timer for 5 questions', () => {
+    expect(derivePracticeTimeLimitMinutes(5)).toBe(10);
+  });
+
+  it('keeps the upper-tier mapping for hypothetical larger counts', () => {
+    expect(derivePracticeTimeLimitMinutes(6)).toBe(10);
+    expect(derivePracticeTimeLimitMinutes(10)).toBe(15);
   });
 });

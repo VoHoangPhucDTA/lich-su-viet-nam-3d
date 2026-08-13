@@ -54,7 +54,7 @@ export default function HistoricalPeriodCard({ period, compact = false }: Histor
 
   return (
     <Link
-      to={`/periods?period=${period.id}`}
+      to={`/browse?period=${period.id}`}
       className="public-card interactive-card group block overflow-hidden text-left no-underline"
     >
       <div
