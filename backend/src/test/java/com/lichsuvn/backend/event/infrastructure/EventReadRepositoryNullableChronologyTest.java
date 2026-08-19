@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lichsuvn.backend.event.api.dto.EventSummaryDto;
 import com.lichsuvn.backend.event.api.dto.TimelineEventDto;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.ArgumentCaptor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -51,6 +53,22 @@ class EventReadRepositoryNullableChronologyTest {
         assertTrue(sql.contains("e.start_year IS NOT NULL AND e.effective_end_year IS NOT NULL"));
         assertTrue(sql.contains("e.start_year <= :year AND e.effective_end_year >= :year"));
         assertTrue(sql.contains("e.id ASC"));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {-938, 0, 1945, 2026})
+    void eventYearFilterBindsExactSignedYearIncludingNoMatchYear(int year) {
+        NamedParameterJdbcTemplate jdbc = mockJdbcReturning(List.<EventSummaryDto>of());
+        EventReadRepository repository = new EventReadRepository(jdbc, new ObjectMapper());
+
+        repository.findEvents(year, null, null, null, null, null, null, 10, 0);
+
+        ArgumentCaptor<String> sql = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<MapSqlParameterSource> params = ArgumentCaptor.forClass(MapSqlParameterSource.class);
+        ArgumentCaptor<RowMapper> mapper = ArgumentCaptor.forClass(RowMapper.class);
+        org.mockito.Mockito.verify(jdbc).query(sql.capture(), params.capture(), mapper.capture());
+        assertTrue(sql.getValue().contains("e.start_year <= :year AND e.effective_end_year >= :year"));
+        assertEquals(year, params.getValue().getValue("year"));
     }
 
     @Test

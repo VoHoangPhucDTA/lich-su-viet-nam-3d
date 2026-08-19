@@ -27,6 +27,8 @@
       "reason": "Độ chính xác 52,5% trên 40 ý trả lời qua 5 bài; đây là chủ đề yếu có đủ mẫu.",
       "actionLabel": "Ôn chủ đề này",
       "actionRoute": "/exams/on-chu-de/viet-nam-1945-1954",
+      "aiActionLabel": "Tạo bài AI theo gợi ý",
+      "aiActionRoute": "/quiz?q=Vi%E1%BB%87t+Nam+t%E1%BB%AB+n%C4%83m+1945+%C4%91%E1%BA%BFn+n%C4%83m+1954",
       "priority": "primary",
       "topicKey": "viet-nam-1945-1954",
       "evidence": {

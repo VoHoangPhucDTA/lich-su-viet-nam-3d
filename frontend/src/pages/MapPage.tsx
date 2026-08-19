@@ -56,6 +56,10 @@ import {
   resolveTimelineYear,
 } from '../utils/timelineModel';
 import { normalizeTerrainTargets } from '../utils/terrainTargets';
+import {
+  DEFAULT_ADMINISTRATIVE_BOUNDARY_LAYER_ID,
+  type AdministrativeBoundaryLayerId,
+} from '../utils/administrativeBoundaryLayers';
 import { projectDienBienPhuLearningSessionTargets } from '../data/dienBienPhuLearning';
 import { INITIAL_TERRAIN_STATE, terrainReducer } from '../utils/terrainState';
 import {
@@ -132,6 +136,7 @@ type MapSelectionSource =
   | 'url-restore';
 type SelectionDetailStatus = 'idle' | 'loading' | 'ready' | 'error';
 type MapOverlay = null | 'legend' | 'guide';
+type YearSelectionMode = 'slider' | 'manual';
 
 function legacyRequestedEventKey(state: unknown): string {
   if (!state || typeof state !== 'object') return '';
@@ -148,6 +153,9 @@ export default function MapPage() {
   const navigate = useNavigate();
   const initialUrlStateRef = useRef(parseMapUrlState(location.search));
   const [currentYear, setCurrentYear] = useState<number | null>(initialUrlStateRef.current.year);
+  const [yearSelectionMode, setYearSelectionMode] = useState<YearSelectionMode>(
+    initialUrlStateRef.current.year != null ? 'manual' : 'slider',
+  );
   const [selectedEvent, setSelectedEvent] = useState<HistoricalEvent | null>(
     null
   );
@@ -181,6 +189,10 @@ export default function MapPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [desktopSidebarCollapsed, setDesktopSidebarCollapsed] = useState(false);
   const [mapError, setMapError] = useState<string | null>(null);
+  const [administrativeBoundaryLayerId, setAdministrativeBoundaryLayerId] = useState<AdministrativeBoundaryLayerId>(
+    DEFAULT_ADMINISTRATIVE_BOUNDARY_LAYER_ID,
+  );
+  const [boundaryLayerError, setBoundaryLayerError] = useState<string | null>(null);
   // ─── Terrain exploration toolbar (Task C) ─────────────────────────────────
   const cesiumApiRef = useRef<CesiumMapHandle | null>(null);
   const sidebarResizeTimerRef = useRef<number | null>(null);
@@ -199,9 +211,13 @@ export default function MapPage() {
   );
   const parsedUrlState = useMemo(() => parseMapUrlState(location.search), [location.search]);
   const parsedUrlStateRef = useRef(parsedUrlState);
+  const currentYearRef = useRef(currentYear);
   useLayoutEffect(() => {
     parsedUrlStateRef.current = parsedUrlState;
   }, [parsedUrlState]);
+  useLayoutEffect(() => {
+    currentYearRef.current = currentYear;
+  }, [currentYear]);
   const legacyRequestedEventKeyRef = useRef(legacyRequestedEventKey(location.state));
   const legacyRequestedEventConsumedRef = useRef(false);
   useLayoutEffect(() => {
@@ -298,6 +314,9 @@ export default function MapPage() {
   }, []);
 
   useEffect(() => {
+    if (parsedUrlState.year !== currentYearRef.current) {
+      setYearSelectionMode(parsedUrlState.year == null ? 'slider' : 'manual');
+    }
     setCurrentYear((current) => current === parsedUrlState.year ? current : parsedUrlState.year);
     setSearchQuery((current) => current === parsedUrlState.query ? current : parsedUrlState.query);
     setActiveCategory((current) => current === parsedUrlState.category ? current : parsedUrlState.category);
@@ -337,12 +356,12 @@ export default function MapPage() {
   }, []);
 
   useEffect(() => {
-    if (
-      currentYear == null
-      || !timelineModel
-      || !timelineModel.years.includes(currentYear)
-    ) {
+    if (currentYear == null || !timelineModel) {
       setEventsLoading(timelineModel == null);
+      return;
+    }
+    if (yearSelectionMode === 'slider' && !timelineModel.years.includes(currentYear)) {
+      setEventsLoading(false);
       return;
     }
 
@@ -368,7 +387,7 @@ export default function MapPage() {
     return () => {
       cancelled = true;
     };
-  }, [currentYear, selectedGrade, timelineModel]);
+  }, [currentYear, selectedGrade, timelineModel, yearSelectionMode]);
 
   useEffect(() => {
     let cancelled = false;
@@ -387,13 +406,14 @@ export default function MapPage() {
   }, [selectedGrade]);
 
   useEffect(() => {
+    if (yearSelectionMode === 'manual') return;
     if (!timelineModel) return;
     const requestedYear = currentYear ?? timelineModel.minYear;
     const resolvedYear = resolveTimelineYear(timelineModel, requestedYear);
     if (resolvedYear === currentYear) return;
     setCurrentYear(resolvedYear);
     if (currentYear != null) replaceMapUrlState({ year: resolvedYear });
-  }, [currentYear, replaceMapUrlState, timelineModel]);
+  }, [currentYear, replaceMapUrlState, timelineModel, yearSelectionMode]);
 
   useEffect(() => {
     const query = normalizeMapSearchTerm(searchQuery);
@@ -788,6 +808,7 @@ export default function MapPage() {
     const resolvedYear = resolveTimelineYear(timelineModel, year);
     invalidateSelectionRequestUnlessPinned();
     scheduleAfterTerrainExit(() => {
+      setYearSelectionMode('slider');
       setCurrentYear(resolvedYear);
       replaceMapUrlState({ year: resolvedYear });
     });
@@ -797,6 +818,16 @@ export default function MapPage() {
     scheduleAfterTerrainExit,
     timelineModel,
   ]);
+
+  const handleExactYearChange = useCallback((year: number) => {
+    if (!Number.isSafeInteger(year)) return;
+    invalidateSelectionRequestUnlessPinned();
+    scheduleAfterTerrainExit(() => {
+      setYearSelectionMode('manual');
+      setCurrentYear(year);
+      replaceMapUrlState({ year });
+    });
+  }, [invalidateSelectionRequestUnlessPinned, replaceMapUrlState, scheduleAfterTerrainExit]);
 
   const handleGradeChange = useCallback((grade: number | null) => {
     invalidateSelectionRequestUnlessPinned();
@@ -1014,6 +1045,17 @@ export default function MapPage() {
     }
   }, []);
 
+  const handleAdministrativeBoundaryStatus = useCallback((
+    status: 'loading' | 'ready' | 'error',
+    error?: string,
+  ) => {
+    if (status === 'error') {
+      setBoundaryLayerError(error ?? 'Không thể tải lớp ranh giới tham chiếu.');
+    } else {
+      setBoundaryLayerError(null);
+    }
+  }, []);
+
   const terrainSession = useMemo<TerrainSessionCommand | null>(() => {
     if (
       terrainState.sessionId === null ||
@@ -1191,6 +1233,8 @@ export default function MapPage() {
               onTerrainExitComplete={handleTerrainExitComplete}
               onTerrainTargetSelect={handleTerrainTargetSelect}
               onRegionGeometryStatus={handleRegionGeometryStatus}
+              administrativeBoundaryLayerId={administrativeBoundaryLayerId}
+              onAdministrativeBoundaryStatus={handleAdministrativeBoundaryStatus}
               explorationMode={explorationMode}
               inspectionSessionId={inspectSessionId}
               onInspectionResultChange={handleInspectionResultChange}
@@ -1223,7 +1267,11 @@ export default function MapPage() {
 
               {activeOverlay === 'legend' && (
                 <div className="map-floating-popover">
-                  <MapLegend />
+                  <MapLegend
+                    selectedBoundaryLayerId={administrativeBoundaryLayerId}
+                    onBoundaryLayerChange={setAdministrativeBoundaryLayerId}
+                    boundaryLayerError={boundaryLayerError}
+                  />
                 </div>
               )}
 
@@ -1389,6 +1437,7 @@ export default function MapPage() {
             <Timeline
               currentYear={currentYear}
               onYearChange={handleYearChange}
+              onExactYearChange={handleExactYearChange}
               model={timelineModel}
             />
           )}

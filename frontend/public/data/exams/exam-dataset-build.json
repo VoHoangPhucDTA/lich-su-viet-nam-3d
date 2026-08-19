@@ -1,13 +1,13 @@
 {
-  "buildId": "64c71d23-fc60-44ca-b957-0c91f14ff547",
-  "generatedAt": "2026-07-19T14:15:34.588Z",
+  "buildId": "993cdbdd-8087-4f20-a196-6d0db8cf23bd",
+  "generatedAt": "2026-08-19T19:12:32.502Z",
   "hashAlgorithm": "SHA-256",
   "canonicalization": "RFC8785",
   "canonicalizationImplementation": "canonicalize@3.0.0",
   "duplicateKeyValidator": "json-dup-key-validator@1.0.3",
   "hashSchemaVersion": 1,
   "buildAlgorithmVersion": 1,
-  "aggregateHash": "815b1f5a32fdffd64b5abde108fdd22921f61c4f1fbc725e56ae14df4c702a3e",
+  "aggregateHash": "7b8e9c8df487490a5637c38c660d27720811ecae06f46674168aee197fc1f46d",
   "sources": [
     {
       "path": "data/exams/thuvienhoclieu-com-de-kscl-thi-tn-thpt-2026-mon-lich-su-cum-truong-bac-ninh-2026-lan-1.json",
@@ -202,8 +202,8 @@
   ],
   "artifacts": {
     "exams-manifest.json": {
-      "sha256": "f4035b2e48f76ab5913d1ed0ffb9594069f59ae6df69bf3dfb09820c569c8f07",
-      "byteLength": 28003
+      "sha256": "19722b182ac020f7c93b69b52c9192ac27fc757fb200b913fec945c9af3e8c84",
+      "byteLength": 24697
     },
     "topic-index.json": {
       "sha256": "0803d92d42d784552548e23565e9270b376a2422b54c29f9b31f5105270639c8",

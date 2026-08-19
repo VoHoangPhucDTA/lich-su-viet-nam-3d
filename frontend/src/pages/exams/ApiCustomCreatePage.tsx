@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import ExamCustomCreatePage from './ExamCustomCreatePage';
 import TopicCombobox, { type TopicComboboxOption } from '@/components/exams/TopicCombobox';
 import PeriodSelector from '@/components/exams/PeriodSelector';
 import { createExamSession, isExamApiFallbackError, listTopicMetadata, previewCustomExam } from '@/services/examApi';
@@ -313,7 +312,16 @@ export default function ApiCustomCreatePage() {
     updateCustom(setScopeSlug, option.slug);
   }
 
-  if (usingFallback) return <ExamCustomCreatePage />;
+  if (usingFallback) {
+    return (
+      <div className="exam-builder-page">
+        <main className="exam-builder-container">
+          <Link className="exam-focusable exam-builder-back" to="/exams">← Luyện thi</Link>
+          <p role="alert" style={errorStyle}>Không kết nối được máy chủ đề thi. Vui lòng thử lại.</p>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="exam-builder-page">

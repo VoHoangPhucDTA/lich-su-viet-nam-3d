@@ -1,0 +1,25 @@
+{
+  "dataset_id": "vn-2026-34",
+  "dataset_label": "Việt Nam 2026 — 34 tỉnh/thành",
+  "source_name": "GIS Việt Nam",
+  "source_url": "https://gis.vn/don-vi-hanh-chinh-viet-nam",
+  "download_url": "https://vn2000.vn/diachinh/sausapnhap_tinhthanh_xuattu_gisvn_dungdehienhinhanh.geojson",
+  "retrieved_at": "2026-08-19T18:55:50+07:00",
+  "format": "GeoJSON",
+  "feature_count": 34,
+  "temporal_scope": "current administrative reference",
+  "purpose": "reference",
+  "license_status": "UNVERIFIED",
+  "coordinate_system": "Not declared in the export; consumed as longitude/latitude GeoJSON by Cesium.",
+  "authoritative_count_cross_check_source": "https://xaydungchinhsach.chinhphu.vn/bang-danh-muc-va-ma-so-cua-34-tinh-thanh-moi-cac-don-vi-hanh-chinh-cap-xa-moi-11925070418263625.htm",
+  "authoritative_expected_count": 34,
+  "canonical_path": "data/geography/administrative/vietnam-provinces-2026-34-gisvn.geojson",
+  "runtime_path": "frontend/public/geojson/vietnam-provinces-2026-34.geojson",
+  "sha256": "125C44AFFA4F44D96AF3AEA3E90F437617A9B3653F6B63B2F78646B8D128F423",
+  "notes": [
+    "Geometry was obtained through the GIS.vn page's own GeoJSON export control.",
+    "GIS.vn is recorded as the geometry source; the Government source is a separate count/name cross-check.",
+    "This is a current reference layer and is not historical boundary reconstruction.",
+    "The raw export is preserved byte-for-byte in the canonical and runtime copies."
+  ]
+}

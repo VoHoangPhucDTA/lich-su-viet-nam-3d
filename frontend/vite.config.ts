@@ -17,7 +17,6 @@ export default defineConfig({
         { src: `${cesiumSource}/ThirdParty/**/*`, dest: 'cesium/ThirdParty' },
         { src: `${cesiumSource}/Assets/**/*`, dest: 'cesium/Assets' },
         { src: `${cesiumSource}/Widgets/**/*`, dest: 'cesium/Widgets' },
-        { src: path.resolve(__dirname, '../data/exams/*.json').replace(/\\/g, '/'), dest: 'data/exams' },
       ],
     }),
   ],

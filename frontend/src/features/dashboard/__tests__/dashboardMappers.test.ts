@@ -6,6 +6,7 @@ import partialFixture from '../../../../../data/dashboard-analytics-fixtures/res
 import type { DashboardAnalyticsResponseV1 } from '../dashboardAnalyticsTypes';
 import { validateDashboardAnalyticsResponseV1 } from '../dashboardAnalyticsValidation';
 import { mapDashboardAnalyticsToViewModel } from '../dashboardMappers';
+import { dashboardAiPracticeRoute } from '../dashboardRecommendation';
 
 function validated(value: unknown): DashboardAnalyticsResponseV1 {
   const result = validateDashboardAnalyticsResponseV1(value);
@@ -22,7 +23,11 @@ describe('DashboardAnalyticsResponseV1 to ViewModel mapper', () => {
     expect(viewModel.summary.totalAttempts).toBe(4);
     expect(viewModel.strengths.map((item) => item.key)).toEqual(['cach-mang-thang-tam-1945']);
     expect(viewModel.weaknesses.map((item) => item.key)).toEqual(['viet-nam-1945-1954']);
-    expect(viewModel.recommendations[0]?.topicKey).toBe('viet-nam-1945-1954');
+    expect(viewModel.recommendations[0]).toMatchObject({
+      topicKey: 'viet-nam-1945-1954',
+      aiActionLabel: 'Tạo bài AI theo gợi ý',
+      aiActionRoute: dashboardAiPracticeRoute('Việt Nam từ năm 1945 đến năm 1954'),
+    });
   });
 
   it('maps an empty response without fabricated KPI values', () => {
@@ -35,6 +40,7 @@ describe('DashboardAnalyticsResponseV1 to ViewModel mapper', () => {
       actionRoute: '/exams/browse',
       evidence: null,
     });
+    expect(viewModel.recommendations[0]?.aiActionRoute).toBeUndefined();
   });
 
   it('maps partial coverage to an incomplete trend and explicit notices', () => {
@@ -111,6 +117,7 @@ describe('DashboardAnalyticsResponseV1 to ViewModel mapper', () => {
     expect(viewModel.weaknesses).toEqual([]);
     expect(viewModel.recommendations[0]?.id).toBe(`insufficient-${insufficient.topicKey}`);
     expect(viewModel.recommendations[0]?.reason).toContain('chưa đủ mẫu');
+    expect(viewModel.recommendations[0]?.aiActionRoute).toBeUndefined();
   });
 
   it('chooses the lowest developing topic when no weakness exists', () => {
@@ -125,6 +132,7 @@ describe('DashboardAnalyticsResponseV1 to ViewModel mapper', () => {
     expect(viewModel.recommendations[0]).toMatchObject({
       id: 'developing-quan-he-quoc-te',
       topicKey: 'quan-he-quoc-te',
+      aiActionRoute: dashboardAiPracticeRoute('Quan hệ quốc tế sau năm 1945'),
     });
   });
 
@@ -139,6 +147,7 @@ describe('DashboardAnalyticsResponseV1 to ViewModel mapper', () => {
       actionRoute: '/exams/tao-de',
       topicKey: null,
     });
+    expect(viewModel.recommendations[0]?.aiActionRoute).toBeUndefined();
   });
 
   it('handles summary-only analytics without inventing topic or cognitive facts', () => {

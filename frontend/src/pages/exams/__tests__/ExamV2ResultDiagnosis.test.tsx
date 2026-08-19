@@ -7,33 +7,22 @@ import {
   Routes,
 } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { CustomQuestionSnapshot, ExamResultV2 } from '@/types/exam';
 import type { ResultSnapshotV2 } from '@/types/examApi';
 import ExamV2ResultPage from '../ExamV2ResultPage';
 
 const mocks = vi.hoisted(() => ({
   readApiResult: vi.fn(),
-  readResultFromLS: vi.fn(),
   fetchBackendAttemptDetail: vi.fn(),
   resultFromAttemptDetail: vi.fn(),
-  loadExam: vi.fn(),
 }));
 
 vi.mock('@/lib/exam/useApiTimedSession', () => ({
   readApiResult: mocks.readApiResult,
 }));
 
-vi.mock('@/lib/exam/useSessionV2', () => ({
-  readResultFromLS: mocks.readResultFromLS,
-}));
-
 vi.mock('@/lib/exam/examAttemptSync', () => ({
   fetchBackendAttemptDetail: mocks.fetchBackendAttemptDetail,
   resultFromAttemptDetail: mocks.resultFromAttemptDetail,
-}));
-
-vi.mock('@/lib/exam/examLoader', () => ({
-  loadExam: mocks.loadExam,
 }));
 
 function reviewedSnapshot(sessionId: string): ResultSnapshotV2 {
@@ -185,53 +174,6 @@ function reviewedSnapshot(sessionId: string): ResultSnapshotV2 {
   };
 }
 
-const legacyQuestion: CustomQuestionSnapshot = {
-  id: 'legacy-question',
-  orderInExam: 1,
-  questionType: 'mcq',
-  questionText: 'Câu hỏi local legacy',
-  explanation: 'Giải thích local legacy',
-  difficulty: 'easy',
-  topic: 'ASEAN',
-  cognitiveLevel: 'knowledge',
-  hasImage: false,
-  sourceRefs: [],
-  options: [
-    { id: 'A', text: 'Đáp án A' },
-    { id: 'B', text: 'Đáp án B' },
-    { id: 'C', text: 'Đáp án C' },
-    { id: 'D', text: 'Đáp án D' },
-  ],
-  correctOptionId: 'A',
-  sourceExamId: 'legacy-exam',
-  originalQuestionId: 'legacy-question',
-};
-
-const legacyLocalResult: ExamResultV2 = {
-  sessionId: 'legacy-local',
-  mode: 'custom_mock',
-  title: 'Đề local legacy',
-  isCustom: true,
-  questionSnapshots: [legacyQuestion],
-  totalScore: 10,
-  mcqScore: 10,
-  tfScore: 0,
-  totalQuestions: 1,
-  correctMCQ: 1,
-  wrongMCQ: 0,
-  blankMCQ: 0,
-  tfBreakdown: [0, 0, 0, 0, 0],
-  durationSeconds: 90,
-  submittedAt: 1_754_703_000_000,
-  questions: [{
-    questionId: 'legacy-question',
-    questionType: 'mcq',
-    isCorrect: true,
-    pointsEarned: 1,
-    mcq: { selected: 'A', correct: 'A' },
-  }],
-};
-
 function renderResult(sessionId: string) {
   return render(
     <MemoryRouter initialEntries={[`/exams/ket-qua/${sessionId}`]}>
@@ -265,10 +207,8 @@ async function expectSnapshotDiagnosis(sessionId: string) {
 describe('ExamV2ResultPage Snapshot V2 diagnosis data paths', () => {
   beforeEach(() => {
     mocks.readApiResult.mockReset().mockReturnValue(null);
-    mocks.readResultFromLS.mockReset().mockReturnValue(null);
     mocks.fetchBackendAttemptDetail.mockReset().mockResolvedValue(null);
     mocks.resultFromAttemptDetail.mockReset().mockReturnValue(null);
-    mocks.loadExam.mockReset();
   });
 
   it('renders diagnosis directly from a cached Snapshot V2 without backend or legacy loaders', async () => {
@@ -278,9 +218,7 @@ describe('ExamV2ResultPage Snapshot V2 diagnosis data paths', () => {
 
     await expectSnapshotDiagnosis('cached-v2');
     expect(mocks.readApiResult).toHaveBeenCalledWith('cached-v2');
-    expect(mocks.readResultFromLS).not.toHaveBeenCalled();
     expect(mocks.fetchBackendAttemptDetail).not.toHaveBeenCalled();
-    expect(mocks.loadExam).not.toHaveBeenCalled();
   });
 
   it('renders the same diagnosis from a backend attempt detail Snapshot V2', async () => {
@@ -299,25 +237,8 @@ describe('ExamV2ResultPage Snapshot V2 diagnosis data paths', () => {
 
     await expectSnapshotDiagnosis('backend-v2');
     expect(mocks.readApiResult).toHaveBeenCalledWith('backend-v2');
-    expect(mocks.readResultFromLS).toHaveBeenCalledWith('backend-v2');
     expect(mocks.fetchBackendAttemptDetail).toHaveBeenCalledWith('backend-v2');
     expect(mocks.resultFromAttemptDetail).not.toHaveBeenCalled();
-    expect(mocks.loadExam).not.toHaveBeenCalled();
-  });
-
-  it('keeps legacy local results on the legacy renderer without Snapshot diagnosis', async () => {
-    mocks.readResultFromLS.mockReturnValue(legacyLocalResult);
-
-    renderResult('legacy-local');
-
-    expect(await screen.findByRole('heading', { level: 1, name: 'Kết quả luyện thi' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'Phân tích điểm yếu' })).toBeInTheDocument();
-    // Task H (Phase B): legacy renderer vẫn dùng "Review chi tiết từng câu" vì đây là nhánh legacy không thuộc scope Phase B.
-    expect(screen.getByRole('heading', { name: 'Review chi tiết từng câu' })).toBeInTheDocument();
-    expect(screen.queryByRole('heading', { name: 'Chẩn đoán bài làm' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('heading', { name: 'Bạn nên ôn gì tiếp theo?' })).not.toBeInTheDocument();
-    expect(mocks.fetchBackendAttemptDetail).not.toHaveBeenCalled();
-    expect(mocks.loadExam).not.toHaveBeenCalled();
   });
 
   it('keeps the deep-link entry in browser history', async () => {
@@ -336,5 +257,19 @@ describe('ExamV2ResultPage Snapshot V2 diagnosis data paths', () => {
       await router.navigate(-1);
     });
     expect(await screen.findByText('Trang trước kết quả')).toBeInTheDocument();
+  });
+
+  it('does not resurrect a legacy local result without a backend or cached Snapshot V2', async () => {
+    localStorage.setItem('v2_result_legacy-local', JSON.stringify({
+      sessionId: 'legacy-local',
+      correctOptionId: 'B',
+      answerKey: { correctOptionId: 'B' },
+    }));
+
+    renderResult('legacy-local');
+
+    expect(await screen.findByRole('heading', { level: 2, name: 'Không tìm thấy kết quả' })).toBeInTheDocument();
+    expect(screen.getByText('Kết quả đã bị xóa hoặc liên kết không hợp lệ.')).toBeInTheDocument();
+    expect(mocks.fetchBackendAttemptDetail).toHaveBeenCalledWith('legacy-local');
   });
 });

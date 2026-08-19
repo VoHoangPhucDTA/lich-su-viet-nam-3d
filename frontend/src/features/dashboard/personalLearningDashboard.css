@@ -269,6 +269,29 @@
   line-height: 1.55;
 }
 
+.dashboard-recommendation-actions {
+  display: grid;
+  min-width: min(16rem, 100%);
+  gap: .75rem;
+}
+
+.dashboard-recommendation-ai {
+  display: grid;
+  gap: .35rem;
+}
+
+.dashboard-recommendation-ai-note {
+  margin: 0;
+  color: var(--dashboard-secondary);
+  font-size: .76rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.dashboard-recommendation-ai-action {
+  width: 100%;
+}
+
 .dashboard-evidence {
   display: grid;
   grid-template-columns: repeat(4, minmax(6.5rem, 1fr));
@@ -1519,7 +1542,9 @@
     gap: 1.25rem;
   }
 
-  .dashboard-recommendation .dashboard-primary-action {
+  .dashboard-recommendation-actions,
+  .dashboard-recommendation .dashboard-primary-action,
+  .dashboard-recommendation-ai-action {
     width: 100%;
   }
 

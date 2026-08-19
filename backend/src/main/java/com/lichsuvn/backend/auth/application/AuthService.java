@@ -283,6 +283,7 @@ public class AuthService {
         passwordPolicy.validate(request.newPassword());
         AuthEmailTokenEntity token = findUsableToken(request.token(), "password_reset");
         UserEntity user = token.getUser();
+        incrementAuthVersion(user);
         user.setPasswordHash(passwordEncoder.encode(request.newPassword()));
         // Bước 6C.1.17: MySQL: xác nhận cập nhật thành công và xóa token
         user.setFailedLoginCount(0);
@@ -324,9 +325,20 @@ public class AuthService {
         }
 
         passwordPolicy.validate(request.newPassword());
+        incrementAuthVersion(user);
         user.setPasswordHash(passwordEncoder.encode(request.newPassword()));
         log.info("Password changed for userId={}", UuidBytes.toString(user.getId()));
         return new MessageDto("Đổi mật khẩu thành công.");
+    }
+
+    private void incrementAuthVersion(UserEntity user) {
+        if (user.getAuthVersion() == Long.MAX_VALUE) {
+            throw new ApiException(
+                    HttpStatus.CONFLICT,
+                    "AUTH_VERSION_EXHAUSTED",
+                    "Authentication version cannot be incremented");
+        }
+        user.setAuthVersion(user.getAuthVersion() + 1);
     }
 
     private AuthSession toAuthSession(UserEntity user) {

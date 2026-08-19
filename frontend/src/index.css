@@ -3325,6 +3325,44 @@ textarea.form-control:focus-visible,
   text-transform: uppercase;
 }
 
+.map-legend__boundary {
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.map-legend__boundary-label {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--text-secondary);
+  font-size: 0.6875rem;
+}
+
+.map-legend__boundary-select {
+  width: 100%;
+  min-height: 2rem;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.45rem;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 0.6875rem;
+}
+
+.map-legend__disclaimer {
+  margin: 0.5rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.625rem;
+  line-height: 1.5;
+}
+
+.map-legend__boundary-error {
+  margin: 0.5rem 0 0;
+  color: var(--danger, #8b1e1e);
+  font-size: 0.625rem;
+  line-height: 1.5;
+}
+
 .map-legend__categories,
 .map-legend__roles {
   display: grid;
@@ -3431,6 +3469,46 @@ textarea.form-control:focus-visible,
   font-size: 1.25rem;
   font-weight: 800;
   line-height: 1;
+}
+
+.map-timeline-year-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.map-timeline-year-button {
+  border: 0;
+  border-radius: 0.35rem;
+  background: transparent;
+  padding: 0.2rem 0.3rem;
+  cursor: text;
+}
+
+.map-timeline-year-button:hover,
+.map-timeline-year-button:focus-visible {
+  background: var(--accent-soft);
+  outline: 2px solid transparent;
+}
+
+.map-timeline-year-input {
+  width: 7.5rem;
+  border: 1px solid var(--accent);
+  border-radius: 0.35rem;
+  background: var(--bg-card);
+  padding: 0.2rem 0.35rem;
+  color: var(--accent);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.map-timeline-year-error {
+  color: var(--danger, #b42318);
+  font-size: 0.625rem;
+  font-weight: 700;
 }
 
 .map-timeline-count {

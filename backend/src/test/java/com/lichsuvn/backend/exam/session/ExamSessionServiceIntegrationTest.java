@@ -99,6 +99,8 @@ class ExamSessionServiceIntegrationTest {
     @Test
     void timedAnonymousSubmitAllowsBlankAndPartialThenIsIdempotent() {
         var created = service.create(new CreateExamSessionRequest("TIMED_ORIGINAL", cleanExamId(), null, null, null, null, null, null, null, null), null);
+        assertNoPreSubmitAnswerKeys(mapper.writeValueAsString(created));
+        assertNoPreSubmitAnswerKeys(mapper.writeValueAsString(service.resume(created.sessionId(), created.anonymousSessionToken(), null)));
         List<SubmitExamSessionRequest.AnswerItem> answers = answersFor(created, true);
         var first = service.submit(created.sessionId(), new SubmitExamSessionRequest(CLIENT_A, answers), created.anonymousSessionToken(), null);
         assertEquals("SUCCESS", first.receiptStatus());
@@ -262,6 +264,12 @@ class ExamSessionServiceIntegrationTest {
         JsonNode answer = correctAnswer(instance);
         if (answer.isTextual()) return mapper.getNodeFactory().textNode(answer.asText().equals("A") ? "B" : "A");
         var changed = ((tools.jackson.databind.node.ObjectNode) answer.deepCopy()); changed.put("a", !answer.path("a").asBoolean()); return changed;
+    }
+
+    private void assertNoPreSubmitAnswerKeys(String payload) {
+        for (String forbidden : List.of("correctOptionId", "isTrue", "correctAnswer", "answerKey", "scoringKey")) {
+            assertFalse(payload.contains(forbidden), "pre-submit payload exposed " + forbidden);
+        }
     }
 
     private JsonNode read(String raw) { try { return mapper.readTree(raw); } catch (Exception ex) { throw new IllegalStateException(ex); } }

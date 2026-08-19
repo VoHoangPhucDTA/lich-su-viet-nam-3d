@@ -185,8 +185,6 @@ export interface ExamManifestEntry {
   structuralPassed: boolean;
   crossSourcePassed: boolean;
   hasContentSuspicion: boolean;
-  contentHash?: string;
-  fileName: string;
 }
 
 export type ExamsManifest = ExamManifestEntry[];

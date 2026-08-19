@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  dashboardAiPracticeRoute,
   dashboardTopicRoute,
   selectRecommendationCandidate,
   type RecommendationCandidate,
@@ -94,5 +95,12 @@ describe('shared dashboard recommendation policy', () => {
 
   it('encodes topic keys in action routes', () => {
     expect(dashboardTopicRoute('viet nam/1945')).toBe('/exams/on-chu-de/viet%20nam%2F1945');
+  });
+
+  it('encodes the human-readable topic label in the AI practice query', () => {
+    const route = dashboardAiPracticeRoute('Cách mạng tháng Tám');
+    expect(new URL(route, 'http://localhost').searchParams.get('q')).toBe('Cách mạng tháng Tám');
+    expect(route).toContain('C%C3%A1ch+m%E1%BA%A1ng+th%C3%A1ng+T%C3%A1m');
+    expect(route).not.toContain('august-revolution');
   });
 });
