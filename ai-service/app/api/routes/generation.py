@@ -19,6 +19,7 @@ from app.dependencies import (
     require_internal_token,
 )
 from app.generation.models import (
+    FactualValidationError,
     GenerationNotConfiguredError,
     GenerationOutputError,
     GenerationPermanentError,
@@ -84,6 +85,14 @@ async def generate_quiz(
         raise HTTPException(status_code=503, detail=exc.code) from exc
     except (GenerationNotConfiguredError, GenerationTransientError) as exc:
         raise HTTPException(status_code=503, detail="Generation service is unavailable") from exc
+    except FactualValidationError as exc:
+        raise HTTPException(
+            status_code=502,
+            detail={
+                "code": exc.code,
+                "message": "Chưa thể tạo câu hỏi đủ độ tin cậy từ nguồn hiện có.",
+            },
+        ) from exc
     except (GenerationOutputError, GenerationPermanentError, GenerationSafetyError) as exc:
         raise HTTPException(status_code=502, detail="Generated output is invalid") from exc
     except Exception as exc:

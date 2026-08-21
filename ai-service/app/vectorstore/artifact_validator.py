@@ -1,6 +1,5 @@
 """Strict validation gate for production embedding artifacts."""
 
-import hashlib
 import json
 import math
 from pathlib import Path
@@ -8,17 +7,10 @@ from typing import Any
 
 from pydantic import ValidationError
 
+from app.corpus.identity import canonical_jsonl_sha256
 from app.corpus.loader import iter_corpus
 from app.embedding.models import EmbeddingManifest, EmbeddingRecord
 from app.vectorstore.models import ArtifactValidationError, ValidatedEmbeddingArtifact
-
-
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as source:
-        for block in iter(lambda: source.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
 
 
 class EmbeddingArtifactValidator:
@@ -88,7 +80,7 @@ class EmbeddingArtifactValidator:
             issues.append("manifest dimension does not match configuration")
         if manifest.formatterVersion != self.expected_formatter_version:
             issues.append("manifest formatter version does not match configuration")
-        corpus_sha = sha256_file(self.corpus_path)
+        corpus_sha = canonical_jsonl_sha256(self.corpus_path)
         if manifest.corpusSha256 != corpus_sha:
             issues.append("manifest corpus SHA-256 does not match canonical corpus")
 

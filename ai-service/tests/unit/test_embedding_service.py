@@ -79,6 +79,23 @@ def test_pending_review_is_skipped_by_default_and_can_be_included(
     assert included.pendingReviewSkipped == 0
 
 
+def test_manifest_corpus_hash_is_line_ending_stable(
+    tmp_path: Path, corpus_record: dict[str, Any]
+) -> None:
+    path = tmp_path / "corpus.jsonl"
+    records = make_records(corpus_record, 2)
+    lf_bytes = "".join(
+        json.dumps(record, ensure_ascii=False) + "\n" for record in records
+    ).encode("utf-8")
+    path.write_bytes(lf_bytes)
+    lf_manifest = make_service(tmp_path, path).run(dry_run=True)
+
+    path.write_bytes(lf_bytes.replace(b"\n", b"\r\n"))
+    crlf_manifest = make_service(tmp_path, path).run(dry_run=True)
+
+    assert crlf_manifest.corpusSha256 == lf_manifest.corpusSha256
+
+
 def test_batch_mapping_and_manifest_counts_are_stable(
     tmp_path: Path, corpus_record: dict[str, Any]
 ) -> None:

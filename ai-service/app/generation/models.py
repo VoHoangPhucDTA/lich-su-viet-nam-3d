@@ -56,6 +56,15 @@ class GenerationOutputError(GenerationError):
         self.raw_output = raw_output
 
 
+class FactualValidationError(GenerationOutputError):
+    """Covered factual claims remained unsafe after the bounded repair path."""
+
+    code = "FACTUAL_VALIDATION_FAILED"
+
+    def __init__(self) -> None:
+        super().__init__(self.code)
+
+
 class InsufficientContextError(GenerationError):
     pass
 

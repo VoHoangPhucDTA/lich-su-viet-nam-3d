@@ -1,0 +1,39 @@
+{
+  "benchmarkVersion": "rag01-v2-explicit-curated",
+  "canonicalCorpus": "ai-service/data/corpus/sgk_chunks.jsonl",
+  "canonicalCorpusSha256": "a4bd330be7b4b43ac9da25966877fef51c66c0e14cc68baa7eccf46a63e15ab2",
+  "curatedGoldCaseCount": 27,
+  "generationByContentGroup": {
+    "causes": 9,
+    "facts": 9,
+    "synthesis": 9
+  },
+  "generationByDifficulty": {
+    "EASY": 9,
+    "HARD": 9,
+    "MEDIUM": 9
+  },
+  "generationByGrade": {
+    "10": 9,
+    "11": 9,
+    "12": 9
+  },
+  "generationCases": 27,
+  "generationTargetModes": {
+    "EXACT_SET": 4,
+    "EXACT_SINGLE": 8,
+    "FACT_CONSTRAINED": 3,
+    "HUMAN_REVIEW": 12
+  },
+  "goldSpecVersion": "rag01-v2-explicit-curated",
+  "legacyGenerationCasesPreserved": 12,
+  "legacyRetrievalCasesPreserved": 36,
+  "providerCalls": 0,
+  "retrievalByGrade": {
+    "10": 20,
+    "11": 20,
+    "12": 20
+  },
+  "retrievalCases": 60,
+  "status": "OFFLINE_DATASET_BUILD_ONLY"
+}

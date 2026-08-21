@@ -12,6 +12,8 @@ from typing import Protocol
 from app.config import Settings
 from app.core.deadline import OperationDeadline
 from app.core.request_context import current_request_id
+from app.factual_guard import FactualGuard
+from app.factual_guard.models import FactualDecision, FactualReasonCode
 from app.generation.base import GenerationProvider
 from app.generation.diagnostics import (
     GenerationDiagnosticRecorder,
@@ -19,6 +21,7 @@ from app.generation.diagnostics import (
 )
 from app.generation.gemini import GeminiGenerationProvider
 from app.generation.models import (
+    FactualValidationError,
     GeneratedQuestion,
     GenerationMetadata,
     GenerationOutputError,
@@ -28,12 +31,13 @@ from app.generation.models import (
     GenerationUseCase,
     InsufficientContextError,
     ValidationIssue,
+    ValidationSummary,
 )
 from app.generation.prompt_builder import build_generation_prompt
 from app.generation.repair import build_repair_prompt
 from app.generation.schemas import GeneratedQuestionBatch
 from app.generation.validators import validate_questions
-from app.retrieval.models import RetrievalRequest, RetrievalResponse
+from app.retrieval.models import RetrievalRequest, RetrievalResponse, RetrievalResult
 from app.retrieval.service import RetrievalServiceContract, create_retrieval_service
 
 generation_logger = logging.getLogger("app.generation")
@@ -118,6 +122,12 @@ class GenerationEvaluationTrace:
     repair_success_count: int = 0
     repair_failure_count: int = 0
     provider_latency_ms: float = 0.0
+    factual_validation_status: str = "UNKNOWN"
+    factual_reason_codes: list[str] = field(default_factory=list)
+    factual_fact_ids_checked: list[str] = field(default_factory=list)
+    factual_source_ids: list[str] = field(default_factory=list)
+    factual_covered_claim_count: int = 0
+    factual_unknown_claim_count: int = 0
 
     def reset(self) -> None:
         self.validation_issues.clear()
@@ -125,6 +135,12 @@ class GenerationEvaluationTrace:
         self.repair_success_count = 0
         self.repair_failure_count = 0
         self.provider_latency_ms = 0.0
+        self.factual_validation_status = "UNKNOWN"
+        self.factual_reason_codes.clear()
+        self.factual_fact_ids_checked.clear()
+        self.factual_source_ids.clear()
+        self.factual_covered_claim_count = 0
+        self.factual_unknown_claim_count = 0
 
 
 class GenerationService:
@@ -135,11 +151,62 @@ class GenerationService:
         retrieval_service: RetrievalServiceContract,
         provider: GenerationProvider,
         owns_retrieval_service: bool = True,
+        factual_guard: FactualGuard | None = None,
     ) -> None:
         self.settings = settings
         self.retrieval_service = retrieval_service
         self.provider = provider
         self.owns_retrieval_service = owns_retrieval_service
+        self.factual_guard = factual_guard or FactualGuard.from_path(
+            settings.factual_guard_registry_path
+        )
+
+    def _apply_factual_guard(
+        self,
+        questions: list[GeneratedQuestion],
+        sources: list[RetrievalResult],
+        *,
+        corpus_sha256: str,
+        evaluation_trace: GenerationEvaluationTrace | None,
+    ) -> tuple[list[GeneratedQuestion], list[ValidationIssue]]:
+        valid: list[GeneratedQuestion] = []
+        issues: list[ValidationIssue] = []
+        decisions: list[str] = []
+        for index, question in enumerate(questions):
+            result, question_issues = self.factual_guard.validate_question(
+                question,
+                sources,
+                corpus_sha256=corpus_sha256,
+                question_index=index,
+            )
+            decisions.append(result.decision.value)
+            issues.extend(question_issues)
+            if result.decision == FactualDecision.PASS:
+                valid.append(question)
+            if evaluation_trace is not None:
+                evaluation_trace.factual_reason_codes.extend(
+                    code.value for code in result.reason_codes
+                )
+                evaluation_trace.factual_fact_ids_checked.extend(result.fact_ids_checked)
+                evaluation_trace.factual_source_ids.extend(result.source_ids)
+                evaluation_trace.factual_covered_claim_count += result.covered_claim_count
+                evaluation_trace.factual_unknown_claim_count += result.unknown_claim_count
+        if evaluation_trace is not None:
+            evaluation_trace.factual_validation_status = (
+                FactualDecision.REJECT_REGENERATE.value
+                if FactualDecision.REJECT_REGENERATE.value in decisions
+                else FactualDecision.PASS.value
+            )
+            evaluation_trace.factual_reason_codes = sorted(
+                set(evaluation_trace.factual_reason_codes)
+            )
+            evaluation_trace.factual_fact_ids_checked = sorted(
+                set(evaluation_trace.factual_fact_ids_checked)
+            )
+            evaluation_trace.factual_source_ids = sorted(
+                set(evaluation_trace.factual_source_ids)
+            )
+        return valid, issues
 
     def _validate_request_limits(self, request: GenerationRequest) -> int:
         count = request.count or self.settings.quiz_default_count
@@ -319,12 +386,21 @@ class GenerationService:
                     repair_provider_ms += provider_ms
                 if evaluation_trace is not None:
                     evaluation_trace.provider_latency_ms += provider_ms
-            valid, summary = validate_questions(
+            structurally_valid, summary = validate_questions(
                 batch.questions,
                 request,
                 retrieval.results,
                 self.settings,
             )
+            valid, factual_issues = self._apply_factual_guard(
+                structurally_valid,
+                retrieval.results,
+                corpus_sha256=retrieval.metadata.corpus_sha256,
+                evaluation_trace=evaluation_trace,
+            )
+            if factual_issues:
+                combined_issues = [*summary.issues, *factual_issues]
+                summary = ValidationSummary(status="FAILED", issues=combined_issues)
             last_issues = summary.issues
             validation_issue_count += len(summary.issues)
             if attempt == 0:
@@ -382,6 +458,9 @@ class GenerationService:
                     evaluation_trace.repair_failure_count,
                     evaluation_trace.repair_attempt_count,
                 )
+            factual_codes = {code.value for code in FactualReasonCode}
+            if any(issue.code in factual_codes for issue in last_issues):
+                raise FactualValidationError()
             raise GenerationOutputError("NO_VALID_QUESTIONS_AFTER_REPAIR")
         diagnostic_recorder.record_final(last_issues, valid=True)
         diagnostic_recorder.emit_decision()
@@ -430,7 +509,9 @@ class GenerationService:
                 "event=generation.diagnostic requestId=%s status=success requestedCount=%s "
                 "generatedCount=%s retrievalMs=%.2f contextChars=%s promptMs=%.2f promptChars=%s "
                 "styleExampleCount=%s styleExampleChars=%s providerInitialMs=%.2f repairProviderMs=%.2f "
-                "repairAttempts=%s repairTriggerCodes=%s validationIssueCount=%s totalMs=%.2f",
+                "repairAttempts=%s repairTriggerCodes=%s validationIssueCount=%s "
+                "factualStatus=%s factualReasonCodes=%s factualFactIds=%s factualSourceIds=%s "
+                "coveredClaimCount=%s unknownClaimCount=%s totalMs=%.2f",
                 current_request_id() or "unknown",
                 count,
                 response.metadata.generated_count,
@@ -445,6 +526,36 @@ class GenerationService:
                 repair_attempts,
                 ",".join(diagnostic_recorder.repair_trigger_codes) or "NONE",
                 validation_issue_count,
+                (
+                    evaluation_trace.factual_validation_status
+                    if evaluation_trace is not None
+                    else "NOT_RECORDED"
+                ),
+                (
+                    ",".join(evaluation_trace.factual_reason_codes)
+                    if evaluation_trace is not None
+                    else "NOT_RECORDED"
+                ),
+                (
+                    ",".join(evaluation_trace.factual_fact_ids_checked)
+                    if evaluation_trace is not None
+                    else "NOT_RECORDED"
+                ),
+                (
+                    ",".join(evaluation_trace.factual_source_ids)
+                    if evaluation_trace is not None
+                    else "NOT_RECORDED"
+                ),
+                (
+                    evaluation_trace.factual_covered_claim_count
+                    if evaluation_trace is not None
+                    else 0
+                ),
+                (
+                    evaluation_trace.factual_unknown_claim_count
+                    if evaluation_trace is not None
+                    else 0
+                ),
                 (time.monotonic() - started) * 1000,
             )
         return response

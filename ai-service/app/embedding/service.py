@@ -1,10 +1,10 @@
 """Resumable corpus-to-embedding pipeline."""
 
-import hashlib
 import logging
 from pathlib import Path
 
 from app.core.exceptions import CorpusError
+from app.corpus.identity import canonical_jsonl_sha256
 from app.corpus.loader import iter_corpus
 from app.corpus.models import CorpusChunk
 from app.corpus.validator import validate_corpus
@@ -24,14 +24,6 @@ from app.embedding.models import (
 
 logger = logging.getLogger(__name__)
 MAX_BATCH_SPLIT_DEPTH = 16
-
-
-def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as source:
-        for block in iter(lambda: source.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
 
 
 def _batches(values: list[CorpusChunk], size: int) -> list[list[CorpusChunk]]:
@@ -287,7 +279,7 @@ class EmbeddingService:
             selected = selected[:limit]
 
         manifest = EmbeddingManifest(
-            corpusSha256=_sha256(self.corpus_path),
+            corpusSha256=canonical_jsonl_sha256(self.corpus_path),
             embeddingModel=self.model,
             dimension=self.dimension,
             formatterVersion=self.formatter.version,
