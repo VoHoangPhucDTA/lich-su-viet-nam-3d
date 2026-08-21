@@ -58,7 +58,6 @@ describe('Timeline', () => {
     [-938, '938 TCN'],
     [0, 'Công Nguyên'],
     [1945, '1945'],
-    [2026, '2026'],
   ])('formats exact year %s as %s', (year, label) => {
     render(
       <Timeline
@@ -69,41 +68,64 @@ describe('Timeline', () => {
       />,
     );
 
-    expect(screen.getByRole('button', { name: `Chỉnh sửa năm hiện tại ${label}` })).toHaveTextContent(label);
+    expect(screen.getByText(label, { selector: '.map-timeline-current' })).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Nhập năm' })).toBeVisible();
+    expect(screen.getByRole('button', { name: 'Đi tới' })).toBeVisible();
   });
 
-  it('commits valid exact years with Enter and blur, while Escape cancels', () => {
+  it('commits an in-range year without events exactly with Enter', () => {
     const onExactYearChange = vi.fn();
     render(
       <Timeline
         currentYear={1945}
-        model={model([40, 938, 1945])}
+        model={model([-938, 938, 1945])}
         onYearChange={vi.fn()}
         onExactYearChange={onExactYearChange}
       />,
     );
 
-    fireEvent.click(screen.getByRole('button', { name: 'Chỉnh sửa năm hiện tại 1945' }));
-    const input = screen.getByRole('textbox', { name: 'Nhập năm chính xác' });
-    fireEvent.change(input, { target: { value: '-938' } });
+    const input = screen.getByRole('textbox', { name: 'Nhập năm' });
+    fireEvent.change(input, { target: { value: '500' } });
     fireEvent.keyDown(input, { key: 'Enter' });
-    expect(onExactYearChange).toHaveBeenCalledWith(-938);
-
-    fireEvent.click(screen.getByRole('button', { name: 'Chỉnh sửa năm hiện tại 1945' }));
-    const blurInput = screen.getByRole('textbox', { name: 'Nhập năm chính xác' });
-    fireEvent.change(blurInput, { target: { value: '0' } });
-    fireEvent.blur(blurInput);
-    expect(onExactYearChange).toHaveBeenLastCalledWith(0);
-
-    fireEvent.click(screen.getByRole('button', { name: 'Chỉnh sửa năm hiện tại 1945' }));
-    const escapeInput = screen.getByRole('textbox', { name: 'Nhập năm chính xác' });
-    fireEvent.change(escapeInput, { target: { value: '2026' } });
-    fireEvent.keyDown(escapeInput, { key: 'Escape' });
-    expect(onExactYearChange).toHaveBeenCalledTimes(2);
-    expect(screen.getByRole('button', { name: 'Chỉnh sửa năm hiện tại 1945' })).toHaveTextContent('1945');
+    expect(onExactYearChange).toHaveBeenCalledWith(500);
   });
 
-  it.each(['', '12.5', 'year', '9007199254740992'])('rejects invalid exact year %j without calling the handler', (value) => {
+  it('commits signed years through the explicit action button', () => {
+    const onExactYearChange = vi.fn();
+    render(
+      <Timeline
+        currentYear={1945}
+        model={model([-938, 0, 1945])}
+        onYearChange={vi.fn()}
+        onExactYearChange={onExactYearChange}
+      />,
+    );
+
+    fireEvent.change(screen.getByRole('textbox', { name: 'Nhập năm' }), { target: { value: ' -938 ' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Đi tới' }));
+    expect(onExactYearChange).toHaveBeenCalledWith(-938);
+  });
+
+  it.each([
+    ['0', 0],
+    ['1975', 1975],
+  ])('submits exact year %s through the action button', (value, expectedYear) => {
+    const onExactYearChange = vi.fn();
+    render(
+      <Timeline
+        currentYear={938}
+        model={model([-938, 938, 1975])}
+        onYearChange={vi.fn()}
+        onExactYearChange={onExactYearChange}
+      />,
+    );
+
+    fireEvent.change(screen.getByRole('textbox', { name: 'Nhập năm' }), { target: { value } });
+    fireEvent.click(screen.getByRole('button', { name: /^Đi tới$/ }));
+    expect(onExactYearChange).toHaveBeenCalledWith(expectedYear);
+  });
+
+  it.each(['', '938.5', 'abc', '1e3', '--', '9007199254740992'])('rejects invalid exact year %j without calling the handler', (value) => {
     const onExactYearChange = vi.fn();
     render(
       <Timeline
@@ -114,25 +136,28 @@ describe('Timeline', () => {
       />,
     );
 
-    fireEvent.click(screen.getByRole('button', { name: 'Chỉnh sửa năm hiện tại 1945' }));
-    const input = screen.getByRole('textbox', { name: 'Nhập năm chính xác' });
+    const input = screen.getByRole('textbox', { name: 'Nhập năm' });
     fireEvent.change(input, { target: { value } });
     fireEvent.keyDown(input, { key: 'Enter' });
     expect(onExactYearChange).not.toHaveBeenCalled();
-    expect(screen.getByRole('button', { name: /Chỉnh sửa năm hiện tại 1945/ })).toHaveTextContent('1945');
+    expect(screen.getByRole('alert')).toHaveTextContent('Vui lòng nhập một năm nguyên có dấu');
   });
 
-  it('clamps only the visual slider while preserving a manual year outside the runtime domain', () => {
+  it.each(['-939', '1946'])('rejects out-of-range year %s without navigating', (value) => {
+    const onExactYearChange = vi.fn();
     render(
       <Timeline
-        currentYear={2026}
-        model={model([40, 938, 1945])}
+        currentYear={938}
+        model={model([-938, 938, 1945])}
         onYearChange={vi.fn()}
-        onExactYearChange={vi.fn()}
+        onExactYearChange={onExactYearChange}
       />,
     );
 
-    expect(screen.getByRole('button', { name: 'Chỉnh sửa năm hiện tại 2026' })).toHaveTextContent('2026');
-    expect(screen.getByRole('slider')).toHaveValue('1945');
+    const input = screen.getByRole('textbox', { name: 'Nhập năm' });
+    fireEvent.change(input, { target: { value } });
+    fireEvent.click(screen.getByRole('button', { name: 'Đi tới' }));
+    expect(onExactYearChange).not.toHaveBeenCalled();
+    expect(screen.getByRole('alert')).toHaveTextContent('938 TCN đến 1945');
   });
 });

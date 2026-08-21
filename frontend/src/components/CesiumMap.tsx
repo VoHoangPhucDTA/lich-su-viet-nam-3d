@@ -50,6 +50,7 @@ import {
   getMarkerColor,
   getTerrainProvider,
 } from '../lib/cesium';
+import { buildInitialMapCameraOrientation } from '../utils/mapInitialCamera';
 import { EVENT_TYPE_COLORS, type HistoricalEvent } from '../types/event';
 import type {
   TerrainExplorationMode,
@@ -510,7 +511,10 @@ export default function CesiumMap({
         });
 
         // ── Initial camera (instant, no animation during init) ──
-        viewer.camera.setView({ destination: VIETNAM_CENTER });
+        viewer.camera.setView({
+          destination: VIETNAM_CENTER,
+          orientation: buildInitialMapCameraOrientation(CesiumMath.toRadians),
+        });
 
         // ── Globe settings ──
         viewer.scene.globe.enableLighting = false;

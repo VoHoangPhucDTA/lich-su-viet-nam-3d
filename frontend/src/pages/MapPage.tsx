@@ -820,14 +820,19 @@ export default function MapPage() {
   ]);
 
   const handleExactYearChange = useCallback((year: number) => {
-    if (!Number.isSafeInteger(year)) return;
+    if (
+      !Number.isSafeInteger(year)
+      || !timelineModel
+      || year < timelineModel.minYear
+      || year > timelineModel.maxYear
+    ) return;
     invalidateSelectionRequestUnlessPinned();
     scheduleAfterTerrainExit(() => {
       setYearSelectionMode('manual');
       setCurrentYear(year);
       replaceMapUrlState({ year });
     });
-  }, [invalidateSelectionRequestUnlessPinned, replaceMapUrlState, scheduleAfterTerrainExit]);
+  }, [invalidateSelectionRequestUnlessPinned, replaceMapUrlState, scheduleAfterTerrainExit, timelineModel]);
 
   const handleGradeChange = useCallback((grade: number | null) => {
     invalidateSelectionRequestUnlessPinned();

@@ -533,7 +533,8 @@ describe('MapPage shared visibility boundary', () => {
     const first = deferred<HistoricalEvent[]>();
     const second = deferred<HistoricalEvent[]>();
     const oldEvent = event('old-year', { startYear: 1945, effectiveEndYear: 1945 });
-    const newEvent = event('new-year', { startYear: 2026, effectiveEndYear: 2026 });
+    const newEvent = event('new-year', { startYear: 500, effectiveEndYear: 500 });
+    runtime.getTimelineYears.mockResolvedValue([40, 1945]);
     runtime.getEventsByYear.mockImplementation((year: number) => year === 1945 ? first.promise : second.promise);
 
     render(
@@ -545,13 +546,23 @@ describe('MapPage shared visibility boundary', () => {
     );
 
     await waitFor(() => expect(runtime.getEventsByYear).toHaveBeenCalledWith(1945, null));
-    act(() => runtime.timelineProps?.onExactYearChange(2026));
-    await waitFor(() => expect(runtime.getEventsByYear).toHaveBeenCalledWith(2026, null));
+    act(() => runtime.timelineProps?.onExactYearChange(500));
+    await waitFor(() => expect(runtime.getEventsByYear).toHaveBeenCalledWith(500, null));
 
     await act(async () => second.resolve([newEvent]));
     await act(async () => first.resolve([oldEvent]));
     await waitFor(() => expect(mapIds()).toEqual(['new-year']));
-    expect(runtime.timelineProps?.currentYear).toBe(2026);
+    expect(runtime.timelineProps?.currentYear).toBe(500);
+  });
+
+  it('rejects exact-year callbacks outside the runtime timeline range', async () => {
+    await renderReady();
+    runtime.getEventsByYear.mockClear();
+
+    act(() => runtime.timelineProps?.onExactYearChange(2026));
+
+    expect(runtime.getEventsByYear).not.toHaveBeenCalled();
+    expect(runtime.timelineProps?.currentYear).toBe(40);
   });
 
   it('preserves event IDs and event-level roles at the Cesium boundary', async () => {

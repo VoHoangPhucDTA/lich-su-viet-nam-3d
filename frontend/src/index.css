@@ -3447,7 +3447,7 @@ textarea.form-control:focus-visible,
 
 .map-timeline-header {
   display: flex;
-  height: 1.75rem;
+  min-height: 1.75rem;
   align-items: center;
   gap: 0.75rem;
 }
@@ -3473,27 +3473,21 @@ textarea.form-control:focus-visible,
 
 .map-timeline-year-control {
   display: inline-flex;
+  position: relative;
   align-items: center;
   gap: 0.35rem;
   min-width: 0;
 }
 
-.map-timeline-year-button {
-  border: 0;
-  border-radius: 0.35rem;
-  background: transparent;
-  padding: 0.2rem 0.3rem;
-  cursor: text;
-}
-
-.map-timeline-year-button:hover,
-.map-timeline-year-button:focus-visible {
-  background: var(--accent-soft);
-  outline: 2px solid transparent;
+.map-timeline-year-label {
+  color: var(--text-muted);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 .map-timeline-year-input {
-  width: 7.5rem;
+  width: 5.5rem;
   border: 1px solid var(--accent);
   border-radius: 0.35rem;
   background: var(--bg-card);
@@ -3505,7 +3499,34 @@ textarea.form-control:focus-visible,
   line-height: 1.2;
 }
 
+.map-timeline-year-submit {
+  min-height: 1.75rem;
+  border: 1px solid var(--accent);
+  border-radius: 0.35rem;
+  background: var(--accent);
+  padding: 0.2rem 0.55rem;
+  color: #fff;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.map-timeline-year-input:focus-visible,
+.map-timeline-year-submit:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .map-timeline-year-error {
+  position: absolute;
+  top: calc(100% + 0.2rem);
+  left: 0;
+  z-index: 2;
+  max-width: 22rem;
+  border-radius: 0.25rem;
+  background: var(--bg-card);
+  padding: 0.15rem 0.3rem;
   color: var(--danger, #b42318);
   font-size: 0.625rem;
   font-weight: 700;
@@ -3804,8 +3825,27 @@ textarea.form-control:focus-visible,
   }
 
   .map-timeline-header {
-    height: 1.5rem;
-    gap: 0.5rem;
+    min-height: 1.5rem;
+    gap: 0.35rem;
+  }
+
+  .map-timeline-heading,
+  .map-timeline-count,
+  .map-timeline-year-label {
+    font-size: 9px;
+  }
+
+  .map-timeline-current {
+    font-size: 1rem;
+  }
+
+  .map-timeline-year-input {
+    width: 4.5rem;
+    font-size: 0.875rem;
+  }
+
+  .map-timeline-year-submit {
+    padding-inline: 0.4rem;
   }
 
   .map-timeline-track-area {
@@ -3814,7 +3854,6 @@ textarea.form-control:focus-visible,
 
   .map-timeline-count {
     margin-left: auto;
-    font-size: 10px;
   }
 
   .map-event-row {

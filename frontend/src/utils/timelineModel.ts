@@ -4,6 +4,11 @@ export interface TimelineRuntimeModel {
   maxYear: number;
 }
 
+export function formatTimelineYear(year: number): string {
+  if (year === 0) return 'Công Nguyên';
+  return year < 0 ? `${Math.abs(year)} TCN` : `${year}`;
+}
+
 export function buildTimelineRuntimeModel(sourceYears: readonly number[]): TimelineRuntimeModel | null {
   const years = Array.from(
     new Set(sourceYears.filter((year) => Number.isFinite(year) && Number.isInteger(year))),

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Clock } from 'lucide-react';
-import type { TimelineRuntimeModel } from '../utils/timelineModel';
+import { formatTimelineYear, type TimelineRuntimeModel } from '../utils/timelineModel';
 import { parseExactYearInput } from '../utils/mapUrlState';
 import {
   resolveTimelinePresentation,
@@ -18,11 +18,6 @@ export const HISTORICAL_TIMELINE_ANCHORS = [
   -2000, -700, -208, 40, 938, 1010, 1428, 1789, 1858, 1945, 1975, 2000,
 ] as const;
 
-function formatYear(year: number): string {
-  if (year === 0) return 'Công Nguyên';
-  return year < 0 ? `${Math.abs(year)} TCN` : `${year}`;
-}
-
 function labelTransform(positionPercent: number): string {
   if (positionPercent <= 0) return 'translateX(0)';
   if (positionPercent >= 100) return 'translateX(-100%)';
@@ -31,41 +26,31 @@ function labelTransform(positionPercent: number): string {
 
 export default function Timeline({ currentYear, onYearChange, onExactYearChange, model }: TimelineProps) {
   const trackRef = useRef<HTMLDivElement>(null);
-  const lastCommittedYearRef = useRef(currentYear);
   const [containerWidth, setContainerWidth] = useState(TIMELINE_FALLBACK_WIDTH_PX);
-  const [editingYear, setEditingYear] = useState(false);
   const [yearDraft, setYearDraft] = useState(String(currentYear));
   const [yearValidationMessage, setYearValidationMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    lastCommittedYearRef.current = currentYear;
+    setYearDraft(String(currentYear));
   }, [currentYear]);
-
-  const beginYearEdit = useCallback(() => {
-    setYearDraft(String(lastCommittedYearRef.current));
-    setYearValidationMessage(null);
-    setEditingYear(true);
-  }, []);
-
-  const cancelYearEdit = useCallback(() => {
-    setYearDraft(String(lastCommittedYearRef.current));
-    setYearValidationMessage(null);
-    setEditingYear(false);
-  }, []);
 
   const commitYearEdit = useCallback(() => {
     const parsedYear = parseExactYearInput(yearDraft);
     if (parsedYear == null) {
-      setYearDraft(String(lastCommittedYearRef.current));
-      setYearValidationMessage('Năm phải là một số nguyên an toàn.');
-      setEditingYear(false);
+      setYearValidationMessage('Vui lòng nhập một năm nguyên có dấu, ví dụ -938.');
+      return;
+    }
+    if (parsedYear < model.minYear || parsedYear > model.maxYear) {
+      setYearValidationMessage(
+        `Năm phải nằm trong khoảng ${formatTimelineYear(model.minYear)} đến ${formatTimelineYear(model.maxYear)}.`,
+      );
       return;
     }
 
     setYearValidationMessage(null);
-    setEditingYear(false);
+    setYearDraft(String(parsedYear));
     onExactYearChange(parsedYear);
-  }, [onExactYearChange, yearDraft]);
+  }, [model.maxYear, model.minYear, onExactYearChange, yearDraft]);
 
   useLayoutEffect(() => {
     const track = trackRef.current;
@@ -100,42 +85,48 @@ export default function Timeline({ currentYear, onYearChange, onExactYearChange,
           <Clock size={13} strokeWidth={2.4} />
           Dòng thời gian
         </span>
-        <div className="map-timeline-year-control">
-          {editingYear ? (
+        <span className="map-timeline-current" aria-live="polite">
+          {formatTimelineYear(currentYear)}
+        </span>
+        <form
+          className="map-timeline-year-control"
+          onSubmit={(event) => {
+            event.preventDefault();
+            commitYearEdit();
+          }}
+        >
+          <label className="map-timeline-year-label" htmlFor="map-timeline-exact-year">
+            Nhập năm
+          </label>
             <input
-              autoFocus
+              id="map-timeline-exact-year"
               type="text"
               inputMode="numeric"
               value={yearDraft}
-              onChange={(event) => setYearDraft(event.target.value)}
-              onBlur={commitYearEdit}
+              onChange={(event) => {
+                setYearDraft(event.target.value);
+                if (yearValidationMessage) setYearValidationMessage(null);
+              }}
               onKeyDown={(event) => {
                 if (event.key === 'Enter') {
                   event.preventDefault();
                   commitYearEdit();
-                } else if (event.key === 'Escape') {
-                  event.preventDefault();
-                  cancelYearEdit();
                 }
               }}
-              aria-label="Nhập năm chính xác"
+              aria-describedby="map-timeline-year-help map-timeline-year-error"
+              aria-invalid={yearValidationMessage ? 'true' : 'false'}
               className="map-timeline-year-input"
             />
-          ) : (
-            <button
-              type="button"
-              onClick={beginYearEdit}
-              aria-label={`Chỉnh sửa năm hiện tại ${formatYear(currentYear)}`}
-              className="map-timeline-current map-timeline-year-button"
-              title="Nhập năm chính xác"
-            >
-              {formatYear(currentYear)}
-            </button>
-          )}
+          <button type="submit" className="map-timeline-year-submit">Đi tới</button>
+          <span id="map-timeline-year-help" className="sr-only">
+            Nhập năm từ {formatTimelineYear(model.minYear)} đến {formatTimelineYear(model.maxYear)}.
+          </span>
           {yearValidationMessage && (
-            <span className="map-timeline-year-error" role="alert">{yearValidationMessage}</span>
+            <span id="map-timeline-year-error" className="map-timeline-year-error" role="alert">
+              {yearValidationMessage}
+            </span>
           )}
-        </div>
+        </form>
         <span
           className="map-timeline-count"
           aria-label={`${model.years.length} năm có sự kiện trong dòng thời gian hiện tại; đây không phải tổng số sự kiện.`}
@@ -170,7 +161,7 @@ export default function Timeline({ currentYear, onYearChange, onExactYearChange,
               key={label.year}
               type="button"
               onClick={() => onYearChange(label.year)}
-              aria-label={`Đi tới mốc ${formatYear(label.year)}`}
+              aria-label={`Đi tới mốc ${formatTimelineYear(label.year)}`}
               aria-current={label.kind === 'selected' ? 'date' : undefined}
               className={`map-timeline-label is-${label.kind}`}
               style={{
@@ -178,7 +169,7 @@ export default function Timeline({ currentYear, onYearChange, onExactYearChange,
                 transform: labelTransform(label.positionPercent),
               }}
             >
-              {formatYear(label.year)}
+              {formatTimelineYear(label.year)}
             </button>
           ))}
         </div>
