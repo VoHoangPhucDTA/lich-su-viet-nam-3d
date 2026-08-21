@@ -2,7 +2,7 @@
 
 > Goal 13D verified public Spring contracts through HttpOnly-cookie auth and fixed internal provenance routes through a separate service token. Concurrent publish losers return the committed reference or a safe conflict without duplication.
 
-FastAPI contract đã triển khai cho health, retrieval debug và grounded generation. Naming/auth/error public của Spring Boot vẫn phải được map theo backend hiện tại ở Goal 10.
+FastAPI contract đã triển khai cho health, retrieval debug, grounded generation và provenance. Naming/auth/error public của Spring Boot đã được map theo backend hiện tại (xem §2 và bảng error code thực tế).
 
 ## 1. FastAPI internal endpoints
 
@@ -10,17 +10,23 @@ FastAPI contract đã triển khai cho health, retrieval debug và grounded gene
 
 Response dự kiến:
 
+Response thực tế (schema `HealthResponse`, camelCase):
+
 ```json
 {
-  "status": "UP",
-  "service": "ai-service",
-  "corpusVersion": "sgk-kntt-v1",
-  "collection": "sgk_kntt_history_gemini_v1",
-  "indexedChunks": 459
+  "status": "ok",
+  "service": "history-rag-ai-service",
+  "environment": "development",
+  "chromaReady": true,
+  "retrievalReady": true,
+  "generationReady": true,
+  "geminiConfigured": true,
+  "recordCount": 414,
+  "contractReady": true
 }
 ```
 
-Không trả secret hoặc API key.
+`recordCount`/`contractReady`/`errorCode` là optional; với `?deep=true` status là `READY`/`NOT_READY` và trả `503` khi chưa sẵn sàng. Không trả secret hoặc API key.
 
 ### `POST /ai/retrieval/debug`
 
@@ -142,8 +148,10 @@ Response:
     "retrievedChunkCount": 5,
     "generationModel": "gemini-2.5-flash",
     "embeddingModel": "gemini-embedding-2",
+    "embeddingDimension": 768,
+    "corpusSha256": "a4bd330be7b4b43ac9da25966877fef51c66c0e14cc68baa7eccf46a63e15ab2",
     "collectionName": "sgk_kntt_history_gemini_v1",
-    "promptVersion": "grounded-mcq-v1",
+    "promptVersion": "grounded-mcq-v2",
     "schemaVersion": "grounded-mcq-schema-v1",
     "repairAttempts": 0,
     "latencyMs": 12000.0
@@ -154,9 +162,11 @@ Response:
 
 Validation request: `query` bắt buộc; grade chỉ 10/11/12; lesson dương; difficulty EASY/MEDIUM/HARD; count mặc định 5, tối đa 10; topK theo retrieval 1..10; tối đa 3 Style Examples. Mỗi Style Example phải có đúng A–D, một đáp án và lời giải.
 
-Validation output: đúng bốn option A–D, một đáp án hợp lệ, text/lời giải không rỗng và trong giới hạn, difficulty khớp, source ID không trùng và là subset của Fact Context, không duplicate trong batch hoặc với style fixture. Date/proper-name checks là warning để review, không tự động chứng minh factuality.
+Validation output: đúng bốn option A–D, một đáp án hợp lệ, text/lời giải không rỗng và trong giới hạn, difficulty khớp, source ID không trùng và là subset của Fact Context, không duplicate trong batch hoặc với style fixture. Date/proper-name heuristics remain review warnings. Separately, RAG-02 applies a hard, bounded factual guard for the 10 facts covered by `critical_facts_v1`; it validates source context and generated question/answer/explanation before public success.
 
 Partial policy: sau tối đa một repair, nếu còn ít nhất một câu hợp lệ thì trả các câu đó cùng warning `INSUFFICIENT_VALID_QUESTIONS`; nếu không có câu hợp lệ thì request thất bại. `questions` không bao giờ được tự động persist.
+
+Factual-guard policy: a covered source/registry conflict, missing required source claim, person swap, wrong covered value, or answer/explanation mismatch makes the attempt invalid. The existing loop permits at most one repair. If final validation still fails, FastAPI returns a controlled factual-validation failure; Spring maps the safe `502` failure and does not expose the suspicious question or raw provider detail. This contract is bounded to the curated registry and is not a universal factual verifier.
 
 HTTP errors hiện tại:
 
@@ -165,12 +175,6 @@ HTTP errors hiện tại:
 - `503`: retrieval/generation chưa cấu hình hoặc provider tạm thời unavailable.
 - `502`: provider output invalid/permanent/safety failure; không lộ raw provider response.
 - `500`: lỗi không dự kiến với message an toàn.
-
-### `POST /ai/index/rebuild`
-
-Internal/admin only. Không public qua frontend.
-
-Yêu cầu auth/policy phải chốt sau Goal 0.
 
 ## 2. Spring Boot public endpoint
 
@@ -192,6 +196,7 @@ Endpoint legacy `/api/exams/ai/generate` bên dưới vẫn giữ request có gr
 
 ```http
 POST /api/exams/ai/generate
+POST /api/quiz/attempts
 ```
 
 Endpoint yêu cầu authenticated user (student/teacher/admin đều được theo policy `anyRequest().authenticated()` và matcher tường minh). Frontend không gửi `styleExamples`.
@@ -258,9 +263,22 @@ Partial: `generatedCount > 0` và nhỏ hơn `requestedCount` vẫn HTTP 200, `p
 
 Warning: giữ chuỗi warning của FastAPI; warning heuristic chỉ là manual-review signal, không mang nghĩa factual error.
 
+### Practice completion — `POST /api/quiz/attempts`
+
+Khi học sinh nộp bài self-practice, frontend gửi metadata completion qua
+`POST /api/quiz/attempts` (`PracticeQuizCompletionRequest`: `clientSessionId`,
+`topic`, `difficulty`, `totalQuestions`, `durationMs`). Backend lưu attempt idempotent
+theo `(userId, clientSessionId)`, với `scoreAuthority=CLIENT_NOT_STORED` và
+`timingAuthority=CLIENT_UNVERIFIED` — đáp án/điểm/chấm điểm không được backend lưu.
+
 ### Frontend contract — `/quiz` practice
 
-Frontend gọi duy nhất `POST /api/quiz/generate` qua API client chung (`credentials: include`). Body UI gồm `query`, `difficulty`, `count`; Spring tự thêm `grade=null`, `lessonNumber=null`, `documentId=null`, `topK=5`. Frontend không gửi `styleExamples`, Fact Context, source ID, model, key hoặc internal filter. `/api/exams/ai/generate` chỉ còn là compatibility contract cho candidate workflow.
+Frontend gọi `POST /api/quiz/generate` (sinh câu) và `POST /api/quiz/attempts`
+(metadata completion) qua API client chung (`credentials: include`). Body UI của
+generate gồm `query`, `difficulty`, `count`; Spring tự thêm `grade=null`,
+`lessonNumber=null`, `documentId=null`, `topK=5`. Frontend không gửi `styleExamples`,
+Fact Context, source ID, model, key hoặc internal filter. `/api/exams/ai/generate`
+chỉ còn là compatibility contract cho candidate workflow.
 
 Response `data` được parse phòng thủ: questions/sources/warnings/generation bắt buộc; bốn option phải theo A–D, correct ID phải tồn tại, source ID phải map được, count/partial phải nhất quán và nullable source page phải an toàn. Mismatch được normalize thành `AI_SERVICE_INVALID_RESPONSE`, không tự sửa đáp án.
 
@@ -304,8 +322,6 @@ Error code Spring Goal 10 thực tế:
 
 Không trả raw FastAPI/Gemini body hoặc stack trace.
 
-Goal 0 phải map theo error schema hiện có của backend.
-
 ## 4. Validation rules
 
 - `count`: giới hạn nhỏ trong MVP, giá trị cụ thể chốt sau audit.
@@ -323,7 +339,7 @@ Protected `POST /ai/provenance/validate` accepts corpus SHA, collection, embeddi
 
 ## Goal 12 review API
 
-Generation responses now include `generationReceipt: { id, expiresAt }`. Candidate creation sends only this opaque receipt ID and selected question indexes; model/source/corpus fields are server controlled. Admin-only routes provide list/detail/update, submit, approve, reject, publish, audit, and publish-target discovery under `/api/exams/ai/candidates`. Every mutation uses a specific command; update/publish include `version`, reject requires `reason`, and publish requires dataset/definition/section IDs. Error codes include `AI_CANDIDATE_NOT_FOUND`, `AI_CANDIDATE_INVALID_STATUS`, `AI_CANDIDATE_INVALID_CONTENT`, `AI_CANDIDATE_VERSION_CONFLICT`, `AI_CANDIDATE_FORBIDDEN`, `AI_CANDIDATE_PROVENANCE_INVALID`, `AI_CANDIDATE_PUBLISH_FAILED`, and `AI_CANDIDATE_TARGET_INVALID`.
+Compatibility generation responses include `generationReceipt: { id, expiresAt }`. Candidate creation sends only this opaque receipt ID and selected question indexes; model/source/corpus fields are server controlled. Authenticated candidate routes provide list/detail/update, submit, approve, reject, publish, audit, and publish-target discovery under `/api/exams/ai/candidates`. Teacher has create/view/edit/submit/review/audit authority; publish is admin-only, and every route is also guarded in the service layer. Every mutation uses a specific command; update/publish include `version`, reject requires `reason`, and publish requires dataset/definition/section IDs. Error codes include `AI_CANDIDATE_NOT_FOUND`, `AI_CANDIDATE_INVALID_STATUS`, `AI_CANDIDATE_INVALID_CONTENT`, `AI_CANDIDATE_VERSION_CONFLICT`, `AI_CANDIDATE_FORBIDDEN`, `AI_CANDIDATE_PROVENANCE_INVALID`, `AI_CANDIDATE_PUBLISH_FAILED`, and `AI_CANDIDATE_TARGET_INVALID`.
 
 ## Goal 13C revision API
 

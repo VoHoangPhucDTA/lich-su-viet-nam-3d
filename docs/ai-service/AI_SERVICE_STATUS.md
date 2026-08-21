@@ -1,5 +1,51 @@
 # AI Service RAG — Current Status
 
+## Final reconciliation — 2026-08-21
+
+This section supersedes older headline counts below without rewriting their historical execution logs.
+
+- RAG-01 is closed: 60 retrieval cases (59 scored + 1 insufficient-context control), Hit@1 88.14%, Hit@3 98.31%, Hit@5 100%, MRR 93.36%, and legacy 36-query reproducibility PASS.
+- The separate paired generation benchmark has 27 fixed tasks and 54 outputs. Source-bound owner adjudication: RAG 23/27 PASS (85.19%), Gemini-only 13/27 PASS (48.15%), a +37.04 percentage-point difference; paired outcomes are 10 RAG wins, 0 Gemini-only wins, 13 both pass, and 4 both fail.
+- RAG-02 is closed with a bounded runtime factual guard for 10 curated critical facts (`COUNT`, `DATE`, `PERSON`, `YEAR`). It checks both retrieved source text and generated question/answer/explanation, uses the existing maximum-one repair loop, and returns a controlled factual-validation failure rather than serving a suspicious question.
+- Final offline AI evidence: `tests/test_rag01.py` 33 PASS; focused RAG-02 24 PASS; full suite 394 PASS, 3 deselected, 9 warnings; Ruff PASS; provider calls 0.
+- These benchmarks are fixed engineering evidence, not universal Vietnamese-history coverage or proof of 100% factual accuracy. Gemini remains an external provider dependency.
+
+Evidence: `docs/review/fix-teacher/rag01-final/` and `docs/review/fix-teacher/rag02/`.
+
+## Historical verified snapshot — Goal 17A, 2026-07-30
+
+Đây là snapshot Goal 17A; các Goal phía dưới được giữ như lịch sử
+triển khai và có thể chứa số liệu/route tại thời điểm cũ.
+
+> Docs audit 2026-08-10 (repository cleanup branch): toàn bộ `docs/ai-service/`
+> được đối chiếu lại với source hiện tại. Các endpoint sau được xác nhận tồn tại:
+> Spring `POST /api/exams/ai/generate`, `POST /api/quiz/generate`,
+> `POST /api/quiz/attempts`, `/api/exams/ai/candidates/**`; FastAPI
+> `GET /ai/health`, `POST /ai/quiz/generate`, `/ai/retrieval/debug`,
+> `/ai/provenance/validate`, `/ai/provenance/sources/search`. API contract,
+> quiz flow và frontend integration đã cập nhật theo source (prompt v2, attempts).
+
+- Repository `D:/KLTN/lich-su-viet-nam-3d`, branch `fix/ai-service`, HEAD
+  `2c28c4c3b14aa696b1193896bb898a8a06e29b06`.
+- Student UI: `/quiz/generate`, `/quiz/session/:sessionId`,
+  `/quiz/result/:sessionId`, `/quiz/history`; `/exams/ai` chỉ redirect.
+- Student API: authenticated `POST /api/quiz/generate`, không receipt/candidate,
+  retrieval toàn corpus lớp 10–12. Compatibility/admin API giữ
+  `POST /api/exams/ai/generate`.
+- Current/candidate: `gemini-2.5-flash` /
+  `gemini-3.5-flash-lite`; candidate disabled, rollout 0%, fallback false.
+- AI Service: Ruff/Mypy/compileall pass; 308 pass, 3 live-smoke skip; coverage
+  app 90%, app/scripts 85%.
+- Backend: 260 tests, 0 failure/error, 4 design-valid skip; 13/13
+  Testcontainers tests run/pass; Flyway applied và validated (Goal 17A snapshot: 38 migrations;
+  repo schema hiện tại đã lên V43 — V42 managed image, V43 dashboard index; AI workflow chỉ cần V38+).
+- Frontend: encoding pass, ESLint 0 errors/0 warnings, TypeScript pass,
+  536/536 tests và build pass.
+- Compose deterministic E2E: 2/2 pass, all four services healthy, cleanup pass,
+  không gọi live Gemini.
+- Chroma locked invariant: 414 records, 768 dimensions, cosine, corpus SHA-256
+  `a4bd330be7b4b43ac9da25966877fef51c66c0e14cc68baa7eccf46a63e15ab2`.
+
 ## Goal 13F — teacher evaluation tooling
 
 - Teacher evaluation tooling: **COMPLETED** (fixed `teacher-evaluation-v1` manifest, explicit-cost sample builder, deterministic blinded offline export, strict import, analysis, agreement/warning contracts, fixture, protocol, and thesis template).
@@ -8,11 +54,11 @@
 - Scope is frozen: no model, prompt, retrieval, corpus, workflow, or publish behavior changed. Runtime output is ignored under `artifacts/teacher-evaluation/`.
 - Exact next action: obtain cost/quota approval, invite teachers under the approved privacy process, import pseudonymous reviews, then analyze.
 
-> Goal 13D status: real MySQL 8.4, authenticated multi-service E2E, concurrency/rollback, observability, and four-container development packaging are verified. Goal 13E CI/test strategy is in `AI_SERVICE_CI_AND_TEST_STRATEGY.md`; Goal 13E remains uncommitted.
+> Goal 13D status: real MySQL 8.4, authenticated multi-service E2E, concurrency/rollback, observability, and four-container development packaging are verified. Goal 13E CI/test strategy is in `AI_SERVICE_QUALITY_AND_VALIDATION.md`.
 
 ## Metadata phiên bản
 
-- Ngày cập nhật gần nhất: 2026-07-20
+- Ngày cập nhật gần nhất: 2026-07-30 (Goal 17A snapshot ở đầu file)
 - Repository dự kiến: `D:/KLTN/lich-su-viet-nam-3d`
 - Nhánh đã được nhắc trước đây: `be_exams`
 - Nhánh thực tế: `ai_service` (khác tên `ai-service` trong yêu cầu; không đổi branch)
@@ -24,7 +70,7 @@
 
 ### Student quiz merge (Goal 14)
 
-Completed in the working tree: `/quiz` is the only student AI entry point; `/quiz/generate` calls authenticated `POST /api/quiz/generate` without receipt persistence, searches all grade 10–12 sources, and keeps sessions/results/history user-isolated in localStorage. `/exams/ai` redirects for bookmarks. The legacy receipt/candidate workflow remains available only under its compatibility API/admin routes.
+Completed in the working tree: `/quiz` is the only student AI entry point; `/quiz/generate` calls authenticated `POST /api/quiz/generate` without receipt persistence, searches all grade 10–12 sources, and keeps sessions/results/history user-isolated in localStorage. `/exams/ai` redirects for bookmarks. The receipt/candidate workflow remains available only through its compatibility API and permission-gated teacher/admin routes.
 
 | Hạng mục | Trạng thái | Ghi chú |
 |---|---|---|
@@ -42,12 +88,12 @@ Completed in the working tree: `/quiz` is the only student AI entry point; `/qui
 | Goal 7D — Chroma indexing | DONE_PRODUCTION | Dry-run, smoke 3, full 414, idempotency và persistence pass |
 | ChromaDB production index | READY | `sgk_kntt_history_gemini_v1`, 414 unique IDs, cosine |
 | Retrieval service | DONE_PRODUCTION | `POST /ai/retrieval/debug`, Fact Context có nguồn |
-| Retrieval evaluation | DONE_PRODUCTION | 36 query; Hit@3/5 = 1.0, invariant pass |
+| Retrieval evaluation | DONE_PRODUCTION | Final RAG-01: 60 cases; 59 scored + 1 control; Hit@1/3/5 88.14%/98.31%/100%; MRR 93.36% |
 | Gemini question generation | DONE_PRODUCTION | `POST /ai/quiz/generate`, Gemini structured output, validator/repair/cache/evaluation |
-| Spring Boot integration | DONE_WITH_BASELINE_LIMITATION | `/api/exams/ai/generate`, authenticated, typed client/config/DTO, verified Style Examples, no persistence |
-| Frontend AI quiz | DONE_WITH_REAL_E2E_LIMITATION | Authenticated `/exams/ai`, memory-only, partial/source/error UX, mock Spring tests; real browser E2E còn bị chặn bởi local auth/MySQL |
-| React integration | NOT_STARTED | Cần audit component quiz hiện có |
-| Thesis evaluation | NOT_STARTED | Cần số liệu thực nghiệm |
+| Spring Boot integration | DONE | Student `/api/quiz/generate` không receipt; compatibility `/api/exams/ai/generate` giữ receipt/candidate |
+| Frontend AI quiz | DONE | Authenticated `/quiz/*`, local user-isolated persistence, authenticated visual QA hoàn tất |
+| React integration | DONE | Shared accessible primitives, responsive/keyboard/dialog QA và THPT regression pass |
+| Thesis evaluation | PARTIAL_TECHNICAL_EVIDENCE | Retrieval and paired generation measured; no learner educational-effectiveness study |
 
 ## Artifact đầu vào đã có
 
@@ -255,8 +301,8 @@ Granular teacher/admin candidate authorities, controller plus service enforcemen
 
 ## Goal 12 — review and explicit publish
 
-Implemented server-bound generation receipts, isolated AI candidate staging, DRAFT/PENDING_REVIEW/APPROVED/REJECTED/PUBLISHED transitions, provenance, append-only audit commands, optimistic locking, admin-only review APIs, and atomic explicit publish into hidden review-required targets. There is no auto-save, auto-approve, or auto-publish. See `AI_QUESTION_REVIEW_WORKFLOW.md` for the operational contract and limitations.
+Implemented server-bound generation receipts, isolated AI candidate staging, DRAFT/PENDING_REVIEW/APPROVED/REJECTED/PUBLISHED transitions, provenance, append-only audit commands, optimistic locking, admin-only review APIs, and atomic explicit publish into hidden review-required targets. There is no auto-save, auto-approve, or auto-publish. See `AI_QUESTION_LIFECYCLE.md` for the operational contract and limitations.
 
 ## Goal 13C — immutable revision and source remapping
 
-Implemented in the working tree: V37 revision head/chain/snapshots, one-open deterministic allocation, teacher/admin revision lifecycle with unchanged four-eyes and publish boundaries, protected canonical-source search, explicit live-validated remapping, base/head conflict guards, and new-row official revision publish. Goal 13C does not deploy, mutate an old official row, change catalog visibility, or run real E2E; see `AI_QUESTION_REVISION_WORKFLOW.md`.
+Implemented in the working tree: V37 revision head/chain/snapshots, one-open deterministic allocation, teacher/admin revision lifecycle with unchanged four-eyes and publish boundaries, protected canonical-source search, explicit live-validated remapping, base/head conflict guards, and new-row official revision publish. Goal 13C does not deploy, mutate an old official row, change catalog visibility, or run real E2E; see `AI_QUESTION_LIFECYCLE.md`.
