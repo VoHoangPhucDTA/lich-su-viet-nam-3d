@@ -15,6 +15,8 @@ import {
   formatDashboardSubmittedLabel,
 } from './dashboardFormatters';
 import {
+  DASHBOARD_AI_ACTION_LABEL,
+  dashboardAiPracticeRoute,
   dashboardTopicRoute,
   selectRecommendationCandidate,
 } from './dashboardRecommendation';
@@ -103,6 +105,8 @@ function createRecommendation(
       reason: `Độ chính xác ${weakness.accuracy.toLocaleString('vi-VN')}% trên ${weakness.totalUnits} ý qua ${weakness.attemptCount} bài; đây là chủ đề yếu có đủ mẫu.`,
       actionLabel: 'Ôn chủ đề này',
       actionRoute: dashboardTopicRoute(weakness.topicKey),
+      aiActionLabel: DASHBOARD_AI_ACTION_LABEL,
+      aiActionRoute: dashboardAiPracticeRoute(weakness.topicLabel),
       priority: 'primary',
       topicKey: weakness.topicKey,
       evidence: topicEvidence(weakness),
@@ -117,6 +121,8 @@ function createRecommendation(
       reason: `Độ chính xác hiện tại là ${developing.accuracy.toLocaleString('vi-VN')}%; thêm một lượt ôn có trọng tâm sẽ giúp cải thiện nhóm kiến thức này.`,
       actionLabel: 'Tiếp tục ôn chủ đề',
       actionRoute: dashboardTopicRoute(developing.topicKey),
+      aiActionLabel: DASHBOARD_AI_ACTION_LABEL,
+      aiActionRoute: dashboardAiPracticeRoute(developing.topicLabel),
       priority: 'primary',
       topicKey: developing.topicKey,
       evidence: topicEvidence(developing),

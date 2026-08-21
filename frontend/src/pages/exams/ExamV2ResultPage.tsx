@@ -9,20 +9,15 @@ import ExamExplanationText from '@/components/exams/ExamExplanationText';
 import { formatCognitiveLevelLabel, formatDifficultyLabel, formatQuestionTypeLabel } from '@/lib/exam/displayLabels';
 import { fetchBackendAttemptDetail, resultFromAttemptDetail } from '@/lib/exam/examAttemptSync';
 import { formatExamDuration } from '@/lib/exam/durationFormat';
-import { formatExamTitle } from '@/lib/exam/examDisplay';
-import { loadExam } from '@/lib/exam/examLoader';
 import { rateScore, scoreToPercent } from '@/lib/exam/scoring';
 import { loadTopicIndex } from '@/lib/exam/topicIndexLoader';
 import { findSummaryBySlug, slugifyTopic } from '@/lib/exam/topicGrouping';
-import { readResultFromLS } from '@/lib/exam/useSessionV2';
 import { readApiResult } from '@/lib/exam/useApiTimedSession';
 import { adaptResultSnapshotV2, formatAuthorityLabel, type NormalizedExamResult } from '@/lib/exam/resultAdapters';
-import { analyzeWeaknesses, analyzeWeaknessesFromQuestions, type WeaknessAnalysis, type WeaknessBucket } from '@/lib/exam/weaknessAnalysis';
+import { analyzeWeaknessesFromQuestions, type WeaknessAnalysis, type WeaknessBucket } from '@/lib/exam/weaknessAnalysis';
 import {
-  flattenExamQuestions,
   isMCQQuestion,
   isTFQuestion,
-  type ExamFile,
   type ExamResultV2,
   type MCQOption,
   type MCQQuestion,
@@ -590,7 +585,6 @@ export default function ExamV2ResultPage() {
   const { sessionId } = useParams<{ sessionId: string }>();
   const [result, setResult] = useState<ExamResultV2 | null>(null);
   const [snapshotResult, setSnapshotResult] = useState<NormalizedExamResult | null>(null);
-  const [exam, setExam] = useState<ExamFile | null>(null);
   const [weakestTopicSlug, setWeakestTopicSlug] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -598,7 +592,7 @@ export default function ExamV2ResultPage() {
   useEffect(() => {
     let alive = true;
 
-    async function loadResultAndExam() {
+    async function loadResultFromBackend() {
       if (!sessionId) {
         setLoading(false);
         setError('Liên kết kết quả không hợp lệ.');
@@ -607,7 +601,7 @@ export default function ExamV2ResultPage() {
 
       setLoading(true);
       setError(null);
-      setExam(null);
+      setResult(null);
       setSnapshotResult(null);
 
       const cachedSnapshot = adaptResultSnapshotV2(readApiResult(sessionId));
@@ -618,21 +612,19 @@ export default function ExamV2ResultPage() {
         return;
       }
 
-      let currentResult = readResultFromLS(sessionId);
-      if (!currentResult) {
-        try {
-          const backendDetail = await fetchBackendAttemptDetail(sessionId);
-          const backendSnapshot = backendDetail ? adaptResultSnapshotV2(backendDetail.result) : null;
-          if (backendSnapshot) {
-            if (!alive) return;
-            setSnapshotResult(backendSnapshot);
-            setLoading(false);
-            return;
-          }
-          currentResult = backendDetail ? resultFromAttemptDetail(backendDetail) : null;
-        } catch {
-          currentResult = null;
+      let currentResult: ExamResultV2 | null = null;
+      try {
+        const backendDetail = await fetchBackendAttemptDetail(sessionId);
+        const backendSnapshot = backendDetail ? adaptResultSnapshotV2(backendDetail.result) : null;
+        if (backendSnapshot) {
+          if (!alive) return;
+          setSnapshotResult(backendSnapshot);
+          setLoading(false);
+          return;
         }
+        currentResult = backendDetail ? resultFromAttemptDetail(backendDetail) : null;
+      } catch {
+        currentResult = null;
       }
 
       if (!currentResult) {
@@ -650,27 +642,10 @@ export default function ExamV2ResultPage() {
         setLoading(false);
         return;
       }
-
-      if (!currentResult.examId) {
-        setLoading(false);
-        setError('Kết quả này được lưu từ phiên bản cũ và thiếu mã đề, nên chưa thể hiển thị review chi tiết.');
-        return;
-      }
-
-      try {
-        const loadedExam = await loadExam(currentResult.examId);
-        if (!alive) return;
-        setExam(loadedExam);
-      } catch (err) {
-        if (!alive) return;
-        const detail = err instanceof Error ? err.message : 'Không rõ nguyên nhân.';
-        setError(`Không tải được file đề thi để hiển thị review chi tiết. ${detail}`);
-      } finally {
-        if (alive) setLoading(false);
-      }
+      setLoading(false);
     }
 
-    void loadResultAndExam();
+    void loadResultFromBackend();
 
     return () => {
       alive = false;
@@ -681,18 +656,16 @@ export default function ExamV2ResultPage() {
     if (result?.isCustom && result.questionSnapshots?.length) {
       return new Map(result.questionSnapshots.map((question) => [question.id, question as Question]));
     }
-    if (!exam) return new Map<string, Question>();
-    return new Map(flattenExamQuestions(exam).map((question) => [question.id, question]));
-  }, [exam, result]);
+    return new Map<string, Question>();
+  }, [result]);
 
   const weaknessAnalysis = useMemo(() => {
     if (!result) return null;
     if (result.isCustom && result.questionSnapshots?.length) {
       return analyzeWeaknessesFromQuestions(result, result.questionSnapshots);
     }
-    if (!exam) return null;
-    return analyzeWeaknesses(result, exam);
-  }, [result, exam]);
+    return null;
+  }, [result]);
 
   useEffect(() => {
     let alive = true;
@@ -756,9 +729,9 @@ export default function ExamV2ResultPage() {
             </p>
           )}
           <h1 style={{ margin: 0, fontSize: '1.6rem', fontWeight: 900 }}>Kết quả luyện thi</h1>
-          {(exam || result.isCustom) && (
+          {result.title && (
             <p style={{ margin: '0.45rem 0 0', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-              {result.isCustom ? result.title ?? 'Thi thử tùy chọn' : exam ? formatExamTitle(exam) : ''}
+              {result.title}
             </p>
           )}
         </div>
@@ -841,7 +814,7 @@ export default function ExamV2ResultPage() {
             ))
           ) : (
             <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '1rem', padding: '1.25rem', color: 'var(--text-secondary)' }}>
-              Chưa thể hiển thị review chi tiết vì không tải được dữ liệu đề. Điểm tổng và breakdown phía trên vẫn là dữ liệu đã lưu khi nộp bài.
+              Kết quả máy chủ không chứa snapshot câu hỏi để hiển thị review chi tiết. Điểm tổng và breakdown phía trên vẫn là dữ liệu đã lưu khi nộp bài.
             </div>
           )}
         </section>

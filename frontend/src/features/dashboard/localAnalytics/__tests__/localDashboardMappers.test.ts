@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { mapLocalDashboardAnalyticsToViewModel } from '../localDashboardMappers';
+import { dashboardAiPracticeRoute } from '../../dashboardRecommendation';
 import type { LocalDashboardAnalyticsResultV1 } from '../localDashboardTypes';
 
 function facts(overrides: Partial<LocalDashboardAnalyticsResultV1> = {}): LocalDashboardAnalyticsResultV1 {
@@ -157,8 +158,23 @@ describe('local dashboard ViewModel mapper', () => {
     const viewModel = mapLocalDashboardAnalyticsToViewModel(facts());
     expect(viewModel.weaknesses.map((topic) => topic.key)).toEqual(['needs-review']);
     expect(viewModel.recommendations[0]?.actionRoute).toBe('/exams/on-chu-de/needs-review');
+    expect(viewModel.recommendations[0]).toMatchObject({
+      aiActionLabel: 'Tạo bài AI theo gợi ý',
+      aiActionRoute: dashboardAiPracticeRoute('Needs review'),
+    });
     expect(viewModel.recentAttempts[0]?.resultRoute).toBe('/exams/ket-qua/local%2Fattempt%201');
     expect(viewModel.recentAttempts[0]?.detailStatus).toBe('summary-only');
+  });
+
+  it('does not create an AI CTA for insufficient evidence', () => {
+    const viewModel = mapLocalDashboardAnalyticsToViewModel(facts({
+      topics: [{
+        key: 'too-little-data', label: 'Too little data', accuracy: 0, correctUnits: 0, totalUnits: 2,
+        attemptCount: 1, confidence: 'low', status: 'insufficient-data',
+      }],
+    }));
+    expect(viewModel.recommendations[0]?.actionRoute).toBe('/exams/browse');
+    expect(viewModel.recommendations[0]?.aiActionRoute).toBeUndefined();
   });
 
   it('does not leak raw local enums or label local authority as official', () => {

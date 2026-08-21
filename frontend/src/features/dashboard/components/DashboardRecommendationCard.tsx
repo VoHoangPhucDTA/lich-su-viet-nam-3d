@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { PersonalLearningDashboardViewModel } from '../dashboardTypes';
+import { DASHBOARD_AI_ACTION_REASON } from '../dashboardRecommendation';
 
 export function DashboardRecommendationCard({ vm }: { vm: PersonalLearningDashboardViewModel }) {
   const recommendation = vm.recommendations[0];
@@ -17,9 +18,19 @@ export function DashboardRecommendationCard({ vm }: { vm: PersonalLearningDashbo
           </dl>
         ) : null}
       </div>
-      <Link className="dashboard-primary-action" to={recommendation.actionRoute}>
-        {recommendation.actionLabel}
-      </Link>
+      <div className="dashboard-recommendation-actions">
+        <Link className="dashboard-primary-action" to={recommendation.actionRoute}>
+          {recommendation.actionLabel}
+        </Link>
+        {recommendation.aiActionRoute && recommendation.aiActionLabel ? (
+          <div className="dashboard-recommendation-ai">
+            <p className="dashboard-recommendation-ai-note">{DASHBOARD_AI_ACTION_REASON}</p>
+            <Link className="dashboard-secondary-action dashboard-recommendation-ai-action" to={recommendation.aiActionRoute}>
+              {recommendation.aiActionLabel}
+            </Link>
+          </div>
+        ) : null}
+      </div>
     </section>
   );
 }

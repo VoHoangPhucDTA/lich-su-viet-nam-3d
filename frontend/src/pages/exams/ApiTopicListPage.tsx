@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import ExamTopicListPage from './ExamTopicListPage';
 import { isExamApiFallbackError, listTopicMetadata } from '@/services/examApi';
 import type { ExamTopicMetadata } from '@/types/examApi';
 
@@ -54,7 +53,16 @@ export default function ApiTopicListPage() {
   const normalizedSearch = search.trim().toLocaleLowerCase('vi');
   const visible = displayItems.filter((item) => !normalizedSearch || item.title.toLocaleLowerCase('vi').includes(normalizedSearch));
 
-  if (usingFallback) return <ExamTopicListPage />;
+  if (usingFallback) {
+    return (
+      <div style={pageStyle}>
+        <main style={{ maxWidth: '64rem', margin: '0 auto', display: 'grid', gap: '1.25rem' }}>
+          <Link to="/exams" style={backStyle}>← Quay lại luyện thi</Link>
+          <p role="alert" style={errorStyle}>Không kết nối được máy chủ đề thi. Vui lòng thử lại.</p>
+        </main>
+      </div>
+    );
+  }
   return (
     <div style={pageStyle}>
       <main style={{ maxWidth: '64rem', margin: '0 auto', display: 'grid', gap: '1.25rem' }}>

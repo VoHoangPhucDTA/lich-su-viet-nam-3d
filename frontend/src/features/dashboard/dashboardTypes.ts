@@ -41,6 +41,9 @@ export interface LearningRecommendation {
   reason: string;
   actionLabel: string;
   actionRoute: string;
+  /** Optional supplementary action; only evidence-backed weakness/developing recommendations may set it. */
+  aiActionLabel?: string;
+  aiActionRoute?: string;
   priority: 'primary' | 'secondary';
   topicKey: string | null;
   evidence: MetricEvidence | null;

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ExamQuestionRenderer from '@/components/exams/ExamQuestionRenderer';
 import ExamExplanationText from '@/components/exams/ExamExplanationText';
@@ -16,7 +16,6 @@ export interface ApiPracticeSessionPageProps {
   backTo: string;
   backLabel: string;
   initialSessionId?: string;
-  legacyFallback?: ReactNode;
 }
 
 function PracticeFeedback({ questionType, result }: { questionType: SafeQuestionType; result: NonNullable<ReturnType<typeof useApiPracticeSession>['currentQuestion']>['checkedResult'] }) {
@@ -31,11 +30,11 @@ function PracticeFeedback({ questionType, result }: { questionType: SafeQuestion
   );
 }
 
-export default function ApiPracticeSessionPage({ routeKey, request, title, modeLabel, backTo, backLabel, initialSessionId, legacyFallback }: ApiPracticeSessionPageProps) {
+export default function ApiPracticeSessionPage({ routeKey, request, title, modeLabel, backTo, backLabel, initialSessionId }: ApiPracticeSessionPageProps) {
   const [finishError, setFinishError] = useState<string | null>(null);
   const questionRef = useRef<HTMLDivElement>(null);
   const {
-    serverSession, questions, currentQuestion, currentIndex, answers, loading, error, fallbackEligible,
+    serverSession, questions, currentQuestion, currentIndex, answers, loading, error,
     checkingId, practiceSummary, checkedCount, correctCount, isComplete, setAnswer, navigate, checkCurrent, complete,
   } = useApiPracticeSession(routeKey, request, initialSessionId);
   const navigateToQuestion = useQuestionNavigation({ questionCount: questions.length, onIndexChange: navigate, questionRef });
@@ -57,7 +56,6 @@ export default function ApiPracticeSessionPage({ routeKey, request, title, modeL
   }, [complete]);
 
   if (loading) return <div style={stateStyle}>Đang chuẩn bị phiên luyện tập...</div>;
-  if (fallbackEligible && legacyFallback) return <>{legacyFallback}</>;
   if (error || !serverSession || !currentQuestion) return <div style={stateStyle}>{error ?? 'Không thể mở phiên luyện tập.'}</div>;
   if (isComplete) {
     const summary = practiceSummary ?? serverSession.practiceSummary;

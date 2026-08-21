@@ -1,6 +1,9 @@
 # AI Service RAG — Data Contract
 
-> Goal 13D applied all 37 migrations twice on empty MySQL 8.4 schemas and verified Goal 13 tables, indexes, foreign keys, version columns, immutable old official data, and one append-only revision link.
+> Goal 17A applied/validated all 38 migrations through deterministic Compose and
+> Testcontainers. Goal 13 candidate/revision tables, indexes, foreign keys,
+> version columns, immutable old official data and append-only revision links
+> remain verified.
 
 ## 1. Nguồn canonical
 
@@ -312,3 +315,7 @@ The server retains request ID/query/filter/count, generation and embedding model
 ## Revision data contract
 
 V37 adds `origin_type`, parent/root/base IDs, revision number/reason, base content hash and base question/option snapshots. `ai_question_revision_heads` stores current head/open candidate/next number; `ai_question_official_revisions` records immutable official links. Source remap accepts identities only, persists metadata returned by canonical live validation, and versions validation evidence against the candidate version. Existing published candidate/source rows and old `exam_questions`/options are never updated.
+
+## RAG-02 critical-fact registry contract
+
+`ai-service/data/factual_guard/critical_facts_v1.json` is a versioned, source-resolved registry for 10 curated critical facts. Entries use bounded value types `COUNT`, `DATE`, `PERSON`, or `YEAR` and are validated against the canonical corpus identity before runtime use. Production runtime does not depend on the RAG-01 evaluation gold file. The registry stores coverage for selected critical facts only; absence from the registry is not proof that an arbitrary claim is correct.

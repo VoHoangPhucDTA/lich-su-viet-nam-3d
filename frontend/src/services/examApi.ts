@@ -25,7 +25,7 @@ function sessionHeaders(options: ExamApiRequestOptions): HeadersInit | undefined
     : undefined;
 }
 
-/** Only transport/backend failures may switch a page to its static fallback. */
+/** Classify transport/backend failures so callers can show a service-unavailable state. */
 export function isExamApiFallbackError(error: unknown): boolean {
   if (error instanceof ApiRequestError) {
     return error.status === 0 || error.status >= 500;

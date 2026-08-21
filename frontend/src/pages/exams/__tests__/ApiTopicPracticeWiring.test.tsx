@@ -3,12 +3,14 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import ApiTopicListPage from '../ApiTopicListPage';
-import { ApiRetryWrongRoutePage, ApiTopicPracticeRoutePage } from '../ApiPracticeRoutePages';
+import { ApiFreePracticeRoutePage, ApiRetryWrongRoutePage, ApiTopicPracticeRoutePage } from '../ApiPracticeRoutePages';
+import { ApiCustomMockSessionRoutePage, ApiCustomPracticeSessionRoutePage } from '../ApiCustomSessionRoutePages';
 
 const testState = vi.hoisted(() => ({
   listTopicMetadata: vi.fn(),
   isExamApiFallbackError: vi.fn(),
   sessionProps: vi.fn(),
+  timedProps: vi.fn(),
 }));
 
 vi.mock('@/services/examApi', () => ({
@@ -20,6 +22,13 @@ vi.mock('../ApiPracticeSessionPage', () => ({
   default: (props: unknown) => {
     testState.sessionProps(props);
     return <div>API practice session</div>;
+  },
+}));
+
+vi.mock('../ExamV2SessionPage', () => ({
+  default: (props: unknown) => {
+    testState.timedProps(props);
+    return <div>API timed session</div>;
   },
 }));
 
@@ -70,6 +79,16 @@ function renderPracticeRoute(initialEntry: string) {
   );
 }
 
+function renderFreePracticeRoute(initialEntry: string) {
+  render(
+    <MemoryRouter initialEntries={[initialEntry]}>
+      <Routes>
+        <Route path="/exams/luyen-tap/:examId" element={<ApiFreePracticeRoutePage />} />
+      </Routes>
+    </MemoryRouter>,
+  );
+}
+
 describe('topic and period practice wiring', () => {
   beforeEach(() => {
     testState.listTopicMetadata.mockReset();
@@ -77,6 +96,7 @@ describe('topic and period practice wiring', () => {
     testState.isExamApiFallbackError.mockReset();
     testState.isExamApiFallbackError.mockReturnValue(false);
     testState.sessionProps.mockReset();
+    testState.timedProps.mockReset();
   });
 
   it('keeps topic cards on the existing topic deep link', async () => {
@@ -123,6 +143,15 @@ describe('topic and period practice wiring', () => {
     }));
   });
 
+  it('creates a free-practice request from an exam deep link', () => {
+    renderFreePracticeRoute('/exams/luyen-tap/exam-2026');
+
+    expect(testState.sessionProps).toHaveBeenLastCalledWith(expect.objectContaining({
+      routeKey: 'FREE_PRACTICE:exam-2026',
+      request: { mode: 'FREE_PRACTICE', examId: 'exam-2026' },
+    }));
+  });
+
   it('creates a period-scoped request when the period query is present', () => {
     renderPracticeRoute('/exams/on-chu-de/period-one?scope=period');
 
@@ -153,5 +182,33 @@ describe('topic and period practice wiring', () => {
         sourceAttemptId: 'attempt-2026',
       },
     }));
+  });
+
+  it('resumes custom practice through the API session route', () => {
+    render(
+      <MemoryRouter initialEntries={['/exams/tuy-chon/luyen-tap/session-practice']}>
+        <Routes>
+          <Route path="/exams/tuy-chon/luyen-tap/:sessionId" element={<ApiCustomPracticeSessionRoutePage />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    expect(testState.sessionProps).toHaveBeenLastCalledWith(expect.objectContaining({
+      routeKey: 'CUSTOM_PRACTICE:session-practice',
+      initialSessionId: 'session-practice',
+      request: null,
+    }));
+  });
+
+  it('resumes custom mock through the timed API session route', () => {
+    render(
+      <MemoryRouter initialEntries={['/exams/tuy-chon/session-mock']}>
+        <Routes>
+          <Route path="/exams/tuy-chon/:sessionId" element={<ApiCustomMockSessionRoutePage />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    expect(testState.timedProps).toHaveBeenLastCalledWith({ initialSessionId: 'session-mock' });
   });
 });

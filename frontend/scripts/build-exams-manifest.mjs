@@ -9,10 +9,8 @@
  * Source-of-truth: `data/exams/` ở root project (NGOÀI MVP_KLTN/).
  */
 import { promises as fs } from 'node:fs';
-import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import canonicalize from 'canonicalize';
 import { parseStrictJson } from './lib/strictJson.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -69,16 +67,12 @@ async function main() {
       structuralPassed: v.structural?.all_passed === true,
       crossSourcePassed: v.cross_source?.all_passed === true,
       hasContentSuspicion: (v.content_integrity?.n_suspicious ?? 0) > 0,
-      // Matches the RFC 8785 canonical hash persisted by the Java importer.
-      contentHash: createHash('sha256').update(canonicalize(exam), 'utf8').digest('hex'),
       fileName: file,
     });
   }
 
-  // Sort: năm mới nhất trước, sau đó theo fileName để stable
-  manifest.sort(
-    (a, b) => b.year - a.year || a.fileName.localeCompare(b.fileName, 'vi')
-  );
+  // Sort: năm mới nhất trước, sau đó theo mã đề để stable.
+  manifest.sort((a, b) => b.year - a.year || a.examId.localeCompare(b.examId, 'vi'));
 
   await fs.writeFile(OUT_FILE, JSON.stringify(manifest, null, 2), 'utf-8');
 

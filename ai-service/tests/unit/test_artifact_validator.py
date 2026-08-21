@@ -4,6 +4,7 @@ from typing import Any
 
 import pytest
 
+from app.corpus.identity import canonical_jsonl_sha256
 from app.vectorstore.artifact_validator import EmbeddingArtifactValidator
 from app.vectorstore.models import ArtifactValidationError
 from tests.vectorstore_helpers import (
@@ -64,6 +65,24 @@ def test_corpus_hash_mismatch_is_rejected(
     manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
     with pytest.raises(ArtifactValidationError, match="SHA-256"):
         make_validator(corpus_path, artifact_dir).validate()
+
+
+def test_lf_manifest_is_compatible_with_crlf_working_tree(
+    tmp_path: Path, corpus_record: dict[str, Any]
+) -> None:
+    corpus_path = tmp_path / "corpus.jsonl"
+    records = make_corpus_records(corpus_record, 2)
+    lf_bytes = "".join(
+        json.dumps(record, ensure_ascii=False) + "\n" for record in records
+    ).encode("utf-8")
+    corpus_path.write_bytes(lf_bytes)
+    artifact_dir = tmp_path / "artifacts"
+    write_valid_artifact(artifact_dir, corpus_path, records)
+
+    corpus_path.write_bytes(lf_bytes.replace(b"\n", b"\r\n"))
+
+    validated = make_validator(corpus_path, artifact_dir).validate()
+    assert validated.manifest.corpusSha256 == canonical_jsonl_sha256(corpus_path)
 
 
 def test_wrong_vector_dimension_is_rejected(

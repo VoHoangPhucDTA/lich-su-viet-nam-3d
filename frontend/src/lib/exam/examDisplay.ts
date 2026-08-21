@@ -1,6 +1,9 @@
 import type { ExamManifestEntry } from '@/types/exam';
 
-type ExamDisplaySource = Partial<Pick<ExamManifestEntry, 'title' | 'year' | 'sourceDetail' | 'fileName' | 'examId'>>;
+type ExamDisplaySource = Partial<Pick<ExamManifestEntry, 'title' | 'year' | 'sourceDetail' | 'examId'>> & {
+  /** Compatibility input for legacy callers; manifests no longer publish it. */
+  fileName?: string;
+};
 
 const KNOWN_PLACES: Array<[RegExp, string]> = [
   [/\bbac ninh\b/g, 'Bắc Ninh'],

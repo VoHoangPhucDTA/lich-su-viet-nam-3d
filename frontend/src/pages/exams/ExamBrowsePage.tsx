@@ -1,4 +1,4 @@
-/** Browse real THPT exam JSON files. Route: /exams/browse */
+/** Browse the published THPT exam catalog. Route: /exams/browse */
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { formatExamTitle, getExamDisplayYear, getExamSourceLabel } from '@/lib/exam/examDisplay';
@@ -23,13 +23,12 @@ function catalogItemToManifest(item: ExamCatalogItem): ExamManifestEntry {
     structuralPassed: verified,
     crossSourcePassed: verified,
     hasContentSuspicion: !verified,
-    fileName: '',
   };
 }
 
 /**
  * Single source of truth for the year surfaced on Browse. Always derived
- * from `getExamDisplayYear` (which scans title / fileName / examId /
+ * from `getExamDisplayYear` (which scans title / examId /
  * sourceDetail and returns the latest 20xx year found). We only fall back to
  * the raw manifest `entry.year` when no display year can be extracted.
  *

@@ -22,6 +22,9 @@ export interface RecommendationSelection {
   tier: RecommendationTier;
 }
 
+export const DASHBOARD_AI_ACTION_LABEL = 'Tạo bài AI theo gợi ý';
+export const DASHBOARD_AI_ACTION_REASON = 'Gợi ý dựa trên kết quả thi thử gần đây.';
+
 const CONFIDENCE_RANK = { low: 0, medium: 1, high: 2 } as const;
 
 function stableKeyOrder(left: RecommendationCandidate, right: RecommendationCandidate): number {
@@ -67,4 +70,9 @@ export function selectRecommendationCandidate(
 
 export function dashboardTopicRoute(topicKey: string): string {
   return `/exams/on-chu-de/${encodeURIComponent(topicKey)}`;
+}
+
+export function dashboardAiPracticeRoute(topicLabel: string): string {
+  const query = new URLSearchParams({ q: topicLabel });
+  return `/quiz?${query.toString()}`;
 }

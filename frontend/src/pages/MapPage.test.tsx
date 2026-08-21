@@ -1,4 +1,4 @@
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { EventType, HistoricalEvent } from '../types/event';
@@ -34,6 +34,7 @@ interface MapBoundaryProps {
     animated: boolean;
     reason: 'selection' | 'hydration';
   } | null;
+  administrativeBoundaryLayerId?: string;
   apiRef?: { current: unknown };
 }
 
@@ -51,6 +52,7 @@ interface EventPopupBoundaryProps {
 interface TimelineBoundaryProps {
   currentYear: number;
   onYearChange: (year: number) => void;
+  onExactYearChange: (year: number) => void;
 }
 
 const runtime = vi.hoisted(() => ({
@@ -218,6 +220,26 @@ describe('MapPage shared visibility boundary', () => {
     vi.useRealTimers();
   });
 
+  it('switches the independent reference layer while keeping MapPage wiring intact', async () => {
+    await renderReady();
+    fireEvent.click(screen.getByRole('button', { name: 'Chú giải' }));
+
+    const selector = screen.getByRole('combobox', {
+      name: 'Lớp ranh giới hành chính tham chiếu',
+    });
+    expect(runtime.mapProps?.administrativeBoundaryLayerId).toBe('existing-gadm');
+
+    await act(async () => {
+      fireEvent.change(selector, { target: { value: 'vn-2026-34' } });
+    });
+    expect(runtime.mapProps?.administrativeBoundaryLayerId).toBe('vn-2026-34');
+
+    await act(async () => {
+      fireEvent.change(selector, { target: { value: 'existing-gadm' } });
+    });
+    expect(runtime.mapProps?.administrativeBoundaryLayerId).toBe('existing-gadm');
+  });
+
   it('feeds Sidebar and CesiumMap from one projection', async () => {
     const point = event('point');
     const noLocation = event('no-location', {
@@ -348,7 +370,7 @@ describe('MapPage shared visibility boundary', () => {
     );
 
     render(
-      <MemoryRouter initialEntries={['/map?year=938']}>
+      <MemoryRouter initialEntries={['/map']}>
         <Routes>
           <Route path="/map" element={<><MapPage /><MapLocationProbe /></>} />
         </Routes>
@@ -442,6 +464,105 @@ describe('MapPage shared visibility boundary', () => {
     await waitFor(() => expect(runtime.getEventsByYear).toHaveBeenCalledWith(938, null));
     await waitFor(() => expect(sidebarIds()).toEqual(['year-938']));
     expect(runtime.timelineProps?.currentYear).toBe(938);
+  });
+
+  it.each([-938, 0, 1945, 2026])('preserves exact manual year %s in state, URL, and API query', async (year) => {
+    runtime.getEventsByYear.mockResolvedValue([]);
+
+    render(
+      <MemoryRouter initialEntries={[`/map?year=${year}`]}>
+        <Routes>
+          <Route path="/map" element={<><MapPage /><MapLocationProbe /></>} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => expect(runtime.getEventsByYear).toHaveBeenCalledWith(year, null));
+    expect(runtime.timelineProps?.currentYear).toBe(year);
+    const query = new URLSearchParams(screen.getByTestId('map-location').getAttribute('data-search') ?? '');
+    expect(query.get('year')).toBe(String(year));
+  });
+
+  it('keeps exact manual year through grade and search changes', async () => {
+    runtime.getEventsByYear.mockResolvedValue([]);
+    runtime.searchEvents.mockResolvedValue([]);
+
+    render(
+      <MemoryRouter initialEntries={['/map?year=0']}>
+        <Routes>
+          <Route path="/map" element={<><MapPage /><MapLocationProbe /></>} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => expect(runtime.getEventsByYear).toHaveBeenCalledWith(0, null));
+    act(() => runtime.sidebarProps?.onGradeChange(12));
+    await waitFor(() => expect(runtime.getEventsByYear).toHaveBeenCalledWith(0, 12));
+    expect(runtime.timelineProps?.currentYear).toBe(0);
+
+    act(() => runtime.sidebarProps?.onSearchQueryChange('Bạch Đằng'));
+    await waitFor(() => expect(runtime.searchEvents).toHaveBeenCalledWith('bạch đằng', 12));
+    expect(runtime.timelineProps?.currentYear).toBe(0);
+    const query = new URLSearchParams(screen.getByTestId('map-location').getAttribute('data-search') ?? '');
+    expect(query.get('year')).toBe('0');
+    expect(query.get('grade')).toBe('12');
+    expect(query.get('q')).toBe('Bạch Đằng');
+  });
+
+  it('returns manual out-of-range year to snapped slider behavior only after slider movement', async () => {
+    runtime.getEventsByYear.mockResolvedValue([]);
+    render(
+      <MemoryRouter initialEntries={['/map?year=2026']}>
+        <Routes>
+          <Route path="/map" element={<><MapPage /><MapLocationProbe /></>} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => expect(runtime.getEventsByYear).toHaveBeenCalledWith(2026, null));
+    expect(runtime.timelineProps?.currentYear).toBe(2026);
+
+    act(() => runtime.timelineProps?.onYearChange(500));
+    await waitFor(() => expect(runtime.getEventsByYear).toHaveBeenCalledWith(938, null));
+    expect(runtime.timelineProps?.currentYear).toBe(938);
+    const query = new URLSearchParams(screen.getByTestId('map-location').getAttribute('data-search') ?? '');
+    expect(query.get('year')).toBe('938');
+  });
+
+  it('does not let a stale exact-year response overwrite the latest manual year', async () => {
+    const first = deferred<HistoricalEvent[]>();
+    const second = deferred<HistoricalEvent[]>();
+    const oldEvent = event('old-year', { startYear: 1945, effectiveEndYear: 1945 });
+    const newEvent = event('new-year', { startYear: 500, effectiveEndYear: 500 });
+    runtime.getTimelineYears.mockResolvedValue([40, 1945]);
+    runtime.getEventsByYear.mockImplementation((year: number) => year === 1945 ? first.promise : second.promise);
+
+    render(
+      <MemoryRouter initialEntries={['/map?year=1945']}>
+        <Routes>
+          <Route path="/map" element={<><MapPage /><MapLocationProbe /></>} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => expect(runtime.getEventsByYear).toHaveBeenCalledWith(1945, null));
+    act(() => runtime.timelineProps?.onExactYearChange(500));
+    await waitFor(() => expect(runtime.getEventsByYear).toHaveBeenCalledWith(500, null));
+
+    await act(async () => second.resolve([newEvent]));
+    await act(async () => first.resolve([oldEvent]));
+    await waitFor(() => expect(mapIds()).toEqual(['new-year']));
+    expect(runtime.timelineProps?.currentYear).toBe(500);
+  });
+
+  it('rejects exact-year callbacks outside the runtime timeline range', async () => {
+    await renderReady();
+    runtime.getEventsByYear.mockClear();
+
+    act(() => runtime.timelineProps?.onExactYearChange(2026));
+
+    expect(runtime.getEventsByYear).not.toHaveBeenCalled();
+    expect(runtime.timelineProps?.currentYear).toBe(40);
   });
 
   it('preserves event IDs and event-level roles at the Cesium boundary', async () => {

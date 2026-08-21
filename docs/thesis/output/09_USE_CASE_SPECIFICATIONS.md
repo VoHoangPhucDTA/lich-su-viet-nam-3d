@@ -4,7 +4,7 @@
 
 **Main flow.** Visitor opens `/browse`, filters event data, and receives event list/timeline from `/api/events` or `/api/timeline`.
 
-**Boundary.** No live backend response verified; treat UI/API contract as static evidence.
+**Boundary.** The final frontend gate passed 1232/1232 tests and production build; this does not replace backend-dependent browser E2E evidence.
 
 ## UC-002 — Event detail
 
@@ -22,7 +22,7 @@
 
 **Main flow.** Enter terrain session, select target, use stale-session guard, press Escape/exit, restore overview state.
 
-**Boundary.** Static state-machine evidence and focused tests; no browser screenshot included.
+**Boundary.** Exact-year navigation and deterministic initial camera alignment are test/build verified; approved thesis screenshots still need recapture.
 
 ## UC-006 — Authentication
 
@@ -40,7 +40,7 @@
 
 **Main flow.** Student posts quiz generation request; AI service retrieves/generates candidates, then frontend presents a quiz session.
 
-**Boundary.** No live AI service/Chroma corpus or quality measurement verified.
+**Boundary.** RAG-01 measured 60 retrieval cases and a separate 27-task paired generation benchmark. RAG-02 provides a controlled failure path for 10 curated critical facts. Gemini remains external; the fixed benchmark is not universal coverage or an educational-effectiveness study.
 
 ## UC-009 — Exam submission
 
@@ -48,4 +48,4 @@
 
 **Boundary.** Database and authenticated end-to-end path not runtime verified.
 
-Use cases UC-010–UC-013 are summarized in the catalog and UML; UC-013 is explicitly planned because no evaluation dataset or metric run was found.
+Use cases UC-010–UC-013 are summarized in the catalog and UML. Any evaluation use case must distinguish the completed technical RAG benchmarks from the still-missing learner study.

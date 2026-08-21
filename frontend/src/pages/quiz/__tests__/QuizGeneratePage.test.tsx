@@ -16,12 +16,12 @@ vi.mock('@/services/quizService', () => ({
   generateQuiz: mocks.generateQuiz,
 }));
 
-function renderPage() {
+function renderPage(initialEntries = ['/quiz/generate']) {
   return render(
-    <MemoryRouter initialEntries={['/quiz/generate']}>
+    <MemoryRouter initialEntries={initialEntries}>
       <Routes>
         <Route path="/quiz/generate" element={<QuizGeneratePage />} />
-        <Route path="/quiz" element={<p>Trang trắc nghiệm</p>} />
+        <Route path="/quiz" element={<QuizGeneratePage />} />
         <Route path="/quiz/session/:sessionId" element={<p>Phiên làm bài đã tạo</p>} />
       </Routes>
     </MemoryRouter>,
@@ -50,6 +50,12 @@ describe('QuizGeneratePage', () => {
   it('does not add a page-level back action on the canonical route', () => {
     renderPage();
     expect(screen.queryByRole('button', { name: 'Về Luyện tập với AI' })).not.toBeInTheDocument();
+  });
+
+  it('prefills the human-readable topic from q on the canonical /quiz route', () => {
+    renderPage(['/quiz?q=C%C3%A1ch+m%E1%BA%A1ng+th%C3%A1ng+T%C3%A1m']);
+    expect(screen.getByLabelText('Bạn muốn ôn tập nội dung gì?')).toHaveValue('Cách mạng tháng Tám');
+    expect(mocks.generateQuiz).not.toHaveBeenCalled();
   });
 
   it('renders all six static suggestions as actions without selection semantics', () => {
@@ -226,5 +232,15 @@ describe('QuizGeneratePage', () => {
     await waitFor(() => expect(screen.queryByRole('dialog', { name: /đang tạo 3 câu hỏi/i })).not.toBeInTheDocument());
     expect(screen.getByLabelText('Bạn muốn ôn tập nội dung gì?')).toHaveValue('Điện Biên Phủ');
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+  });
+
+  it('keeps the form usable and shows a controlled error when AI generation is unavailable', async () => {
+    mocks.generateQuiz.mockRejectedValue(new Error('AI service unavailable'));
+    renderPage();
+    setupQuery('Cách mạng tháng Tám');
+    fireEvent.click(screen.getByRole('button', { name: /tạo 3 câu hỏi/i }));
+
+    expect(await screen.findByRole('alert')).toHaveTextContent('Chưa thể tạo bài luyện tập');
+    expect(screen.getByLabelText('Bạn muốn ôn tập nội dung gì?')).toHaveValue('Cách mạng tháng Tám');
   });
 });

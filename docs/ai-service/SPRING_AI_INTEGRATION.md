@@ -70,8 +70,12 @@ Candidate authorization is authority-specific, with controller `@PreAuthorize` a
 
 ## Goal 12 persistence boundary
 
-Spring now issues an opaque generation receipt after validating the FastAPI response. Candidate creation resolves questions and provenance from that server receipt; it does not trust model/source identity supplied by the browser. `/api/exams/ai/candidates/**` requires `ROLE_admin`, and the application layer repeats the role check. Publish uses row locks and one transaction for official question/options/counts/candidate link/audit; failure rolls back and records best-effort `PUBLISH_FAILED` separately.
+Spring issues an opaque generation receipt after validating the compatibility generation response. Candidate creation resolves questions and provenance from that server receipt; it does not trust model/source identity supplied by the browser. `/api/exams/ai/candidates/**` requires authentication plus command-specific authority, repeated in the application layer: teacher can create/view/edit/submit/review/audit, while publish remains admin-only. Publish uses row locks and one transaction for official question/options/counts/candidate link/audit; failure rolls back and records best-effort `PUBLISH_FAILED` separately.
 
 ## Goal 13C orchestration
 
 Spring exposes revision create/search/remap commands and remains the browser trust boundary. It sends only the configured internal token—not user JWT—to fixed FastAPI provenance paths. Canonical response metadata is authoritative; client titles/corpus/model fields are not accepted. Revision submit/approve/publish rerun fail-closed validation and base/head checks. Publish reuses official insert mapping but links a new row through the locked revision chain; teacher/admin permissions are checked in controller security and service methods.
+
+## Final RAG-02 failure mapping
+
+FastAPI now performs the bounded critical-fact guard inside generation before a question can become a successful public response. Spring remains the trust boundary: it accepts a valid typed response, or maps the final sanitized factual-validation failure to the existing safe `502` generation-failure behavior. It never returns the rejected question, registry internals, prompt, or provider body. This integration covers 10 curated critical facts and does not imply universal factual verification.

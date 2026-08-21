@@ -10,6 +10,7 @@ import { DashboardAnalyticsApiError } from '@/services/dashboardAnalyticsApi';
 import type { DashboardAnalyticsResponseV1 } from '../dashboardAnalyticsTypes';
 import { validateDashboardAnalyticsResponseV1 } from '../dashboardAnalyticsValidation';
 import { DASHBOARD_FIXTURES, resolveDevelopmentDashboardFixture } from '../dashboardDevelopmentFixtures';
+import { dashboardAiPracticeRoute } from '../dashboardRecommendation';
 import type { DashboardFixtureKey } from '../dashboardFixtures';
 import type { LocalDashboardStorage } from '../localAnalytics/localDashboardRepository';
 import {
@@ -166,7 +167,7 @@ describe('PersonalLearningDashboardPage fixtures', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Thử lại' }));
     expect(screen.getByRole('status')).toHaveTextContent('Đang tải thống kê học tập');
     expect(await screen.findByText('Số bài đã làm')).toBeInTheDocument();
-    expect(container.querySelector('.dashboard-focus-target')).toHaveFocus();
+    await waitFor(() => expect(container.querySelector('.dashboard-focus-target')).toHaveFocus());
   });
 
   it('exposes one polite atomic live region', () => {
@@ -468,6 +469,15 @@ describe('authenticated dashboard integration', () => {
     );
     expect(await screen.findByText('Số bài đã làm')).toBeInTheDocument();
     expect(screen.getByText('4', { selector: '.dashboard-kpi-value strong' })).toBeInTheDocument();
+    expect(screen.getByText('Gợi ý dựa trên kết quả thi thử gần đây.')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Ôn chủ đề này' })).toHaveAttribute(
+      'href',
+      '/exams/on-chu-de/viet-nam-1945-1954',
+    );
+    expect(screen.getByRole('link', { name: 'Tạo bài AI theo gợi ý' })).toHaveAttribute(
+      'href',
+      dashboardAiPracticeRoute('Việt Nam từ năm 1945 đến năm 1954'),
+    );
     expect(requestDashboard).toHaveBeenCalledWith('30d', expect.any(AbortSignal));
     expect(localStorageProvider).not.toHaveBeenCalled();
   });
@@ -483,6 +493,7 @@ describe('authenticated dashboard integration', () => {
       </MemoryRouter>,
     );
     expect(await screen.findByRole('heading', { name: 'Chưa có bài thi nào' })).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'Tạo bài AI theo gợi ý' })).not.toBeInTheDocument();
   });
 
   it('requests a real new range and announces the request', async () => {
@@ -571,6 +582,7 @@ describe('authenticated dashboard integration', () => {
           requestDashboard={requestDashboard}
           fixtureLoader={null}
           localStorageProvider={() => storage}
+          now={fixedNow}
         />
       </MemoryRouter>,
     );

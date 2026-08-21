@@ -8,10 +8,6 @@
 // ===== URLs runtime (Vite SPA — fetch từ public/) ============================
 export const EXAM_MANIFEST_URL = '/data/exams/exams-manifest.json';
 export const TOPIC_INDEX_URL = '/data/exams/topic-index.json';
-export const EXAM_DATASET_BUILD_URL = '/data/exams/exam-dataset-build.json';
-/** Trả URL fetch 1 file đề theo examId. */
-export const examFileURL = (examId: string): string =>
-  `/data/exams/${examId}.json`;
 
 // ===== Cấu hình đề thi THPT 2025 ============================================
 export const EXAM_DURATION_MINUTES = 50;
@@ -37,7 +33,3 @@ export type TFLadderIndex = 0 | 1 | 2 | 3 | 4;
 
 export const EXAM_TOTAL_SCORE =
   MCQ_SECTION_MAX_SCORE + TF_SECTION_MAX_SCORE; // 10.0
-
-// ===== Cache =================================================================
-/** Số file đề tối đa giữ trong LRU cache RAM. */
-export const LRU_EXAM_CACHE_CAP = 10;

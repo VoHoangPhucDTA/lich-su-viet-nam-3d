@@ -1,9 +1,9 @@
 import copy
-import hashlib
 import json
 from pathlib import Path
 from typing import Any
 
+from app.corpus.identity import canonical_jsonl_sha256
 from app.embedding.models import EmbeddingManifest, EmbeddingRecord
 
 
@@ -25,10 +25,6 @@ def write_corpus(path: Path, records: list[dict[str, Any]]) -> None:
         "".join(json.dumps(record, ensure_ascii=False) + "\n" for record in records),
         encoding="utf-8",
     )
-
-
-def file_sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def write_valid_artifact(
@@ -61,7 +57,7 @@ def write_valid_artifact(
         encoding="utf-8",
     )
     manifest = EmbeddingManifest(
-        corpusSha256=file_sha256(corpus_path),
+        corpusSha256=canonical_jsonl_sha256(corpus_path),
         embeddingModel=model,
         dimension=dimension,
         formatterVersion=formatter_version,

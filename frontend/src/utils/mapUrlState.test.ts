@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { parseMapUrlState, serializeMapUrlState } from './mapUrlState';
+import { parseExactYearInput, parseMapUrlState, serializeMapUrlState } from './mapUrlState';
 
 describe('map URL state', () => {
   it('parses year, event slug, search, category and grade', () => {
@@ -53,5 +53,29 @@ describe('map URL state', () => {
       category: null,
       grade: 999,
     })).toBe('');
+  });
+
+  it.each([
+    ['-938', -938],
+    ['0', 0],
+    ['1945', 1945],
+    ['2026', 2026],
+    ['  -938  ', -938],
+  ])('parses exact signed year input %j', (value, expected) => {
+    expect(parseExactYearInput(value)).toBe(expected);
+  });
+
+  it.each(['', '12.5', '1e3', 'year', '9007199254740992'])('rejects unsafe or non-integer exact year input %j', (value) => {
+    expect(parseExactYearInput(value)).toBeNull();
+  });
+
+  it.each(['-938', '0', '1945', '2026'])('round-trips exact URL year %s', (year) => {
+    expect(parseMapUrlState(serializeMapUrlState({
+      year: Number(year),
+      event: '',
+      query: '',
+      category: null,
+      grade: null,
+    })).year).toBe(Number(year));
   });
 });

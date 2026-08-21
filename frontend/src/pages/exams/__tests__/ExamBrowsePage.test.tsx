@@ -107,7 +107,6 @@ describe('ExamBrowsePage student-facing cleanup', () => {
         structuralPassed: true,
         crossSourcePassed: true,
         hasContentSuspicion: false,
-        fileName: '',
       },
     ]);
 

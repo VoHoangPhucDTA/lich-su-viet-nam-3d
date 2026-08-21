@@ -4,6 +4,8 @@ import {
   formatDashboardSubmittedLabel,
 } from '../dashboardFormatters';
 import {
+  DASHBOARD_AI_ACTION_LABEL,
+  dashboardAiPracticeRoute,
   dashboardTopicRoute,
   selectRecommendationCandidate,
 } from '../dashboardRecommendation';
@@ -59,6 +61,8 @@ function createLocalRecommendation(facts: LocalDashboardAnalyticsResultV1): Lear
       reason: `Dữ liệu cục bộ ghi nhận độ chính xác ${topic.accuracy.toLocaleString('vi-VN')}% qua ${topic.attemptCount} bài.`,
       actionLabel: 'Ôn chủ đề này',
       actionRoute: dashboardTopicRoute(topic.key),
+      aiActionLabel: DASHBOARD_AI_ACTION_LABEL,
+      aiActionRoute: dashboardAiPracticeRoute(topic.label),
       priority: 'primary',
       topicKey: topic.key,
       evidence,
@@ -71,6 +75,8 @@ function createLocalRecommendation(facts: LocalDashboardAnalyticsResultV1): Lear
       reason: `Độ chính xác cục bộ hiện tại là ${topic.accuracy.toLocaleString('vi-VN')}%.`,
       actionLabel: 'Tiếp tục ôn chủ đề',
       actionRoute: dashboardTopicRoute(topic.key),
+      aiActionLabel: DASHBOARD_AI_ACTION_LABEL,
+      aiActionRoute: dashboardAiPracticeRoute(topic.label),
       priority: 'primary',
       topicKey: topic.key,
       evidence,

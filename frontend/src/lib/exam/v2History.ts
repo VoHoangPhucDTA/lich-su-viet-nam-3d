@@ -1,9 +1,9 @@
 /**
  * v2History.ts
  *
- * Đọc / tổng hợp lịch sử làm bài V2 từ localStorage.
- * Mỗi kết quả được lưu bởi `writeResultToLS(result)` trong useSessionV2.ts
- * với key `v2_result_{sessionId}`.
+ * Đọc / tổng hợp các kết quả V2 cũ còn lưu trong localStorage.
+ * Các phiên mới được authoritative bởi backend; prefix này chỉ phục vụ
+ * dọn dẹp dữ liệu lịch sử từ các phiên bản trước.
  *
  * Không dùng index riêng — scan tất cả key với prefix để không mất sync.
  */

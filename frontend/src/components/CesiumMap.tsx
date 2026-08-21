@@ -50,6 +50,7 @@ import {
   getMarkerColor,
   getTerrainProvider,
 } from '../lib/cesium';
+import { buildInitialMapCameraOrientation } from '../utils/mapInitialCamera';
 import { EVENT_TYPE_COLORS, type HistoricalEvent } from '../types/event';
 import type {
   TerrainExplorationMode,
@@ -116,11 +117,20 @@ import {
 import { createTerrainPointDataSource } from '../utils/terrainPointDataSource';
 import { ordinaryMapLayersVisibleForTerrainMode } from '../utils/terrainLayerVisibility';
 import { flyToMapClusterEntities } from '../utils/mapClusterCamera';
+import {
+  DEFAULT_ADMINISTRATIVE_BOUNDARY_LAYER_ID,
+  EXISTING_GADM_LAYER_ID,
+  getAdministrativeBoundaryLayer,
+  loadAdministrativeBoundaryLayer,
+  type AdministrativeBoundaryLayerId,
+} from '../utils/administrativeBoundaryLayers';
 
 // ─── SAFE MODE ────────────────────────────────────────────────────────────────
 // Set to false when globe is confirmed stable to re-enable markers + polygon.
 const CESIUM_SAFE_MODE = false;
 const VIETNAM_BOUNDARY_OUTLINE = Color.fromCssColorString('#f0c96f').withAlpha(0.95);
+const REFERENCE_BOUNDARY_OUTLINE = Color.fromCssColorString('#74b9ff').withAlpha(0.9);
+const REFERENCE_BOUNDARY_FILL = Color.fromCssColorString('#74b9ff').withAlpha(0.08);
 const TERRAIN_REGION_FILL = Color.fromCssColorString('#c49a45').withAlpha(0.24);
 const TERRAIN_REGION_SELECTED_FILL = Color.fromCssColorString('#8b1e1e').withAlpha(0.46);
 const TERRAIN_REGION_OUTLINE = Color.fromCssColorString('#6f4e22').withAlpha(0.9);
@@ -234,6 +244,8 @@ interface CesiumMapProps {
   onTerrainExitComplete: (sessionId: number) => void;
   onTerrainTargetSelect: (sessionId: number, targetId: string) => void;
   onRegionGeometryStatus: (status: 'loading' | 'ready' | 'error', error?: TerrainRuntimeError) => void;
+  administrativeBoundaryLayerId?: AdministrativeBoundaryLayerId;
+  onAdministrativeBoundaryStatus?: (status: 'loading' | 'ready' | 'error', error?: string) => void;
   explorationMode?: TerrainExplorationMode;
   inspectionSessionId?: number;
   onInspectionResultChange?: (payload: TerrainInspectionPayload) => void;
@@ -291,6 +303,8 @@ export default function CesiumMap({
   onTerrainExitComplete,
   onTerrainTargetSelect,
   onRegionGeometryStatus,
+  administrativeBoundaryLayerId = DEFAULT_ADMINISTRATIVE_BOUNDARY_LAYER_ID,
+  onAdministrativeBoundaryStatus,
   explorationMode = 'none',
   inspectionSessionId = 0,
   onInspectionResultChange,
@@ -306,6 +320,8 @@ export default function CesiumMap({
   const eventEntityDataRef = useRef<WeakMap<Entity, HistoricalEvent>>(new WeakMap());
   const handlerRef = useRef<ScreenSpaceEventHandler | null>(null);
   const dataSourceRef = useRef<GeoJsonDataSource | null>(null);
+  const referenceBoundaryDataSourceRef = useRef<GeoJsonDataSource | null>(null);
+  const referenceBoundaryOperationRef = useRef(0);
   const markerDataSourceRef = useRef<CustomDataSource | null>(null);
   const eventPolygonDataSourceRef = useRef<CustomDataSource | null>(null);
   const markerClusterListenerRemoverRef = useRef<(() => void) | null>(null);
@@ -335,6 +351,7 @@ export default function CesiumMap({
   const terrainSessionRef = useRef(terrainSession);
   const selectedEventRef = useRef(selectedEvent);
   const highlightedEventIdRef = useRef(highlightedEventId);
+  const administrativeBoundaryLayerIdRef = useRef(administrativeBoundaryLayerId);
   const renderErrorRemoverRef = useRef<(() => void) | null>(null);
   const [mapError, setMapError] = useState<string | null>(null);
   const [viewerReady, setViewerReady] = useState(false);
@@ -367,6 +384,7 @@ export default function CesiumMap({
   const onTerrainExitCompleteRef = useRef(onTerrainExitComplete);
   const onTerrainTargetSelectRef = useRef(onTerrainTargetSelect);
   const onRegionGeometryStatusRef = useRef(onRegionGeometryStatus);
+  const onAdministrativeBoundaryStatusRef = useRef(onAdministrativeBoundaryStatus);
   onTerrainReadyRef.current = onTerrainReady;
   onTerrainProviderReadyRef.current = onTerrainProviderReady;
   onTerrainGeometryReadyRef.current = onTerrainGeometryReady;
@@ -374,9 +392,11 @@ export default function CesiumMap({
   onTerrainExitCompleteRef.current = onTerrainExitComplete;
   onTerrainTargetSelectRef.current = onTerrainTargetSelect;
   onRegionGeometryStatusRef.current = onRegionGeometryStatus;
+  onAdministrativeBoundaryStatusRef.current = onAdministrativeBoundaryStatus;
   terrainSessionRef.current = terrainSession;
   selectedEventRef.current = selectedEvent;
   highlightedEventIdRef.current = highlightedEventId;
+  administrativeBoundaryLayerIdRef.current = administrativeBoundaryLayerId;
 
   const restoreTerrainVisualBasis = useCallback((sessionId: number) => {
     const snapshot = terrainVisualSnapshotRef.current;
@@ -491,7 +511,10 @@ export default function CesiumMap({
         });
 
         // ── Initial camera (instant, no animation during init) ──
-        viewer.camera.setView({ destination: VIETNAM_CENTER });
+        viewer.camera.setView({
+          destination: VIETNAM_CENTER,
+          orientation: buildInitialMapCameraOrientation(CesiumMath.toRadians),
+        });
 
         // ── Globe settings ──
         viewer.scene.globe.enableLighting = false;
@@ -613,6 +636,7 @@ export default function CesiumMap({
                 return;
               }
               dataSourceRef.current = dataSource;
+              dataSource.show = administrativeBoundaryLayerIdRef.current === EXISTING_GADM_LAYER_ID;
               const currentTerrain = terrainSessionRef.current;
               if (currentTerrain) {
                 ensureTerrainVisualSnapshot(currentTerrain.id);
@@ -697,6 +721,10 @@ export default function CesiumMap({
         viewer.dataSources.remove(dataSourceRef.current, true);
         dataSourceRef.current = null;
       }
+      if (referenceBoundaryDataSourceRef.current && viewer && !viewer.isDestroyed()) {
+        viewer.dataSources.remove(referenceBoundaryDataSourceRef.current, true);
+        referenceBoundaryDataSourceRef.current = null;
+      }
       if (viewer && !viewer.isDestroyed() && terrainSceneSnapshotRef.current) {
         restoreTerrainScene(viewer.scene, viewer.clock, terrainSceneSnapshotRef.current);
       }
@@ -718,6 +746,7 @@ export default function CesiumMap({
       regionGeometryIndexRef.current = null;
       regionGeometryPromiseRef.current = null;
       regionGeometryResourcePromiseRef.current = null;
+      referenceBoundaryDataSourceRef.current = null;
       terrainRegionEntities.current.clear();
       cameraSnapshotRef.current = null;
       eventEntityDataRef.current = new WeakMap();
@@ -726,6 +755,89 @@ export default function CesiumMap({
   }, []);
 
   // ─── Inspection pipeline (Task C) ────────────────────────────────────────────
+  useEffect(() => {
+    if (!viewerReady) return;
+    const viewer = viewerRef.current;
+    if (!viewer || viewer.isDestroyed()) return;
+
+    const layer = getAdministrativeBoundaryLayer(administrativeBoundaryLayerId);
+    const operation = ++referenceBoundaryOperationRef.current;
+    const existingGadm = dataSourceRef.current;
+
+    if (layer.id === EXISTING_GADM_LAYER_ID) {
+      if (existingGadm) existingGadm.show = true;
+      if (referenceBoundaryDataSourceRef.current) {
+        referenceBoundaryDataSourceRef.current.show = false;
+      }
+      onAdministrativeBoundaryStatusRef.current?.('ready');
+      return () => {};
+    }
+
+    if (existingGadm) existingGadm.show = false;
+    const cachedReferenceLayer = referenceBoundaryDataSourceRef.current;
+    if (cachedReferenceLayer) {
+      cachedReferenceLayer.show = true;
+      onAdministrativeBoundaryStatusRef.current?.('ready');
+      return () => {};
+    }
+
+    let cancelled = false;
+    onAdministrativeBoundaryStatusRef.current?.('loading');
+    void (async () => {
+      const result = await loadAdministrativeBoundaryLayer(layer);
+      if (
+        cancelled
+        || !mountedRef.current
+        || viewerLifecycleRef.current <= 0
+        || referenceBoundaryOperationRef.current !== operation
+        || viewer.isDestroyed()
+      ) return;
+
+      if (result.status === 'error') {
+        if (dataSourceRef.current) dataSourceRef.current.show = true;
+        onAdministrativeBoundaryStatusRef.current?.('error', result.error.message);
+        return;
+      }
+
+      try {
+        const dataSource = await GeoJsonDataSource.load(result.raw, {
+          stroke: REFERENCE_BOUNDARY_OUTLINE,
+          fill: REFERENCE_BOUNDARY_FILL,
+          strokeWidth: 2,
+        });
+        if (
+          cancelled
+          || !mountedRef.current
+          || referenceBoundaryOperationRef.current !== operation
+          || viewer.isDestroyed()
+        ) return;
+        await viewer.dataSources.add(dataSource);
+        if (
+          cancelled
+          || !mountedRef.current
+          || referenceBoundaryOperationRef.current !== operation
+          || viewer.isDestroyed()
+        ) {
+          if (!viewer.isDestroyed()) viewer.dataSources.remove(dataSource, true);
+          return;
+        }
+        referenceBoundaryDataSourceRef.current = dataSource;
+        dataSource.show = true;
+        onAdministrativeBoundaryStatusRef.current?.('ready');
+      } catch (error) {
+        if (dataSourceRef.current) dataSourceRef.current.show = true;
+        onAdministrativeBoundaryStatusRef.current?.(
+          'error',
+          error instanceof Error ? error.message : String(error),
+        );
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [administrativeBoundaryLayerId, viewerReady]);
+
   const inspectionSessionIdRef = useRef(inspectionSessionId);
   inspectionSessionIdRef.current = inspectionSessionId;
   const removeInspectionMarker = useCallback((viewerInstance: Viewer) => {

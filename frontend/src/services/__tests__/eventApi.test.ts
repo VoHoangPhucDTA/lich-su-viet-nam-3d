@@ -249,3 +249,17 @@ describe('event API global search', () => {
     );
   });
 });
+
+describe('event API exact-year query', () => {
+  beforeEach(() => {
+    apiGet.mockReset();
+    apiGet.mockResolvedValue({ items: [], count: 0 });
+  });
+
+  it.each([-938, 0, 1945, 2026])('sends signed exact year %s without client-side snapping', async (year) => {
+    await expect(getEventsByYearFromBackend(year, 12)).resolves.toEqual([]);
+    expect(requestedPaths()).toEqual([
+      `/api/events?year=${year}&grade=12&limit=1000`,
+    ]);
+  });
+});

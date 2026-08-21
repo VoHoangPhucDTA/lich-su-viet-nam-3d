@@ -15,10 +15,16 @@ export interface MapUrlState {
   grade: number | null;
 }
 
-function integerParam(value: string | null): number | null {
-  if (value == null || value.trim() === '') return null;
-  const parsed = Number(value);
+export function parseExactYearInput(value: string | null | undefined): number | null {
+  if (value == null) return null;
+  const normalized = value.trim();
+  if (!/^[+-]?\d+$/u.test(normalized)) return null;
+  const parsed = Number(normalized);
   return Number.isSafeInteger(parsed) ? parsed : null;
+}
+
+function integerParam(value: string | null): number | null {
+  return parseExactYearInput(value);
 }
 
 function gradeParam(value: string | null): number | null {

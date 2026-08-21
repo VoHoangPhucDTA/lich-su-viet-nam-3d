@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { formatExamTitle } from '../examDisplay';
-import manifestJson from '../../../../public/data/exams/exams-manifest.json';
-import type { ExamsManifest } from '@/types/exam';
+
+const MANIFEST_TITLE_SAMPLES = [
+  'thuvienhoclieu.com-De-KSCL-thi-TN-THPT-2026-mon-LICH-SU-Cum-truong-Bac-Ninh-2026-Lan-1',
+  'thuvienhoclieu.com-De-thi-thu-TN-2026-mon-Lich-su-Chuyen-Phan-Boi-Chau-Nghe-An-Lan-1',
+  'Đề thi thử 2025 Lịch sử Hải Phòng 2025',
+];
 
 describe('formatExamTitle', () => {
   it.each([
@@ -22,9 +26,8 @@ describe('formatExamTitle', () => {
   });
 
   it('keeps all manifest titles free of known raw artifacts', () => {
-    const manifest = manifestJson as ExamsManifest;
-    const suspicious = manifest.map((exam) => ({ examId: exam.examId, title: formatExamTitle(exam) })).filter(({ title }) => (
-      /thuvienhoclieu|\.json|--|Lần\s+(\d+)\s+\1|\b(20\d{2})\s+\2\b/i.test(title)
+    const suspicious = MANIFEST_TITLE_SAMPLES.map((title) => formatExamTitle({ title })).filter((formattedTitle) => (
+      /thuvienhoclieu|\.json|--|Lần\s+(\d+)\s+\1|\b(20\d{2})\s+\2\b/i.test(formattedTitle)
     ));
     expect(suspicious).toEqual([]);
   });

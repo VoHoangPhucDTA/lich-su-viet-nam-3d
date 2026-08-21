@@ -2,7 +2,7 @@
  * Timed V2 exam session orchestration.
  * Route: /exams/de/:examId
  */
-import { useCallback, useId, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useId, useMemo, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ExamAnswerSheet from '@/components/exams/ExamAnswerSheet';
 import ExamBackLink from '@/components/exams/ExamBackLink';
@@ -15,13 +15,7 @@ import ExamSubmitDialog from '@/components/exams/ExamSubmitDialog';
 import { useExamKeyboardShortcuts } from '@/lib/exam/useExamKeyboardShortcuts';
 import { useQuestionNavigation } from '@/lib/exam/useQuestionNavigation';
 import { useApiTimedSession } from '@/lib/exam/useApiTimedSession';
-import { useSessionV2 } from '@/lib/exam/useSessionV2';
-import { getExamDeadlineMs } from '@/lib/exam/examDuration';
-import { formatExamTitle, getExamDisplayYear, getExamSourceLabel } from '@/lib/exam/examDisplay';
-import { getExamMeta } from '@/lib/exam/manifestLoader';
-import { EXAM_DATASET_BUILD_URL } from '@/lib/exam/examConstants';
-import { createLocalSubmissionHash, enqueueRecovery } from '@/lib/exam/examRecoveryQueue';
-import type { RecoverExamSubmissionRequest, SubmitAnswer } from '@/types/examApi';
+import { formatExamTitle } from '@/lib/exam/examDisplay';
 import type { TFStatement } from '@/types/exam';
 
 const EMPTY_TF_SELECTION: Record<TFStatement['id'], boolean | null> = {
@@ -31,7 +25,7 @@ const EMPTY_TF_SELECTION: Record<TFStatement['id'], boolean | null> = {
   d: null,
 };
 
-export default function ExamV2SessionPage({ initialSessionId, legacyFallback }: { initialSessionId?: string; legacyFallback?: ReactNode }) {
+export default function ExamV2SessionPage({ initialSessionId }: { initialSessionId?: string }) {
   const { examId } = useParams<{ examId: string }>();
   const navigate = useNavigate();
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -58,7 +52,6 @@ export default function ExamV2SessionPage({ initialSessionId, legacyFallback }: 
     answers,
     loading,
     error,
-    fallbackEligible,
     questionStates,
     completedCount,
     incompleteCount,
@@ -126,13 +119,6 @@ export default function ExamV2SessionPage({ initialSessionId, legacyFallback }: 
   });
 
   if (loading) return <SessionLoadingState />;
-
-  // A static result is only a transport fallback for the published original exam route.
-  // API business errors deliberately remain visible rather than silently changing authority.
-  if (fallbackEligible && legacyFallback) return <>{legacyFallback}</>;
-  if (fallbackEligible && examId && !initialSessionId) {
-    return <StaticTimedFallback examId={examId} />;
-  }
 
   if (error || !serverSession || !draft || !currentQuestion) {
     return <SessionErrorState message={error ?? 'Không tải được phiên thi'} />;
@@ -268,127 +254,6 @@ export default function ExamV2SessionPage({ initialSessionId, legacyFallback }: 
       />
     </div>
   );
-}
-
-function StaticTimedFallback({ examId }: { examId: string }) {
-  const navigate = useNavigate();
-  const [submitting, setSubmitting] = useState(false);
-  const [shortcutHelpOpen, setShortcutHelpOpen] = useState(false);
-  const shortcutHelpTriggerRef = useRef<HTMLButtonElement>(null);
-  const shortcutHelpId = useId();
-  const {
-    exam, flatQuestions, currentQuestion, currentIndex, loading, error, session, questionStates,
-    handleMCQSelect, handleTFSelect, handleClearAnswer, handleToggleFlag, handleNavigate,
-    handleSubmit, getMCQAnswer, getTFAnswer,
-  } = useSessionV2(examId);
-
-  if (loading) return <SessionLoadingState />;
-  if (error || !exam || !session || !currentQuestion) return <SessionErrorState message={error ?? 'Khong tai duoc de thi'} />;
-
-  const submit = () => {
-    if (submitting) return;
-    setSubmitting(true);
-    const result = handleSubmit();
-    if (result) {
-      const localResult = { ...result, scoreAuthority: 'LOCAL_FALLBACK', timingAuthority: 'CLIENT_UNVERIFIED', submissionOrigin: 'CLIENT_FALLBACK' };
-      localStorage.setItem(`v2_result_${result.sessionId}`, JSON.stringify(localResult));
-      void queueStaticFallbackRecovery(examId, session.startedAt, flatQuestions, getMCQAnswer, getTFAnswer, localResult);
-      navigate(`/exams/ket-qua/${result.sessionId}`);
-      return;
-    }
-    setSubmitting(false);
-  };
-  const title = formatExamTitle(exam);
-  const meta = [getExamSourceLabel(exam), getExamDisplayYear(exam) || null].filter(Boolean).join(' · ');
-  const selectedTf = getTFAnswer(currentQuestion.id)?.selected ?? EMPTY_TF_SELECTION;
-
-  return (
-    <div className="exam-session-page">
-      <ExamSessionHeader
-        backLink={<ExamBackLink to="/exams/browse">Quay lại danh sách đề</ExamBackLink>}
-        title={title}
-        meta={meta}
-        durationMinutes={Math.max(1, Math.round(session.durationSeconds / 60))}
-        currentIndex={currentIndex}
-        totalQuestions={flatQuestions.length}
-        deadlineMs={getExamDeadlineMs(session.startedAt, session.durationSeconds)}
-        isSubmitting={submitting}
-        isShortcutHelpOpen={shortcutHelpOpen}
-        shortcutHelpId={shortcutHelpId}
-        shortcutHelpTriggerRef={shortcutHelpTriggerRef}
-        onTimeUp={submit}
-        onSubmitRequest={submit}
-        onShortcutHelpRequest={() => setShortcutHelpOpen(true)}
-      />
-      <main className="exam-session-main">
-        <div className="exam-session-question-column">
-          <p role="status" className="exam-session-submit-error">Đang dùng dữ liệu lưu trên thiết bị vì máy chủ chưa truy cập được.</p>
-          <ExamQuestionRenderer
-            question={currentQuestion}
-            index={currentIndex}
-            total={flatQuestions.length}
-            selectedMCQ={getMCQAnswer(currentQuestion.id)?.selected ?? null}
-            selectedTF={selectedTf}
-            onMCQSelect={(optionId) => handleMCQSelect(currentQuestion.id, optionId)}
-            onTFSelect={(statementId, value) => handleTFSelect(currentQuestion.id, statementId, value)}
-          />
-          <ExamNavigation
-            currentIndex={currentIndex}
-            total={flatQuestions.length}
-            onNavigate={handleNavigate}
-            questionState={questionStates[currentQuestion.id]}
-            onToggleFlag={() => handleToggleFlag(currentQuestion.id)}
-            onClearSelection={() => handleClearAnswer(currentQuestion.id)}
-            hasSelection={questionStates[currentQuestion.id]?.hasAnyAnswer ?? false}
-            onSubmit={submit}
-            isSubmitting={submitting}
-          />
-        </div>
-        <aside className="exam-desktop-sidebar">
-          <ExamQuestionNavigator questions={flatQuestions} currentIndex={currentIndex} questionStates={questionStates} onQuestionSelect={handleNavigate} />
-        </aside>
-      </main>
-      <ExamShortcutHelp
-        id={shortcutHelpId}
-        isOpen={shortcutHelpOpen}
-        onClose={() => setShortcutHelpOpen(false)}
-        triggerRef={shortcutHelpTriggerRef}
-        shortcuts={TIMED_SHORTCUTS}
-        description="Bài thi có giới hạn thời gian và sẽ tự động nộp khi hết giờ."
-        notes="Dữ liệu được lưu cục bộ trong khi máy chủ chưa truy cập được."
-      />
-    </div>
-  );
-}
-
-async function queueStaticFallbackRecovery(
-  examId: string,
-  startedAtClient: number,
-  questions: ReturnType<typeof useSessionV2>['flatQuestions'],
-  getMCQAnswer: ReturnType<typeof useSessionV2>['getMCQAnswer'],
-  getTFAnswer: ReturnType<typeof useSessionV2>['getTFAnswer'],
-  localResult: import('@/types/exam').ExamResultV2,
-): Promise<void> {
-  try {
-    const [meta, dataset] = await Promise.all([
-      getExamMeta(examId),
-      fetch(EXAM_DATASET_BUILD_URL).then((response) => response.ok ? response.json() as Promise<{ aggregateHash?: string }> : null),
-    ]);
-    if (!meta?.contentHash || !dataset?.aggregateHash) return;
-    const answers: SubmitAnswer[] = questions.map((question) => question.questionType === 'mcq'
-      ? { questionInstanceId: question.id, questionType: 'mcq', selected: getMCQAnswer(question.id)?.selected ?? null }
-      : { questionInstanceId: question.id, questionType: 'true_false', selected: getTFAnswer(question.id)?.selected ?? { a: null, b: null, c: null, d: null } });
-    const request: RecoverExamSubmissionRequest = {
-      clientSubmissionId: crypto.randomUUID(), localSessionId: localResult.sessionId, mode: 'TIMED_ORIGINAL',
-      datasetVersion: dataset.aggregateHash, examId, examContentHash: meta.contentHash,
-      localSubmissionHash: await createLocalSubmissionHash({ examId, answers }),
-      clientTiming: { startedAtClient, submittedAtClient: localResult.submittedAt },
-      questionRefs: questions.map((question) => ({ questionInstanceId: question.id, publicQuestionId: question.id })), answers,
-    };
-    enqueueRecovery(request, localResult);
-  } catch {
-    // The local result remains usable; a missing static descriptor must not erase it.
-  }
 }
 
 function SessionLoadingState() {

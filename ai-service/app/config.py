@@ -106,6 +106,9 @@ class Settings(BaseSettings):
     chroma_report_dir: Path = Path("./storage/chroma-reports")
 
     sgk_chunks_path: Path = Path("./data/corpus/sgk_chunks.jsonl")
+    factual_guard_registry_path: Path = Path(
+        "./data/factual_guard/critical_facts_v1.json"
+    )
     rag_include_pending_review: bool = False
     rag_default_top_k: int = Field(default=5, ge=1)
     rag_max_top_k: int = Field(default=10, ge=1)
@@ -141,6 +144,7 @@ class Settings(BaseSettings):
         "chroma_persist_dir",
         "chroma_report_dir",
         "sgk_chunks_path",
+        "factual_guard_registry_path",
         mode="after",
     )
     @classmethod
