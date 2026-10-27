@@ -18,15 +18,14 @@ import com.lichsuvn.backend.auth.application.AuthSession;
 import com.lichsuvn.backend.auth.application.AuthService;
 import com.lichsuvn.backend.auth.application.SocialAuthService;
 import com.lichsuvn.backend.auth.application.VerifyEmailResult;
+import com.lichsuvn.backend.auth.security.AuthCookiePolicy;
 import com.lichsuvn.backend.auth.security.UserPrincipal;
 import com.lichsuvn.backend.common.api.ApiResponse;
 import com.lichsuvn.backend.common.api.MessageDto;
-import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -50,35 +49,22 @@ public class AuthController {
     private final CsrfTokenRepository csrfTokenRepository;
 
     /**
-     * APP_COOKIE_SECURE=true trên Production (Render, mọi traffic qua HTTPS).
-     * APP_COOKIE_SECURE=false trên localhost vì backend chạy http://localhost:8080.
-     * (Frontend chạy HTTP trên localhost, Vite proxy route /api/* → backend, cùng origin — không cần Secure flag)
+     * SameSite/Secure dùng chung cho CSRF-TOKEN, access_token và refresh_token.
+     * Production (Netlify → Render, khác site): None + Secure để trình duyệt thực sự
+     * gửi cookie cross-site; Development (localhost qua Vite proxy): Lax.
+     * Xem {@link AuthCookiePolicy}.
      */
-    @Value("${app.cookie.secure:false}")
-    private boolean cookieSecure;
-
-    /**
-     * SameSite attribute của cookie.
-     * Production (Render → Netlify/Vercel, khác domain): "None" (bắt buộc kèm Secure=true).
-     * Development (localhost, cùng origin qua Vite proxy): "Lax" đủ làm việc.
-     */
-    @Value("${app.cookie.same-site:Lax}")
-    private String cookieSameSite;
+    private final AuthCookiePolicy cookiePolicy;
 
     public AuthController(AuthService authService, AuthRateLimiter authRateLimiter,
                           SocialAuthService socialAuthService,
-                          CsrfTokenRepository csrfTokenRepository) {
+                          CsrfTokenRepository csrfTokenRepository,
+                          AuthCookiePolicy cookiePolicy) {
         this.authService = authService;
         this.authRateLimiter = authRateLimiter;
         this.socialAuthService = socialAuthService;
         this.csrfTokenRepository = csrfTokenRepository;
-    }
-
-    @PostConstruct
-    void validateCookieSecurity() {
-        if ("None".equalsIgnoreCase(cookieSameSite) && !cookieSecure) {
-            throw new IllegalStateException("app.cookie.secure must be true when app.cookie.same-site is None");
-        }
+        this.cookiePolicy = cookiePolicy;
     }
 
     // Public entrypoints return the same ApiResponse envelope used by event APIs.
@@ -309,16 +295,16 @@ public class AuthController {
     private void setAuthCookies(HttpServletResponse response, AuthSession auth) {
         ResponseCookie accessCookie = ResponseCookie.from("access_token", auth.accessToken())
                 .httpOnly(true)
-                .secure(cookieSecure)
-                .sameSite(cookieSameSite)
+                .secure(cookiePolicy.secure())
+                .sameSite(cookiePolicy.sameSite())
                 .path("/")
                 .maxAge(Duration.ofHours(1))
                 .build();
 
         ResponseCookie refreshCookie = ResponseCookie.from("refresh_token", auth.refreshToken())
                 .httpOnly(true)
-                .secure(cookieSecure)
-                .sameSite(cookieSameSite)
+                .secure(cookiePolicy.secure())
+                .sameSite(cookiePolicy.sameSite())
                 .path("/api/auth/refresh") // Giới hạn: chỉ gửi đến endpoint refresh
                 .maxAge(Duration.ofDays(7))
                 .build();
@@ -334,16 +320,16 @@ public class AuthController {
     private void clearAuthCookies(HttpServletResponse response) {
         ResponseCookie clearAccess = ResponseCookie.from("access_token", "")
                 .httpOnly(true)
-                .secure(cookieSecure)
-                .sameSite(cookieSameSite)
+                .secure(cookiePolicy.secure())
+                .sameSite(cookiePolicy.sameSite())
                 .path("/")
                 .maxAge(0)
                 .build();
 
         ResponseCookie clearRefresh = ResponseCookie.from("refresh_token", "")
                 .httpOnly(true)
-                .secure(cookieSecure)
-                .sameSite(cookieSameSite)
+                .secure(cookiePolicy.secure())
+                .sameSite(cookiePolicy.sameSite())
                 .path("/api/auth/refresh")
                 .maxAge(0)
                 .build();
