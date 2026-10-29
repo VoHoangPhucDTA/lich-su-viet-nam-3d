@@ -1,0 +1,22 @@
+{
+  "corpusSha256": "a4bd330be7b4b43ac9da25966877fef51c66c0e14cc68baa7eccf46a63e15ab2",
+  "embeddingModel": "gemini-embedding-2",
+  "dimension": 768,
+  "formatterVersion": "gemini-retrieval-document-v1",
+  "totalCorpusRecords": 459,
+  "eligibleRecords": 414,
+  "pendingReviewSkipped": 45,
+  "selectedRecords": 414,
+  "alreadyCompleted": 368,
+  "newlyEmbedded": 46,
+  "successfulRecords": 414,
+  "attemptedRecords": 414,
+  "unattemptedRecords": 0,
+  "remainingRecords": 0,
+  "unresolvedFailedRecords": 0,
+  "failedRecords": 0,
+  "truncatedTailRecovered": false,
+  "dryRun": false,
+  "status": "COMPLETED",
+  "updatedAt": "2026-08-08T03:03:43.091785Z"
+}
