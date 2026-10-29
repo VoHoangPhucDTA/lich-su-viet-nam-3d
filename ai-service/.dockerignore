@@ -2,7 +2,11 @@
 .venv
 __pycache__
 .pytest_cache
-storage
-data
 reports
 tests
+storage/checkpoints
+storage/chroma-reports
+storage/evaluation-cache
+storage/evaluation-reports
+storage/generation-cache
+data/evaluation

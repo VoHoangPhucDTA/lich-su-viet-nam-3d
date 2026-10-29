@@ -1,5 +1,18 @@
 .git
 backend/target
+
+# Never send credentials or secret material to the Docker daemon / image.
+# Render copies service secret files into the root of the build context, so
+# these patterns are the guard for that behaviour as well.
+.env
+.env.*
+**/.env
+**/.env.*
+**/*.pem
+**/*.key
+
+# Local database dumps must never enter an image.
+*.sql
 frontend/artifacts
 frontend/dist
 frontend/e2e

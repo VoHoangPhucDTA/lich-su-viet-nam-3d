@@ -4,10 +4,15 @@
 data/artifacts/
 data/preprocessing/
 
-storage/chroma/*
-!storage/chroma/.gitkeep
+# Chroma index được commit để Render dùng (đã bỏ rule chặn storage/chroma)
 storage/chroma-reports/
-storage/embeddings/
+
+# Embeddings: chỉ commit manifest, không commit file vector lớn
+storage/embeddings/*
+!storage/embeddings/*/
+storage/embeddings/*/*
+!storage/embeddings/*/embedding_manifest.json
+
 storage/checkpoints/
 storage/evaluation-cache/
 storage/evaluation-reports/
