@@ -7,9 +7,9 @@ import com.lichsuvn.backend.auth.application.AuthService;
 import com.lichsuvn.backend.auth.application.AuthSession;
 import com.lichsuvn.backend.auth.application.SocialAuthService;
 import com.lichsuvn.backend.auth.application.VerifyEmailResult;
+import com.lichsuvn.backend.auth.security.AuthCookiePolicy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -17,6 +17,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.time.Instant;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -40,14 +42,7 @@ class AuthControllerCookieBoundaryTest {
     void setUp() {
         authService = mock(AuthService.class);
         socialAuthService = mock(SocialAuthService.class);
-        controller = new AuthController(
-                authService,
-                mock(AuthRateLimiter.class),
-                socialAuthService,
-                mock(CsrfTokenRepository.class)
-        );
-        ReflectionTestUtils.setField(controller, "cookieSecure", false);
-        ReflectionTestUtils.setField(controller, "cookieSameSite", "Lax");
+        controller = controllerWith(devCookiePolicy());
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
         AuthUserDto user = new AuthUserDto(
@@ -67,10 +62,52 @@ class AuthControllerCookieBoundaryTest {
 
     @Test
     void sameSiteNoneCannotUseInsecureAuthenticationCookies() {
-        ReflectionTestUtils.setField(controller, "cookieSecure", false);
-        ReflectionTestUtils.setField(controller, "cookieSameSite", "None");
+        // Browsers drop SameSite=None cookies that are not Secure, which would
+        // silently break every cross-site login: refuse to start instead.
+        assertThrows(IllegalStateException.class,
+                () -> AuthCookiePolicy.resolve("https://relaxed-torte-7d1eca.netlify.app", "false", "None"));
+    }
 
-        assertThrows(IllegalStateException.class, controller::validateCookieSecurity);
+    @Test
+    void localDevelopmentKeepsLaxNonSecureCookies() {
+        AuthCookiePolicy policy = devCookiePolicy();
+
+        assertEquals("Lax", policy.sameSite());
+        assertFalse(policy.secure());
+        assertFalse(policy.crossSiteDeployment());
+    }
+
+    @Test
+    void crossSiteDeploymentIssuesNoneSecureAuthenticationCookies() throws Exception {
+        AuthCookiePolicy policy = AuthCookiePolicy.resolve(
+                "https://relaxed-torte-7d1eca.netlify.app", "", "");
+        when(authService.login(any(LoginRequest.class))).thenReturn(session);
+        MockMvc crossSiteMvc = MockMvcBuilders.standaloneSetup(controllerWith(policy)).build();
+
+        crossSiteMvc.perform(post("/api/auth/login")
+                        .contentType("application/json")
+                        .content("""
+                                {"email":"admin@example.test","password":"password"}
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(cookie().secure("access_token", true))
+                .andExpect(cookie().sameSite("access_token", "None"))
+                .andExpect(cookie().secure("refresh_token", true))
+                .andExpect(cookie().sameSite("refresh_token", "None"));
+    }
+
+    private AuthCookiePolicy devCookiePolicy() {
+        return AuthCookiePolicy.resolve("http://localhost:5173", "", "");
+    }
+
+    private AuthController controllerWith(AuthCookiePolicy policy) {
+        return new AuthController(
+                authService,
+                mock(AuthRateLimiter.class),
+                socialAuthService,
+                mock(CsrfTokenRepository.class),
+                policy
+        );
     }
 
     @Test

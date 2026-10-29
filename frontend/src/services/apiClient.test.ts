@@ -31,8 +31,12 @@ describe('apiClient CSRF integration', () => {
     await expect(apiGet('/api/events/event-1')).resolves.toEqual({ id: 'event-1' });
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
-    const headers = fetchMock.mock.calls[0][1]?.headers as Headers;
+    const first = fetchMock.mock.calls[0][1];
+    const headers = first?.headers as Headers;
     expect(headers.get('X-CSRF-TOKEN')).toBeNull();
+    // Safe reads still carry cookies: session and CSRF cookies are HttpOnly and
+    // cross-origin (Netlify → Render), so omitting credentials would drop them.
+    expect(first?.credentials).toBe('include');
   });
 
   it('bootstraps once and attaches the configured header to unsafe requests', async () => {

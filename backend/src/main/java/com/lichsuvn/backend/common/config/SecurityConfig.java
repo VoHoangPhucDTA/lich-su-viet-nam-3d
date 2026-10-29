@@ -1,6 +1,7 @@
 package com.lichsuvn.backend.common.config;
 
 import com.lichsuvn.backend.auth.application.AuthService;
+import com.lichsuvn.backend.auth.security.AuthCookiePolicy;
 import com.lichsuvn.backend.auth.security.JwtAuthenticationFilter;
 import com.lichsuvn.backend.common.security.ApiAccessDeniedHandler;
 import com.lichsuvn.backend.common.security.ApiAuthenticationEntryPoint;
@@ -40,15 +41,29 @@ public class SecurityConfig {
     @Value("${app.allowed-origins:http://localhost:5173,http://127.0.0.1:5173}")
     private String allowedOriginsRaw;
 
-    @Value("${app.cookie.secure:false}")
-    private boolean cookieSecure;
-
-    @Value("${app.cookie.same-site:Lax}")
-    private String cookieSameSite;
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    /**
+     * SameSite/Secure cho mọi cookie mà SPA phải nhận được cross-site:
+     * CSRF-TOKEN, access_token và refresh_token.
+     *
+     * <p>Production: SPA chạy trên Netlify, API trên Render — hai site khác nhau,
+     * nên cookie phải là {@code SameSite=None; Secure} thì trình duyệt mới gửi kèm
+     * (SameSite quyết định browser GỬI gì, CORS chỉ quyết định browser ĐỌC được gì).
+     * Dev (localhost qua Vite proxy, cùng site) giữ {@code SameSite=Lax}.</p>
+     *
+     * <p>Nguồn dữ liệu là chính {@code app.allowed-origins} — origin SPA duy nhất
+     * được phép gửi credentialed request — nên CORS và cookie không thể lệch nhau.
+     * {@code APP_COOKIE_SAME_SITE}/{@code APP_COOKIE_SECURE} vẫn ghi đè được.</p>
+     */
+    @Bean
+    public AuthCookiePolicy authCookiePolicy(
+            @Value("${app.cookie.secure:}") String cookieSecure,
+            @Value("${app.cookie.same-site:}") String cookieSameSite) {
+        return AuthCookiePolicy.resolve(allowedOriginsRaw, cookieSecure, cookieSameSite);
     }
 
     @Bean
@@ -57,15 +72,15 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CsrfTokenRepository csrfTokenRepository() {
+    public CsrfTokenRepository csrfTokenRepository(AuthCookiePolicy authCookiePolicy) {
         CookieCsrfTokenRepository repository = new CookieCsrfTokenRepository();
         repository.setCookieName("CSRF-TOKEN");
         repository.setHeaderName("X-CSRF-TOKEN");
         repository.setCookiePath("/");
         repository.setCookieCustomizer(cookie -> cookie
                 .httpOnly(true)
-                .secure(cookieSecure)
-                .sameSite(cookieSameSite));
+                .secure(authCookiePolicy.secure())
+                .sameSite(authCookiePolicy.sameSite()));
         return repository;
     }
 

@@ -4,3 +4,37 @@
 # Cloudinary must use an unsigned upload preset with appropriate upload limits.
 [build.environment]
   SECRETS_SCAN_OMIT_KEYS = "VITE_API_BASE_URL,VITE_CESIUM_ION_TOKEN,VITE_CLOUDINARY_CLOUD_NAME,VITE_CLOUDINARY_UPLOAD_PRESET,VITE_FACEBOOK_APP_ID,VITE_GOOGLE_CLIENT_ID,VITE_TTS_ASSET_PLAYER_ENABLED"
+
+# ── SPA fallback ────────────────────────────────────────────────────────────
+# Client-side routes (/map, /events/:slug, /exams/...) have no matching file,
+# so they must fall back to index.html instead of Netlify's 404 page.
+# Without `force = true` this rule only applies when no file matches the URL:
+# index.html and every real asset (including /assets/*.js) are still served as
+# static files, so hashed chunks are never rewritten to HTML.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# ── Caching ─────────────────────────────────────────────────────────────────
+# index.html is the only file that names the current entry and lazy chunks.
+# It must be revalidated on every load, otherwise a browser can keep asking for
+# chunk names from a previous deploy after Netlify has removed them.
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Vite content-hashes everything under /assets/: the file name changes whenever
+# the content changes, so the browser can keep it for a year. A tab that stays
+# open across a deploy then loads its own chunks from cache instead of 404-ing
+# on names the new deploy no longer ships.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
