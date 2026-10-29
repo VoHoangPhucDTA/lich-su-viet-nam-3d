@@ -11,6 +11,8 @@ RUN pip install --no-cache-dir --requirement requirements.txt \
     && mkdir -p /app/data/corpus /app/storage/chroma \
     && chown -R app:app /app
 COPY --chown=app:app app ./app
+COPY --chown=app:app data ./data
+COPY --chown=app:app storage ./storage
 COPY --chown=app:app scripts ./scripts
 
 USER app
