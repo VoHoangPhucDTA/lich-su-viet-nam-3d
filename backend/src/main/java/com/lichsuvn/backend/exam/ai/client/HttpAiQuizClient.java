@@ -9,6 +9,8 @@ import com.lichsuvn.backend.exam.ai.client.dto.AiQuizGenerationRequest;
 import com.lichsuvn.backend.exam.ai.client.dto.AiQuizGenerationResponse;
 import com.lichsuvn.backend.exam.ai.config.AiServiceClientConfig;
 import com.lichsuvn.backend.exam.ai.config.AiServiceProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -24,6 +26,8 @@ import java.nio.charset.StandardCharsets;
 
 @Component
 public class HttpAiQuizClient implements AiQuizClient {
+    private static final Logger log = LoggerFactory.getLogger(HttpAiQuizClient.class);
+
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
     private final AiServiceProperties properties;
@@ -110,6 +114,7 @@ public class HttpAiQuizClient implements AiQuizClient {
     }
 
     private ApiException mapError(int status, byte[] body) {
+        log.warn("AI service error status={} body={}", status, sanitizeForLog(body));
         String detail = safeDetail(body);
         if (status == 409 && !"INSUFFICIENT_CONTEXT".equals(detail)) {
             return new ApiException(HttpStatus.BAD_GATEWAY, "AI_SERVICE_INVALID_RESPONSE", "AI Service returned an unexpected conflict");
@@ -134,6 +139,14 @@ public class HttpAiQuizClient implements AiQuizClient {
         } catch (IOException ignored) {
             return "";
         }
+    }
+
+    private static String sanitizeForLog(byte[] body) {
+        if (body == null || body.length == 0) {
+            return "";
+        }
+        String text = new String(body, StandardCharsets.UTF_8).replaceAll("\\s+", " ");
+        return text.length() > 300 ? text.substring(0, 300) : text;
     }
 
     private static boolean hasCause(Throwable error, Class<? extends Throwable> type) {
