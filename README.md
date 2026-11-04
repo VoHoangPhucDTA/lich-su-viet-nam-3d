@@ -19,6 +19,10 @@ The platform brings historical discovery, geographic visualisation, exam practic
 
 ## System architecture
 
+The following diagram is the original system architecture prepared for the project. It shows the client, Spring Boot server, AI service, databases, media storage, third-party providers and data sources at a glance.
+
+![System architecture](docs/architecture/system-architecture.png)
+
 The application is separated into a browser client, a Java/Spring Boot application backend and a Python/FastAPI AI service. Application records, vector data and media assets are stored in dedicated services, while external providers are accessed through the service that owns each integration.
 
 ~~~mermaid
