@@ -108,4 +108,12 @@ describe('getEventThumbnailDeliveryCandidates', () => {
       'https://res.cloudinary.com/demo-cloud/image/upload/historical_events_thumbnail/event-1',
     ]);
   });
+
+  it('returns only the explicit URL when legacy-folder guessing is disabled for curated cards', async () => {
+    const { getEventThumbnailDeliveryCandidates } = await loadService('demo-cloud');
+    const explicit = 'https://res.cloudinary.com/demo-cloud/image/upload/events/verified.jpg';
+
+    expect(getEventThumbnailDeliveryCandidates('event-1', explicit, false)).toEqual([explicit]);
+    expect(getEventThumbnailDeliveryCandidates('event-1', undefined, false)).toEqual([]);
+  });
 });
