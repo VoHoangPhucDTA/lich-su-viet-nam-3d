@@ -33,6 +33,7 @@ function homepageSummary(id: string, index: number) {
     eventType: 'military' as const,
     provinceNames: [`Province ${index}`],
     cardSummary: `Homepage summary ${index}`,
+    thumbnailUrl: `https://res.cloudinary.com/demo/image/upload/events/${id}.jpg`,
   };
 }
 
@@ -91,6 +92,7 @@ describe('getHomepageEvents', () => {
       effectiveEndYear: null,
       geoType: 'no_location',
       parentId: null,
+      thumbnailUrl: 'https://res.cloudinary.com/demo/image/upload/events/homepage-6.jpg',
     });
     expect(requestedPaths().some((path) => path.startsWith('/api/events/') && path !== '/api/events/homepage'))
       .toBe(false);

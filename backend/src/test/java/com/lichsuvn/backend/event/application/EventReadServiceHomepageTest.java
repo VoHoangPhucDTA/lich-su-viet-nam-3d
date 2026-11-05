@@ -73,10 +73,10 @@ class EventReadServiceHomepageTest {
     void suppressesDuplicateAndInvalidRowsAndReturnsAnImmutableResponse() {
         HomepageEventSummaryDto first = summary(0);
         HomepageEventSummaryDto duplicate = new HomepageEventSummaryDto(
-                "duplicate-id", first.slug(), "Duplicate", 938, "military", List.of(), "duplicate"
+                "duplicate-id", first.slug(), "Duplicate", 938, "military", List.of(), "duplicate", null
         );
         HomepageEventSummaryDto invalid = new HomepageEventSummaryDto(
-                "invalid", "not-curated", "Invalid", 1, "unsupported", List.of(), "invalid"
+                "invalid", "not-curated", "Invalid", 1, "unsupported", List.of(), "invalid", null
         );
         when(eventReadRepository.findHomepageSummaries(EventReadService.HOMEPAGE_EVENT_SLUGS))
                 .thenReturn(List.of(duplicate, invalid, first, summary(1)));
@@ -108,7 +108,8 @@ class EventReadServiceHomepageTest {
                 position == 2 ? null : 900 + position,
                 "military",
                 List.of("Province " + position),
-                "Summary " + position
+                "Summary " + position,
+                "https://res.cloudinary.com/demo/image/upload/events/" + slug + ".jpg"
         );
     }
 }

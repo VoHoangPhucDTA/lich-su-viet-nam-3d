@@ -25,6 +25,7 @@ const eventTitleImages: Record<string, string> = {
   /** Ngô Quyền chiến thắng Bạch Đằng 938 */
   'bach-dang-938-ngo-quyen-xung-vuong': '/event-titles/bach-dang-938.jpg',
   'bach-dang-938': '/event-titles/bach-dang-938.jpg',
+  'chien-thang-bach-dang-938': '/event-titles/bach-dang-938.jpg',
   'battle-of-bach-dang-938': '/event-titles/bach-dang-938.jpg',
 
   /** Thời đại Hùng Vương dựng nước Văn Lang */
@@ -37,14 +38,17 @@ const eventTitleImages: Record<string, string> = {
 
   /** Lý Công Uẩn dời đô về Thăng Long */
   'doi-do-thang-long': '/event-titles/doi-do-thang-long.jpg',
+  'ly-thai-to-doi-do-thang-long': '/event-titles/doi-do-thang-long.jpg',
 
   /** Quang Trung – Ngọc Hồi – Đống Đa */
   'khang-chien-chong-thanh-1789': '/event-titles/ngoc-hoi-dong-da.jpg',
+  'khang-chien-chong-quan-thanh-1789': '/event-titles/ngoc-hoi-dong-da.jpg',
   'phong-trao-tay-son': '/event-titles/ngoc-hoi-dong-da.jpg',
   'tay-son-gd1-1771-1777': '/event-titles/ngoc-hoi-dong-da.jpg',
 
   /** Tuyên ngôn độc lập 2/9/1945 */
   'tuyen-ngon-doc-lap-1945': '/event-titles/tuyen-ngon-doc-lap-1945.jpg',
+  'ho-chi-minh-cong-bo-tuyen-ngon-doc-lap': '/event-titles/tuyen-ngon-doc-lap-1945.jpg',
   'cach-mang-thang-tam-1945': '/event-titles/tuyen-ngon-doc-lap-1945.jpg',
 
   // Only map files that actually exist in frontend/public/event-titles.

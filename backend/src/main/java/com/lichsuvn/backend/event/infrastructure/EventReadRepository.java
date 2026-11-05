@@ -210,7 +210,24 @@ public class EventReadRepository {
 
         String sql = """
                 SELECT e.id, e.slug, e.title, e.start_year, e.event_type,
-                       e.province_names, e.card_summary
+                       e.province_names, e.card_summary,
+                       (
+                           SELECT em.url
+                           FROM event_media em
+                           WHERE em.event_id = e.id
+                             AND em.status = 'active'
+                             AND (
+                               em.storage_state='UNMANAGED'
+                               OR (
+                                 em.storage_state='READY'
+                                 AND em.storage_provider='cloudinary'
+                                 AND TRIM(em.storage_public_id)<>''
+                               )
+                             )
+                             AND em.is_thumbnail = TRUE
+                           ORDER BY em.sort_order ASC, em.id ASC
+                           LIMIT 1
+                       ) AS thumbnail_url
                 FROM historical_events e
                 WHERE e.status = 'published'
                   AND e.slug IN (:slugs)
@@ -800,7 +817,8 @@ public class EventReadRepository {
                 getInteger(rs, "start_year"),
                 rs.getString("event_type"),
                 parseStringList(rs.getString("province_names")),
-                rs.getString("card_summary")
+                rs.getString("card_summary"),
+                mediaUrlPolicy.redactDisplayUrl(rs.getString("thumbnail_url"))
         );
     }
 
