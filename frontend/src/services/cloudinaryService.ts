@@ -195,7 +195,8 @@ export function getEventThumbnailDeliveryUrl(
 
 export function getEventThumbnailDeliveryCandidates(
   eventId?: string | null,
-  explicitUrl?: string | null
+  explicitUrl?: string | null,
+  includeLegacyFolderFallbacks = true
 ): string[] {
   const candidates: string[] = [];
   const addCandidate = (url?: string | null) => {
@@ -207,7 +208,7 @@ export function getEventThumbnailDeliveryCandidates(
   addCandidate(existingUrl);
 
   const key = eventId?.trim();
-  if (!CLOUD_NAME || !key) return candidates;
+  if (!includeLegacyFolderFallbacks || !CLOUD_NAME || !key) return candidates;
 
   for (const folder of EVENT_THUMBNAIL_FOLDERS) {
     addCandidate(`https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${encodePublicId(
