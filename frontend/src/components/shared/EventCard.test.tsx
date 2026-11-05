@@ -87,6 +87,7 @@ describe('EventCard responsive image delivery', () => {
     expect(image).toHaveAttribute('height', '432');
     expect(image).toHaveAttribute('alt', '');
     expect(getResponsiveCloudinaryImage).toHaveBeenCalledWith(cloudinarySource, responsiveWidths);
+    expect(getEventThumbnailDeliveryCandidates).toHaveBeenCalledWith('any-safe-event', undefined, false);
     expect(screen.getByRole('link')).toHaveAttribute('href', '/events/any-safe-event');
     expect(screen.getByText('Event title')).toBeInTheDocument();
   });
@@ -135,6 +136,19 @@ describe('EventCard responsive image delivery', () => {
     fireEvent.error(fallbackImage);
     expect(screen.queryByRole('presentation')).not.toBeInTheDocument();
     expect(getResponsiveCloudinaryImage).toHaveBeenCalledTimes(2);
+  });
+
+  it.each([
+    ['chien-thang-bach-dang-938', '/event-titles/bach-dang-938.jpg'],
+    ['ly-thai-to-doi-do-thang-long', '/event-titles/doi-do-thang-long.jpg'],
+    ['khang-chien-chong-quan-thanh-1789', '/event-titles/ngoc-hoi-dong-da.jpg'],
+    ['ho-chi-minh-cong-bo-tuyen-ngon-doc-lap', '/event-titles/tuyen-ngon-doc-lap-1945.jpg'],
+  ])('uses the existing local title image for featured slug %s', (slug, expectedSrc) => {
+    getEventThumbnailDeliveryCandidates.mockReturnValue([]);
+    renderCard({ event: makeEvent({ id: slug, slug }) });
+
+    expect(screen.getByRole('presentation')).toHaveAttribute('src', expectedSrc);
+    expect(getEventThumbnailDeliveryCandidates).toHaveBeenCalledWith(slug, undefined, false);
   });
 
   it('renders the generic event-type fallback when no candidate remains', () => {
