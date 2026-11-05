@@ -59,6 +59,8 @@ class EventControllerHomepageTest {
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.data.events.length()").value(6))
                 .andExpect(jsonPath("$.data.events[0].slug").value("chien-thang-bach-dang-938"))
+                .andExpect(jsonPath("$.data.events[0].thumbnailUrl")
+                        .value("https://res.cloudinary.com/demo/image/upload/events/chien-thang-bach-dang-938.jpg"))
                 .andExpect(jsonPath("$.data.events[5].slug")
                         .value("chien-dich-giai-phong-sai-gon-gia-dinh-chien-dich-ho-chi-minh"))
                 .andExpect(jsonPath("$.data.events[0].sourceJson").doesNotExist())
@@ -108,7 +110,8 @@ class EventControllerHomepageTest {
 
     private HomepageEventSummaryDto summary(String slug, int year) {
         return new HomepageEventSummaryDto(
-                slug, slug, "Title " + year, year, "military", List.of("Vi\u1ec7t Nam"), "Card summary"
+                slug, slug, "Title " + year, year, "military", List.of("Vi\u1ec7t Nam"), "Card summary",
+                "https://res.cloudinary.com/demo/image/upload/events/" + slug + ".jpg"
         );
     }
 
