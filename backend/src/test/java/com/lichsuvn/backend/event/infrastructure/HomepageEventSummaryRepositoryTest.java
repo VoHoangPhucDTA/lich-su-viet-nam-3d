@@ -40,12 +40,15 @@ class HomepageEventSummaryRepositoryTest {
         String sql = sqlCaptor.getValue();
         assertTrue(sql.contains("SELECT e.id, e.slug, e.title, e.start_year, e.event_type"));
         assertTrue(sql.contains("e.province_names, e.card_summary"));
+        assertTrue(sql.contains("FROM event_media em"));
+        assertTrue(sql.contains("em.is_thumbnail = TRUE"));
+        assertTrue(sql.contains("em.storage_provider='cloudinary'"));
+        assertTrue(sql.contains("AS thumbnail_url"));
         assertTrue(sql.contains("e.status = 'published'"));
         assertTrue(sql.contains("e.slug IN (:slugs)"));
         assertFalse(sql.contains("SELECT *"));
         assertFalse(sql.contains("raw_json"));
         assertFalse(sql.contains("detailed_narrative"));
-        assertFalse(sql.contains("event_media"));
         assertFalse(sql.contains("event_relations"));
         assertFalse(sql.contains("information_schema"));
         assertFalse(sql.contains("COUNT("));
@@ -70,6 +73,8 @@ class HomepageEventSummaryRepositoryTest {
         when(row.getString("event_type")).thenReturn("military");
         when(row.getString("province_names")).thenReturn("[\"H\u00e0 N\u1ed9i\", \"H\u1ea3i Ph\u00f2ng\"]");
         when(row.getString("card_summary")).thenReturn("Card summary");
+        when(row.getString("thumbnail_url"))
+                .thenReturn("https://res.cloudinary.com/demo/image/upload/events/event.jpg");
 
         HomepageEventSummaryDto dto = mapperCaptor.getValue().mapRow(row, 0);
 
@@ -77,6 +82,7 @@ class HomepageEventSummaryRepositoryTest {
         assertEquals(null, dto.startYear());
         assertEquals(List.of("H\u00e0 N\u1ed9i", "H\u1ea3i Ph\u00f2ng"), dto.provinceNames());
         assertEquals("Card summary", dto.cardSummary());
+        assertEquals("https://res.cloudinary.com/demo/image/upload/events/event.jpg", dto.thumbnailUrl());
     }
 
     @Test
