@@ -12,7 +12,8 @@ public record HomepageEventSummaryDto(
         Integer startYear,
         String eventType,
         List<String> provinceNames,
-        String cardSummary
+        String cardSummary,
+        String thumbnailUrl
 ) {
     public HomepageEventSummaryDto {
         provinceNames = List.copyOf(provinceNames == null ? List.of() : provinceNames);
