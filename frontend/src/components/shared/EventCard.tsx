@@ -58,10 +58,14 @@ export default function EventCard({
   const detailKey = event.slug || event.id;
   const titleImage = getEventTitleImage(detailKey);
   const imageCandidates = useMemo(() => {
-    const candidates = getEventThumbnailDeliveryCandidates(event.id, event.thumbnailUrl);
+    const candidates = getEventThumbnailDeliveryCandidates(
+      event.id,
+      event.thumbnailUrl,
+      imageProfile !== 'home',
+    );
     if (titleImage && !candidates.includes(titleImage)) candidates.push(titleImage);
     return candidates;
-  }, [event.id, event.thumbnailUrl, titleImage]);
+  }, [event.id, event.thumbnailUrl, imageProfile, titleImage]);
   const imageUrl = imageCandidates.find((candidate) => !failedImageUrls.has(candidate));
   const imageConfig = EVENT_CARD_IMAGE_PROFILES[imageProfile];
   const image = useMemo(() => {
