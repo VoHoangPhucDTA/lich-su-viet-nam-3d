@@ -49,6 +49,7 @@ interface HomepageEventSummaryDto {
   eventType: EventType;
   provinceNames?: string[];
   cardSummary?: string;
+  thumbnailUrl?: string | null;
 }
 
 interface EventSummaryDto {
@@ -260,6 +261,7 @@ function parseHomepageEventSummary(value: unknown): HomepageEventSummaryDto | nu
     eventType: value.eventType,
     provinceNames: optionalProvinceNames(value.provinceNames),
     cardSummary: optionalString(value.cardSummary),
+    thumbnailUrl: optionalString(value.thumbnailUrl),
   };
 }
 
@@ -293,6 +295,7 @@ function homepageSummaryToHistoricalEvent(dto: HomepageEventSummaryDto): Histori
     geoType: 'no_location',
     primaryRegions: dto.provinceNames,
     parentId: null,
+    thumbnailUrl: dto.thumbnailUrl || undefined,
     details: dto.cardSummary,
   };
 }
